@@ -43,6 +43,9 @@ fastlane/readme.md
 
 # SwiftPM binary artifacts
 .xcframework
+ 
+# Xcuserstate
+*.xcuserstate
 
 # Generated files
 #
@@ -53,7 +56,6 @@ fastlane/readme.md
 *.dSYM
 *.bcsymbolmap
 *.xcfilelist
-*.xcassets
 
 # Temporary and log files
 #
@@ -121,3 +123,4 @@ xcuserdata/
 *.lock
 *.moved-aside
 *.moved-aside*
+*.xcuserstate

@@ -13,7 +13,6 @@ struct OTPTextField: View {
     
     @State var enterValue: [String]
     @FocusState private var fieldFocus: Int?
-    @State private var oldValue = ""
     
     init(numberOfFields: Int) {
         self.numberOfFields = numberOfFields
@@ -27,11 +26,7 @@ struct OTPTextField: View {
                 if index > 0 && index % 3 == 0 {
                     Image("line")
                 }
-                TextField("", text: $enterValue[index], onEditingChanged: { editing in
-                    if editing {
-                        oldValue = enterValue[index]
-                    }
-                })
+                TextField("", text: $enterValue[index])
                 .keyboardType(.numberPad)
                 .foregroundColor(.primaryBlue)
                 .frame(width: 52, height: 65)
@@ -39,29 +34,27 @@ struct OTPTextField: View {
                 .cornerRadius(12)
                 .multilineTextAlignment(.center)
                 .focused($fieldFocus, equals: index)
-                .tag(index)
+                //.tag(index)
                 .onChange(of: enterValue[index]) { newValue in
-                    if enterValue[index].count > 1 {
-                        let currentValue = Array(enterValue[index])
-                        
-                        if currentValue[0] == Character(oldValue) {
-                            enterValue[index] = String(enterValue[index].suffix(1))
-                        } else {
-                            enterValue[index] = String(enterValue[index].prefix(1))
-                        }
+                    if newValue.count > 1 {
+                        enterValue[index] = String(enterValue[index].prefix(1))
                     }
                     
-                    if !newValue.isEmpty {
-                        if index == numberOfFields - 1 {
-                            fieldFocus = nil
-                        } else {
-                            fieldFocus = (fieldFocus ?? 0) + 1
-                        }
-                    } else { fieldFocus = (fieldFocus ?? 0) - 1
-                  }
+                    if !newValue.isEmpty && index < numberOfFields - 1 {
+                            fieldFocus = index + 1
+                        
+                    } else if newValue.isEmpty && index > 0 {
+                        fieldFocus = index - 1
+                    }
+                }
+                .onTapGesture {
+                       fieldFocus = index
                 }
             }
         }
+        .onAppear {
+                fieldFocus = 0
+            }
     }
 }
 
