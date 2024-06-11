@@ -51,8 +51,7 @@
 		FBA4BA1E2C183D2800BEDA9E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				FBA4BA202C183DB500BEDA9E /* Login */,
-				FBA4BA212C183DBF00BEDA9E /* Register */,
+				FBA4BA222C18467200BEDA9E /* Authentication */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -76,6 +75,15 @@
 			children = (
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		FBA4BA222C18467200BEDA9E /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				FBA4BA202C183DB500BEDA9E /* Login */,
+				FBA4BA212C183DBF00BEDA9E /* Register */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		FBE048632C182C5900C71D2D = {
