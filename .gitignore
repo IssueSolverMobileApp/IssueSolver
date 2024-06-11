@@ -123,3 +123,4 @@ xcuserdata/
 *.lock
 *.moved-aside
 *.moved-aside*
+*.xcuserstate
