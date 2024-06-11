@@ -15,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C6F87D12C1881D800D71795 /* NetworkingPack */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkingPack; sourceTree = "<group>"; };
 		FBA4BA242C185BDD00BEDA9E /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		FBE0486C2C182C5900C71D2D /* Issue Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Issue Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +104,7 @@
 		FBE048632C182C5900C71D2D = {
 			isa = PBXGroup;
 			children = (
+				8C6F87D12C1881D800D71795 /* NetworkingPack */,
 				FBE0486E2C182C5900C71D2D /* Issue Solver */,
 				FBE0486D2C182C5900C71D2D /* Products */,
 			);

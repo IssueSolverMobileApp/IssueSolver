@@ -21,6 +21,7 @@ struct OTPView: View {
                     .padding(.vertical,38)
                 
                 OTPTextField(numberOfFields: 6)
+                    .padding()
                 Spacer()
             }
         }
