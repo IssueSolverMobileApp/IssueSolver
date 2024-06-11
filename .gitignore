@@ -44,9 +44,6 @@ fastlane/readme.md
 # SwiftPM binary artifacts
 .xcframework
  
-# Xcuserstate
-*.xcuserstate
-
 # Generated files
 #
 *.plist
