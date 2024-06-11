@@ -50,7 +50,7 @@ struct OTPTextField: View {
                             enterValue[index] = String(enterValue[index].prefix(1))
                         }
                     }
-                    
+                     
                     if !newValue.isEmpty {
                         if index == numberOfFields - 1 {
                             fieldFocus = nil
@@ -59,7 +59,7 @@ struct OTPTextField: View {
                         }
                     } else { fieldFocus = (fieldFocus ?? 0) - 1
                   }
-                }
+               }
             }
         }
     }
