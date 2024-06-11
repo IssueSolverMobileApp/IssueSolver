@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA242C185BDD00BEDA9E /* OTPView.swift */; };
+		FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */; };
 		FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */; };
 		FBE048742C182C5D00C71D2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE048732C182C5D00C71D2D /* Assets.xcassets */; };
 		FBE048772C182C5D00C71D2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE048762C182C5D00C71D2D /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FBA4BA242C185BDD00BEDA9E /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
+		FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		FBE0486C2C182C5900C71D2D /* Issue Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Issue Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue_SolverApp.swift; sourceTree = "<group>"; };
 		FBE048732C182C5D00C71D2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,10 +84,20 @@
 		FBA4BA222C18467200BEDA9E /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				FBA4BA232C185BB000BEDA9E /* OTP Screen */,
 				FBA4BA202C183DB500BEDA9E /* Login */,
 				FBA4BA212C183DBF00BEDA9E /* Register */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		FBA4BA232C185BB000BEDA9E /* OTP Screen */ = {
+			isa = PBXGroup;
+			children = (
+				FBA4BA242C185BDD00BEDA9E /* OTPView.swift */,
+				FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */,
+			);
+			path = "OTP Screen";
 			sourceTree = "<group>";
 		};
 		FBE048632C182C5900C71D2D = {
@@ -191,6 +205,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */,
+				FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */,
+				FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
