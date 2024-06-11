@@ -1,0 +1,123 @@
+# Xcode
+#
+.DS_Store
+build/
+DerivedData/
+.idea/
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# Swift Package Manager
+#
+.build/
+Packages/
+Package.pins
+Package.resolved
+
+# CocoaPods
+#
+Pods/
+podspec.lock
+*.podspec
+*.xcworkspace
+
+# Carthage
+#
+Carthage/Build/
+
+# fastlane
+#
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/readme.md
+
+# Archives
+#
+*.xcarchive
+
+# SwiftPM binary artifacts
+.xcframework
+
+# Generated files
+#
+*.plist
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.bcsymbolmap
+*.xcfilelist
+*.xcassets
+
+# Temporary and log files
+#
+*.moved-aside
+*.xcuserstate
+*.swp
+*.lock
+*.tmp
+*.log
+
+# Prevent uploading settings files
+#
+*.env
+
+# Miscellaneous
+#
+*.orig
+*.pyc
+*~
+\#*\#
+
+# macOS
+#
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Icon must end with two \r
+Icon
+
+# Apple specific metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Xcode specific
+#
+xcuserdata/
+*.xcuserdatad/
+*.swp
+*.lock
+*.mode1v3
+*.mode2v3
+*.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.pbxuser
+
+# Temporary files
+*.swp
+*.lock
+*.moved-aside
+*.moved-aside*
