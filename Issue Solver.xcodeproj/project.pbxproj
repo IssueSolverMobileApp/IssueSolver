@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFD2C18DD7300E18665 /* CustomButton.swift */; };
+		A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFF2C18E11700E18665 /* CustomTextField.swift */; };
+		A82DAE032C18E34B00E18665 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DAE022C18E34B00E18665 /* Constants.swift */; };
 		FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA242C185BDD00BEDA9E /* OTPView.swift */; };
 		FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */; };
 		FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */; };
@@ -15,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A82DADFD2C18DD7300E18665 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FBA4BA242C185BDD00BEDA9E /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		FBE0486C2C182C5900C71D2D /* Issue Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Issue Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,6 +40,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A82DADFC2C18DCC400E18665 /* General Components */ = {
+			isa = PBXGroup;
+			children = (
+				A82DADFD2C18DD7300E18665 /* CustomButton.swift */,
+				A82DADFF2C18E11700E18665 /* CustomTextField.swift */,
+			);
+			path = "General Components";
+			sourceTree = "<group>";
+		};
+		A82DAE012C18E34000E18665 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A82DAE022C18E34B00E18665 /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		FBA4BA1C2C183D0000BEDA9E /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -46,6 +69,7 @@
 		FBA4BA1D2C183D1A00BEDA9E /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				A82DADFC2C18DCC400E18665 /* General Components */,
 				FBA4BA1E2C183D2800BEDA9E /* Screens */,
 				FBA4BA1F2C183D3B00BEDA9E /* UI Helpers */,
 			);
@@ -121,6 +145,7 @@
 			children = (
 				FBA4BA1D2C183D1A00BEDA9E /* UI */,
 				FBA4BA1C2C183D0000BEDA9E /* Core */,
+				A82DAE012C18E34000E18665 /* Helpers */,
 				FBE048752C182C5D00C71D2D /* Preview Content */,
 			);
 			path = "Issue Solver";
@@ -207,6 +232,9 @@
 				FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */,
 				FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */,
 				FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */,
+				A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */,
+				A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */,
+				A82DAE032C18E34B00E18665 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +368,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Issue Solver/Preview Content\"";
+				DEVELOPMENT_TEAM = 546KM6S3B9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -373,6 +402,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Issue Solver/Preview Content\"";
+				DEVELOPMENT_TEAM = 546KM6S3B9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
