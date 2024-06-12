@@ -123,4 +123,4 @@ xcuserdata/
 *.lock
 *.moved-aside
 *.moved-aside*
-Issue Solver.xcodeproj/project.xcworkspace/xcuserdata/iradabakirli.xcuserdatad/UserInterfaceState.xcuserstate
+*.xcuserstate
