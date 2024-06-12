@@ -20,6 +20,7 @@ struct OTPTextField: View {
     }
     
     var body: some View {
+  
         
         GeometryReader { geometry in
             
