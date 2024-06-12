@@ -20,6 +20,7 @@ struct OTPTextField: View {
     }
     
     var body: some View {
+  
         
         HStack {
             ForEach(0..<numberOfFields, id: \.self) { index in
