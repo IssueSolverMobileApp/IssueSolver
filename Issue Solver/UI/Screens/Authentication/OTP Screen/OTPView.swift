@@ -27,10 +27,13 @@ struct OTPView: View {
                 
                 OTPTextField(numberOfFields: 6)
                 
-                Text("Qalan vaxt: 00:30 ")
-                
+                HStack {
+                    Text("Qalan vaxt:")
+                        .foregroundStyle(.primaryBlue)
+                        .font(.system(size: 17))
+                    TimerView()
+                }
                 Spacer()
-                    
             }
             .padding(.top, 64)
             .padding(.trailing, 20)
@@ -45,6 +48,7 @@ struct OTPView: View {
                 }
                 
                 Text ("Kodu yenidən göndər")
+                    .foregroundStyle(.primaryBlue)
             }
             .padding(.trailing, 20)
             .padding(.leading, 20)

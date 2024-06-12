@@ -10,6 +10,7 @@
 		A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFD2C18DD7300E18665 /* CustomButton.swift */; };
 		A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFF2C18E11700E18665 /* CustomTextField.swift */; };
 		A82DAE032C18E34B00E18665 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DAE022C18E34B00E18665 /* Constants.swift */; };
+		FBA184772C1993FC0020D5CA /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA184762C1993FC0020D5CA /* TimerView.swift */; };
 		FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA242C185BDD00BEDA9E /* OTPView.swift */; };
 		FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */; };
 		FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */; };
@@ -21,6 +22,7 @@
 		A82DADFD2C18DD7300E18665 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FBA184762C1993FC0020D5CA /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		FBA4BA242C185BDD00BEDA9E /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		FBE0486C2C182C5900C71D2D /* Issue Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Issue Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,6 +47,7 @@
 			children = (
 				A82DADFD2C18DD7300E18665 /* CustomButton.swift */,
 				A82DADFF2C18E11700E18665 /* CustomTextField.swift */,
+				FBA184762C1993FC0020D5CA /* TimerView.swift */,
 			);
 			path = "General Components";
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBA184772C1993FC0020D5CA /* TimerView.swift in Sources */,
 				FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */,
 				FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */,
 				FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */,
