@@ -15,14 +15,41 @@ struct OTPView: View {
             Color.surfaceBackground
                 .ignoresSafeArea()
             
-            VStack {
-                Text("E-poçtunuza gələn təsdiq kodunu daxil edin.")
-                    .foregroundColor(.gray)
-                    .padding(.vertical,38)
+            VStack(alignment: .leading, spacing: 28) {
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Təsdiq Kodu")
+                        .font(.system(size: 28))
+                        .bold()
+                    Text("E-poçtunuza gələn təsdiq kodunu daxil edin.")
+                        .foregroundColor(.gray)
+                }
                 
                 OTPTextField(numberOfFields: 6)
+                
+                Text("Qalan vaxt: 00:30 ")
+                
                 Spacer()
+                    
             }
+            .padding(.top, 64)
+            .padding(.trailing, 20)
+            .padding(.leading, 20)
+       
+            
+            
+            VStack() {
+                Spacer()
+                CustomButton(title: "Təsdiqlə") {
+                    // code here
+                }
+                
+                Text ("Kodu yenidən göndər")
+            }
+            .padding(.trailing, 20)
+            .padding(.leading, 20)
+            .padding(.bottom, 20)
+            
         }
     }
 }
