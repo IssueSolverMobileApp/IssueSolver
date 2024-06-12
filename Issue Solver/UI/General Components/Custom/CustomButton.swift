@@ -7,7 +7,14 @@
 
 import SwiftUI
 
+enum CustomButtonStyle {
+    case text
+    case rounded
+}
+
 struct CustomButton: View {
+    var style: CustomButtonStyle = .rounded
+    var font: Font = .title2
     var width: CGFloat?
     var height: CGFloat? = 50
     let title: String
@@ -15,21 +22,39 @@ struct CustomButton: View {
     let handler: () -> Void
     
     var body: some View {
+        ZStack {
+            switch style {
+            case .text:
+                textButtonView
+            case .rounded:
+                roundedButtonView
+            }
+        }
+    }
+    
+    var textButtonView: some View {
+        Button {
+            handler()
+        } label: {
+            Text(title)
+                .font(font)
+                .foregroundStyle(Color.primaryBlue)
+        }
+    }
+    
+    var roundedButtonView: some View {
         Button {
             handler()
         } label: {
             ZStack {
                 Capsule().fill(Color.primaryBlue)
                 Text(title)
-                    .font(.title3)
+                    .font(font)
                     .foregroundStyle(Color.surfaceBackground)
             }
         }
         .frame(width: width, height: height)
-        .padding()
     }
-    
-    
 }
 
 #Preview {
