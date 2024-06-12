@@ -16,11 +16,10 @@ struct CustomTextField: View {
     @State var isShowPassword: Bool = false
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 8) {
             titleView
             textFieldView
         }
-        .padding()
     }
     
     /// - Title view of the custom textfield
@@ -28,6 +27,7 @@ struct CustomTextField: View {
         ZStack {
             if let title {
                 Text(title)
+                    .font(.system(size: 15))
             }
         }
     }
