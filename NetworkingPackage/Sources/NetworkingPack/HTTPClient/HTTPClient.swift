@@ -136,9 +136,18 @@ public final class HTTPClient {
 }
 extension HTTPClient {
     
-    public func GET<T: Decodable>(endPoint: String) async throws -> T?  {
+    public func GET<T: Decodable>(endPoint: String) async throws -> T? {
         do {
             return try await request(endPoint: endPoint, method: .GET, body: nil)
+        }
+        catch {
+            throw error
+        }
+    }
+    
+    public func POST<T: Decodable>(endPoint: String, body: Data?) async throws -> T? {
+        do {
+           return try await request(endPoint: endPoint, method: .POST, body: body)
         }
         catch {
             throw error
