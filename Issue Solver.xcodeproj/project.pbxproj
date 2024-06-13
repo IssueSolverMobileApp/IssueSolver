@@ -100,13 +100,6 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		6F7535472C19957D003D12AC /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		6F75354E2C19A278003D12AC /* Custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,7 +188,6 @@
 		FBA4BA222C18467200BEDA9E /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				6F7535472C19957D003D12AC /* Models */,
 				6F7535462C199577003D12AC /* ViewModels */,
 				6F7535432C19955C003D12AC /* Views */,
 				FBA4BA232C185BB000BEDA9E /* OTP Screen */,

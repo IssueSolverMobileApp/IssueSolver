@@ -14,7 +14,7 @@ enum CustomButtonStyle {
 
 struct CustomButton: View {
     var style: CustomButtonStyle = .rounded
-    var font: Font = .title2
+    var font: Font = .plusJakartaSansMedium(size: 15)
     var width: CGFloat?
     var height: CGFloat? = 50
     let title: String
@@ -37,7 +37,7 @@ struct CustomButton: View {
             handler()
         } label: {
             Text(title)
-                .font(font)
+                .font(.plusJakartaSansMedium(size: 15))
                 .foregroundStyle(Color.primaryBlue)
         }
     }
@@ -49,7 +49,7 @@ struct CustomButton: View {
             ZStack {
                 Capsule().fill(Color.primaryBlue)
                 Text(title)
-                    .font(font)
+                    .font(.plusJakartaSansMedium(size: 18))
                     .foregroundStyle(Color.surfaceBackground)
             }
         }

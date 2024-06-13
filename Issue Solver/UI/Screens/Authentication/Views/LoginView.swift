@@ -20,6 +20,7 @@ struct LoginView: View {
                 Spacer()
                 loginButtonView
             }
+            .padding(.top, 24)
         }
     }
     
@@ -55,12 +56,13 @@ struct LoginView: View {
             // Email Exists Button View
             HStack {
                 Text("Hesabınız yoxdur?")
-                CustomButton(style: .text, font: .system(size: 14), title: "Qeydiyyatdan keçin") {
+                    .foregroundColor(.secondaryGray)
+                CustomButton(style: .text, font: .plusJakartaSansRegular(size: 15), title: "Qeydiyyatdan keçin") {
                     
                 }
             }
-            .font(.system(size: 14))
-            .padding(.top, 20)
+            .font(.plusJakartaSansRegular(size: 15))
+            .padding(.top, 8)
         }
         .padding()
     }
