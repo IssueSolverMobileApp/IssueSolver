@@ -1,0 +1,71 @@
+//
+//  LoginView.swift
+//  Issue Solver
+//
+//  Created by Vusal Nuriyev on 12.06.24.
+//
+
+import SwiftUI
+
+struct LoginView: View {
+    @StateObject var authVM: AuthViewModel = AuthViewModel()
+    
+    var body: some View {
+        ZStack {
+            Color.surfaceBackground.ignoresSafeArea()
+            
+            VStack {
+                titleView
+                textFieldsView
+                Spacer()
+                loginButtonView
+            }
+        }
+    }
+    
+    // Title View
+    var titleView: some View {
+        CustomTitleView(title: "Daxil olun", subtitle: "Zəhmət olmasa, giriş üçün məlumatlarınızı daxil edin.")
+    }
+    
+    var textFieldsView: some View {
+        
+        VStack(alignment: .trailing, spacing: 20) {
+            // Email TextField View
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $authVM.emailText)
+            
+            // Password TextField View
+            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $authVM.passwordText)
+            
+            // Forgot Password Button View
+            CustomButton(style: .text, font: .system(size: 14), title: "Şifrənizi unutmusunuz?") {
+                
+            }
+        }
+        .padding()
+    }
+    
+    var loginButtonView: some View {
+        VStack {
+            // Log in Button View
+            CustomButton(title: "Daxil ol") {
+                
+            }
+            
+            // Email Exists Button View
+            HStack {
+                Text("Hesabınız yoxdur?")
+                CustomButton(style: .text, font: .system(size: 14), title: "Qeydiyyatdan keçin") {
+                    
+                }
+            }
+            .font(.system(size: 14))
+            .padding(.top, 20)
+        }
+        .padding()
+    }
+}
+
+#Preview {
+    LoginView()
+}
