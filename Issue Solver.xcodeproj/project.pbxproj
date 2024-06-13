@@ -29,6 +29,7 @@
 		FB55BD602C1B0CAD00F81FDB /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD522C1B0CAD00F81FDB /* PlusJakartaSans-Medium.ttf */; };
 		FB55BD612C1B0CAD00F81FDB /* PlusJakartaSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD532C1B0CAD00F81FDB /* PlusJakartaSans-ExtraBoldItalic.ttf */; };
 		FB55BD622C1B0CAD00F81FDB /* PlusJakartaSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD542C1B0CAD00F81FDB /* PlusJakartaSans-LightItalic.ttf */; };
+		FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB55BD642C1B0D7100F81FDB /* Fonts + Ext.swift */; };
 		FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9753F02C19D49F006AF6A5 /* CountdownView.swift */; };
 		FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA242C185BDD00BEDA9E /* OTPView.swift */; };
 		FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */; };
@@ -60,6 +61,8 @@
 		FB55BD522C1B0CAD00F81FDB /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; };
 		FB55BD532C1B0CAD00F81FDB /* PlusJakartaSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD542C1B0CAD00F81FDB /* PlusJakartaSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		FB55BD642C1B0D7100F81FDB /* Fonts + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts + Ext.swift"; sourceTree = "<group>"; };
+		FB55BD662C1B0F9B00F81FDB /* Issue-Solver-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Issue-Solver-Info.plist"; sourceTree = SOURCE_ROOT; };
 		FB9753F02C19D49F006AF6A5 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
 		FBA4BA242C185BDD00BEDA9E /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
@@ -145,6 +148,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		FB55BD632C1B0D3500F81FDB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FB55BD642C1B0D7100F81FDB /* Fonts + Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FBA4BA1C2C183D0000BEDA9E /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +231,8 @@
 		FBE0486E2C182C5900C71D2D /* Issue Solver */ = {
 			isa = PBXGroup;
 			children = (
+				FB55BD662C1B0F9B00F81FDB /* Issue-Solver-Info.plist */,
+				FB55BD632C1B0D3500F81FDB /* Extensions */,
 				FBA4BA1D2C183D1A00BEDA9E /* UI */,
 				FBA4BA1C2C183D0000BEDA9E /* Core */,
 				FBE048752C182C5D00C71D2D /* Preview Content */,
@@ -330,6 +343,7 @@
 				6F75354D2C199C3B003D12AC /* CustomCheckBox.swift in Sources */,
 				A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */,
 				A82DAE032C18E34B00E18665 /* Constants.swift in Sources */,
+				FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */,
 				6F7535492C199632003D12AC /* AuthViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,6 +481,7 @@
 				DEVELOPMENT_TEAM = 546KM6S3B9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Issue-Solver-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -501,6 +516,7 @@
 				DEVELOPMENT_TEAM = 546KM6S3B9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Issue-Solver-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
