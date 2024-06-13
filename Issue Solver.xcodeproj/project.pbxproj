@@ -12,6 +12,7 @@
 		6F7535492C199632003D12AC /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7535482C199632003D12AC /* AuthViewModel.swift */; };
 		6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75354A2C1998D5003D12AC /* CustomTitleView.swift */; };
 		6F75354D2C199C3B003D12AC /* CustomCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */; };
+		8CEB395D2C1AC9BC00D21B32 /* NetworkingPack in Frameworks */ = {isa = PBXBuildFile; productRef = 8CEB395C2C1AC9BC00D21B32 /* NetworkingPack */; };
 		A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFD2C18DD7300E18665 /* CustomButton.swift */; };
 		A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFF2C18E11700E18665 /* CustomTextField.swift */; };
 		A82DAE032C18E34B00E18665 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DAE022C18E34B00E18665 /* Constants.swift */; };
@@ -47,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CEB395D2C1AC9BC00D21B32 /* NetworkingPack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +89,13 @@
 				6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		8CEB395B2C1AC9BC00D21B32 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A82DADFC2C18DCC400E18665 /* General Components */ = {
@@ -165,6 +174,7 @@
 				8CA8B0182C1AC3450060F512 /* NetworkingPack */,
 				FBE0486E2C182C5900C71D2D /* Issue Solver */,
 				FBE0486D2C182C5900C71D2D /* Products */,
+				8CEB395B2C1AC9BC00D21B32 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -211,6 +221,9 @@
 			dependencies = (
 			);
 			name = "Issue Solver";
+			packageProductDependencies = (
+				8CEB395C2C1AC9BC00D21B32 /* NetworkingPack */,
+			);
 			productName = "Issue Solver";
 			productReference = FBE0486C2C182C5900C71D2D /* Issue Solver.app */;
 			productType = "com.apple.product-type.application";
@@ -492,6 +505,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8CEB395C2C1AC9BC00D21B32 /* NetworkingPack */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkingPack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FBE048642C182C5900C71D2D /* Project object */;
 }
