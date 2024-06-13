@@ -99,7 +99,6 @@
 		A82DAE012C18E34000E18665 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				A82DAE022C18E34B00E18665 /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -134,6 +133,7 @@
 		FBA4BA1F2C183D3B00BEDA9E /* UI Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A82DAE022C18E34B00E18665 /* Constants.swift */,
 			);
 			path = "UI Helpers";
 			sourceTree = "<group>";
