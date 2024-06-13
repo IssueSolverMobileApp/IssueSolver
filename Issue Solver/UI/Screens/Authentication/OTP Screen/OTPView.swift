@@ -36,9 +36,7 @@ struct OTPView: View {
                 Spacer()
             }
             .padding(.top, 64)
-            .padding(.trailing, 20)
-            .padding(.leading, 20)
-
+            .padding(.horizontal, 20)
 
 
             VStack() {
@@ -50,8 +48,7 @@ struct OTPView: View {
                 Text ("Kodu yenidən göndər")
                     .foregroundStyle(.primaryBlue)
             }
-            .padding(.trailing, 20)
-            .padding(.leading, 20)
+            .padding(.horizontal, 20)
             .padding(.bottom, 20)
 
         }

@@ -17,14 +17,18 @@ struct RegisterView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            ScrollView(showsIndicators: false) {
-                VStack {
-                    titleView
-                    textFieldsView
-                    Spacer()
-                    continueButtonView
+            VStack {
+                titleView
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        textFieldsView
+                        Spacer()
+                    }
                 }
+                .padding(.top, -8)
+                continueButtonView
             }
+            .padding(.top, 24)
         }
     }
     
@@ -34,17 +38,24 @@ struct RegisterView: View {
     
     var textFieldsView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            // Full Name Text Field View
-            CustomTextField(placeholder: "Ad, soyad", title: "Ad, soyad", text: $authVM.emailText)
+            
+            //Name Surname Text Field View
+            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $authVM.fullNameText)
+            
             
             // Email Text Field View
             CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $authVM.emailText)
             
             // Password TextField View
-            CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $authVM.passwordText)
+            VStack(alignment: .leading, spacing: 8) {
+                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: false, text: $authVM.passwordText)
+                Text("Supporting text or hint")
+                    .font(.plusJakartaSansRegular(size: 13))
+                    .foregroundColor(.secondaryGray)
+            }
             
             // Confirm Password TextField View
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $authVM.passwordText)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $authVM.confirmPasswordText)
             
             checkboxView
                 .padding(.vertical, 10)
@@ -55,22 +66,18 @@ struct RegisterView: View {
     var checkboxView: some View {
         HStack {
             CustomCheckBox(isChecked: $isChecked)
-            HStack {
-                // Terms of Use Button View
-                CustomButton(style: .text, font: .system(size: 12), title: "Istifadəçi şərtləri") {
-                    
-                }
                 
-                Text("və")
-                
-                // Privacy Policy Button View
-                CustomButton(style: .text, font: .system(size: 12), title: "Məxfilik siyasəti") {
-                    
-                }
-                Text("qəbul edirəm.")
-            }
+                Text("İstifadəçi şərtləri və Məxfilik siyasəti")
+                .foregroundColor(.primaryBlue)
+//                .onTapGesture {
+//                  //functionality must be added
+//                    print("Privacy Policy tapped")
+//                }
+            +
+                Text(" qəbul edirəm.")
+            
         }
-        .font(.caption)
+        .font(.plusJakartaSansRegular(size: 15))
     }
     
     var continueButtonView: some View {
@@ -82,12 +89,13 @@ struct RegisterView: View {
             
             HStack {
                 Text("Hesabınız var mı?")
-                CustomButton(style: .text, font: .system(size: 14), title: "Daxil olun") {
-                    
+                    .foregroundColor(.secondaryGray)
+                CustomButton(style: .text, font: .plusJakartaSansRegular(size: 15), title: "Daxil olun") {
+                  
                 }
             }
-            .font(.system(size: 12))
-            .padding(.top, 20)
+            .font(.plusJakartaSansSemiBold(size: 15))
+            .padding(.top, 8)
         }
         .padding()
     }

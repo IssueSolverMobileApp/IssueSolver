@@ -13,7 +13,7 @@ struct CustomTextField: View {
     var isSecure: Bool = false
     
     @Binding var text: String
-    @State var isShowPassword: Bool = false
+    @State var isShowPassword: Bool = true
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -27,7 +27,7 @@ struct CustomTextField: View {
         ZStack {
             if let title {
                 Text(title)
-                    .font(.system(size: 15))
+                    .font(.plusJakartaSansMedium(size: 15))
             }
         }
     }
@@ -56,6 +56,7 @@ struct CustomTextField: View {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .fill(Color(.systemBackground))
         }
+        .font(.plusJakartaSansRegular(size: 15))
     }
     
     /// - Show/hide password
@@ -63,7 +64,7 @@ struct CustomTextField: View {
         Button {
             isShowPassword.toggle()
         } label: {
-            Image(systemName: isShowPassword ? "eye.slash" : "eye")
+            Image(systemName: isShowPassword ? "eye" : "eye.slash")
                 .foregroundStyle(Color.primaryBlue)
         }
     }
