@@ -29,7 +29,7 @@
 		6F7535482C199632003D12AC /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		6F75354A2C1998D5003D12AC /* CustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleView.swift; sourceTree = "<group>"; };
 		6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCheckBox.swift; sourceTree = "<group>"; };
-		8CEB395E2C1ACB3C00D21B32 /* NetworkingPack */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkingPack; sourceTree = "<group>"; };
+		8CEB395F2C1AD92500D21B32 /* NetworkingPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkingPackage; sourceTree = "<group>"; };
 		A82DADFD2C18DD7300E18665 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 		FBE048632C182C5900C71D2D = {
 			isa = PBXGroup;
 			children = (
-				8CEB395E2C1ACB3C00D21B32 /* NetworkingPack */,
+				8CEB395F2C1AD92500D21B32 /* NetworkingPackage */,
 				FBE0486E2C182C5900C71D2D /* Issue Solver */,
 				FBE0486D2C182C5900C71D2D /* Products */,
 				8CEB395B2C1AC9BC00D21B32 /* Frameworks */,
