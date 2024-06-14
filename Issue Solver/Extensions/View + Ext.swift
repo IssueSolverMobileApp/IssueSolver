@@ -29,6 +29,12 @@ extension View {
         // Subheading
         case .subheading:
             return self.font(.jakartaFont(weight: .regular, size: 13))
+        // Rounded Button
+        case .roundedButton:
+            return self.font(.jakartaFont(weight: .medium, size: 18))
+        // Text Button
+        case .textButton:
+            return self.font(.jakartaFont(weight: .medium, size: 15))
         // If these ready-to-use are not enough, we can use custom font
         case .custom(let weight, let size):
             return self.font(.jakartaFont(weight: weight, size: size))

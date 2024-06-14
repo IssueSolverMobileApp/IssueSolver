@@ -15,45 +15,53 @@ struct OTPView: View {
             Color.surfaceBackground
                 .ignoresSafeArea()
 
-            VStack(alignment: .leading, spacing: 28) {
-
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Təsdiq Kodu")
-                        .font(.system(size: 28))
-                        .bold()
-                    Text("E-poçtunuza gələn təsdiq kodunu daxil edin.")
-                        .foregroundColor(.gray)
-                }
-
+            VStack(alignment: .leading, spacing: 24) {
+                titleView
                 OTPTextField(numberOfFields: 6)
-
-                HStack {
-                    Text("Qalan vaxt:")
-                        .foregroundStyle(.primaryBlue)
-                        .font(.system(size: 17))
-                    CountdownView()
-                }
+                timerView
                 Spacer()
+                confirmButtonView
             }
-            .padding(.top, 64)
-            .padding(.horizontal, 20)
+            .padding(.top, 24)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
 
-
-            VStack() {
-                Spacer()
-                CustomButton(title: "Təsdiqlə") {
-                    // code here
-                }
-
-                Text ("Kodu yenidən göndər")
-                    .foregroundStyle(.primaryBlue)
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
-
+        }
+    
+    //Title View
+    var titleView: some View {
+        CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin.")
+    }
+    
+    //Countdown View
+    var timerView: some View {
+        HStack {
+            Text("Qalan vaxt:")
+                .foregroundStyle(.primaryBlue)
+                .font(.system(size: 17))
+            CountdownView()
+        }
+    }
+    
+    // Button View
+    
+    var confirmButtonView: some View {
+        
+        VStack(spacing: 16) {
+            
+            CustomButton(title: "Təsdiqlə") {
+               // TODO: action must be added here
+            }
+            
+            CustomButton(style: .text, title: "Kodu yenidən göndər") {
+                
+            }
+            
         }
     }
 }
+
 
 #Preview {
     OTPView()

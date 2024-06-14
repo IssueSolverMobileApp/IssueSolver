@@ -37,7 +37,7 @@ struct CustomButton: View {
             handler()
         } label: {
             Text(title)
-                .jakartaFont(font)
+                .jakartaFont(.textButton)
                 .foregroundStyle(Color.primaryBlue)
         }
     }
@@ -49,7 +49,7 @@ struct CustomButton: View {
             ZStack {
                 Capsule().fill(Color.primaryBlue)
                 Text(title)
-                    .jakartaFont(font)
+                    .jakartaFont(.roundedButton)
                     .foregroundStyle(Color.surfaceBackground)
             }
         }

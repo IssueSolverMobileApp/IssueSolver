@@ -14,6 +14,8 @@ enum JakartaFonts {
     case subtitle2
     case heading
     case subheading
+    case roundedButton
+    case textButton
     case custom(JakartaFont, CGFloat)
 }
 

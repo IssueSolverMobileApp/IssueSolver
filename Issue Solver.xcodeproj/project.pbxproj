@@ -112,13 +112,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6F36E01B2C1C2A5900C41257 /* Modifiers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Modifiers;
-			sourceTree = "<group>";
-		};
 		6F36E0202C1C3B0800C41257 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,7 +265,6 @@
 		FBA4BA1F2C183D3B00BEDA9E /* UI Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				6F36E01B2C1C2A5900C41257 /* Modifiers */,
 				A82DAE022C18E34B00E18665 /* Constants.swift */,
 				FB55BD462C1B0B6600F81FDB /* Fonts */,
 			);
