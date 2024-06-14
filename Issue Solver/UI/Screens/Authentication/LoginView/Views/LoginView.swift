@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject var authVM: AuthViewModel = AuthViewModel()
+    @StateObject var vm = LoginViewModel()
     
     var body: some View {
         ZStack {
@@ -38,10 +39,10 @@ struct LoginView: View {
         
         VStack(alignment: .trailing, spacing: 20) {
             // Email TextField View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $authVM.emailText)
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText)
             
             // Password TextField View
-            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $authVM.passwordText)
+            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText)
             
             // Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
