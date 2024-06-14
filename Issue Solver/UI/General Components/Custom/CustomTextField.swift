@@ -27,7 +27,7 @@ struct CustomTextField: View {
         ZStack {
             if let title {
                 Text(title)
-                    .font(.system(size: 15))
+                    .jakartaFont(.heading)
             }
         }
     }
@@ -38,14 +38,13 @@ struct CustomTextField: View {
             if !isSecure {
                 TextField(placeholder ?? "", text: $text)
             } else {
-                ZStack {
+                HStack {
                     if isShowPassword {
                         TextField(placeholder ?? "", text: $text)
                     } else {
                         SecureField(placeholder ?? "", text: $text)
                     }
                     HStack {
-                        Spacer()
                         showPasswordButtonView
                     }
                 }
@@ -56,6 +55,7 @@ struct CustomTextField: View {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .fill(Color(.systemBackground))
         }
+        .jakartaFont(.heading)
     }
     
     /// - Show/hide password
@@ -63,9 +63,12 @@ struct CustomTextField: View {
         Button {
             isShowPassword.toggle()
         } label: {
-            Image(systemName: isShowPassword ? "eye.slash" : "eye")
+            Image(isShowPassword ? "eye" : "closeeye")
                 .foregroundStyle(Color.primaryBlue)
+                .background(.white)
         }
+       
+
     }
     
 }

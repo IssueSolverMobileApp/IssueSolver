@@ -15,48 +15,59 @@ struct OTPView: View {
             Color.surfaceBackground
                 .ignoresSafeArea()
 
-            VStack(alignment: .leading, spacing: 28) {
-
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Təsdiq Kodu")
-                        .font(.system(size: 28))
-                        .bold()
-                    Text("E-poçtunuza gələn təsdiq kodunu daxil edin.")
-                        .foregroundColor(.gray)
-                }
-
+            VStack(alignment: .leading, spacing: 24) {
+                backButtonView
+                titleView
                 OTPTextField(numberOfFields: 6)
-
-                HStack {
-                    Text("Qalan vaxt:")
-                        .foregroundStyle(.primaryBlue)
-                        .font(.system(size: 17))
-                    CountdownView()
-                }
+                timerView
                 Spacer()
+                confirmButtonView
             }
-            .padding(.top, 64)
-            .padding(.trailing, 20)
-            .padding(.leading, 20)
+            .padding(.top, 24)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
 
-
-
-            VStack() {
-                Spacer()
-                CustomButton(title: "Təsdiqlə") {
-                    // code here
-                }
-
-                Text ("Kodu yenidən göndər")
-                    .foregroundStyle(.primaryBlue)
             }
-            .padding(.trailing, 20)
-            .padding(.leading, 20)
-            .padding(.bottom, 20)
-
+        }
+    
+    // Back Button View
+    var backButtonView: some View {
+        CustomButton(style: .back, title: "") {
+        }
+    }
+    
+    //Title View
+    var titleView: some View {
+        CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin.")
+    }
+    
+    //Countdown View
+    var timerView: some View {
+        HStack {
+            Text("Qalan vaxt:")
+                .foregroundStyle(.primaryBlue)
+                .font(.system(size: 17))
+            CountdownView()
+        }
+    }
+    
+    // Button View
+    var confirmButtonView: some View {
+        
+        VStack(spacing: 16) {
+            
+            CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
+               // TODO: action must be added here
+            }
+            
+            CustomButton(style: .text, title: "Kodu yenidən göndər") {
+                
+            }
+            
         }
     }
 }
+
 
 #Preview {
     OTPView()

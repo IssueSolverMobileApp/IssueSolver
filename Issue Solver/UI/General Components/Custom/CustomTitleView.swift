@@ -15,22 +15,25 @@ struct CustomTitleView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.title)
+                .jakartaFont(.title)
             if let subtitle {
                 Text(subtitle)
-                    .font(.subheadline)
+                    .jakartaFont(.subtitle)
+                    .foregroundColor(.secondaryGray)
             }
             customDivider
         }
         .multilineTextAlignment(.leading)
-        .padding()
+      
     }
     
     var customDivider: some View {
         RoundedRectangle(cornerRadius: Constants.cornerRadius)
             .fill(Color.primaryBlue)
             .frame(height: dividerSize)
+            .padding(.top, 8)
     }
+        
 }
 
 #Preview {
