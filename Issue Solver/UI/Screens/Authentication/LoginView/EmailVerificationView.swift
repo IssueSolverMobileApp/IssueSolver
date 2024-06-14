@@ -15,6 +15,7 @@ struct EmailVerificationView: View {
             Color.surfaceBackground.ignoresSafeArea()
             
             VStack(alignment: .leading, spacing: 24 ) {
+                backButtonView
                 titleView
                 textFieldView
                 Spacer()
@@ -25,6 +26,12 @@ struct EmailVerificationView: View {
             .padding(.bottom, 16)
         }
         
+    }
+    
+    // Back Button View
+    var backButtonView: some View {
+        CustomButton(style: .back, title: "") {
+        }
     }
     
     //Title View

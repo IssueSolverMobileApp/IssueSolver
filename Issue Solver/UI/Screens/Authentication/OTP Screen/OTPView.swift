@@ -16,6 +16,7 @@ struct OTPView: View {
                 .ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 24) {
+                backButtonView
                 titleView
                 OTPTextField(numberOfFields: 6)
                 timerView
@@ -28,6 +29,12 @@ struct OTPView: View {
 
             }
         }
+    
+    // Back Button View
+    var backButtonView: some View {
+        CustomButton(style: .back, title: "") {
+        }
+    }
     
     //Title View
     var titleView: some View {
@@ -45,7 +52,6 @@ struct OTPView: View {
     }
     
     // Button View
-    
     var confirmButtonView: some View {
         
         VStack(spacing: 16) {
