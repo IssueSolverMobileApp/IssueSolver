@@ -49,7 +49,6 @@ fastlane/readme.md
 
 # Generated files
 #
-*.plist
 *.hmap
 *.ipa
 *.dSYM.zip
