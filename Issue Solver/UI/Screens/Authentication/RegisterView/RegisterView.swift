@@ -31,6 +31,9 @@ struct RegisterView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
     
     var titleView: some View {
