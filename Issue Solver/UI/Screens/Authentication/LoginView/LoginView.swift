@@ -41,7 +41,7 @@ struct LoginView: View {
             CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $authVM.passwordText)
             
             // Forgot Password Button View
-            CustomButton(style: .text, font: .system(size: 14), title: "Şifrənizi unutmusunuz?") {
+            CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
                 
             }
         }
@@ -58,11 +58,11 @@ struct LoginView: View {
             HStack {
                 Text("Hesabınız yoxdur?")
                     .foregroundColor(.secondaryGray)
-                CustomButton(style: .text, font: .plusJakartaSansRegular(size: 15), title: "Qeydiyyatdan keçin") {
+                CustomButton(style: .text, title: "Qeydiyyatdan keçin") {
                     
                 }
             }
-            .font(.plusJakartaSansRegular(size: 15))
+            .jakartaFont(.subtitle)
             .padding(.top, 8)
         }
         .padding()

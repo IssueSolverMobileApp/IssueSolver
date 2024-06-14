@@ -15,10 +15,10 @@ struct CustomTitleView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.plusJakartaSansSemiBold(size: 28))
+                .jakartaFont(.title)
             if let subtitle {
                 Text(subtitle)
-                    .font(.plusJakartaSansRegular(size: 15))
+                    .jakartaFont(.subtitle)
                     .foregroundColor(.secondaryGray)
             }
             customDivider

@@ -51,7 +51,7 @@ struct RegisterView: View {
             VStack(alignment: .leading, spacing: 8) {
                 CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $authVM.passwordText)
                 Text("Supporting text or hint")
-                    .font(.plusJakartaSansRegular(size: 13))
+                    .jakartaFont(.subtitle2)
                     .foregroundColor(.secondaryGray)
             }
             
@@ -77,7 +77,7 @@ struct RegisterView: View {
                 Text(" qəbul edirəm.")
             
         }
-        .font(.plusJakartaSansRegular(size: 15))
+        .jakartaFont(.subtitle)
     }
     
     var continueButtonView: some View {
@@ -90,11 +90,11 @@ struct RegisterView: View {
             HStack {
                 Text("Hesabınız var mı?")
                     .foregroundColor(.secondaryGray)
-                CustomButton(style: .text, font: .plusJakartaSansRegular(size: 15), title: "Daxil olun") {
+                CustomButton(style: .text, title: "Daxil olun") {
                   
                 }
             }
-            .font(.plusJakartaSansSemiBold(size: 15))
+            .jakartaFont(.subtitle)
             .padding(.top, 8)
         }
     }
