@@ -14,6 +14,11 @@
 		6F7535492C199632003D12AC /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7535482C199632003D12AC /* AuthViewModel.swift */; };
 		6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75354A2C1998D5003D12AC /* CustomTitleView.swift */; };
 		6F75354D2C199C3B003D12AC /* CustomCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */; };
+		8C22A95E2C1C5AB000B3879B /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A95D2C1C5AB000B3879B /* RegisterModel.swift */; };
+		8C22A9602C1C5AD800B3879B /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A95F2C1C5AD800B3879B /* LoginModel.swift */; };
+		8C22A9622C1C5AE800B3879B /* ResetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9612C1C5AE800B3879B /* ResetPasswordModel.swift */; };
+		8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9632C1C5B0300B3879B /* OTPModel.swift */; };
+		8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9652C1C5B1200B3879B /* EmailModel.swift */; };
 		A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFD2C18DD7300E18665 /* CustomButton.swift */; };
 		A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFF2C18E11700E18665 /* CustomTextField.swift */; };
 		A82DAE032C18E34B00E18665 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DAE022C18E34B00E18665 /* Constants.swift */; };
@@ -51,6 +56,11 @@
 		6F75354A2C1998D5003D12AC /* CustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleView.swift; sourceTree = "<group>"; };
 		6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCheckBox.swift; sourceTree = "<group>"; };
 		8C22A95B2C1C54AC00B3879B /* NetworkingPack */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkingPack; sourceTree = SOURCE_ROOT; };
+		8C22A95D2C1C5AB000B3879B /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
+		8C22A95F2C1C5AD800B3879B /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		8C22A9612C1C5AE800B3879B /* ResetPasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordModel.swift; sourceTree = "<group>"; };
+		8C22A9632C1C5B0300B3879B /* OTPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPModel.swift; sourceTree = "<group>"; };
+		8C22A9652C1C5B1200B3879B /* EmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailModel.swift; sourceTree = "<group>"; };
 		A82DADFD2C18DD7300E18665 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -137,6 +147,18 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		8C22A95C2C1C5A9B00B3879B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8C22A95D2C1C5AB000B3879B /* RegisterModel.swift */,
+				8C22A95F2C1C5AD800B3879B /* LoginModel.swift */,
+				8C22A9612C1C5AE800B3879B /* ResetPasswordModel.swift */,
+				8C22A9632C1C5B0300B3879B /* OTPModel.swift */,
+				8C22A9652C1C5B1200B3879B /* EmailModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		A82DADFC2C18DCC400E18665 /* General Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +237,7 @@
 		FBA4BA222C18467200BEDA9E /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				8C22A95C2C1C5A9B00B3879B /* Models */,
 				6F7535432C19955C003D12AC /* LoginView */,
 				FBEA6C9B2C1C0865008953CB /* RegisterView */,
 				6F7535462C199577003D12AC /* ViewModels */,
@@ -362,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C22A9602C1C5AD800B3879B /* LoginModel.swift in Sources */,
 				6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */,
 				FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */,
 				6F36E01F2C1C2EE200C41257 /* View + Ext.swift in Sources */,
@@ -370,13 +394,17 @@
 				FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */,
 				6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */,
 				A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */,
+				8C22A95E2C1C5AB000B3879B /* RegisterModel.swift in Sources */,
 				FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */,
 				6F7535452C19956E003D12AC /* RegisterView.swift in Sources */,
 				6F75354D2C199C3B003D12AC /* CustomCheckBox.swift in Sources */,
 				A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */,
+				8C22A9622C1C5AE800B3879B /* ResetPasswordModel.swift in Sources */,
 				A82DAE032C18E34B00E18665 /* Constants.swift in Sources */,
 				FBEA6C9F2C1C16BB008953CB /* PasswordChangeView.swift in Sources */,
 				FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */,
+				8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */,
+				8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */,
 				FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */,
 				6F7535492C199632003D12AC /* AuthViewModel.swift in Sources */,
 			);
