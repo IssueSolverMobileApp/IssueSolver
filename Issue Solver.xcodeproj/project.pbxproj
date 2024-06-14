@@ -50,6 +50,7 @@
 		6F7535482C199632003D12AC /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		6F75354A2C1998D5003D12AC /* CustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleView.swift; sourceTree = "<group>"; };
 		6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCheckBox.swift; sourceTree = "<group>"; };
+		8C22A95B2C1C54AC00B3879B /* NetworkingPack */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkingPack; sourceTree = SOURCE_ROOT; };
 		A82DADFD2C18DD7300E18665 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -250,6 +251,7 @@
 		FBE0486E2C182C5900C71D2D /* Issue Solver */ = {
 			isa = PBXGroup;
 			children = (
+				8C22A95B2C1C54AC00B3879B /* NetworkingPack */,
 				FB55BD662C1B0F9B00F81FDB /* Issue-Solver-Info.plist */,
 				FB55BD632C1B0D3500F81FDB /* Extensions */,
 				FBA4BA1D2C183D1A00BEDA9E /* UI */,
