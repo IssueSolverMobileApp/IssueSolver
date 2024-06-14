@@ -19,6 +19,11 @@
 		8C22A9622C1C5AE800B3879B /* ResetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9612C1C5AE800B3879B /* ResetPasswordModel.swift */; };
 		8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9632C1C5B0300B3879B /* OTPModel.swift */; };
 		8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9652C1C5B1200B3879B /* EmailModel.swift */; };
+		8C22A9692C1C5E5400B3879B /* JSONConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9682C1C5E5400B3879B /* JSONConverter.swift */; };
+		8C22A96F2C1C5EA200B3879B /* EndPointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A96E2C1C5EA200B3879B /* EndPointProtocol.swift */; };
+		8C22A9712C1C5EE300B3879B /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9702C1C5EE300B3879B /* EndPoint.swift */; };
+		8C22A9742C1C5F1800B3879B /* HTTPAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */; };
+		8C22A9772C1C5F7100B3879B /* NetworkingPack in Frameworks */ = {isa = PBXBuildFile; productRef = 8C22A9762C1C5F7100B3879B /* NetworkingPack */; };
 		A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFD2C18DD7300E18665 /* CustomButton.swift */; };
 		A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFF2C18E11700E18665 /* CustomTextField.swift */; };
 		A82DAE032C18E34B00E18665 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DAE022C18E34B00E18665 /* Constants.swift */; };
@@ -61,6 +66,10 @@
 		8C22A9612C1C5AE800B3879B /* ResetPasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordModel.swift; sourceTree = "<group>"; };
 		8C22A9632C1C5B0300B3879B /* OTPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPModel.swift; sourceTree = "<group>"; };
 		8C22A9652C1C5B1200B3879B /* EmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailModel.swift; sourceTree = "<group>"; };
+		8C22A9682C1C5E5400B3879B /* JSONConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverter.swift; sourceTree = "<group>"; };
+		8C22A96E2C1C5EA200B3879B /* EndPointProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointProtocol.swift; sourceTree = "<group>"; };
+		8C22A9702C1C5EE300B3879B /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPAuthRepository.swift; sourceTree = "<group>"; };
 		A82DADFD2C18DD7300E18665 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -96,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C22A9772C1C5F7100B3879B /* NetworkingPack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +122,9 @@
 		6F36E0202C1C3B0800C41257 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				8C22A9722C1C5F1000B3879B /* Repository */,
+				8C22A96D2C1C5E9500B3879B /* EndPoint */,
+				8C22A9672C1C5E4100B3879B /* DataManager */,
 				6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */,
 			);
 			path = Helpers;
@@ -157,6 +170,38 @@
 				8C22A9652C1C5B1200B3879B /* EmailModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8C22A9672C1C5E4100B3879B /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				8C22A9682C1C5E5400B3879B /* JSONConverter.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		8C22A96D2C1C5E9500B3879B /* EndPoint */ = {
+			isa = PBXGroup;
+			children = (
+				8C22A9702C1C5EE300B3879B /* EndPoint.swift */,
+				8C22A96E2C1C5EA200B3879B /* EndPointProtocol.swift */,
+			);
+			path = EndPoint;
+			sourceTree = "<group>";
+		};
+		8C22A9722C1C5F1000B3879B /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		8C22A9752C1C5F7100B3879B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A82DADFC2C18DCC400E18665 /* General Components */ = {
@@ -260,6 +305,7 @@
 			children = (
 				FBE0486E2C182C5900C71D2D /* Issue Solver */,
 				FBE0486D2C182C5900C71D2D /* Products */,
+				8C22A9752C1C5F7100B3879B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -317,6 +363,9 @@
 			dependencies = (
 			);
 			name = "Issue Solver";
+			packageProductDependencies = (
+				8C22A9762C1C5F7100B3879B /* NetworkingPack */,
+			);
 			productName = "Issue Solver";
 			productReference = FBE0486C2C182C5900C71D2D /* Issue Solver.app */;
 			productType = "com.apple.product-type.application";
@@ -397,16 +446,20 @@
 				8C22A95E2C1C5AB000B3879B /* RegisterModel.swift in Sources */,
 				FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */,
 				6F7535452C19956E003D12AC /* RegisterView.swift in Sources */,
+				8C22A9712C1C5EE300B3879B /* EndPoint.swift in Sources */,
 				6F75354D2C199C3B003D12AC /* CustomCheckBox.swift in Sources */,
+				8C22A9692C1C5E5400B3879B /* JSONConverter.swift in Sources */,
 				A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */,
 				8C22A9622C1C5AE800B3879B /* ResetPasswordModel.swift in Sources */,
 				A82DAE032C18E34B00E18665 /* Constants.swift in Sources */,
 				FBEA6C9F2C1C16BB008953CB /* PasswordChangeView.swift in Sources */,
 				FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */,
 				8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */,
+				8C22A96F2C1C5EA200B3879B /* EndPointProtocol.swift in Sources */,
 				8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */,
 				FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */,
 				6F7535492C199632003D12AC /* AuthViewModel.swift in Sources */,
+				8C22A9742C1C5F1800B3879B /* HTTPAuthRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +677,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8C22A9762C1C5F7100B3879B /* NetworkingPack */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkingPack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FBE048642C182C5900C71D2D /* Project object */;
 }
