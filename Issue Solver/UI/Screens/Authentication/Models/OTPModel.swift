@@ -11,3 +11,4 @@ import Foundation
 struct OTPModel: Codable {
     let otpCode: String?
 }
+

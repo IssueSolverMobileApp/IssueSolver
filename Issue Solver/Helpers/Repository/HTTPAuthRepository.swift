@@ -13,7 +13,7 @@ class HTTPAuthRepository {
     
     private var http: HTTPClient = .shared
     
-    func register(body: RegisterModel) async throws -> EncodeRegister {
+    func register(body: RegisterModel) async throws -> ErrorModel? {
         do {
             return try await http.POST(endPoint: EndPoint.auth(.register).url, body: JSONConverter().encode(input: body)) 
         }
@@ -23,16 +23,16 @@ class HTTPAuthRepository {
     }
      
     
-    func login() async throws -> LoginModel? {
+    func login(body: LoginModel) async throws -> ErrorModel? {
         do {
-            return try await http.GET(endPoint: EndPoint.auth(.login).url)
+            return try await http.POST(endPoint: EndPoint.auth(.login).url, body: JSONConverter().encode(input: body))
         }
         catch {
             throw error
         }
     }  
     
-    func confirmOTP() async throws -> OTPModel? {
+    func confirmOTP(body: OTPModel) async throws -> ErrorModel? {
         do {
             return try await http.GET(endPoint: EndPoint.auth(.confirmOTP).url)
         }
@@ -41,9 +41,27 @@ class HTTPAuthRepository {
         }
     }  
     
-    func resendOTP() async throws -> EmailModel? {
+    func resendOTP(body: EmailModel) async throws -> ErrorModel? {
         do {
-            return try await http.GET(endPoint: EndPoint.auth(.resendOTP).url)
+            return try await http.POST(endPoint: EndPoint.auth(.resendOTP).url, body: JSONConverter().encode(input: body))
+        }
+        catch {
+            throw error
+        }
+    }
+    
+    func forgetPassword(body: EmailModel) async throws -> ErrorModel? {
+        do {
+            return try await http.POST(endPoint: EndPoint.auth(.forgetPassword).url, body: JSONConverter().encode(input: body))
+        }
+        catch {
+            throw error
+        }
+    }
+    
+    func resetPassword(body: ResetPasswordModel) async throws -> ErrorModel? {
+        do {
+            return try await http.POST(endPoint: EndPoint.auth(.resetPassword).url, body: JSONConverter().encode(input: body))
         }
         catch {
             throw error

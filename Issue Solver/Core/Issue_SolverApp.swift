@@ -11,7 +11,7 @@ import SwiftUI
 struct Issue_SolverApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            RegisterView()
         }
     }
 }
