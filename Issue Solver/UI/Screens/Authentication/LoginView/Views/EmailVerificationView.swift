@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EmailVerificationView: View {
     @StateObject var authVM: AuthViewModel = AuthViewModel()
+    @StateObject var vm = EmailVerificationViewModel()
     
     var body: some View {
         ZStack {
@@ -34,17 +35,18 @@ struct EmailVerificationView: View {
     
     //Email TextField
     var textFieldView: some View {
-        CustomTextField(placeholder: "E-poçtunuzu daxil edin",title: "E- poçt",text: $authVM.emailText)
+        CustomTextField(placeholder: "E-poçtunuzu daxil edin",title: "E- poçt",text: $vm.emailText)
     }
     
     //Confirm Email Button
     var confirmButtonView: some View {
         CustomButton(title: "Təsdiq kodu göndər") {
             // TODO: action mus be added here
+            Task {
+                await vm.emailVerification()
+            }
         }
     }
-        
-    
 }
 
 #Preview {
