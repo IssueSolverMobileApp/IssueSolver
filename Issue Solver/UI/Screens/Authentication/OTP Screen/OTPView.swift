@@ -56,7 +56,7 @@ struct OTPView: View {
         
         VStack(spacing: 16) {
             
-            CustomButton(title: "Təsdiqlə") {
+            CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
                // TODO: action must be added here
             }
             
