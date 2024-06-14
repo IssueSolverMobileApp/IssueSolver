@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F36E01F2C1C2EE200C41257 /* View + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36E01E2C1C2EE200C41257 /* View + Ext.swift */; };
+		6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */; };
 		6F7535422C19954B003D12AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7535412C19954B003D12AC /* LoginView.swift */; };
 		6F7535452C19956E003D12AC /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7535442C19956E003D12AC /* RegisterView.swift */; };
 		6F7535492C199632003D12AC /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7535482C199632003D12AC /* AuthViewModel.swift */; };
@@ -41,6 +43,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F36E01E2C1C2EE200C41257 /* View + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View + Ext.swift"; sourceTree = "<group>"; };
+		6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JakartaFonts.swift; sourceTree = "<group>"; };
 		6F7535412C19954B003D12AC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6F7535442C19956E003D12AC /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		6F7535482C199632003D12AC /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -87,6 +91,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F36E01B2C1C2A5900C41257 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		6F36E0202C1C3B0800C41257 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		6F7535432C19955C003D12AC /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				FB55BD642C1B0D7100F81FDB /* Fonts + Ext.swift */,
+				6F36E01E2C1C2EE200C41257 /* View + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -184,6 +204,7 @@
 		FBA4BA1F2C183D3B00BEDA9E /* UI Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				6F36E01B2C1C2A5900C41257 /* Modifiers */,
 				A82DAE022C18E34B00E18665 /* Constants.swift */,
 				FB55BD462C1B0B6600F81FDB /* Fonts */,
 			);
@@ -232,6 +253,7 @@
 				FB55BD662C1B0F9B00F81FDB /* Issue-Solver-Info.plist */,
 				FB55BD632C1B0D3500F81FDB /* Extensions */,
 				FBA4BA1D2C183D1A00BEDA9E /* UI */,
+				6F36E0202C1C3B0800C41257 /* Helpers */,
 				FBA4BA1C2C183D0000BEDA9E /* Core */,
 				FBE048752C182C5D00C71D2D /* Preview Content */,
 			);
@@ -340,9 +362,11 @@
 			files = (
 				6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */,
 				FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */,
+				6F36E01F2C1C2EE200C41257 /* View + Ext.swift in Sources */,
 				6F7535422C19954B003D12AC /* LoginView.swift in Sources */,
 				FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */,
 				FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */,
+				6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */,
 				A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */,
 				FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */,
 				6F7535452C19956E003D12AC /* RegisterView.swift in Sources */,

@@ -27,7 +27,7 @@ struct CustomTextField: View {
         ZStack {
             if let title {
                 Text(title)
-                    .font(.plusJakartaSansMedium(size: 15))
+                    .jakartaFont(.heading)
             }
         }
     }
@@ -55,7 +55,7 @@ struct CustomTextField: View {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .fill(Color(.systemBackground))
         }
-        .font(.plusJakartaSansRegular(size: 15))
+        .jakartaFont(.heading)
     }
     
     /// - Show/hide password
