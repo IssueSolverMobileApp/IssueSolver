@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CountdownView: View {
-    @State var timeRemaining = 5
+    @State var timeRemaining = 180
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var formattedTime: String {
