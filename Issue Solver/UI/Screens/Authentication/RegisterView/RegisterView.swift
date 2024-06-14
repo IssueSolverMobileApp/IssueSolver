@@ -17,7 +17,7 @@ struct RegisterView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            VStack {
+            VStack (spacing: 24){
                 titleView
                 ScrollView(showsIndicators: false) {
                     VStack {
@@ -25,10 +25,11 @@ struct RegisterView: View {
                         Spacer()
                     }
                 }
-                .padding(.top, -8)
                 continueButtonView
             }
             .padding(.top, 24)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
         }
     }
     
@@ -48,7 +49,7 @@ struct RegisterView: View {
             
             // Password TextField View
             VStack(alignment: .leading, spacing: 8) {
-                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: false, text: $authVM.passwordText)
+                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $authVM.passwordText)
                 Text("Supporting text or hint")
                     .font(.plusJakartaSansRegular(size: 13))
                     .foregroundColor(.secondaryGray)
@@ -60,7 +61,6 @@ struct RegisterView: View {
             checkboxView
                 .padding(.vertical, 10)
         }
-        .padding()
     }
     
     var checkboxView: some View {
@@ -97,7 +97,6 @@ struct RegisterView: View {
             .font(.plusJakartaSansSemiBold(size: 15))
             .padding(.top, 8)
         }
-        .padding()
     }
 }
 

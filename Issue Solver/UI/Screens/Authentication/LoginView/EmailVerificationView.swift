@@ -14,7 +14,7 @@ struct EmailVerificationView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            VStack(alignment: .leading, spacing: 32 ) {
+            VStack(alignment: .leading, spacing: 24 ) {
                 titleView
                 textFieldView
                 Spacer()
@@ -40,7 +40,7 @@ struct EmailVerificationView: View {
     //Confirm Email Button
     var confirmButtonView: some View {
         CustomButton(title: "Təsdiq kodu göndər") {
-            // action mus be added here
+            // TODO: action mus be added here
         }
     }
         

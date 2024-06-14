@@ -13,7 +13,7 @@ struct CustomTextField: View {
     var isSecure: Bool = false
     
     @Binding var text: String
-    @State var isShowPassword: Bool = true
+    @State var isShowPassword: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {

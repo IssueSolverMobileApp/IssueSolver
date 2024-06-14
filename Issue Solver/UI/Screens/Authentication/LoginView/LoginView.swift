@@ -14,7 +14,7 @@ struct LoginView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            VStack(alignment: .leading, spacing: 32) {
+            VStack(alignment: .leading, spacing: 24) {
                 titleView
                 textFieldsView
                 Spacer()
@@ -22,6 +22,7 @@ struct LoginView: View {
             }
             .padding(.top, 24)
             .padding(.horizontal, 16)
+            .padding(.bottom, 16)
         }
     }
     
