@@ -10,6 +10,7 @@ import SwiftUI
 enum CustomButtonStyle {
     case text
     case rounded
+    case back
 }
 
 struct CustomButton: View {
@@ -18,6 +19,7 @@ struct CustomButton: View {
     var width: CGFloat?
     var height: CGFloat? = 50
     let title: String
+    var color: Color = .primaryBlue
     
     let handler: () -> Void
     
@@ -28,6 +30,8 @@ struct CustomButton: View {
                 textButtonView
             case .rounded:
                 roundedButtonView
+            case .back:
+                backButtonView
             }
         }
     }
@@ -38,7 +42,7 @@ struct CustomButton: View {
         } label: {
             Text(title)
                 .jakartaFont(.textButton)
-                .foregroundStyle(Color.primaryBlue)
+                .foregroundStyle(color)
         }
     }
     
@@ -47,12 +51,25 @@ struct CustomButton: View {
             handler()
         } label: {
             ZStack {
-                Capsule().fill(Color.primaryBlue)
+                Capsule().fill(color)
                 Text(title)
                     .jakartaFont(.roundedButton)
                     .foregroundStyle(Color.surfaceBackground)
             }
         }
         .frame(width: width, height: height)
+    }
+    
+    
+    var backButtonView: some View {
+        Button {
+            handler()
+        } label: {
+            ZStack {
+                Circle().fill(Color.white)
+                 Image("backArrow")
+            }
+        }
+        .frame(width: 40, height: 40)
     }
 }

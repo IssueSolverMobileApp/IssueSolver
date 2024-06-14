@@ -85,10 +85,9 @@ struct RegisterView: View {
     
     var continueButtonView: some View {
         VStack {
-            CustomButton(title: "Davam et") {
-                
+            CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+
             }
-            
             
             HStack {
                 Text("Hesabınız var mı?")
@@ -101,7 +100,12 @@ struct RegisterView: View {
             .padding(.top, 8)
         }
     }
+    
+    var canContinue: Bool { return !authVM.fullNameText.isEmpty && !authVM.emailText.isEmpty && !authVM.passwordText.isEmpty && !authVM.confirmPasswordText.isEmpty && isChecked
+    }
 }
+
+
 
 #Preview {
     RegisterView()
