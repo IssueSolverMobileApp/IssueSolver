@@ -41,7 +41,7 @@ struct OTPTextField: View {
                         .focused($fieldFocus, equals: index)
                         .onChange(of: enterValue[index]) { newValue in
                             if newValue.count > 1 {
-                                enterValue[index] = String(enterValue[index].prefix(1))
+                                enterValue[index] = String(enterValue[index].suffix(1))
                             }
                             
                             if !newValue.isEmpty && index < numberOfFields - 1 {
