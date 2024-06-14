@@ -14,13 +14,15 @@ struct LoginView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            VStack {
+            VStack(alignment: .leading, spacing: 24) {
                 titleView
                 textFieldsView
                 Spacer()
                 loginButtonView
             }
             .padding(.top, 24)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
         }
     }
     
@@ -43,7 +45,6 @@ struct LoginView: View {
                 
             }
         }
-        .padding()
     }
     
     var loginButtonView: some View {

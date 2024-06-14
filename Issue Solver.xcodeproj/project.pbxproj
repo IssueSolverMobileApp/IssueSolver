@@ -36,6 +36,8 @@
 		FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */; };
 		FBE048742C182C5D00C71D2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE048732C182C5D00C71D2D /* Assets.xcassets */; };
 		FBE048772C182C5D00C71D2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE048762C182C5D00C71D2D /* Preview Assets.xcassets */; };
+		FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEA6C9C2C1C08E0008953CB /* EmailVerificationView.swift */; };
+		FBEA6C9F2C1C16BB008953CB /* PasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEA6C9E2C1C16BB008953CB /* PasswordChangeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue_SolverApp.swift; sourceTree = "<group>"; };
 		FBE048732C182C5D00C71D2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBE048762C182C5D00C71D2D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FBEA6C9C2C1C08E0008953CB /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
+		FBEA6C9E2C1C16BB008953CB /* PasswordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,13 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6F7535432C19955C003D12AC /* Views */ = {
+		6F7535432C19955C003D12AC /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
 				6F7535412C19954B003D12AC /* LoginView.swift */,
-				6F7535442C19956E003D12AC /* RegisterView.swift */,
+				FBEA6C9C2C1C08E0008953CB /* EmailVerificationView.swift */,
+				FBEA6C9E2C1C16BB008953CB /* PasswordChangeView.swift */,
 			);
-			path = Views;
+			path = LoginView;
 			sourceTree = "<group>";
 		};
 		6F7535462C199577003D12AC /* ViewModels */ = {
@@ -188,8 +193,9 @@
 		FBA4BA222C18467200BEDA9E /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				6F7535432C19955C003D12AC /* LoginView */,
+				FBEA6C9B2C1C0865008953CB /* RegisterView */,
 				6F7535462C199577003D12AC /* ViewModels */,
-				6F7535432C19955C003D12AC /* Views */,
 				FBA4BA232C185BB000BEDA9E /* OTP Screen */,
 			);
 			path = Authentication;
@@ -238,6 +244,14 @@
 				FBE048762C182C5D00C71D2D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FBEA6C9B2C1C0865008953CB /* RegisterView */ = {
+			isa = PBXGroup;
+			children = (
+				6F7535442C19956E003D12AC /* RegisterView.swift */,
+			);
+			path = RegisterView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,7 +349,9 @@
 				6F75354D2C199C3B003D12AC /* CustomCheckBox.swift in Sources */,
 				A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */,
 				A82DAE032C18E34B00E18665 /* Constants.swift in Sources */,
+				FBEA6C9F2C1C16BB008953CB /* PasswordChangeView.swift in Sources */,
 				FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */,
+				FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */,
 				6F7535492C199632003D12AC /* AuthViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

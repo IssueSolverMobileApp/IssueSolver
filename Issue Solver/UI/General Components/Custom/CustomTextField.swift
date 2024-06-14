@@ -13,7 +13,7 @@ struct CustomTextField: View {
     var isSecure: Bool = false
     
     @Binding var text: String
-    @State var isShowPassword: Bool = true
+    @State var isShowPassword: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -38,14 +38,13 @@ struct CustomTextField: View {
             if !isSecure {
                 TextField(placeholder ?? "", text: $text)
             } else {
-                ZStack {
+                HStack {
                     if isShowPassword {
                         TextField(placeholder ?? "", text: $text)
                     } else {
                         SecureField(placeholder ?? "", text: $text)
                     }
                     HStack {
-                        Spacer()
                         showPasswordButtonView
                     }
                 }
@@ -64,9 +63,12 @@ struct CustomTextField: View {
         Button {
             isShowPassword.toggle()
         } label: {
-            Image(systemName: isShowPassword ? "eye" : "eye.slash")
+            Image(isShowPassword ? "eye" : "closeeye")
                 .foregroundStyle(Color.primaryBlue)
+                .background(.white)
         }
+       
+
     }
     
 }
