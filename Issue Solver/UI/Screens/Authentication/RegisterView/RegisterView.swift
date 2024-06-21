@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @StateObject var authVM: AuthViewModel = AuthViewModel()
+    @StateObject var vm = RegisterViewModel()
     
     // Dummy variables
     @State var isChecked: Bool = false
@@ -44,22 +44,22 @@ struct RegisterView: View {
         VStack(alignment: .leading, spacing: 20) {
             
             //Name Surname Text Field View
-            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $authVM.fullNameText)
+            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText)
             
             
             // Email Text Field View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $authVM.emailText)
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText)
             
             // Password TextField View
             VStack(alignment: .leading, spacing: 8) {
-                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $authVM.passwordText)
+                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $vm.passwordText)
                 Text("Supporting text or hint")
                     .jakartaFont(.subtitle2)
                     .foregroundColor(.secondaryGray)
             }
             
             // Confirm Password TextField View
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $authVM.confirmPasswordText)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText)
             
             checkboxView
                 .padding(.vertical, 10)
@@ -86,7 +86,9 @@ struct RegisterView: View {
     var continueButtonView: some View {
         VStack {
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-
+                Task {
+                    await vm.register()
+                }
             }
             
             HStack {
@@ -101,7 +103,8 @@ struct RegisterView: View {
         }
     }
     
-    var canContinue: Bool { return !authVM.fullNameText.isEmpty && !authVM.emailText.isEmpty && !authVM.passwordText.isEmpty && !authVM.confirmPasswordText.isEmpty && isChecked
+    var canContinue: Bool { 
+        return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && isChecked
     }
 }
 
