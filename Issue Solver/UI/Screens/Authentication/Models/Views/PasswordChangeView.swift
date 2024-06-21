@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PasswordChangeView: View {
     
-    @StateObject var authVM: AuthViewModel = AuthViewModel()
+    @StateObject var vm: PasswordChangeViewModel = PasswordChangeViewModel()
     
     var body: some View {
         
@@ -38,9 +38,9 @@ struct PasswordChangeView: View {
     var textFieldView: some View {
         VStack (spacing: 20 ){
             
-            CustomTextField(placeholder: "Şifrənizi təyin edin",title: "Şifrə", isSecure: true, text: $authVM.passwordText)
+            CustomTextField(placeholder: "Şifrənizi təyin edin",title: "Şifrə", isSecure: true, text: $vm.passwordText)
             
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin",title: "Şifrənin təsdiqi", isSecure: true, text: $authVM.confirmPasswordText)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin",title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText)
         }
     }
     

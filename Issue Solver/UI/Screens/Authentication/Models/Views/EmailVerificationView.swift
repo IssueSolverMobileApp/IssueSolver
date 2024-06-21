@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EmailVerificationView: View {
-    @StateObject var authVM: AuthViewModel = AuthViewModel()
     @StateObject var vm = EmailVerificationViewModel()
     
     var body: some View {

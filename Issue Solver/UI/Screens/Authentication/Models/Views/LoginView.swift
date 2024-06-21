@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject var authVM: AuthViewModel = AuthViewModel()
     @StateObject var vm = LoginViewModel()
     
     var body: some View {

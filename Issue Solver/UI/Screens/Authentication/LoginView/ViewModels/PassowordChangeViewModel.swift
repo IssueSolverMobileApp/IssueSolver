@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PasswordChangeViewModel {
+class PasswordChangeViewModel: ObservableObject {
     
     private var authRepository = HTTPAuthRepository()
 
