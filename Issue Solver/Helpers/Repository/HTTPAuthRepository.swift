@@ -12,7 +12,7 @@ class HTTPAuthRepository {
     
     private var http: HTTPClient = .shared
     
-    func register(body: RegisterModel) async throws -> ErrorModel? {
+    func register(body: RegisterModel) async throws -> SuccessModel? {
         do {
             return try await http.POST(endPoint: EndPoint.auth(.register).url, body: JSONConverter().encode(input: body))
         }
@@ -22,7 +22,7 @@ class HTTPAuthRepository {
     }
      
     
-    func login(body: LoginModel) async throws -> ErrorModel? {
+    func login(body: LoginModel) async throws -> SuccessModel? {
         do {
             return try await http.POST(endPoint: EndPoint.auth(.login).url, body: JSONConverter().encode(input: body))
         }
@@ -31,7 +31,7 @@ class HTTPAuthRepository {
         }
     }
     
-    func confirmOTP(body: OTPModel) async throws -> ErrorModel? {
+    func confirmOTP(body: OTPModel) async throws -> SuccessModel? {
         do {
             return try await http.GET(endPoint: EndPoint.auth(.confirmOTP).url)
         }
@@ -40,7 +40,7 @@ class HTTPAuthRepository {
         }
     }
     
-    func resendOTP(body: EmailModel) async throws -> ErrorModel? {
+    func resendOTP(body: EmailModel) async throws -> SuccessModel? {
         do {
             return try await http.POST(endPoint: EndPoint.auth(.resendOTP).url, body: JSONConverter().encode(input: body))
         }
@@ -49,7 +49,7 @@ class HTTPAuthRepository {
         }
     }
     
-    func forgetPassword(body: EmailModel) async throws -> ErrorModel? {
+    func forgetPassword(body: EmailModel) async throws -> SuccessModel? {
         do {
             return try await http.POST(endPoint: EndPoint.auth(.forgetPassword).url, body: JSONConverter().encode(input: body))
         }
@@ -58,7 +58,7 @@ class HTTPAuthRepository {
         }
     }
     
-    func resetPassword(body: ResetPasswordModel) async throws -> ErrorModel? {
+    func resetPassword(body: ResetPasswordModel) async throws -> SuccessModel? {
         do {
             return try await http.POST(endPoint: EndPoint.auth(.resetPassword).url, body: JSONConverter().encode(input: body))
         }

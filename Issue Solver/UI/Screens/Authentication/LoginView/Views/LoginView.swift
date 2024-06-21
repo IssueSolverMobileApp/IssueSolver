@@ -55,7 +55,9 @@ struct LoginView: View {
         VStack {
             // Log in Button View
             CustomButton(title: "Daxil ol") {
-                
+                Task {
+                    await vm.login()
+                }
             }
             
             // Email Exists Button View
