@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject var authVM: AuthViewModel = AuthViewModel()
     @StateObject var vm = LoginViewModel()
     
     var body: some View {
@@ -55,7 +54,9 @@ struct LoginView: View {
         VStack {
             // Log in Button View
             CustomButton(title: "Daxil ol") {
-                
+                Task {
+                    await vm.login()
+                }
             }
             
             // Email Exists Button View

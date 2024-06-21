@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  HTTPClient.swift
 //  
 //
 //  Created by Valeh Amirov on 13.06.24.
@@ -11,6 +11,8 @@ public final class HTTPClient {
     
     private init() {}
     public static let shared = HTTPClient()
+    
+    let header: [String: String] = ["accept": "*/*", "Content-Type": "application/json"]
     
     /// it is generic function which is  send request to API and return us information
     /// - Parameters:
@@ -26,8 +28,12 @@ public final class HTTPClient {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
+        
         urlRequest.timeoutInterval = 60
         
+        header.forEach { (key: String, value: String) in
+            urlRequest.setValue(value, forHTTPHeaderField: key)
+        }
         
         if let requestBody = body {
             urlRequest.httpBody = requestBody
@@ -80,11 +86,11 @@ public final class HTTPClient {
                     
                     switch response.statusCode {
                     case 400:
-                        throw NetworkError.badRequest(errorDecode.message)
+                        throw NetworkError.badRequest(errorDecode.message ?? "error message has problem")
                     case 401...403:
                         throw NetworkError.unauthorization
                     case 404:
-                        throw NetworkError.notFound(errorDecode.message)
+                        throw NetworkError.notFound(errorDecode.message ?? "error message has problem")
                     case 500:
                         throw NetworkError.unknowned
                     default:
