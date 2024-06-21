@@ -14,12 +14,12 @@ struct CustomRowView: View {
     let leftImage: String?
     let rightImage: String?
     
-    var height: CGFloat? = 86
+    var height: CGFloat?
     let handler: () -> Void
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: Constants.cornerRadius - 4)
+            RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .fill(Color(.white))
             
             HStack (spacing: 12) {
@@ -46,10 +46,12 @@ struct CustomRowView: View {
     
     ///  Title Subtitle View
     var titleSubtitleView: some View {
-        VStack( spacing: 4) {
+        VStack(alignment: .leading, spacing: 4) {
             Text(title)
+                .jakartaFont(.rowTitle)
             if let subtitle {
                 Text(subtitle)
+                    .jakartaFont(.rowTitle)
             }
         }
     }
@@ -59,7 +61,7 @@ struct CustomRowView: View {
         Group {
             if let rightImage = rightImage {
                 Button(action: handler) {
-                    Image(systemName: rightImage)
+                    Image(rightImage)
                         .foregroundColor(.blue)
                 }
             }
