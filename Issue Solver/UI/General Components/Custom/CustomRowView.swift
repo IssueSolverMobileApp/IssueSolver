@@ -14,7 +14,9 @@ struct CustomRowView: View {
     let leftImage: String?
     let rightImage: String?
     
+    var width: CGFloat?
     var height: CGFloat?
+    var color: Color = .black
     let handler: () -> Void
     
     var body: some View {
@@ -40,6 +42,7 @@ struct CustomRowView: View {
         ZStack {
             if let leftImage {
                 Image(leftImage)
+                    .frame(width: width, height: height)
             }
         }
     }
@@ -49,9 +52,11 @@ struct CustomRowView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .jakartaFont(.rowTitle)
+                .foregroundStyle(color)
             if let subtitle {
                 Text(subtitle)
-                    .jakartaFont(.rowTitle)
+                    .jakartaFont(.subtitle)
+                    .foregroundStyle(.secondaryGray)
             }
         }
     }
@@ -62,7 +67,7 @@ struct CustomRowView: View {
             if let rightImage = rightImage {
                 Button(action: handler) {
                     Image(rightImage)
-                        .foregroundColor(.blue)
+                        .frame(width: width, height: height)
                 }
             }
         }
