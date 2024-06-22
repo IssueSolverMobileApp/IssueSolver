@@ -22,7 +22,7 @@ class HTTPAuthRepository {
     }
      
     
-    func login(body: LoginModel) async throws -> SuccessModel? {
+    func login(body: LoginModel) async throws -> LoginSuccessModel? {
         do {
             return try await http.POST(endPoint: EndPoint.auth(.login).url, body: JSONConverter().encode(input: body))
         }
@@ -38,6 +38,16 @@ class HTTPAuthRepository {
         catch {
             throw error
         }
+    }
+    
+    func otpTrust(body: OTPModel) async throws -> IDTokenSuccessModel? {
+        do {
+            return try await http.POST(endPoint: EndPoint.auth(.trustOTP).url, body: JSONConverter().encode(input: body))
+        }
+        catch {
+            throw error
+        }
+        
     }
     
     func resendOTP(body: EmailModel) async throws -> SuccessModel? {

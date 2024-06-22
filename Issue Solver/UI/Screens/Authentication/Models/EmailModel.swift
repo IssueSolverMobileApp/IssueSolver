@@ -11,3 +11,17 @@ import Foundation
 struct EmailModel: Codable {
     let email: String?
 }
+
+// MARK: - ResendOTPSuccessModel
+//struct ResendOTPSuccessModel: Codable {
+//    let success: Bool?
+//    let status: Int?
+//    let message: String?
+//}
+
+// MARK: - ResendOTPSuccessModel
+//struct ForgetPaswordSuccessModel: Codable {
+//    let success: Bool?
+//    let status: Int?
+//    let message: String?
+//}

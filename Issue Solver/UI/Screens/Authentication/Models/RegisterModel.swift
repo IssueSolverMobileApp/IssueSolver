@@ -7,34 +7,41 @@
 
 import Foundation
 
+// MARK: - RegisterModel
 struct RegisterModel: Codable {
-    let email, fullName, password: String?
-    let confirmPassword: String?
+    let email, fullName, password, confirmPassword: String
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: CodingKey {
         case email
-        case fullName = "firstName"
+        case fullName
         case password
         case confirmPassword
     }
 }
 
-// MARK: - RegisterErrorModel
+
+// MARK: - ErrorModel
 struct ErrorModel: Codable {
-    let errors: String?
-    let type: String?
+    let timeSpam: String?
+    let url: String?
     let title: String?
+    let success: Bool?
     let status: Int?
-    let detail, instance: String?
-    let extensions: String?
+    let message: String?
 
     enum CodingKeys: String, CodingKey {
-        case errors = "Errors"
-        case type = "Type"
+        case timeSpam = "TimeSpam"
+        case url = "Url"
         case title = "Title"
+        case success = "Success"
         case status = "Status"
-        case detail = "Detail"
-        case instance = "Instance"
-        case extensions = "Extensions"
+        case message = "Message"
     }
 }
+
+// MARK: - RegisterSuccessModel
+//struct RegisterSuccessModel: Codable {
+//    let success: Bool?
+//    let status: Int?
+//    let message: String?
+//}

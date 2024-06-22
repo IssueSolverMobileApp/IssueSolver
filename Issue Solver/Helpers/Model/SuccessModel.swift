@@ -9,13 +9,7 @@ import Foundation
 
 // MARK: - SuccessModel
 struct SuccessModel: Codable {
-    let data: TokenData?
     let success: Bool?
     let status: Int?
     let message: String?
-}
-
-// MARK: - DataClass
-struct TokenData: Codable {
-    let accessToken, refreshToken: String?
 }
