@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     
     @StateObject var vm = ProfileViewModel()
+    @State private var navigateToDeleteAccountView = false
     
     var body: some View {
         
@@ -104,9 +105,17 @@ struct ProfileView: View {
                     .alert( isPresented: $vm.showDeleteAccountAlert) {
                         Alert(title: Text(""),
                               message: Text("Hesabınızı silmək istədiyinizə əminsiniz?"),
-                              primaryButton: .destructive(Text("Bəli")) ,
+                              primaryButton: .destructive(Text("Bəli"), action: { navigateToDeleteAccountView = true }) ,
                               secondaryButton: .default(Text("Xeyr")))
             }
+            
+            NavigationLink(
+                destination: DeleteAccountView(),
+                isActive: $navigateToDeleteAccountView,
+                label: {
+                    EmptyView()
+                }
+            )
         }
     }
 }
