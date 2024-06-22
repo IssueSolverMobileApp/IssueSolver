@@ -17,7 +17,9 @@ struct CustomRowView: View {
     var width: CGFloat?
     var height: CGFloat?
     var color: Color = .black
+    var font: JakartaFonts?
     let handler: () -> Void
+    
     
     var body: some View {
         ZStack {
@@ -51,7 +53,7 @@ struct CustomRowView: View {
     var titleSubtitleView: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
-                .jakartaFont(.rowTitle)
+                .jakartaFont(font ?? .rowTitle)
                 .foregroundStyle(color)
             if let subtitle {
                 Text(subtitle)

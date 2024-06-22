@@ -36,12 +36,13 @@ struct ProfileView: View {
         
         VStack(alignment: .leading, spacing: 12) {
             ///Profile View
-                CustomRowView(title: "Irada Bakirli", subtitle: "iradebekirli@gmail.com", leftImage: "profile", rightImage: "settings",width: 48, height: 48,handler: {})
+            CustomRowView(title: "IRADA BAKIRLI", subtitle: "iradebekirli@gmail.com", leftImage: "profile", rightImage: "settings",width: 48, height: 48, color: .primaryBlue ,font: .custom(.bold, 20),handler: {})
                     .frame(height: 86)
+            
                 
             ///Change Password View
             NavigationLink(destination: EmptyView()) {
-                CustomRowView(title: "Şifrəni dəyiş", subtitle: nil, leftImage: "privacy", rightImage: nil,width: 38, height: 38, handler: {})
+                CustomRowView(title: "Şifrəni dəyiş", subtitle: nil, leftImage: "privacy", rightImage: "chevron",width: 38, height: 38, handler: {})
                     .frame(height: 86)
             }
         }
@@ -55,17 +56,17 @@ struct ProfileView: View {
         
         ///Privacy Policy View
             NavigationLink(destination: EmptyView()) {
-                CustomRowView(title: "Məxfilik siyasəti", subtitle: nil, leftImage: nil, rightImage: nil, handler: {})
+                CustomRowView(title: "Məxfilik siyasəti", subtitle: nil, leftImage: nil, rightImage: "chevron", handler: {})
                     .frame(height: 76)
             }
         ///FAQ View
             NavigationLink(destination: EmptyView()) {
-                CustomRowView(title: "Tez-tez verilən suallar", subtitle: nil, leftImage: nil, rightImage: nil, handler: {})
+                CustomRowView(title: "Tez-tez verilən suallar", subtitle: nil, leftImage: nil, rightImage: "chevron", handler: {})
                     .frame(height: 76)
             }
         ///About App View
             NavigationLink(destination: EmptyView()) {
-                CustomRowView(title: "Tətbiq haqqında", subtitle: nil, leftImage: nil, rightImage: nil, handler: {})
+                CustomRowView(title: "Tətbiq haqqında", subtitle: nil, leftImage: nil, rightImage: "chevron", handler: {})
                     .frame(height: 76)
             }
         }
@@ -77,11 +78,22 @@ struct ProfileView: View {
         VStack(alignment: .leading, spacing: 12) {
             
             /// Exit View
-            CustomRowView(title: "Hesabdan çıxış", subtitle: nil, leftImage: "exit", rightImage: nil, width: 38, height: 38 , handler: {})
+            CustomRowView(title: "Hesabdan çıxış", subtitle: nil, leftImage: "exit", rightImage: "chevron", width: 38, height: 38 , handler: {})
                 .frame(height: 86)
             
+                .onTapGesture {
+                    vm.showExitAccountAlert = true
+                }
+            
+                    .alert( isPresented: $vm.showExitAccountAlert) {
+                        Alert(title: Text(""),
+                              message: Text("Hesabdan çıxış etməyə əminsiniz?"),
+                              primaryButton: .destructive(Text("Çıxış")) ,
+                              secondaryButton: .default(Text("İmtina")))
+            }
+            
             /// Delete account View
-            CustomRowView(title: "Hesabı sil", subtitle: nil, leftImage: nil, rightImage: nil, color: .red ,handler: {
+            CustomRowView(title: "Hesabı sil", subtitle: nil, leftImage: nil, rightImage: "chevron", color: .red ,handler: {
                 
             })
                 .frame(height: 76)
