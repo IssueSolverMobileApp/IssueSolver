@@ -46,6 +46,8 @@
 		FB55BD612C1B0CAD00F81FDB /* PlusJakartaSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD532C1B0CAD00F81FDB /* PlusJakartaSans-ExtraBoldItalic.ttf */; };
 		FB55BD622C1B0CAD00F81FDB /* PlusJakartaSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD542C1B0CAD00F81FDB /* PlusJakartaSans-LightItalic.ttf */; };
 		FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB55BD642C1B0D7100F81FDB /* Fonts + Ext.swift */; };
+		FB5A102F2C2771B400E16828 /* NewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A102E2C2771B400E16828 /* NewPasswordView.swift */; };
+		FB5A10312C27724500E16828 /* NewPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A10302C27724500E16828 /* NewPasswordViewModel.swift */; };
 		FB967D182C257678002BA572 /* OTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D172C257678002BA572 /* OTPViewModel.swift */; };
 		FB967D1F2C25818B002BA572 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D1E2C25818B002BA572 /* ProfileModel.swift */; };
 		FB967D212C2581A2002BA572 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D202C2581A2002BA572 /* ProfileView.swift */; };
@@ -102,6 +104,8 @@
 		FB55BD542C1B0CAD00F81FDB /* PlusJakartaSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD642C1B0D7100F81FDB /* Fonts + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts + Ext.swift"; sourceTree = "<group>"; };
 		FB55BD662C1B0F9B00F81FDB /* Issue-Solver-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Issue-Solver-Info.plist"; sourceTree = SOURCE_ROOT; };
+		FB5A102E2C2771B400E16828 /* NewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordView.swift; sourceTree = "<group>"; };
+		FB5A10302C27724500E16828 /* NewPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordViewModel.swift; sourceTree = "<group>"; };
 		FB967D172C257678002BA572 /* OTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewModel.swift; sourceTree = "<group>"; };
 		FB967D1E2C25818B002BA572 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		FB967D202C2581A2002BA572 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -293,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				FB967D202C2581A2002BA572 /* ProfileView.swift */,
+				FB5A102E2C2771B400E16828 /* NewPasswordView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -301,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				FB967D222C2581B6002BA572 /* ProfileViewModel.swift */,
+				FB5A10302C27724500E16828 /* NewPasswordViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -487,9 +493,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB5A102F2C2771B400E16828 /* NewPasswordView.swift in Sources */,
 				8CA3EB082C1C67EF00514134 /* EmailVerificationViewModel.swift in Sources */,
 				8C22A9602C1C5AD800B3879B /* LoginModel.swift in Sources */,
 				6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */,
+				FB5A10312C27724500E16828 /* NewPasswordViewModel.swift in Sources */,
 				FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */,
 				6F36E01F2C1C2EE200C41257 /* View + Ext.swift in Sources */,
 				8C264F442C2405BF00FDAAE3 /* SuccessModel.swift in Sources */,
