@@ -1,5 +1,5 @@
 //
-//  NewPasswordView.swift
+//  MyAccountView.swift
 //  Issue Solver
 //
 //  Created by Irada Bakirli on 23.06.24.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct NewPasswordView: View {
+struct MyAccountView: View {
     
-    @StateObject var vm = NewPasswordViewModel()
+    @StateObject var vm = MyAccountViewModel()
     
     var body: some View {
         ZStack {
@@ -20,7 +20,7 @@ struct NewPasswordView: View {
                 titleView
                 textFieldView
                 Spacer()
-                renewButtonView
+                saveChangesButtonView
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 24)
@@ -37,7 +37,7 @@ struct NewPasswordView: View {
     
     /// Title View
     var titleView: some View {
-        CustomTitleView(title: "Yeni şifrə",subtitle: "Daxil olmaq üçün yeni şifrə təyin edin.", color: .primaryBlue)
+        CustomTitleView(title: "Hesabım", subtitle: "Hesabın məlumatlarını dəyişə bilərsiniz", color: .primaryBlue)
     }
     
     /// Textfield View
@@ -47,26 +47,23 @@ struct NewPasswordView: View {
             
             VStack(alignment: .leading, spacing: 20) {
                 
-                //Current Password View
-                CustomTextField(placeholder: "Şifrənizi daxil edin",title: "Cari şifrə",isSecure: true, text: $vm.currentPasswordText)
+                //Full Name View
+                CustomTextField(placeholder: "İRADƏ BƏKİRLİ",title: "Ad, soyad", text: $vm.fullNameText)
                 
-                //New Password View
-                CustomTextField(placeholder: "Yeni şifrəni təyin edin",title: "Yeni şifrə",isSecure: true, text: $vm.newPasswordText)
-                
-                //Confirm New Password View
-                CustomTextField(placeholder: "Şifrəni təsdiq edin",title: "Şifrənin təsdiqi",isSecure: true, text: $vm.confirmPasswordtext)
+                //Email View
+                CustomTextField(placeholder: "iradebekirli@gmail.com",title: "E-poçt",textColor: .disabledGray, color: .disabledGray.opacity(0.12) , text: $vm.emailText)
             }
         }
     }
     
-    /// Renew button
-    var renewButtonView: some View {
-        CustomButton(style:.rounded,title: "Yenilə") {}
+    /// saveChangesButtonView
+    var saveChangesButtonView: some View {
+        CustomButton(style:.rounded,title: "Dəyişiklikləri yadda saxla") {}
             .padding(.vertical, -54)
     }
         
 }
 
 #Preview {
-    NewPasswordView()
+    MyAccountView()
 }

@@ -48,6 +48,8 @@
 		FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB55BD642C1B0D7100F81FDB /* Fonts + Ext.swift */; };
 		FB5A102F2C2771B400E16828 /* NewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A102E2C2771B400E16828 /* NewPasswordView.swift */; };
 		FB5A10312C27724500E16828 /* NewPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A10302C27724500E16828 /* NewPasswordViewModel.swift */; };
+		FB5A10332C277FDE00E16828 /* MyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A10322C277FDE00E16828 /* MyAccountView.swift */; };
+		FB5A10352C277FF700E16828 /* MyAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A10342C277FF700E16828 /* MyAccountViewModel.swift */; };
 		FB967D182C257678002BA572 /* OTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D172C257678002BA572 /* OTPViewModel.swift */; };
 		FB967D1F2C25818B002BA572 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D1E2C25818B002BA572 /* ProfileModel.swift */; };
 		FB967D212C2581A2002BA572 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D202C2581A2002BA572 /* ProfileView.swift */; };
@@ -106,6 +108,8 @@
 		FB55BD662C1B0F9B00F81FDB /* Issue-Solver-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Issue-Solver-Info.plist"; sourceTree = SOURCE_ROOT; };
 		FB5A102E2C2771B400E16828 /* NewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordView.swift; sourceTree = "<group>"; };
 		FB5A10302C27724500E16828 /* NewPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordViewModel.swift; sourceTree = "<group>"; };
+		FB5A10322C277FDE00E16828 /* MyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountView.swift; sourceTree = "<group>"; };
+		FB5A10342C277FF700E16828 /* MyAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewModel.swift; sourceTree = "<group>"; };
 		FB967D172C257678002BA572 /* OTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewModel.swift; sourceTree = "<group>"; };
 		FB967D1E2C25818B002BA572 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		FB967D202C2581A2002BA572 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 			children = (
 				FB967D202C2581A2002BA572 /* ProfileView.swift */,
 				FB5A102E2C2771B400E16828 /* NewPasswordView.swift */,
+				FB5A10322C277FDE00E16828 /* MyAccountView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 			children = (
 				FB967D222C2581B6002BA572 /* ProfileViewModel.swift */,
 				FB5A10302C27724500E16828 /* NewPasswordViewModel.swift */,
+				FB5A10342C277FF700E16828 /* MyAccountViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -509,6 +515,7 @@
 				6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */,
 				8CA3EB062C1C65DD00514134 /* LoginViewModel.swift in Sources */,
 				A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */,
+				FB5A10332C277FDE00E16828 /* MyAccountView.swift in Sources */,
 				8C22A95E2C1C5AB000B3879B /* RegisterModel.swift in Sources */,
 				FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */,
 				FB967D1F2C25818B002BA572 /* ProfileModel.swift in Sources */,
@@ -526,6 +533,7 @@
 				8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */,
 				8C22A96F2C1C5EA200B3879B /* EndPointProtocol.swift in Sources */,
 				8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */,
+				FB5A10352C277FF700E16828 /* MyAccountViewModel.swift in Sources */,
 				FB967D232C2581B6002BA572 /* ProfileViewModel.swift in Sources */,
 				FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */,
 				FB967D212C2581A2002BA572 /* ProfileView.swift in Sources */,

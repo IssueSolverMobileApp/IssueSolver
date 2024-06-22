@@ -41,7 +41,7 @@ struct ProfileView: View {
             
                 
             ///Change Password View
-            NavigationLink(destination: EmptyView()) {
+            NavigationLink(destination: NewPasswordView()) {
                 CustomRowView(title: "Şifrəni dəyiş", subtitle: nil, leftImage: "privacy", rightImage: "chevron",width: 38, height: 38, handler: {})
                     .frame(height: 86)
             }
