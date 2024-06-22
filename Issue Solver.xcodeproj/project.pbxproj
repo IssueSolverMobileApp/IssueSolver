@@ -19,8 +19,6 @@
 		8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9632C1C5B0300B3879B /* OTPModel.swift */; };
 		8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9652C1C5B1200B3879B /* EmailModel.swift */; };
 		8C22A9692C1C5E5400B3879B /* JSONConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9682C1C5E5400B3879B /* JSONConverter.swift */; };
-		8C22A96F2C1C5EA200B3879B /* EndPointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A96E2C1C5EA200B3879B /* EndPointProtocol.swift */; };
-		8C22A9712C1C5EE300B3879B /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9702C1C5EE300B3879B /* EndPoint.swift */; };
 		8C22A9742C1C5F1800B3879B /* HTTPAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */; };
 		8C264F442C2405BF00FDAAE3 /* SuccessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C264F432C2405BF00FDAAE3 /* SuccessModel.swift */; };
 		8C264F482C2446ED00FDAAE3 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C264F472C2446ED00FDAAE3 /* RegisterViewModel.swift */; };
@@ -71,8 +69,6 @@
 		8C22A9632C1C5B0300B3879B /* OTPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPModel.swift; sourceTree = "<group>"; };
 		8C22A9652C1C5B1200B3879B /* EmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailModel.swift; sourceTree = "<group>"; };
 		8C22A9682C1C5E5400B3879B /* JSONConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverter.swift; sourceTree = "<group>"; };
-		8C22A96E2C1C5EA200B3879B /* EndPointProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointProtocol.swift; sourceTree = "<group>"; };
-		8C22A9702C1C5EE300B3879B /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPAuthRepository.swift; sourceTree = "<group>"; };
 		8C264F432C2405BF00FDAAE3 /* SuccessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessModel.swift; sourceTree = "<group>"; };
 		8C264F472C2446ED00FDAAE3 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -127,7 +123,6 @@
 			children = (
 				8C264F422C2405B400FDAAE3 /* Model */,
 				8C22A9722C1C5F1000B3879B /* Repository */,
-				8C22A96D2C1C5E9500B3879B /* EndPoint */,
 				8C22A9672C1C5E4100B3879B /* DataManager */,
 				6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */,
 			);
@@ -163,15 +158,6 @@
 				8C22A9682C1C5E5400B3879B /* JSONConverter.swift */,
 			);
 			path = DataManager;
-			sourceTree = "<group>";
-		};
-		8C22A96D2C1C5E9500B3879B /* EndPoint */ = {
-			isa = PBXGroup;
-			children = (
-				8C22A9702C1C5EE300B3879B /* EndPoint.swift */,
-				8C22A96E2C1C5EA200B3879B /* EndPointProtocol.swift */,
-			);
-			path = EndPoint;
 			sourceTree = "<group>";
 		};
 		8C22A9722C1C5F1000B3879B /* Repository */ = {
@@ -460,7 +446,6 @@
 				FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */,
 				8CA3EB0A2C1C70F900514134 /* PassowordChangeViewModel.swift in Sources */,
 				6F7535452C19956E003D12AC /* RegisterView.swift in Sources */,
-				8C22A9712C1C5EE300B3879B /* EndPoint.swift in Sources */,
 				6F75354D2C199C3B003D12AC /* CustomCheckBox.swift in Sources */,
 				8C264F482C2446ED00FDAAE3 /* RegisterViewModel.swift in Sources */,
 				8C22A9692C1C5E5400B3879B /* JSONConverter.swift in Sources */,
@@ -470,7 +455,6 @@
 				FBEA6C9F2C1C16BB008953CB /* PasswordChangeView.swift in Sources */,
 				FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */,
 				8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */,
-				8C22A96F2C1C5EA200B3879B /* EndPointProtocol.swift in Sources */,
 				8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */,
 				FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */,
 				8C22A9742C1C5F1800B3879B /* HTTPAuthRepository.swift in Sources */,

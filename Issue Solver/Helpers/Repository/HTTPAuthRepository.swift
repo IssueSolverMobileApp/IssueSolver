@@ -14,7 +14,7 @@ class HTTPAuthRepository {
     
     func register(body: RegisterModel) async throws -> SuccessModel? {
         do {
-            return try await http.POST(endPoint: EndPoint.auth(.register).url, body: JSONConverter().encode(input: body))
+            return try await http.POST(endPoint: EndPoint.auth(.register), body: JSONConverter().encode(input: body))
         }
         catch {
             throw error
@@ -24,7 +24,7 @@ class HTTPAuthRepository {
     
     func login(body: LoginModel) async throws -> LoginSuccessModel? {
         do {
-            return try await http.POST(endPoint: EndPoint.auth(.login).url, body: JSONConverter().encode(input: body))
+            return try await http.POST(endPoint: EndPoint.auth(.login), body: JSONConverter().encode(input: body))
         }
         catch {
             throw error
@@ -33,7 +33,7 @@ class HTTPAuthRepository {
     
     func confirmOTP(body: OTPModel) async throws -> SuccessModel? {
         do {
-            return try await http.GET(endPoint: EndPoint.auth(.confirmOTP).url)
+            return try await http.GET(endPoint: EndPoint.auth(.confirmOTP))
         }
         catch {
             throw error
@@ -42,7 +42,7 @@ class HTTPAuthRepository {
     
     func otpTrust(body: OTPModel) async throws -> IDTokenSuccessModel? {
         do {
-            return try await http.POST(endPoint: EndPoint.auth(.trustOTP).url, body: JSONConverter().encode(input: body))
+            return try await http.POST(endPoint: EndPoint.auth(.trustOTP), body: JSONConverter().encode(input: body))
         }
         catch {
             throw error
@@ -52,7 +52,7 @@ class HTTPAuthRepository {
     
     func resendOTP(body: EmailModel) async throws -> SuccessModel? {
         do {
-            return try await http.POST(endPoint: EndPoint.auth(.resendOTP).url, body: JSONConverter().encode(input: body))
+            return try await http.POST(endPoint: EndPoint.auth(.resendOTP), body: JSONConverter().encode(input: body))
         }
         catch {
             throw error
@@ -61,7 +61,7 @@ class HTTPAuthRepository {
     
     func forgetPassword(body: EmailModel) async throws -> SuccessModel? {
         do {
-            return try await http.POST(endPoint: EndPoint.auth(.forgetPassword).url, body: JSONConverter().encode(input: body))
+            return try await http.POST(endPoint: EndPoint.auth(.forgetPassword), body: JSONConverter().encode(input: body))
         }
         catch {
             throw error
@@ -70,7 +70,7 @@ class HTTPAuthRepository {
     
     func resetPassword(body: ResetPasswordModel) async throws -> SuccessModel? {
         do {
-            return try await http.POST(endPoint: EndPoint.auth(.resetPassword).url, body: JSONConverter().encode(input: body))
+            return try await http.POST(endPoint: EndPoint.auth(.resetPassword), body: JSONConverter().encode(input: body))
         }
         catch {
             throw error

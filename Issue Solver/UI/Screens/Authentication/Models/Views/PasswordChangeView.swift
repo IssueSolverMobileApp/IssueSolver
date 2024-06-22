@@ -26,6 +26,12 @@ struct PasswordChangeView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
         }
+//        MARK: --- Reason: Test
+//        .task {
+//            do {
+//                await vm.sendOTP()
+//            }
+//        }
     }
     
     //Title View
@@ -48,6 +54,9 @@ struct PasswordChangeView: View {
     var renewButtonView: some View {
         CustomButton(title: "Yenilə") {
             // TODO: action must be added here
+            Task {
+                await vm.updatePassword()
+            }
         }
     }
     
