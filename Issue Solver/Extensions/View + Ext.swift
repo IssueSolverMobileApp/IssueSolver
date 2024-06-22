@@ -35,6 +35,9 @@ extension View {
         // Text Button
         case .textButton:
             return self.font(.jakartaFont(weight: .medium, size: 15))
+        // Row title
+        case .rowTitle:
+            return self.font(.jakartaFont(weight: .semiBold, size: 15))
         // If these ready-to-use are not enough, we can use custom font
         case .custom(let weight, let size):
             return self.font(.jakartaFont(weight: weight, size: size))
