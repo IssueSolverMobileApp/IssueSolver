@@ -11,3 +11,17 @@ import Foundation
 struct LoginModel: Codable {
     let email, password: String?
 }
+
+// MARK: - OTPSuccessModel
+struct LoginSuccessModel: Codable {
+    let data: TokenModel?
+    let success: Bool?
+    let status: Int?
+    let message: String?
+}
+
+// MARK: - DataClass
+struct TokenModel: Codable {
+    let accessToken, refreshToken: String?
+}
+

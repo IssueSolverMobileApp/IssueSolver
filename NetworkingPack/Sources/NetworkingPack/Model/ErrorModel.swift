@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ErrorModel: Codable {
+public struct ErrorModel: Codable {
     let timeSpam: String?
     let url: String?
     let title: String?

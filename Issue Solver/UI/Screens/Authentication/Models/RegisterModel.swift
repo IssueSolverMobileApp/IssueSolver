@@ -7,34 +7,14 @@
 
 import Foundation
 
+// MARK: - RegisterModel
 struct RegisterModel: Codable {
-    let email, fullName, password: String?
-    let confirmPassword: String?
+    let email, fullName, password, confirmPassword: String
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: CodingKey {
         case email
-        case fullName = "firstName"
+        case fullName
         case password
         case confirmPassword
-    }
-}
-
-// MARK: - RegisterErrorModel
-struct ErrorModel: Codable {
-    let errors: String?
-    let type: String?
-    let title: String?
-    let status: Int?
-    let detail, instance: String?
-    let extensions: String?
-
-    enum CodingKeys: String, CodingKey {
-        case errors = "Errors"
-        case type = "Type"
-        case title = "Title"
-        case status = "Status"
-        case detail = "Detail"
-        case instance = "Instance"
-        case extensions = "Extensions"
     }
 }

@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+final class OTPViewModel: ObservableObject {
+    
+    private var authRepository = HTTPAuthRepository()
+    
+    
+}

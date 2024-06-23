@@ -1,13 +1,13 @@
 //
 //  EndPoint.swift
-//  Issue Solver
+//  
 //
-//  Created by ValehAmirov on 14.06.24.
+//  Created by Valeh Amirov on 22.06.24.
 //
 
 import Foundation
 
-enum EndPoint: EndPointProtocol {
+public enum EndPoint: EndPointProtocol {
     
     case auth(AuthEndPoint)
     
@@ -19,7 +19,7 @@ enum EndPoint: EndPointProtocol {
     }
 }
 
-enum AuthEndPoint: EndPointProtocol {
+public enum AuthEndPoint: EndPointProtocol {
     
     case register
     case login
@@ -50,4 +50,17 @@ enum AuthEndPoint: EndPointProtocol {
             return "\(baseURL)Auths/otp-trust"
         }
     }
+}
+
+protocol EndPointProtocol {
+    var baseURL: String { get }
+    var url: String { get }
+}
+
+extension EndPointProtocol {
+    
+    var baseURL: String {
+        return "https://govermentauthapi20240610022027.azurewebsites.net/api/"
+    }
+
 }

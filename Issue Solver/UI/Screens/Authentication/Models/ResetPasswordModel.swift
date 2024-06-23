@@ -9,5 +9,6 @@ import Foundation
 
 // MARK: - ResetPasswordModel
 struct ResetPasswordModel: Codable {
-    let otpCode, password, confirmPassword: String?
+    let password, confirmPassword: String?
 }
+
