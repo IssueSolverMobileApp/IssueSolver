@@ -10,13 +10,13 @@ import SwiftUI
 struct DeleteAccountView: View {
     
     @StateObject var vm = DeleteAccountViewModel()
+    @Environment (\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
             VStack(alignment: .leading, spacing: 24) {
-                backButtonView
                 titleView
                 textFieldView
                 Spacer()
@@ -28,11 +28,19 @@ struct DeleteAccountView: View {
         .onTapGesture {
             hideKeyboard()
         }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                backButtonView
+            }
+        }
     }
     
    ///Back Button View
     var backButtonView: some View {
-        CustomButton(style: .back, title: "") {}
+        CustomButton(style: .back, title: "") {
+            dismiss()
+        }
     }
     
     /// Title View
