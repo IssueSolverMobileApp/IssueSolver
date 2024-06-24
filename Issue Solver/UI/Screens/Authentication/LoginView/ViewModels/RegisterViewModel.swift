@@ -22,7 +22,6 @@ class RegisterViewModel: ObservableObject {
         do {
             let result = try await authRepository.register(body: item)
             completion(result?.success ?? false)
-            //            navigateOTPView = result?.success ?? false
             print(result ?? "has no result")
         } catch {
             print(error.localizedDescription)

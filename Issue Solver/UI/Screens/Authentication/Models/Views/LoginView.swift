@@ -27,15 +27,18 @@ struct LoginView: View {
                 }
                 loginButtonView
             }
-            .padding([.horizontal, .vertical], 16)
+            .padding([.horizontal, .vertical], 16) /// - Use [] to put paddings as many as needed
             
         }
         
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
+            
         }
     }
+    
+    
     
     // Title View
     var titleView: some View {
@@ -94,7 +97,9 @@ struct LoginView: View {
     var canContinue: Bool {
         return !vm.emailText.isEmpty && !vm.passwordText.isEmpty
     }
+    
 }
+
 
 #Preview {
     LoginView()

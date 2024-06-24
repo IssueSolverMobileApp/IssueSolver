@@ -46,6 +46,7 @@ struct CustomTextField: View {
                         TextField(placeholder ?? "", text: $text)
                     } else {
                         SecureField(placeholder ?? "", text: $text)
+                            
                     }
                     HStack {
                         showPasswordButtonView
@@ -53,6 +54,8 @@ struct CustomTextField: View {
                 }
             }
         }
+        .autocorrectionDisabled()
+        .textInputAutocapitalization(.never)
         .padding()
         .background {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
