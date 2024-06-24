@@ -11,6 +11,8 @@ struct CustomTextField: View {
     var placeholder: String?
     var title: String?
     var isSecure: Bool = false
+    var textColor: Color?
+    var color: Color?
     
     @Binding var text: String
     @State var isShowPassword: Bool = false
@@ -28,6 +30,7 @@ struct CustomTextField: View {
             if let title {
                 Text(title)
                     .jakartaFont(.heading)
+                    .foregroundStyle(textColor ?? .black)
             }
         }
     }
@@ -53,7 +56,7 @@ struct CustomTextField: View {
         .padding()
         .background {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                .fill(Color(.systemBackground))
+                .fill(color ?? .white)
         }
         .jakartaFont(.heading)
     }

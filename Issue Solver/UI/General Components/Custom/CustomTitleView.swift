@@ -12,10 +12,13 @@ struct CustomTitleView: View {
     var subtitle: String?
     var dividerSize: CGFloat? = 0.4
     
+    var color: Color? 
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
                 .jakartaFont(.title)
+                .foregroundStyle(color ?? .black)
             if let subtitle {
                 Text(subtitle)
                     .jakartaFont(.subtitle)
@@ -23,6 +26,7 @@ struct CustomTitleView: View {
             }
             customDivider
         }
+        .padding(.bottom, 16)
         .multilineTextAlignment(.leading)
       
     }

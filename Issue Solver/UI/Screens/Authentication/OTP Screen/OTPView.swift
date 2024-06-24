@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct OTPView: View {
-    
+  
+    @StateObject var vm = OTPViewModel()
+    @Environment (\.dismiss) private var dismiss
+    @State var isChangePassword: Bool = false
+    @State var navigateLoginView: Bool = false
+    @State var navigatePasswordChangeView: Bool = false
+        
     var body: some View {
         
         ZStack {
@@ -16,9 +22,10 @@ struct OTPView: View {
                 .ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 24) {
-                backButtonView
                 titleView
-                OTPTextField(numberOfFields: 6)
+                OTPTextField(numberOfFields: 6) { code in
+                    vm.otpText = code
+                }
                 timerView
                 Spacer()
                 confirmButtonView
@@ -26,13 +33,23 @@ struct OTPView: View {
             .padding(.top, 24)
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
-
+            }
+        
+        .onTapGesture {
+            hideKeyboard()
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                backButtonView
             }
         }
+    }
     
     // Back Button View
     var backButtonView: some View {
         CustomButton(style: .back, title: "") {
+            dismiss()
         }
     }
     
@@ -58,7 +75,32 @@ struct OTPView: View {
             
             CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
                // TODO: action must be added here
+                if isChangePassword  {
+                    Task {
+                        await vm.sendOTPTrust()
+                    }
+                    navigatePasswordChangeView = true
+                } else {
+                    Task {
+                        await vm.sendOTPConfirm() 
+                    }
+                    navigateLoginView = true
+
+                }
             }
+            .background(
+                NavigationLink(
+                   destination: PasswordChangeView(),
+                   isActive: $navigatePasswordChangeView,
+                   label: {})
+            )  
+            .background(
+                NavigationLink(
+                   destination: LoginView(),
+                   isActive: $navigateLoginView,
+                   label: {})
+            )
+            
             
             CustomButton(style: .text, title: "Kodu yenidən göndər") {
                 
@@ -67,7 +109,6 @@ struct OTPView: View {
         }
     }
 }
-
 
 #Preview {
     OTPView()

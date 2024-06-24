@@ -14,4 +14,15 @@ class PasswordChangeViewModel: ObservableObject {
     @Published var passwordText: String = ""
     @Published var confirmPasswordText: String = ""
     
+    
+    func updatePassword() async {
+        let item = ResetPasswordModel(password: passwordText, confirmPassword: confirmPasswordText)
+        do {
+            let result = try await authRepository.resetPassword(body: item)
+            print(result ?? "")
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
 }

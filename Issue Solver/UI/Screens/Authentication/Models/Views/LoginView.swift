@@ -9,21 +9,30 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject var vm = LoginViewModel()
+    @State private var navigateToEmailVerificationView = false
+    @State private var navigateToRegisterView = false
     
     var body: some View {
-        ZStack {
-            Color.surfaceBackground.ignoresSafeArea()
-            
-            VStack(alignment: .leading, spacing: 24) {
-                titleView
-                textFieldsView
-                Spacer()
-                loginButtonView
+        NavigationView {
+            ZStack {
+                Color.surfaceBackground.ignoresSafeArea()
+                
+                VStack {
+                    ScrollView(showsIndicators: false) {
+                        VStack(alignment: .leading, spacing: 24) {
+                            titleView
+                            textFieldsView
+                            Spacer()
+                        }
+                    }
+                    loginButtonView
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
+                
             }
-            .padding(.top, 24)
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
         }
+        .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
         }
@@ -45,32 +54,46 @@ struct LoginView: View {
             
             // Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
-                
+                navigateToEmailVerificationView = true
             }
+            .background(
+            NavigationLink(
+               destination: EmailVerificationView(),
+               isActive: $navigateToEmailVerificationView,
+               label: {}))
         }
     }
     
     var loginButtonView: some View {
         VStack {
             // Log in Button View
-            CustomButton(title: "Daxil ol") {
+            CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+
                 Task {
                     await vm.login()
                 }
             }
+            .disabled(vm.emailText.isEmpty && vm.passwordText.isEmpty)
             
             // Email Exists Button View
             HStack {
                 Text("Hesabınız yoxdur?")
                     .foregroundColor(.secondaryGray)
                 CustomButton(style: .text, title: "Qeydiyyatdan keçin") {
-                    
+                    navigateToRegisterView = true
                 }
+                .background(
+                NavigationLink(
+                   destination: RegisterView(),
+                   isActive: $navigateToRegisterView,
+                   label: {}))
             }
             .jakartaFont(.subtitle)
             .padding(.top, 8)
         }
-        .padding()
+    }
+    var canContinue: Bool {
+        return !vm.emailText.isEmpty && !vm.passwordText.isEmpty
     }
 }
 

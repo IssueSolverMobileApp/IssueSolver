@@ -9,13 +9,13 @@ import SwiftUI
 
 struct EmailVerificationView: View {
     @StateObject var vm = EmailVerificationViewModel()
+    @Environment (\.dismiss) private var dismiss
+    @State private var navigateOTPView = false
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
-            
             VStack(alignment: .leading, spacing: 24 ) {
-                backButtonView
                 titleView
                 textFieldView
                 Spacer()
@@ -25,12 +25,21 @@ struct EmailVerificationView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
         }
-        
+        .onTapGesture {
+            hideKeyboard()
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                backButtonView
+            }
+        }
     }
     
     // Back Button View
     var backButtonView: some View {
         CustomButton(style: .back, title: "") {
+            dismiss()
         }
     }
     
@@ -46,12 +55,23 @@ struct EmailVerificationView: View {
     
     //Confirm Email Button
     var confirmButtonView: some View {
-        CustomButton(title: "Təsdiq kodu göndər") {
-            // TODO: action mus be added here
+        CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+            navigateOTPView = true
             Task {
                 await vm.emailVerification()
             }
         }
+        
+        .background(
+        NavigationLink(
+           destination: OTPView(isChangePassword: true),
+           isActive: $navigateOTPView,
+           label: {}))
+        .disabled(vm.emailText.isEmpty)
+    }
+    
+    var canContinue: Bool {
+        !vm.emailText.isEmpty
     }
 }
 

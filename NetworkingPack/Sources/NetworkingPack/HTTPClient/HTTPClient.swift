@@ -19,21 +19,24 @@ public final class HTTPClient {
     ///   - endPoint: gives developer the ability to choose which api to send a request to
     ///   - method: gives deveoper the ability to choose which type of request we want
     ///   - completion: returned generic type information and custom error type
-    private func request<T: Decodable>(endPoint: String, method: HTTPMethod, body: Data?) async throws -> T? {
-        guard let url = URL(string: endPoint) else {
+    private func request<T: Decodable>(endPoint: EndPoint, method: HTTPMethod, body: Data?) async throws -> T? {
+        guard var url = URLComponents(string: endPoint.url) else {
             print(NetworkError.badUrl)
             throw NetworkError.badUrl
         }
         
+        setQueryItem(url: &url)
+
+        guard let url = url.url else { throw NetworkError.badUrl }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
         
-        urlRequest.timeoutInterval = 60
-        
         header.forEach { (key: String, value: String) in
             urlRequest.setValue(value, forHTTPHeaderField: key)
         }
+        
+        urlRequest.timeoutInterval = 60
         
         if let requestBody = body {
             urlRequest.httpBody = requestBody
@@ -42,7 +45,7 @@ public final class HTTPClient {
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
         do {
-            return try await checkStatus(response: response, data: data, urlRequest: urlRequest, method: method)
+            return try await checkStatus(endPoint: endPoint, response: response, data: data, urlRequest: urlRequest, method: method)
         }
         catch {
             try await self.checkError(error: error)
@@ -67,10 +70,10 @@ public final class HTTPClient {
         throw NetworkError.unknowned
     }
     
-    func checkStatus<T: Decodable>(response: URLResponse? , data: Data?, urlRequest: URLRequest, method: HTTPMethod) async throws -> T? {
+    func checkStatus<T: Decodable>(endPoint: EndPoint, response: URLResponse?, data: Data?, urlRequest: URLRequest, method: HTTPMethod) async throws -> T? {
         
         if let response = response as? HTTPURLResponse {
-            guard response.statusCode == 200 else {
+            guard response.statusCode == 200 || response.statusCode == 201 else {
                 do {
                     if let httpBody = urlRequest.httpBody {
                         print(try JSONSerialization.jsonObject(with: httpBody))
@@ -107,6 +110,7 @@ public final class HTTPClient {
             
             do {
                 let decode = try JSONDecoder().decode(T.self, from: data)
+                getQueryItem(endPoint: endPoint, decodable: decode)
                 return decode
             }
             catch {
@@ -115,6 +119,21 @@ public final class HTTPClient {
             }
         }
         throw NetworkError.statusError
+    }
+    
+    func getQueryItem(endPoint: EndPoint, decodable: Decodable) {
+        if endPoint.url == AuthEndPoint.trustOTP.url {
+            if let data = decodable as? IDTokenSuccessModel {
+                UserDefaults.standard.queryToken = data.data
+            }
+        }
+    }
+    
+    func setQueryItem(url: inout URLComponents) {
+        guard let token = UserDefaults.standard.queryToken else { return }
+        url.queryItems = [URLQueryItem(name: "token", value: token)]
+        
+        UserDefaults.standard.queryToken = nil
     }
     
     /// When developer use decode and got error it will check developer's error
@@ -142,7 +161,7 @@ public final class HTTPClient {
 }
 extension HTTPClient {
     
-    public func GET<T: Decodable>(endPoint: String) async throws -> T?  {
+    public func GET<T: Decodable>(endPoint: EndPoint) async throws -> T?  {
         do {
             return try await request(endPoint: endPoint, method: .GET, body: nil)
         }
@@ -151,7 +170,7 @@ extension HTTPClient {
         }
     }
     
-    public func POST<T: Decodable>(endPoint: String, body: Data?) async throws -> T? {
+    public func POST<T: Decodable>(endPoint: EndPoint, body: Data?) async throws -> T? {
         do {
            return try await request(endPoint: endPoint, method: .POST, body: body)
         }

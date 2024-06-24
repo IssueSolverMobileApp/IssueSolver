@@ -16,10 +16,13 @@ class RegisterViewModel: ObservableObject {
     @Published var passwordText: String = ""
     @Published var confirmPasswordText: String = ""
     
-    func register() async {
+    
+    func register(completion: @escaping (Bool) -> Void) async {
         let item = RegisterModel(email: emailText, fullName: fullNameText, password: passwordText, confirmPassword: confirmPasswordText)
         do {
             let result = try await authRepository.register(body: item)
+            completion(result?.success ?? false)
+            //            navigateOTPView = result?.success ?? false
             print(result ?? "has no result")
         } catch {
             print(error.localizedDescription)

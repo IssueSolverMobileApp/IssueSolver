@@ -14,9 +14,12 @@ struct OTPTextField: View {
     @State var enterValue: [String]
     @FocusState private var fieldFocus: Int?
     
-    init(numberOfFields: Int) {
+    let completion: (String) -> Void
+    
+    init(numberOfFields: Int, completion: @escaping (String) -> Void) {
         self.numberOfFields = numberOfFields
         self.enterValue =  Array(repeating: "", count: numberOfFields)
+        self.completion = completion
     }
     
     var body: some View {
@@ -50,6 +53,7 @@ struct OTPTextField: View {
                             } else if newValue.isEmpty && index > 0 {
                                 fieldFocus = index - 1
                             }
+                            completion(creatString())
                         }
                         .onTapGesture {
                             fieldFocus = index
@@ -63,8 +67,18 @@ struct OTPTextField: View {
         }
         .frame(height: 64)
     }
+    
+    func creatString() -> String {
+        var newString: String = ""
+        enterValue.forEach { result in
+            newString.append(result)
+        }
+        
+         return newString
+    }
+    
 }
 
 #Preview {
-    OTPTextField(numberOfFields: 6)
+    OTPTextField(numberOfFields: 6) {code in}
 }
