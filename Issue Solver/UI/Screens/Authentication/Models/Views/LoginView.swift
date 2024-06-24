@@ -9,24 +9,30 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject var vm = LoginViewModel()
+    @State private var navigateToEmailVerificationView = false
+    @State private var navigateToRegisterView = false
     
     var body: some View {
-        ZStack {
-            Color.surfaceBackground.ignoresSafeArea()
-            
-            VStack {
-                ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 24) {
-                    titleView
-                    textFieldsView
-                    Spacer()
+        NavigationView {
+            ZStack {
+                Color.surfaceBackground.ignoresSafeArea()
+                
+                VStack {
+                    ScrollView(showsIndicators: false) {
+                        VStack(alignment: .leading, spacing: 24) {
+                            titleView
+                            textFieldsView
+                            Spacer()
+                        }
+                    }
+                    loginButtonView
                 }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
+                
             }
-                loginButtonView
         }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
-    }
+        .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
         }
@@ -48,8 +54,13 @@ struct LoginView: View {
             
             // Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
-            
+                navigateToEmailVerificationView = true
             }
+            .background(
+            NavigationLink(
+               destination: EmailVerificationView(),
+               isActive: $navigateToEmailVerificationView,
+               label: {}))
         }
     }
     
@@ -57,6 +68,7 @@ struct LoginView: View {
         VStack {
             // Log in Button View
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+
                 Task {
                     await vm.login()
                 }
@@ -68,8 +80,13 @@ struct LoginView: View {
                 Text("Hesabınız yoxdur?")
                     .foregroundColor(.secondaryGray)
                 CustomButton(style: .text, title: "Qeydiyyatdan keçin") {
-                    
+                    navigateToRegisterView = true
                 }
+                .background(
+                NavigationLink(
+                   destination: RegisterView(),
+                   isActive: $navigateToRegisterView,
+                   label: {}))
             }
             .jakartaFont(.subtitle)
             .padding(.top, 8)

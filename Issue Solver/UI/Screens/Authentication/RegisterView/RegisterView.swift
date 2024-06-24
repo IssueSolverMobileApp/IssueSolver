@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @Environment (\.dismiss) var dismiss
     @StateObject var vm = RegisterViewModel()
     
     // Dummy variables
@@ -32,6 +33,7 @@ struct RegisterView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
         }
+        .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
         }
@@ -97,7 +99,7 @@ struct RegisterView: View {
                 Text("Hesabınız var mı?")
                     .foregroundColor(.secondaryGray)
                 CustomButton(style: .text, title: "Daxil olun") {
-                  
+                  dismiss()
                 }
             }
             .jakartaFont(.subtitle)
