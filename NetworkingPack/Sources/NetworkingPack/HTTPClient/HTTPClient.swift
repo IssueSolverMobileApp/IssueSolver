@@ -73,7 +73,7 @@ public final class HTTPClient {
     func checkStatus<T: Decodable>(endPoint: EndPoint, response: URLResponse?, data: Data?, urlRequest: URLRequest, method: HTTPMethod) async throws -> T? {
         
         if let response = response as? HTTPURLResponse {
-            guard response.statusCode == 200 else {
+            guard response.statusCode == 200 || response.statusCode == 201 else {
                 do {
                     if let httpBody = urlRequest.httpBody {
                         print(try JSONSerialization.jsonObject(with: httpBody))

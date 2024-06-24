@@ -11,6 +11,9 @@ struct OTPView: View {
   
     @StateObject var vm = OTPViewModel()
     @Environment (\.dismiss) private var dismiss
+    @State var isChangePassword: Bool = false
+    @State var navigateLoginView: Bool = false
+    @State var navigatePasswordChangeView: Bool = false
         
     var body: some View {
         
@@ -21,7 +24,7 @@ struct OTPView: View {
             VStack(alignment: .leading, spacing: 24) {
                 titleView
                 OTPTextField(numberOfFields: 6) { code in
-                    vm.text = code
+                    vm.otpText = code
                 }
                 timerView
                 Spacer()
@@ -72,7 +75,31 @@ struct OTPView: View {
             
             CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
                // TODO: action must be added here
+                if isChangePassword  {
+                    Task {
+                        await vm.sendOTPTrust()
+                    }
+                    navigatePasswordChangeView = true
+                } else {
+                    Task {
+                        await vm.sendOTPConfirm() 
+                    }
+                    navigateLoginView = true
+
+                }
             }
+            .background(
+                NavigationLink(
+                   destination: PasswordChangeView(),
+                   isActive: $navigatePasswordChangeView,
+                   label: {})
+            )  
+            .background(
+                NavigationLink(
+                   destination: LoginView(),
+                   isActive: $navigateLoginView,
+                   label: {})
+            )
             
             
             CustomButton(style: .text, title: "Kodu yenidən göndər") {
@@ -82,7 +109,6 @@ struct OTPView: View {
         }
     }
 }
-
 
 #Preview {
     OTPView()

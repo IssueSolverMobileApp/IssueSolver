@@ -16,11 +16,11 @@ public struct ErrorModel: Codable {
     let message: String?
     
     enum CodingKeys: String, CodingKey {
-        case timeSpam = "TimeSpam"
-        case url = "Url"
-        case title = "Title"
-        case success = "Success"
-        case status = "Status"
-        case message = "Message"
+        case timeSpam = "timeSpam"
+        case url = "url"
+        case title = "title"
+        case success = "success"
+        case status = "status"
+        case message = "message"
     }
 }

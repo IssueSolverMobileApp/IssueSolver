@@ -10,32 +10,37 @@ import SwiftUI
 struct RegisterView: View {
     @Environment (\.dismiss) var dismiss
     @StateObject var vm = RegisterViewModel()
+    @State var navigateOTPView: Bool = false
+
     
     // Dummy variables
     @State var isChecked: Bool = false
     
     var body: some View {
-        ZStack {
-            Color.surfaceBackground.ignoresSafeArea()
-            
-            VStack {
-                ScrollView(showsIndicators: false) {
-                    VStack (spacing: 24){
-                        VStack {
-                            titleView
-                            textFieldsView
-                            Spacer()
+        NavigationView {
+            ZStack {
+                Color.surfaceBackground.ignoresSafeArea()
+                
+                VStack {
+                    ScrollView(showsIndicators: false) {
+                        VStack (spacing: 24){
+                            VStack {
+                                titleView
+                                textFieldsView
+                                Spacer()
+                            }
                         }
                     }
+                    continueButtonView
                 }
-                continueButtonView
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
-        }
-        .navigationBarBackButtonHidden(true)
-        .onTapGesture {
-            hideKeyboard()
+            .navigationBarBackButtonHidden(true)
+            .onTapGesture {
+                hideKeyboard()
+            }
+            .navigationBarBackButtonHidden(false)
         }
     }
     
@@ -72,15 +77,15 @@ struct RegisterView: View {
     var checkboxView: some View {
         HStack {
             CustomCheckBox(isChecked: $isChecked)
-                
-                Text("İstifadəçi şərtləri və Məxfilik siyasəti")
+            
+            Text("İstifadəçi şərtləri və Məxfilik siyasəti")
                 .foregroundColor(.primaryBlue)
-//                .onTapGesture {
-//                  //functionality must be added
-//                    print("Privacy Policy tapped")
-//                }
+            //                .onTapGesture {
+            //                  //functionality must be added
+            //                    print("Privacy Policy tapped")
+            //                }
             +
-                Text(" qəbul edirəm.")
+            Text(" qəbul edirəm.")
             
         }
         .jakartaFont(.subtitle)
@@ -88,18 +93,30 @@ struct RegisterView: View {
     
     var continueButtonView: some View {
         VStack {
+            
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
-                    await vm.register()
+                    
+                    await vm.register { boolean in
+                        navigateOTPView = boolean
+                    }
+                    
                 }
             }
+            .background(
+                NavigationLink(destination: OTPView(isChangePassword: false),
+                               isActive: $navigateOTPView,
+                                       label: {})
+            )
+            
+            
             .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty && vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !isChecked)
             
             HStack {
                 Text("Hesabınız var mı?")
                     .foregroundColor(.secondaryGray)
                 CustomButton(style: .text, title: "Daxil olun") {
-                  dismiss()
+                    dismiss()
                 }
             }
             .jakartaFont(.subtitle)
