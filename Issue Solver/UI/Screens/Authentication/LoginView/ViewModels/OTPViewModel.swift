@@ -9,7 +9,8 @@ import Foundation
 
 final class OTPViewModel: ObservableObject {
     
-    private var authRepository = HTTPAuthRepository()
+    @Published var text: String = ""
     
+    private var authRepository = HTTPAuthRepository()
     
 }
