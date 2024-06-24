@@ -14,7 +14,6 @@ struct EmailVerificationView: View {
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
-            
             VStack(alignment: .leading, spacing: 24 ) {
                 titleView
                 textFieldView
@@ -55,12 +54,16 @@ struct EmailVerificationView: View {
     
     //Confirm Email Button
     var confirmButtonView: some View {
-        CustomButton(title: "Təsdiq kodu göndər") {
+        CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
             // TODO: action mus be added here
             Task {
                 await vm.emailVerification()
             }
         }
+    }
+    
+    var canContinue: Bool {
+        !vm.emailText.isEmpty
     }
 }
 

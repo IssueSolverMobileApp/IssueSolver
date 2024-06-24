@@ -26,6 +26,9 @@ struct PasswordChangeView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
 //        MARK: --- Reason: Test
 //        .task {
 //            do {
@@ -52,14 +55,16 @@ struct PasswordChangeView: View {
     
     // Renew Button View
     var renewButtonView: some View {
-        CustomButton(title: "Yenilə") {
+        CustomButton(title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
             // TODO: action must be added here
             Task {
                 await vm.updatePassword()
             }
         }
     }
-    
+    var canContinue: Bool {
+        !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty
+    }
 }
 
 #Preview {

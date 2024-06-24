@@ -54,14 +54,14 @@ struct DeleteAccountView: View {
         CustomTextField(placeholder: "***********",title: "Şifrə",isSecure: true, text: $vm.passwordText)
     }
 
-    
     /// saveChangesButtonView
     var deleteAccountButtonView: some View {
         
-        CustomButton(style:.rounded,title: "Hesabı sil") {}
-            .padding(.vertical, -54)
+        CustomButton(style:.rounded,title: "Hesabı sil", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {}
     }
-        
+    var canContinue: Bool {
+        !vm.passwordText.isEmpty
+    }
 }
 
 #Preview {

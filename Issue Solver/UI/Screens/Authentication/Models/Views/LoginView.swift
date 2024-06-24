@@ -14,16 +14,19 @@ struct LoginView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            VStack(alignment: .leading, spacing: 24) {
-                titleView
-                textFieldsView
-                Spacer()
-                loginButtonView
+            VStack {
+                ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 24) {
+                    titleView
+                    textFieldsView
+                    Spacer()
+                }
             }
-            .padding(.top, 24)
+                loginButtonView
+        }
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
-        }
+    }
         .onTapGesture {
             hideKeyboard()
         }
@@ -53,7 +56,7 @@ struct LoginView: View {
     var loginButtonView: some View {
         VStack {
             // Log in Button View
-            CustomButton(title: "Daxil ol") {
+            CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
                     await vm.login()
                 }
@@ -70,7 +73,9 @@ struct LoginView: View {
             .jakartaFont(.subtitle)
             .padding(.top, 8)
         }
-        .padding()
+    }
+    var canContinue: Bool {
+        return !vm.emailText.isEmpty && !vm.passwordText.isEmpty
     }
 }
 
