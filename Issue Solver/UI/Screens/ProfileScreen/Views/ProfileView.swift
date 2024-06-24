@@ -48,10 +48,11 @@ struct ProfileView: View {
                           handler: { navigateToMyAccountView = true })
 
              .frame(height: 86)
+             .background(
              NavigationLink(
                 destination: MyAccountView(),
                 isActive: $navigateToMyAccountView,
-                label: { EmptyView() })
+                label: { EmptyView() }))
             
             ///Change Password View
             NavigationLink(destination: NewPasswordView()) {

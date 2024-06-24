@@ -48,7 +48,7 @@ struct LoginView: View {
             
             // Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
-                
+            
             }
         }
     }
