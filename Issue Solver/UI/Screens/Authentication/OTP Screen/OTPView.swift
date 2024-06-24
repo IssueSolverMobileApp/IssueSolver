@@ -10,6 +10,7 @@ import SwiftUI
 struct OTPView: View {
   
     @StateObject var vm = OTPViewModel()
+    @Environment (\.dismiss) private var dismiss
         
     var body: some View {
         
