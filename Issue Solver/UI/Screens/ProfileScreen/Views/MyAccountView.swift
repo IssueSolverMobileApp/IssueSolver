@@ -10,13 +10,13 @@ import SwiftUI
 struct MyAccountView: View {
     
     @StateObject var vm = MyAccountViewModel()
+    @Environment (\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
             VStack(alignment: .leading, spacing: 24) {
-                backButtonView
                 titleView
                 textFieldView
                 Spacer()
@@ -28,11 +28,19 @@ struct MyAccountView: View {
         .onTapGesture {
             hideKeyboard()
         }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                backButtonView
+            }
+        }
     }
     
    ///Back Button View
     var backButtonView: some View {
-        CustomButton(style: .back, title: "") {}
+        CustomButton(style: .back, title: "") {
+            dismiss()
+        }
     }
     
     /// Title View
@@ -58,10 +66,15 @@ struct MyAccountView: View {
     
     /// saveChangesButtonView
     var saveChangesButtonView: some View {
-        CustomButton(style:.rounded,title: "Dəyişiklikləri yadda saxla") {}
-            .padding(.vertical, -54)
+        CustomButton(style:.rounded,title: "Dəyişiklikləri yadda saxla", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+            
+        }
+        .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty)
     }
-        
+    
+    var canContinue: Bool {
+        !vm.fullNameText.isEmpty && !vm.emailText.isEmpty
+    }
 }
 
 #Preview {

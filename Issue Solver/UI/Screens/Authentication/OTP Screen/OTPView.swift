@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OTPView: View {
+  
     @StateObject var vm = OTPViewModel()
         
     var body: some View {
@@ -17,7 +18,6 @@ struct OTPView: View {
                 .ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 24) {
-                backButtonView
                 titleView
                 OTPTextField(numberOfFields: 6) { code in
                     vm.text = code
@@ -29,13 +29,23 @@ struct OTPView: View {
             .padding(.top, 24)
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
-
+            }
+        
+        .onTapGesture {
+            hideKeyboard()
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                backButtonView
             }
         }
+    }
     
     // Back Button View
     var backButtonView: some View {
         CustomButton(style: .back, title: "") {
+            dismiss()
         }
     }
     
@@ -62,6 +72,7 @@ struct OTPView: View {
             CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
                // TODO: action must be added here
             }
+            
             
             CustomButton(style: .text, title: "Kodu yenidən göndər") {
                 

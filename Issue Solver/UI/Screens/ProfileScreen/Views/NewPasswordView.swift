@@ -10,29 +10,42 @@ import SwiftUI
 struct NewPasswordView: View {
     
     @StateObject var vm = NewPasswordViewModel()
+    @Environment (\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            VStack(alignment: .leading, spacing: 24) {
-                backButtonView
-                titleView
-                textFieldView
-                Spacer()
+            VStack {
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 24) {
+                        titleView
+                        textFieldView
+                        Spacer()
+                        
+                    }
+                }
                 renewButtonView
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 24)
+            .padding(.bottom, 24)
         }
         .onTapGesture {
             hideKeyboard()
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                backButtonView
+            }
         }
     }
     
    ///Back Button View
     var backButtonView: some View {
-        CustomButton(style: .back, title: "") {}
+        CustomButton(style: .back, title: "") {
+            dismiss()
+        }
     }
     
     /// Title View
@@ -61,10 +74,14 @@ struct NewPasswordView: View {
     
     /// Renew button
     var renewButtonView: some View {
-        CustomButton(style:.rounded,title: "Yenilə") {}
-            .padding(.vertical, -54)
+        CustomButton(style:.rounded,title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+        }
+        .disabled(vm.currentPasswordText.isEmpty && vm.newPasswordText.isEmpty && vm.confirmPasswordtext.isEmpty)
     }
-        
+    
+    var canContinue: Bool {
+        !vm.currentPasswordText.isEmpty && !vm.newPasswordText.isEmpty && !vm.confirmPasswordtext.isEmpty
+    }
 }
 
 #Preview {
