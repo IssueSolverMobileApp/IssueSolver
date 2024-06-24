@@ -78,15 +78,7 @@ struct RegisterView: View {
         HStack {
             CustomCheckBox(isChecked: $isChecked)
             
-            Text("İstifadəçi şərtləri və Məxfilik siyasəti")
-                .foregroundColor(.primaryBlue)
-            //                .onTapGesture {
-            //                  //functionality must be added
-            //                    print("Privacy Policy tapped")
-            //                }
-            +
-            Text(" qəbul edirəm.")
-            
+            TextView(text: "İstifadəçi şərtləri və Məxfilik siyasəti qəbul edirəm", clickableTexts: [Constants.privacyPolicy, Constants.termsOfUse])
         }
         .jakartaFont(.subtitle)
     }

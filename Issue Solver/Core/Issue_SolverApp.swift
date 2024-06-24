@@ -15,10 +15,11 @@ struct Issue_SolverApp: App {
             GeometryReader { proxy in
                 ZStack {
                     
-                    Color.black.ignoresSafeArea()
+//                    Color.black.ignoresSafeArea()
                     VStack {
                         Spacer()
-                        TabBarView(widthOfView: proxy.size.width, selectedTab: $selectedTab)
+//                        TabBarView(widthOfView: proxy.size.width, selectedTab: $selectedTab)
+                        RegisterView()
                     }
                 }
             }
