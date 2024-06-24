@@ -57,7 +57,10 @@ struct DeleteAccountView: View {
     /// saveChangesButtonView
     var deleteAccountButtonView: some View {
         
-        CustomButton(style:.rounded,title: "Hesabı sil", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {}
+        CustomButton(style:.rounded,title: "Hesabı sil", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+            
+        }
+        .disabled(vm.passwordText.isEmpty)
     }
     var canContinue: Bool {
         !vm.passwordText.isEmpty

@@ -61,6 +61,7 @@ struct PasswordChangeView: View {
                 await vm.updatePassword()
             }
         }
+        .disabled(vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty)
     }
     var canContinue: Bool {
         !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty

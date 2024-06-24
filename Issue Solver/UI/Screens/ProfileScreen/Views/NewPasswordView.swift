@@ -74,8 +74,11 @@ struct NewPasswordView: View {
     
     /// Renew button
     var renewButtonView: some View {
-        CustomButton(style:.rounded,title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {}
+        CustomButton(style:.rounded,title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+        }
+        .disabled(vm.currentPasswordText.isEmpty && vm.newPasswordText.isEmpty && vm.confirmPasswordtext.isEmpty)
     }
+    
     var canContinue: Bool {
         !vm.currentPasswordText.isEmpty && !vm.newPasswordText.isEmpty && !vm.confirmPasswordtext.isEmpty
     }

@@ -60,6 +60,7 @@ struct EmailVerificationView: View {
                 await vm.emailVerification()
             }
         }
+        .disabled(vm.emailText.isEmpty)
     }
     
     var canContinue: Bool {

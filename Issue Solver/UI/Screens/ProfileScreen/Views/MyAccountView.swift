@@ -66,7 +66,10 @@ struct MyAccountView: View {
     
     /// saveChangesButtonView
     var saveChangesButtonView: some View {
-        CustomButton(style:.rounded,title: "Dəyişiklikləri yadda saxla", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {}
+        CustomButton(style:.rounded,title: "Dəyişiklikləri yadda saxla", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+            
+        }
+        .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty)
     }
     
     var canContinue: Bool {

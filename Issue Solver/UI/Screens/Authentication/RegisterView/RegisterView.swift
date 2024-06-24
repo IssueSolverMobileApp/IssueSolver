@@ -91,6 +91,7 @@ struct RegisterView: View {
                     await vm.register()
                 }
             }
+            .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty && vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !isChecked)
             
             HStack {
                 Text("Hesabınız var mı?")

@@ -61,6 +61,7 @@ struct LoginView: View {
                     await vm.login()
                 }
             }
+            .disabled(vm.emailText.isEmpty && vm.passwordText.isEmpty)
             
             // Email Exists Button View
             HStack {

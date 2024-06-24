@@ -71,6 +71,7 @@ struct OTPView: View {
                // TODO: action must be added here
             }
             
+            
             CustomButton(style: .text, title: "Kodu yenidən göndər") {
                 
             }
