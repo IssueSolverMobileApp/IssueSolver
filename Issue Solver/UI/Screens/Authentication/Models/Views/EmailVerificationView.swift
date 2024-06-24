@@ -10,6 +10,7 @@ import SwiftUI
 struct EmailVerificationView: View {
     @StateObject var vm = EmailVerificationViewModel()
     @Environment (\.dismiss) private var dismiss
+    @State private var navigateOTPView = false
     
     var body: some View {
         ZStack {
@@ -55,11 +56,17 @@ struct EmailVerificationView: View {
     //Confirm Email Button
     var confirmButtonView: some View {
         CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            // TODO: action mus be added here
+            navigateOTPView = true
             Task {
                 await vm.emailVerification()
             }
         }
+        
+        .background(
+        NavigationLink(
+           destination: OTPView(),
+           isActive: $navigateOTPView,
+           label: {}))
         .disabled(vm.emailText.isEmpty)
     }
     
