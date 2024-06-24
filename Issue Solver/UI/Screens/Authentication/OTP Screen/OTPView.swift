@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct OTPView: View {
-    
+    @StateObject var vm = OTPViewModel()
+        
     var body: some View {
         
         ZStack {
@@ -18,7 +19,9 @@ struct OTPView: View {
             VStack(alignment: .leading, spacing: 24) {
                 backButtonView
                 titleView
-                OTPTextField(numberOfFields: 6)
+                OTPTextField(numberOfFields: 6) { code in
+                    vm.text = code
+                }
                 timerView
                 Spacer()
                 confirmButtonView
