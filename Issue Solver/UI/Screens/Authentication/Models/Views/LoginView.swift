@@ -13,25 +13,24 @@ struct LoginView: View {
     @State private var navigateToRegisterView = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color.surfaceBackground.ignoresSafeArea()
-                
-                VStack {
-                    ScrollView(showsIndicators: false) {
-                        VStack(alignment: .leading, spacing: 24) {
-                            titleView
-                            textFieldsView
-                            Spacer()
-                        }
+        
+        ZStack {
+            Color.surfaceBackground.ignoresSafeArea()
+            
+            VStack {
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 24) {
+                        titleView
+                        textFieldsView
+                        Spacer()
                     }
-                    loginButtonView
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
-                
+                loginButtonView
             }
+            .padding([.horizontal, .vertical], 16)
+            
         }
+        
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
@@ -57,10 +56,10 @@ struct LoginView: View {
                 navigateToEmailVerificationView = true
             }
             .background(
-            NavigationLink(
-               destination: EmailVerificationView(),
-               isActive: $navigateToEmailVerificationView,
-               label: {}))
+                NavigationLink(
+                    destination: EmailVerificationView(),
+                    isActive: $navigateToEmailVerificationView,
+                    label: {}))
         }
     }
     
@@ -68,7 +67,7 @@ struct LoginView: View {
         VStack {
             // Log in Button View
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-
+                
                 Task {
                     await vm.login()
                 }
@@ -83,10 +82,10 @@ struct LoginView: View {
                     navigateToRegisterView = true
                 }
                 .background(
-                NavigationLink(
-                   destination: RegisterView(),
-                   isActive: $navigateToRegisterView,
-                   label: {}))
+                    NavigationLink(
+                        destination: RegisterView(),
+                        isActive: $navigateToRegisterView,
+                        label: {}))
             }
             .jakartaFont(.subtitle)
             .padding(.top, 8)
