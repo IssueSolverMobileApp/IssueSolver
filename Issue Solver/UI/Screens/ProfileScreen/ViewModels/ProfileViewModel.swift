@@ -11,4 +11,5 @@ class ProfileViewModel: ObservableObject {
     
     @Published var showDeleteAccountAlert = false
     @Published var showExitAccountAlert = false
+    
 }

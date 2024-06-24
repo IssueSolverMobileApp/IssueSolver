@@ -14,5 +14,6 @@ class NewPasswordViewModel: ObservableObject {
     @Published var currentPasswordText = ""
     @Published var newPasswordText = ""
     @Published var confirmPasswordtext = ""
+    @Published  var isRightField = true
     
 }

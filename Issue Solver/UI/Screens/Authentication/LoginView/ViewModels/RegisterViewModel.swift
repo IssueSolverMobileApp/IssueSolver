@@ -15,6 +15,11 @@ class RegisterViewModel: ObservableObject {
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
     @Published var confirmPasswordText: String = ""
+    @Published  var errorMessage = ""
+    @Published  var isShowingError = false
+    @Published  var isLoading = false
+    @Published  var isRightField = true
+    @Published  var isUserLoggedIn = false
     
     func register() async {
         let item = RegisterModel(email: emailText, fullName: fullNameText, password: passwordText, confirmPassword: confirmPasswordText)
@@ -25,5 +30,47 @@ class RegisterViewModel: ObservableObject {
             print(error.localizedDescription)
         }
         
+    }
+    
+    func register() {
+            isLoading = true
+            
+            if emailText.isEmpty  && passwordText.isEmpty {
+                makeErrorMessage("Email və şifrə boş ola bilməz.")
+                return
+            }
+            
+            if emailText.isEmpty {
+                makeErrorMessage("Email boş ola bilməz.")
+                return
+            }
+            
+            if passwordText.isEmpty {
+                makeErrorMessage("Şifrə boş ola bilməz.")
+                return
+            }
+            
+            if !emailText.isValidEmail {
+                makeErrorMessage("Email doğru deyil.")
+                return
+            }
+            
+            if !passwordText.isValidPassword {
+                makeErrorMessage("Şifrə doğru deyil.")
+                return
+                
+            }
+        }
+
+            func makeErrorMessage(_ string: String) {
+                errorMessage = string
+                isShowingError = true
+                isLoading = false
+                isRightField = false
+            }
+
+            func resetErrorState() {
+                isRightField = true
+                isShowingError = false
     }
 }

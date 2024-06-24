@@ -12,6 +12,11 @@ class LoginViewModel: ObservableObject {
     
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
+    @Published  var errorMessage: String?
+    @Published  var isShowingError = false
+    @Published  var isLoading = false
+    @Published  var isRightField = true
+    @Published  var isUserLoggedIn = false
     
     func login() async {
         let item = LoginModel(email: emailText, password: passwordText)
@@ -22,5 +27,30 @@ class LoginViewModel: ObservableObject {
         catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func loginError() {
+            isLoading = true
+            
+            if !emailText.isValidEmail {
+                makeErrorMessage("Email doğru deyil.")
+            }
+            
+            if !passwordText.isValidPassword {
+                makeErrorMessage("Şifrə doğru deyil.")
+                
+            }
+        }
+
+            func makeErrorMessage(_ string: String) {
+                errorMessage = string
+                isShowingError = true
+                isLoading = false
+                isRightField = false
+            }
+
+            func resetErrorState() {
+                isRightField = true
+                isShowingError = false
     }
 }

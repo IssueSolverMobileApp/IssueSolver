@@ -15,7 +15,21 @@ struct CustomTextField: View {
     var color: Color?
     
     @Binding var text: String
+    @Binding var isRightField: Bool
     @State var isShowPassword: Bool = false
+    @Binding var errorMessage: String?
+    
+    init(placeholder: String? = nil, title: String? = nil, isSecure: Bool = false, textColor: Color? = nil, color: Color? = nil, text: Binding<String>, isRightField: Binding<Bool>, isShowPassword: Bool = false, errorMessage: Binding<String?> = .constant(nil)) {
+        self.placeholder = placeholder
+        self.title = title
+        self.isSecure = isSecure
+        self.textColor = textColor
+        self.color = color
+        self._text = text
+        self._isRightField = isRightField
+        self.isShowPassword = isShowPassword
+        self._errorMessage = errorMessage
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -37,26 +51,34 @@ struct CustomTextField: View {
     
     /// - Custom text field view
     var textFieldView: some View {
-        Group {
-            if !isSecure {
-                TextField(placeholder ?? "", text: $text)
-            } else {
-                HStack {
-                    if isShowPassword {
-                        TextField(placeholder ?? "", text: $text)
-                    } else {
-                        SecureField(placeholder ?? "", text: $text)
-                    }
+        VStack(alignment: .leading) {
+            Group {
+                if !isSecure {
+                    TextField(placeholder ?? "", text: $text)
+                } else {
                     HStack {
-                        showPasswordButtonView
+                        if isShowPassword {
+                            TextField(placeholder ?? "", text: $text)
+                        } else {
+                            SecureField(placeholder ?? "", text: $text)
+                        }
+                        HStack {
+                            showPasswordButtonView
+                        }
                     }
                 }
             }
-        }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                .fill(color ?? .white)
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(isRightField ? Color.clear : Color.red, lineWidth: 1))
+            .background {
+                RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                    .fill(.white)
+            }
+            if let errorMessage {
+                Text(errorMessage)
+                    .foregroundStyle(.red)
+                    .jakartaFont(.subtitle2)
+            }
         }
         .jakartaFont(.heading)
     }
@@ -76,6 +98,6 @@ struct CustomTextField: View {
     
 }
 
-#Preview {
-    CustomTextField(placeholder: "Enter your password", title: "Password", isSecure: true, text: .constant(""))
-}
+//#Preview {
+//    CustomTextField(placeholder: "Enter your password", title: "Password", isSecure: true, text: .constant(""), isRightField: <#Binding<Bool>#>)
+//}

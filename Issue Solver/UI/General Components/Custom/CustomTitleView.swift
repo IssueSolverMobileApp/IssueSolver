@@ -26,7 +26,7 @@ struct CustomTitleView: View {
             }
             customDivider
         }
-        .padding(.bottom, 16)
+        //.padding(.bottom, 16)
         .multilineTextAlignment(.leading)
       
     }

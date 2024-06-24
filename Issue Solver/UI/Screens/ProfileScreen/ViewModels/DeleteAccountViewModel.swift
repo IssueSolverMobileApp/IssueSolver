@@ -12,4 +12,5 @@ class DeleteAccountViewModel: ObservableObject {
     private var authRepository = HTTPAuthRepository()
     
     @Published var passwordText = ""
+    @Published  var isRightField = true
 }

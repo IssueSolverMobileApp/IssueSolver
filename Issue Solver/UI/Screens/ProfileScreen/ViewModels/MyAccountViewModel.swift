@@ -13,4 +13,5 @@ class MyAccountViewModel: ObservableObject {
     
     @Published var fullNameText = ""
     @Published var emailText = ""
+    @Published  var isRightField = true
 }

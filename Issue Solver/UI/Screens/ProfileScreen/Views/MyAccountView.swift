@@ -56,10 +56,10 @@ struct MyAccountView: View {
             VStack(alignment: .leading, spacing: 20) {
                 
                 //Full Name View
-                CustomTextField(placeholder: "İRADƏ BƏKİRLİ",title: "Ad, soyad", text: $vm.fullNameText)
+                CustomTextField(placeholder: "İRADƏ BƏKİRLİ",title: "Ad, soyad", text: $vm.fullNameText, isRightField: $vm.isRightField)
                 
                 //Email View
-                CustomTextField(placeholder: "iradebekirli@gmail.com",title: "E-poçt",textColor: .disabledGray, color: .disabledGray.opacity(0.12) , text: $vm.emailText)
+                CustomTextField(placeholder: "iradebekirli@gmail.com",title: "E-poçt",textColor: .disabledGray, color: .disabledGray.opacity(0.12) , text: $vm.emailText, isRightField: $vm.isRightField)
             }
         }
     }

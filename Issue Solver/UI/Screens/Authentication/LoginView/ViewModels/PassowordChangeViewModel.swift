@@ -13,6 +13,7 @@ class PasswordChangeViewModel: ObservableObject {
 
     @Published var passwordText: String = ""
     @Published var confirmPasswordText: String = ""
+    @Published  var isRightField = true
     
     func sendOTP() async {
         let item  = OTPModel(otpCode: "272303")

@@ -47,10 +47,12 @@ struct LoginView: View {
         
         VStack(alignment: .trailing, spacing: 20) {
             // Email TextField View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText)
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightField: $vm.isRightField, errorMessage: $vm.errorMessage)
+            
             
             // Password TextField View
-            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText)
+            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightField: $vm.isRightField, errorMessage: $vm.errorMessage)
+            
             
             // Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
@@ -64,11 +66,14 @@ struct LoginView: View {
         }
     }
     
+  
+  
+    
     var loginButtonView: some View {
         VStack {
             // Log in Button View
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-
+                vm.loginError()
                 Task {
                     await vm.login()
                 }

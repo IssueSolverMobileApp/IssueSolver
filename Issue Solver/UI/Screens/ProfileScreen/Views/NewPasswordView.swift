@@ -61,13 +61,13 @@ struct NewPasswordView: View {
             VStack(alignment: .leading, spacing: 20) {
                 
                 //Current Password View
-                CustomTextField(placeholder: "Şifrənizi daxil edin",title: "Cari şifrə",isSecure: true, text: $vm.currentPasswordText)
+                CustomTextField(placeholder: "Şifrənizi daxil edin",title: "Cari şifrə",isSecure: true, text: $vm.currentPasswordText, isRightField: $vm.isRightField)
                 
                 //New Password View
-                CustomTextField(placeholder: "Yeni şifrəni təyin edin",title: "Yeni şifrə",isSecure: true, text: $vm.newPasswordText)
+                CustomTextField(placeholder: "Yeni şifrəni təyin edin",title: "Yeni şifrə",isSecure: true, text: $vm.newPasswordText, isRightField: $vm.isRightField)
                 
                 //Confirm New Password View
-                CustomTextField(placeholder: "Şifrəni təsdiq edin",title: "Şifrənin təsdiqi",isSecure: true, text: $vm.confirmPasswordtext)
+                CustomTextField(placeholder: "Şifrəni təsdiq edin",title: "Şifrənin təsdiqi",isSecure: true, text: $vm.confirmPasswordtext, isRightField: $vm.isRightField)
             }
         }
     }

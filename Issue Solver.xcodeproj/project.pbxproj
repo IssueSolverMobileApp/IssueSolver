@@ -29,6 +29,7 @@
 		A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFD2C18DD7300E18665 /* CustomButton.swift */; };
 		A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFF2C18E11700E18665 /* CustomTextField.swift */; };
 		A82DAE032C18E34B00E18665 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DAE022C18E34B00E18665 /* Constants.swift */; };
+		FB2D1ED42C299977001608B0 /* String+ Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D1ED32C299977001608B0 /* String+ Ext.swift */; };
 		FB55BD552C1B0CAD00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */; };
 		FB55BD562C1B0CAD00F81FDB /* PlusJakartaSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */; };
 		FB55BD572C1B0CAD00F81FDB /* PlusJakartaSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD492C1B0CAC00F81FDB /* PlusJakartaSans-ExtraLight.ttf */; };
@@ -88,6 +89,7 @@
 		A82DADFD2C18DD7300E18665 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FB2D1ED32C299977001608B0 /* String+ Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ Ext.swift"; sourceTree = "<group>"; };
 		FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD492C1B0CAC00F81FDB /* PlusJakartaSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			children = (
 				FB55BD642C1B0D7100F81FDB /* Fonts + Ext.swift */,
 				6F36E01E2C1C2EE200C41257 /* View + Ext.swift */,
+				FB2D1ED32C299977001608B0 /* String+ Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				FB5A10332C277FDE00E16828 /* MyAccountView.swift in Sources */,
 				8C22A95E2C1C5AB000B3879B /* RegisterModel.swift in Sources */,
 				FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */,
+				FB2D1ED42C299977001608B0 /* String+ Ext.swift in Sources */,
 				FB967D1F2C25818B002BA572 /* ProfileModel.swift in Sources */,
 				8CA3EB0A2C1C70F900514134 /* PassowordChangeViewModel.swift in Sources */,
 				FB5A10372C2787E500E16828 /* DeleteAccountView.swift in Sources */,

@@ -13,6 +13,7 @@ class EmailVerificationViewModel: ObservableObject {
     private var authRepository = HTTPAuthRepository()
 
     @Published var emailText: String = ""
+    @Published  var isRightField = true
     
     func emailVerification() async {
         let item = EmailModel(email: emailText)

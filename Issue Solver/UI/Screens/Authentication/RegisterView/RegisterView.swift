@@ -47,22 +47,22 @@ struct RegisterView: View {
         VStack(alignment: .leading, spacing: 20) {
             
             //Name Surname Text Field View
-            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText)
+            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText, isRightField: $vm.isRightField)
             
             
             // Email Text Field View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText)
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightField: $vm.isRightField)
             
             // Password TextField View
             VStack(alignment: .leading, spacing: 8) {
-                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $vm.passwordText)
+                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightField: $vm.isRightField)
                 Text("Supporting text or hint")
                     .jakartaFont(.subtitle2)
                     .foregroundColor(.secondaryGray)
             }
             
             // Confirm Password TextField View
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText, isRightField: $vm.isRightField)
             
             checkboxView
                 .padding(.vertical, 8)

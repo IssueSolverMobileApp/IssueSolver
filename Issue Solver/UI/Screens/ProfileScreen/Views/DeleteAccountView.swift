@@ -51,7 +51,7 @@ struct DeleteAccountView: View {
     ///  Password Textfield View
     var textFieldView: some View {
 
-        CustomTextField(placeholder: "***********",title: "Şifrə",isSecure: true, text: $vm.passwordText)
+        CustomTextField(placeholder: "***********",title: "Şifrə",isSecure: true, text: $vm.passwordText, isRightField: $vm.isRightField)
     }
 
     /// saveChangesButtonView

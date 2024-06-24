@@ -45,11 +45,11 @@ struct PasswordChangeView: View {
     //Text Field View
     
     var textFieldView: some View {
-        VStack (spacing: 20 ){
+        VStack (spacing: 20 ) {
             
-            CustomTextField(placeholder: "Şifrənizi təyin edin",title: "Şifrə", isSecure: true, text: $vm.passwordText)
+            CustomTextField(placeholder: "Şifrənizi təyin edin",title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightField: $vm.isRightField)
             
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin",title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin",title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText, isRightField: $vm.isRightField)
         }
     }
     

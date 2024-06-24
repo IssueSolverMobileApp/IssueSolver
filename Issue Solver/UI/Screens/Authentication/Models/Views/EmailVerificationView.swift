@@ -50,7 +50,7 @@ struct EmailVerificationView: View {
     
     //Email TextField
     var textFieldView: some View {
-        CustomTextField(placeholder: "E-poçtunuzu daxil edin",title: "E- poçt",text: $vm.emailText)
+        CustomTextField(placeholder: "E-poçtunuzu daxil edin",title: "E- poçt",text: $vm.emailText, isRightField: $vm.isRightField)
     }
     
     //Confirm Email Button
