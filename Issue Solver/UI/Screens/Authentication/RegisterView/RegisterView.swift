@@ -17,7 +17,7 @@ struct RegisterView: View {
     @State var isChecked: Bool = false
     
     var body: some View {
-        NavigationView {
+        
             ZStack {
                 Color.surfaceBackground.ignoresSafeArea()
                 
@@ -33,15 +33,13 @@ struct RegisterView: View {
                     }
                     continueButtonView
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
+                .padding([.horizontal, .vertical], 16)
             }
             .navigationBarBackButtonHidden(true)
             .onTapGesture {
                 hideKeyboard()
             }
-            .navigationBarBackButtonHidden(false)
-        }
+        
     }
     
     var titleView: some View {
