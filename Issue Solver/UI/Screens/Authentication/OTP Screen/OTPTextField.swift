@@ -53,7 +53,7 @@ struct OTPTextField: View {
                             } else if newValue.isEmpty && index > 0 {
                                 fieldFocus = index - 1
                             }
-                            completion(enterValue.joined())
+                            completion(creatString())
                         }
                         .onTapGesture {
                             fieldFocus = index
@@ -66,6 +66,15 @@ struct OTPTextField: View {
             }
         }
         .frame(height: 64)
+    }
+    
+    func creatString() -> String {
+        var newString: String = ""
+        enterValue.forEach { result in
+            newString.append(result)
+        }
+        
+         return newString
     }
     
 }

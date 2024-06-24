@@ -33,7 +33,7 @@ class HTTPAuthRepository {
     
     func confirmOTP(body: OTPModel) async throws -> SuccessModel? {
         do {
-            return try await http.GET(endPoint: EndPoint.auth(.confirmOTP))
+            return try await http.POST(endPoint: EndPoint.auth(.confirmOTP), body: JSONConverter().encode(input: body))
         }
         catch {
             throw error

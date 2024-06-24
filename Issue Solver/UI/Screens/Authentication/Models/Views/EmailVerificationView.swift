@@ -64,7 +64,7 @@ struct EmailVerificationView: View {
         
         .background(
         NavigationLink(
-           destination: OTPView(),
+           destination: OTPView(isChangePassword: true),
            isActive: $navigateOTPView,
            label: {}))
         .disabled(vm.emailText.isEmpty)
