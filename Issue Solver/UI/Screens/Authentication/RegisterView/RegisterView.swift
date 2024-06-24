@@ -11,37 +11,35 @@ struct RegisterView: View {
     @Environment (\.dismiss) var dismiss
     @StateObject var vm = RegisterViewModel()
     @State var navigateOTPView: Bool = false
-
+    
     
     // Dummy variables
     @State var isChecked: Bool = false
     
     var body: some View {
-        NavigationView {
+        
             ZStack {
                 Color.surfaceBackground.ignoresSafeArea()
                 
                 VStack {
                     ScrollView(showsIndicators: false) {
                         VStack (spacing: 24){
-                            VStack {
-                                titleView
-                                textFieldsView
-                                Spacer()
-                            }
+                            
+                            titleView
+                            textFieldsView
+                            Spacer()
                         }
+                        
                     }
                     continueButtonView
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
+                .padding([.horizontal, .vertical], 16)
             }
             .navigationBarBackButtonHidden(true)
             .onTapGesture {
                 hideKeyboard()
             }
-            .navigationBarBackButtonHidden(false)
-        }
+        
     }
     
     var titleView: some View {
@@ -98,7 +96,7 @@ struct RegisterView: View {
             .background(
                 NavigationLink(destination: OTPView(isChangePassword: false),
                                isActive: $navigateOTPView,
-                                       label: {})
+                               label: {})
             )
             
             
@@ -116,7 +114,7 @@ struct RegisterView: View {
         }
     }
     
-    var canContinue: Bool { 
+    var canContinue: Bool {
         return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && isChecked
     }
 }
