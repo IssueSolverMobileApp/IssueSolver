@@ -11,37 +11,31 @@ struct RegisterView: View {
     @Environment (\.dismiss) var dismiss
     @StateObject var vm = RegisterViewModel()
     @State var navigateOTPView: Bool = false
-
+    
     
     // Dummy variables
     @State var isChecked: Bool = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color.surfaceBackground.ignoresSafeArea()
-                
-                VStack {
-                    ScrollView(showsIndicators: false) {
-                        VStack (spacing: 24){
-                            VStack {
-                                titleView
-                                textFieldsView
-                                Spacer()
-                            }
-                        }
+        ZStack {
+            Color.surfaceBackground.ignoresSafeArea()
+            
+            VStack {
+                ScrollView(showsIndicators: false) {
+                    VStack (spacing: 24) {
+                        titleView
+                        textFieldsView
+                        Spacer()
                     }
-                    continueButtonView
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
+                continueButtonView
             }
-            .navigationBarBackButtonHidden(true)
-            .onTapGesture {
-                hideKeyboard()
-            }
-            .navigationBarBackButtonHidden(false)
+            .padding([.horizontal, .vertical], 16) /// - Use [] to put paddings as many as needed  
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
+        .navigationBarBackButtonHidden(true)
     }
     
     var titleView: some View {
@@ -96,17 +90,15 @@ struct RegisterView: View {
             
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
-                    
-                    await vm.register { boolean in
-                        navigateOTPView = boolean
+                    await vm.register { success in
+                        navigateOTPView = success
                     }
-                    
                 }
             }
             .background(
                 NavigationLink(destination: OTPView(isChangePassword: false),
                                isActive: $navigateOTPView,
-                                       label: {})
+                               label: {})
             )
             
             
@@ -124,7 +116,7 @@ struct RegisterView: View {
         }
     }
     
-    var canContinue: Bool { 
+    var canContinue: Bool {
         return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && isChecked
     }
 }

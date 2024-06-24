@@ -12,16 +12,7 @@ struct Issue_SolverApp: App {
     @State var selectedTab: Tab = .home
     var body: some Scene {
         WindowGroup {
-            GeometryReader { proxy in
-                ZStack {
-                    
-                    Color.black.ignoresSafeArea()
-                    VStack {
-                        Spacer()
-                        TabBarView(widthOfView: proxy.size.width, selectedTab: $selectedTab)
-                    }
-                }
-            }
+            ContentView()
         }
     }
 }

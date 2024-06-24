@@ -11,6 +11,7 @@
 		6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */; };
 		6F6B8CA52C298B5000BB52FE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6B8CA42C298B5000BB52FE /* TabBarView.swift */; };
 		6F6B8CA82C298B7000BB52FE /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6B8CA72C298B7000BB52FE /* Tab.swift */; };
+		6F6B8CAD2C29DC8700BB52FE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6B8CAC2C29DC8700BB52FE /* ContentView.swift */; };
 		6F7535422C19954B003D12AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7535412C19954B003D12AC /* LoginView.swift */; };
 		6F7535452C19956E003D12AC /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7535442C19956E003D12AC /* RegisterView.swift */; };
 		6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75354A2C1998D5003D12AC /* CustomTitleView.swift */; };
@@ -72,6 +73,7 @@
 		6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JakartaFonts.swift; sourceTree = "<group>"; };
 		6F6B8CA42C298B5000BB52FE /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		6F6B8CA72C298B7000BB52FE /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
+		6F6B8CAC2C29DC8700BB52FE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6F7535412C19954B003D12AC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6F7535442C19956E003D12AC /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterView.swift; path = ../../RegisterView/RegisterView.swift; sourceTree = "<group>"; };
 		6F75354A2C1998D5003D12AC /* CustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleView.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			children = (
 				FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */,
 				FBE048732C182C5D00C71D2D /* Assets.xcassets */,
+				6F6B8CAC2C29DC8700BB52FE /* ContentView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 			files = (
 				FB5A102F2C2771B400E16828 /* NewPasswordView.swift in Sources */,
 				8CA3EB082C1C67EF00514134 /* EmailVerificationViewModel.swift in Sources */,
+				6F6B8CAD2C29DC8700BB52FE /* ContentView.swift in Sources */,
 				8C22A9602C1C5AD800B3879B /* LoginModel.swift in Sources */,
 				6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */,
 				FB5A10312C27724500E16828 /* NewPasswordViewModel.swift in Sources */,
