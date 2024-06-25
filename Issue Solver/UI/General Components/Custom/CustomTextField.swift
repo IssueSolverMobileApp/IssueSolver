@@ -57,15 +57,15 @@ struct CustomTextField: View {
         ZStack {
             if !isSecure {
                 TextField(placeholder ?? "", text: $text)
-                    .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
+                    
             } else {
                 HStack {
                     if isShowPassword {
                         TextField(placeholder ?? "", text: $text)
-                            .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
+                            
                     } else {
                         SecureField(placeholder ?? "", text: $text)
-                            .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
+                           
                     }
                     HStack {
                         showPasswordButtonView
@@ -73,7 +73,6 @@ struct CustomTextField: View {
                 }
             }
         }
-            
         .padding()
         .overlay(RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke((isRightTextField) ? Color.clear : Color.red, lineWidth: 1))
         .background {
@@ -88,7 +87,7 @@ struct CustomTextField: View {
             
                 }
         
-        .jakartaFont(.heading)
+        .jakartaFont(.subtitle)
     }
     
     /// - Show/hide password

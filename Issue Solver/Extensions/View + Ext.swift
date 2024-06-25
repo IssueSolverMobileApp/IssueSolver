@@ -25,7 +25,7 @@ extension View {
             return self.font(.jakartaFont(weight: .regular, size: 13))
         // Heading
         case .heading:
-            return self.font(.jakartaFont(weight: .regular, size: 15))
+            return self.font(.jakartaFont(weight: .medium, size: 15))
         // Subheading
         case .subheading:
             return self.font(.jakartaFont(weight: .regular, size: 13))
