@@ -15,6 +15,7 @@ class LoginViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var showAlert: Bool = false
     
+    
     func login() async {
         let item = LoginModel(email: emailText, password: passwordText)
         do {

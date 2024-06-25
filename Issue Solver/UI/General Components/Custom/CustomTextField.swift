@@ -15,7 +15,19 @@ struct CustomTextField: View {
     var color: Color?
     
     @Binding var text: String
+    @Binding var errorMessage: String?
     @State var isShowPassword: Bool = false
+    
+    init(placeholder: String? = nil, title: String? = nil, isSecure: Bool = false, textColor: Color? = nil, color: Color? = nil, text: Binding<String>, isShowPassword: Bool = false, errorMessage: Binding<String?> = .constant(nil)) {
+        self.placeholder = placeholder
+        self.title = title
+        self.isSecure = isSecure
+        self.textColor = textColor
+        self.color = color
+        self._text = text
+        self.isShowPassword = isShowPassword
+        self._errorMessage = errorMessage
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -37,7 +49,8 @@ struct CustomTextField: View {
     
     /// - Custom text field view
     var textFieldView: some View {
-        Group {
+        VStack(alignment: .leading) {
+        ZStack {
             if !isSecure {
                 TextField(placeholder ?? "", text: $text)
             } else {
@@ -54,10 +67,18 @@ struct CustomTextField: View {
             }
         }
         .padding()
+        .overlay(RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke((errorMessage == nil) ? Color.clear : Color.red, lineWidth: 1))
         .background {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .fill(color ?? .white)
         }
+         if let errorMessage {
+                Text(errorMessage)
+                    .foregroundStyle(.red)
+                    .jakartaFont(.subtitle2)
+                    }
+                }
+        
         .jakartaFont(.heading)
     }
     
@@ -76,6 +97,3 @@ struct CustomTextField: View {
     
 }
 
-#Preview {
-    CustomTextField(placeholder: "Enter your password", title: "Password", isSecure: true, text: .constant(""))
-}
