@@ -12,8 +12,8 @@ class LoginViewModel: ObservableObject {
 
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
-    @Published var errorMessage: String = ""
-    @Published var showAlert: Bool = false
+    @Published var errorMessage: String? = ""
+    @Published var isRightTextField: Bool = true
     
     
     func login() async {
@@ -24,12 +24,12 @@ class LoginViewModel: ObservableObject {
         }
         catch {
             print(error.localizedDescription)
-            makeErrorMessage(errorMessage)
+            makeErrorMessage(errorMessage ?? "Something went wrong")
         }
     }
 
     func makeErrorMessage(_ string: String) {
-        errorMessage = "Bu texti silib string yazarsan yerinə,Valeh."
-        showAlert = true
+            isRightTextField = false
+            errorMessage = "Bu texti silib string yazarsan yerinə,Valeh."
     }
 }

@@ -16,17 +16,20 @@ struct CustomTextField: View {
     
     @Binding var text: String
     @Binding var errorMessage: String?
+    @Binding var isRightTextField: Bool
     @State var isShowPassword: Bool = false
     
-    init(placeholder: String? = nil, title: String? = nil, isSecure: Bool = false, textColor: Color? = nil, color: Color? = nil, text: Binding<String>, isShowPassword: Bool = false, errorMessage: Binding<String?> = .constant(nil)) {
+    init(placeholder: String? = nil, title: String? = nil, isSecure: Bool = false, textColor: Color? = nil, color: Color? = nil, text: Binding<String>, isRightTextField: Binding<Bool> = .constant(true), isShowPassword: Bool = false, errorMessage: Binding<String?> = .constant(nil)) {
         self.placeholder = placeholder
         self.title = title
         self.isSecure = isSecure
         self.textColor = textColor
         self.color = color
         self._text = text
+        self._isRightTextField = isRightTextField
         self.isShowPassword = isShowPassword
         self._errorMessage = errorMessage
+        
     }
     
     var body: some View {
@@ -42,7 +45,8 @@ struct CustomTextField: View {
             if let title {
                 Text(title)
                     .jakartaFont(.heading)
-                    .foregroundStyle(textColor ?? .black)
+                    //.foregroundStyle(textColor ?? .black)
+                    .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
             }
         }
     }
@@ -53,12 +57,15 @@ struct CustomTextField: View {
         ZStack {
             if !isSecure {
                 TextField(placeholder ?? "", text: $text)
+                    .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
             } else {
                 HStack {
                     if isShowPassword {
                         TextField(placeholder ?? "", text: $text)
+                            .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
                     } else {
                         SecureField(placeholder ?? "", text: $text)
+                            .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
                     }
                     HStack {
                         showPasswordButtonView
@@ -66,8 +73,9 @@ struct CustomTextField: View {
                 }
             }
         }
+            
         .padding()
-        .overlay(RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke((errorMessage == nil) ? Color.clear : Color.red, lineWidth: 1))
+        .overlay(RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke((isRightTextField) ? Color.clear : Color.red, lineWidth: 1))
         .background {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .fill(color ?? .white)
@@ -77,6 +85,7 @@ struct CustomTextField: View {
                     .foregroundStyle(.red)
                     .jakartaFont(.subtitle2)
                     }
+            
                 }
         
         .jakartaFont(.heading)
@@ -88,7 +97,7 @@ struct CustomTextField: View {
             isShowPassword.toggle()
         } label: {
             Image(isShowPassword ? "eye" : "closeeye")
-                .foregroundStyle(Color.primaryBlue)
+                .foregroundStyle(isRightTextField ? Color.primaryBlue :  .red)
                 .background(.white)
         }
        

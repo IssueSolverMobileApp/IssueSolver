@@ -46,20 +46,20 @@ struct RegisterView: View {
         VStack(alignment: .leading, spacing: 20) {
             
             //Name Surname Text Field View
-            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText, errorMessage: $vm.fullNameError)
+            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText,isRightTextField: $vm.isRightFullName, errorMessage: $vm.fullNameError)
             
             
             // Email Text Field View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, errorMessage: $vm.emailError)
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightEmail, errorMessage: $vm.emailError)
              
             
             // Password TextField View
             VStack(alignment: .leading, spacing: 8) {
-                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, errorMessage: $vm.passwordError)
+                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $vm.passwordText,isRightTextField: $vm.isRightPassword, errorMessage: $vm.passwordError)
             }
             
             // Confirm Password TextField View
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText, errorMessage: $vm.confirmPasswordError)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText,isRightTextField: $vm.isRightConfirmEmail, errorMessage: $vm.confirmPasswordError)
             
             checkboxView
                 .padding(.vertical, 8)

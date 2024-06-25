@@ -45,10 +45,10 @@ struct LoginView: View {
         
         VStack(alignment: .trailing, spacing: 20) {
             // Email TextField View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText)
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightTextField)
             
             // Password TextField View
-            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText)
+            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightTextField, errorMessage: $vm.errorMessage)
             
             // Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
@@ -72,9 +72,6 @@ struct LoginView: View {
                 }
             }
             .disabled(vm.emailText.isEmpty && vm.passwordText.isEmpty)
-            .alert(isPresented: $vm.showAlert) {
-                      Alert(title: Text("Xəta"), message: Text(vm.errorMessage), dismissButton: .default(Text("Bağla")))
-                  }
             
             // Email Exists Button View
             HStack {
