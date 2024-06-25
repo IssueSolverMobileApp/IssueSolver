@@ -8,28 +8,25 @@
 import SwiftUI
 
 struct RegisterView: View {
+    
     @Environment (\.dismiss) var dismiss
+    
     @StateObject var vm = RegisterViewModel()
+    
     @State var navigateOTPView: Bool = false
-    
-    
-    // Dummy variables
     @State var isChecked: Bool = false
     
     var body: some View {
         
             ZStack {
                 Color.surfaceBackground.ignoresSafeArea()
-                
                 VStack {
                     ScrollView(showsIndicators: false) {
                         VStack (spacing: 24){
-                            
                             titleView
                             textFieldsView
                             Spacer()
                         }
-                        
                     }
                     continueButtonView
                 }
@@ -38,8 +35,7 @@ struct RegisterView: View {
             .navigationBarBackButtonHidden(true)
             .onTapGesture {
                 hideKeyboard()
-            }
-        
+        }
     }
     
     var titleView: some View {
@@ -50,22 +46,20 @@ struct RegisterView: View {
         VStack(alignment: .leading, spacing: 20) {
             
             //Name Surname Text Field View
-            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText)
+            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText,isRightTextField: $vm.isRightFullName, errorMessage: $vm.fullNameError)
             
             
             // Email Text Field View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText)
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightEmail, errorMessage: $vm.emailError)
+             
             
             // Password TextField View
             VStack(alignment: .leading, spacing: 8) {
-                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $vm.passwordText)
-                Text("Supporting text or hint")
-                    .jakartaFont(.subtitle2)
-                    .foregroundColor(.secondaryGray)
+                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $vm.passwordText,isRightTextField: $vm.isRightPassword, errorMessage: $vm.passwordError)
             }
             
             // Confirm Password TextField View
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText,isRightTextField: $vm.isRightConfirmEmail, errorMessage: $vm.confirmPasswordError)
             
             checkboxView
                 .padding(.vertical, 8)
