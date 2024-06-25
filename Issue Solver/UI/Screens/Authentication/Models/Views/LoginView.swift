@@ -30,7 +30,6 @@ struct LoginView: View {
             .padding([.horizontal, .vertical], 16)
             
         }
-        
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
@@ -73,6 +72,9 @@ struct LoginView: View {
                 }
             }
             .disabled(vm.emailText.isEmpty && vm.passwordText.isEmpty)
+            .alert(isPresented: $vm.showAlert) {
+                      Alert(title: Text("Xəta"), message: Text(vm.errorMessage), dismissButton: .default(Text("Bağla")))
+                  }
             
             // Email Exists Button View
             HStack {

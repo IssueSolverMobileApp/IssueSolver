@@ -9,9 +9,11 @@ import Foundation
 
 class LoginViewModel: ObservableObject {
     private var authRepository = HTTPAuthRepository()
-    
+
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
+    @Published var errorMessage: String = ""
+    @Published var showAlert: Bool = false
     
     func login() async {
         let item = LoginModel(email: emailText, password: passwordText)
@@ -21,6 +23,12 @@ class LoginViewModel: ObservableObject {
         }
         catch {
             print(error.localizedDescription)
+            makeErrorMessage(errorMessage)
         }
+    }
+
+    func makeErrorMessage(_ string: String) {
+        errorMessage = "Bu texti silib string yazarsan yerinə,Valeh."
+        showAlert = true
     }
 }
