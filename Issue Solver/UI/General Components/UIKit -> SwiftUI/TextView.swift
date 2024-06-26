@@ -22,7 +22,7 @@ struct TextView: UIViewRepresentable {
         // Link Attributes
         textView.attributedText = setAttributesToText()
         textView.linkTextAttributes = [
-            .foregroundStyle: UIColor.primaryBlue
+            .foregroundColor: UIColor.primaryBlue
         ]
         return textView
     }
