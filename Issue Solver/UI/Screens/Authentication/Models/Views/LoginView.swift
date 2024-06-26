@@ -19,17 +19,29 @@ struct LoginView: View {
             
             VStack {
                 ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 24) {
+                    VStack(alignment: .leading) {
                         titleView
                         textFieldsView
-                        Spacer()
+                         Spacer()
                     }
                 }
                 loginButtonView
             }
-            .padding([.horizontal, .vertical], 16)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 24)
             
-        }
+            ///Progress View
+            if vm.isLoading {
+               VStack {
+                   Spacer()
+                   ProgressView()
+                       .progressViewStyle(CircularProgressViewStyle())
+                       .scaleEffect(1)
+                       .padding()
+                   Spacer()
+                   }
+               }
+           }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
@@ -43,17 +55,21 @@ struct LoginView: View {
     
     var textFieldsView: some View {
         
-        VStack(alignment: .trailing, spacing: 20) {
+        VStack(spacing: 20) {
             // Email TextField View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightTextField)
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightEmail)
             
-            // Password TextField View
-            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightTextField, errorMessage: $vm.errorMessage)
-            
-            // Forgot Password Button View
-            CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
-                navigateToEmailVerificationView = true
+            VStack(alignment:.trailing, spacing: 4) {
+
+                // Password TextField View
+                CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.errorMessage)
+                
+                // Forgot Password Button View
+                CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
+                    navigateToEmailVerificationView = true
+                }
             }
+                
             .background(
                 NavigationLink(
                     destination: EmailVerificationView(),
@@ -66,17 +82,16 @@ struct LoginView: View {
         VStack {
             // Log in Button View
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-                
                 Task {
                     await vm.login()
                 }
             }
-            .disabled(vm.emailText.isEmpty && vm.passwordText.isEmpty)
+            .disabled(vm.emailText.isEmpty || vm.passwordText.isEmpty)
             
             // Email Exists Button View
             HStack {
                 Text("Hesabınız yoxdur?")
-                    .foregroundColor(.secondaryGray)
+                    .foregroundStyle(.secondaryGray)
                 CustomButton(style: .text, title: "Qeydiyyatdan keçin") {
                     navigateToRegisterView = true
                 }

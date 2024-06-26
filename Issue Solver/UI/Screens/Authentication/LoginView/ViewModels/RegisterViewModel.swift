@@ -38,7 +38,7 @@ class RegisterViewModel: ObservableObject {
     @Published var isRightFullName: Bool = true
     @Published var isRightEmail: Bool = true
     @Published var isRightPassword: Bool = true
-    @Published var isRightConfirmEmail: Bool = true
+    @Published var isRightConfirmPassword: Bool = true
     @Published var isRightFields: Bool = false
     
     ///For making textfield color to red after touch, write and then  delete something
@@ -52,18 +52,24 @@ class RegisterViewModel: ObservableObject {
     @Published var passwordError: String? = nil
     @Published var confirmPasswordError: String? = nil
     @Published var fullNameError: String? = nil
-        
+    @Published var isLoading: Bool = false
     
     
     func register(completion: @escaping (Bool) -> Void) async {
+        isLoading = true
+        
         let item = RegisterModel(email: emailText, fullName: fullNameText, password: passwordText, confirmPassword: confirmPasswordText)
         authRepository.register(body: item) { [weak self] result in
             guard let self else { return }
-            switch result {
-            case .success(let result):
-                completion(result.success ?? false)
-            case .failure(let error):
-                handleAPIEmailError(error.localizedDescription)
+            
+            DispatchQueue.main.async {
+                self.isLoading = false
+                switch result {
+                case .success(let result):
+                    completion(result.success ?? false)
+                case .failure(let error):
+                    self.handleAPIEmailError(error.localizedDescription)
+                }
             }
         }
     }
@@ -104,7 +110,7 @@ class RegisterViewModel: ObservableObject {
             }
         }
         
-        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmEmail {
+        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmPassword {
             isRightFields = true
         } else {
             isRightFields = false
@@ -133,7 +139,7 @@ class RegisterViewModel: ObservableObject {
             }
         }
         
-        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmEmail {
+        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmPassword {
             isRightFields = true
         } else {
             isRightFields = false
@@ -149,16 +155,16 @@ class RegisterViewModel: ObservableObject {
         if hasTouchedConfirmPassword {
             if confirmPasswordText.isEmpty {
                 confirmPasswordError = "Şifrənin təsdiqi boş ola bilməz"
-                isRightConfirmEmail = false
+                isRightConfirmPassword = false
             } else if confirmPasswordText != passwordText {
                 confirmPasswordError = "Hər iki şifrə eyni olmalıdır"
-                isRightConfirmEmail = false
+                isRightConfirmPassword = false
             } else {
                 confirmPasswordError = nil
-                isRightConfirmEmail = true
+                isRightConfirmPassword = true
             }
         }
-        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmEmail {
+        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmPassword {
             isRightFields = true
         } else {
             isRightFields = false

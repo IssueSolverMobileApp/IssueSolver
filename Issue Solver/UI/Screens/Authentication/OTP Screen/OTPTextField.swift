@@ -33,7 +33,7 @@ struct OTPTextField: View {
                     }
                     TextField("", text: $enterValue[index])
                         .keyboardType(.numberPad)
-                        .foregroundColor(.primaryBlue)
+                        .foregroundStyle(.primaryBlue)
                         .frame(width: (geometry.size.width - 62) / CGFloat(numberOfFields), height: 62)
                         .background(
                             RoundedRectangle(cornerRadius: 12)

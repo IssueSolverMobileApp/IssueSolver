@@ -16,22 +16,22 @@ struct PasswordChangeView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            VStack (spacing: 24 ) {
+            VStack (alignment: .leading) {
                 titleView
                 textFieldView
                 Spacer()
                 renewButtonView
             }
-            .padding(.top, 24)
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
+            .padding(.horizontal,20)
+            .padding(.vertical, 24)
             
+        ///Progress View
         if isLoading {
            VStack {
                Spacer()
                ProgressView()
                    .progressViewStyle(CircularProgressViewStyle())
-                   .scaleEffect(2)
+                   .scaleEffect(1)
                    .padding()
                Spacer()
                 }

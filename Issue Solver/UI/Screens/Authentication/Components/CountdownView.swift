@@ -21,7 +21,7 @@ struct CountdownView: View {
 
     var body: some View {
         Text(formattedTime)
-            .foregroundColor(.primaryBlue)
+            .foregroundStyle(.primaryBlue)
             .font(.system(size: 17))
             .onReceive(timer) { _ in
                 if timeRemaining > 0 {

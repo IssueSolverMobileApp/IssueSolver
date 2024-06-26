@@ -22,7 +22,7 @@ struct RegisterView: View {
                 Color.surfaceBackground.ignoresSafeArea()
                 VStack {
                     ScrollView(showsIndicators: false) {
-                        VStack (spacing: 24){
+                        VStack (alignment: .leading){
                             titleView
                             textFieldsView
                             Spacer()
@@ -30,7 +30,20 @@ struct RegisterView: View {
                     }
                     continueButtonView
                 }
-                .padding([.horizontal, .vertical], 16)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 24)
+                
+                ///Progress View
+                if vm.isLoading {
+                   VStack {
+                       Spacer()
+                       ProgressView()
+                           .progressViewStyle(CircularProgressViewStyle())
+                           .scaleEffect(1)
+                           .padding()
+                       Spacer()
+                       }
+                   }
             }
             .navigationBarBackButtonHidden(true)
             .onTapGesture {
@@ -38,6 +51,7 @@ struct RegisterView: View {
         }
     }
     
+    ///Title View
     var titleView: some View {
         CustomTitleView(title: "Qeydiyyat", subtitle: "Zəhmət olmasa, şəxsi məlumatlarınızı daxil edin.")
     }
@@ -59,13 +73,13 @@ struct RegisterView: View {
             }
             
             // Confirm Password TextField View
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText,isRightTextField: $vm.isRightConfirmEmail, errorMessage: $vm.confirmPasswordError)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText,isRightTextField: $vm.isRightConfirmPassword, errorMessage: $vm.confirmPasswordError)
             
             checkboxView
                 .padding(.vertical, 8)
         }
     }
-    
+    ///CheckBox View
     var checkboxView: some View {
         HStack {
             CustomCheckBox(isChecked: $isChecked)
@@ -80,11 +94,11 @@ struct RegisterView: View {
             
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
-                    
-                    await vm.register { boolean in
-                        navigateOTPView = boolean
+                    await vm.register { success in
+                        if success {
+                            navigateOTPView = true
+                        }
                     }
-                    
                 }
             }
             .background(
@@ -92,13 +106,11 @@ struct RegisterView: View {
                                isActive: $navigateOTPView,
                                label: {})
             )
-            
-            
-            .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty && vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !isChecked && !vm.isRightFields)
+            .disabled(!canContinue)
             
             HStack {
                 Text("Hesabınız var mı?")
-                    .foregroundColor(.secondaryGray)
+                    .foregroundStyle(.secondaryGray)
                 CustomButton(style: .text, title: "Daxil olun") {
                     dismiss()
                 }
