@@ -11,6 +11,7 @@ struct EmailVerificationView: View {
     @StateObject var vm = EmailVerificationViewModel()
     @Environment (\.dismiss) private var dismiss
     @State private var navigateOTPView = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
         ZStack {
@@ -24,7 +25,18 @@ struct EmailVerificationView: View {
             .padding(.top, 24)
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
-        }
+            
+            if isLoading {
+               VStack {
+                   Spacer()
+                   ProgressView()
+                       .progressViewStyle(CircularProgressViewStyle())
+                       .scaleEffect(2)
+                       .padding()
+                   Spacer()
+                       }
+                   }
+         }
         .onTapGesture {
             hideKeyboard()
         }
@@ -33,6 +45,7 @@ struct EmailVerificationView: View {
             ToolbarItem(placement: .topBarLeading) {
                 backButtonView
             }
+            
         }
     }
     
@@ -50,28 +63,39 @@ struct EmailVerificationView: View {
     
     //Email TextField
     var textFieldView: some View {
-        CustomTextField(placeholder: "E-poçtunuzu daxil edin",title: "E- poçt",text: $vm.emailText)
+        CustomTextField(placeholder: "E-poçtunuzu daxil edin",title: "E- poçt",text: $vm.emailText, isRightTextField: $vm.isRightEmail, errorMessage: $vm.emailError)
     }
     
     //Confirm Email Button
     var confirmButtonView: some View {
         CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            navigateOTPView = true
+            isLoading = true
+            
             Task {
                 await vm.emailVerification()
+                if vm.verificationSuccess {
+                    navigateOTPView = true
+                    isLoading = false
+                }
             }
         }
+        .disabled(vm.emailText.isEmpty && !vm.isRightEmail)
         
+        ///In success case will navigate PasswordChangeView
         .background(
         NavigationLink(
            destination: OTPView(isChangePassword: true),
            isActive: $navigateOTPView,
            label: {}))
-        .disabled(vm.emailText.isEmpty)
+        
+        ///In error case alert will shown
+        .alert(isPresented: $vm.showAlert) {
+            Alert(title: Text(""), message: Text(vm.errorMessage), dismissButton: .default(Text("Oldu")) {isLoading = false})
+           }
     }
     
     var canContinue: Bool {
-        !vm.emailText.isEmpty
+        !vm.emailText.isEmpty && vm.isRightEmail
     }
 }
 

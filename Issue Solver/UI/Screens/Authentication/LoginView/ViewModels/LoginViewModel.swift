@@ -32,6 +32,7 @@ class LoginViewModel: ObservableObject {
         }
     }
 
+    ///For showing error that comes from API
     func makeErrorMessage(_ string: String) {
             isRightTextField = false
             errorMessage = string

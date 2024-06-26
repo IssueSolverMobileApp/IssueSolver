@@ -45,7 +45,6 @@ struct CustomTextField: View {
             if let title {
                 Text(title)
                     .jakartaFont(.heading)
-                    //.foregroundStyle(textColor ?? .black)
                     .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
             }
         }
