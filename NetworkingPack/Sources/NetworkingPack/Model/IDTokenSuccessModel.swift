@@ -13,3 +13,18 @@ public struct IDTokenSuccessModel: Codable {
     let status: Int?
     let message: String?
 }
+
+
+
+// MARK: - RefreshTokenModel
+public struct RefreshTokenModel: Codable {
+    let token: String?
+}
+
+// MARK: - RefreshTokenSuccessModel
+struct RefreshTokenSuccessModel: Codable {
+    let data: String?
+    let success: Bool?
+    let status: Int?
+    let message: String?
+}

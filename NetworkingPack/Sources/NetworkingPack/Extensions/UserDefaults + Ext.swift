@@ -12,6 +12,8 @@ extension UserDefaults {
     
     enum Keys: String {
         case queryKey = "queryItemKey"
+        case accessTokenKey = "accessToken"
+        case refreshTokenKey = "refreshToken"
     }
     
     var queryToken: String? {
@@ -20,6 +22,24 @@ extension UserDefaults {
         }
         set {
             setValue(newValue, forKey: Keys.queryKey.rawValue)
+        }
+    }
+    
+    public var accessToken: String? {
+        get {
+            return string(forKey: Keys.accessTokenKey.rawValue)
+        }
+        set {
+            setValue(newValue, forKey: Keys.accessTokenKey.rawValue)
+        }
+    }
+
+    public var refreshToken: String? {
+        get {
+            return string(forKey: Keys.refreshTokenKey.rawValue)
+        }
+        set {
+            setValue(newValue, forKey: Keys.refreshTokenKey.rawValue)
         }
     }
 }

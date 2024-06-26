@@ -15,6 +15,7 @@ public enum NetworkError: Error, LocalizedError {
     case noInternetConnection
     case notFound(String)
     case unauthorization
+    case refreshTokenTimeIsOver
     case statusError
     case corruptedData
     case unknowned
@@ -41,6 +42,8 @@ public enum NetworkError: Error, LocalizedError {
             return "Corrupted data"
         case .unknowned:
             return "Unknowned"
+        case .refreshTokenTimeIsOver:
+            return "Sessiya bitmişdir yenidən login olun"
         }
     }
 }

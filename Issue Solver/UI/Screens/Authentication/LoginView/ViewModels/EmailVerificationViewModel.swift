@@ -16,12 +16,13 @@ class EmailVerificationViewModel: ObservableObject {
     
     func emailVerification() async {
         let item = EmailModel(email: emailText)
-        do {
-            let result = try await authRepository.forgetPassword(body: item)
-            print(result ?? "")
-        }
-        catch {
-            print(error.localizedDescription)
+        authRepository.forgetPassword(body: item) { result in
+            switch result {
+            case .success(let success):
+                print(success.message ?? "")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 }

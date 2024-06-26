@@ -14,27 +14,29 @@ final class OTPViewModel: ObservableObject {
     private var authRepository = HTTPAuthRepository()
     
     
-    
     func sendOTPTrust() async {
         let item  = OTPModel(otpCode: otpText)
-        do {
-            let result = try await authRepository.otpTrust(body: item)
-            print(result ?? "")
+        
+        authRepository.otpTrust(body: item) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
-        catch {
-            print(error.localizedDescription)
-        }
-    }  
+    }
     
     func sendOTPConfirm() async {
         let item  = OTPModel(otpCode: otpText)
-        print(item)
-        do {
-            let result = try await authRepository.confirmOTP(body: item)
-            print(result ?? "")
-        }
-        catch {
-            print(error.localizedDescription)
+        
+        authRepository.confirmOTP(body: item) { result in
+            switch result {
+            case .success(let success):
+                print(success.message ?? "")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 }
