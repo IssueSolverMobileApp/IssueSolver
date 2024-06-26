@@ -38,7 +38,7 @@ class RegisterViewModel: ObservableObject {
     @Published var isRightFullName: Bool = true
     @Published var isRightEmail: Bool = true
     @Published var isRightPassword: Bool = true
-    @Published var isRightConfirmEmail: Bool = true
+    @Published var isRightConfirmPassword: Bool = true
     @Published var isRightFields: Bool = false
     
     ///For making textfield color to red after touch, write and then  delete something
@@ -104,7 +104,7 @@ class RegisterViewModel: ObservableObject {
             }
         }
         
-        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmEmail {
+        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmPassword {
             isRightFields = true
         } else {
             isRightFields = false
@@ -133,7 +133,7 @@ class RegisterViewModel: ObservableObject {
             }
         }
         
-        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmEmail {
+        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmPassword {
             isRightFields = true
         } else {
             isRightFields = false
@@ -149,16 +149,16 @@ class RegisterViewModel: ObservableObject {
         if hasTouchedConfirmPassword {
             if confirmPasswordText.isEmpty {
                 confirmPasswordError = "Şifrənin təsdiqi boş ola bilməz"
-                isRightConfirmEmail = false
+                isRightConfirmPassword = false
             } else if confirmPasswordText != passwordText {
                 confirmPasswordError = "Hər iki şifrə eyni olmalıdır"
-                isRightConfirmEmail = false
+                isRightConfirmPassword = false
             } else {
                 confirmPasswordError = nil
-                isRightConfirmEmail = true
+                isRightConfirmPassword = true
             }
         }
-        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmEmail {
+        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmPassword {
             isRightFields = true
         } else {
             isRightFields = false

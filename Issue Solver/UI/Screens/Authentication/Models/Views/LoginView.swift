@@ -11,6 +11,7 @@ struct LoginView: View {
     @StateObject var vm = LoginViewModel()
     @State private var navigateToEmailVerificationView = false
     @State private var navigateToRegisterView = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
         
@@ -29,7 +30,17 @@ struct LoginView: View {
             }
             .padding([.horizontal, .vertical], 16)
             
-        }
+            if isLoading {
+               VStack {
+                   Spacer()
+                   ProgressView()
+                       .progressViewStyle(CircularProgressViewStyle())
+                       .scaleEffect(2)
+                       .padding()
+                   Spacer()
+                   }
+               }
+           }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
@@ -45,10 +56,10 @@ struct LoginView: View {
         
         VStack(alignment: .trailing, spacing: 20) {
             // Email TextField View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightTextField)
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightEmail)
             
             // Password TextField View
-            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightTextField, errorMessage: $vm.errorMessage)
+            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.errorMessage)
             
             // Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
@@ -66,12 +77,13 @@ struct LoginView: View {
         VStack {
             // Log in Button View
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-                
+                isLoading = true
                 Task {
                     await vm.login()
+                    isLoading = false
                 }
             }
-            .disabled(vm.emailText.isEmpty && vm.passwordText.isEmpty)
+            .disabled(vm.emailText.isEmpty || vm.passwordText.isEmpty)
             
             // Email Exists Button View
             HStack {

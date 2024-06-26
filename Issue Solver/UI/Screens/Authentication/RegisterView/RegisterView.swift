@@ -15,6 +15,7 @@ struct RegisterView: View {
     
     @State var navigateOTPView: Bool = false
     @State var isChecked: Bool = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
         
@@ -31,6 +32,17 @@ struct RegisterView: View {
                     continueButtonView
                 }
                 .padding([.horizontal, .vertical], 16)
+                
+                if isLoading {
+                   VStack {
+                       Spacer()
+                       ProgressView()
+                           .progressViewStyle(CircularProgressViewStyle())
+                           .scaleEffect(2)
+                           .padding()
+                       Spacer()
+                       }
+                   }
             }
             .navigationBarBackButtonHidden(true)
             .onTapGesture {
@@ -59,7 +71,7 @@ struct RegisterView: View {
             }
             
             // Confirm Password TextField View
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText,isRightTextField: $vm.isRightConfirmEmail, errorMessage: $vm.confirmPasswordError)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText,isRightTextField: $vm.isRightConfirmPassword, errorMessage: $vm.confirmPasswordError)
             
             checkboxView
                 .padding(.vertical, 8)
@@ -79,10 +91,11 @@ struct RegisterView: View {
         VStack {
             
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+                isLoading = true
                 Task {
-                    
                     await vm.register { boolean in
                         navigateOTPView = boolean
+                        isLoading = false
                     }
                     
                 }
