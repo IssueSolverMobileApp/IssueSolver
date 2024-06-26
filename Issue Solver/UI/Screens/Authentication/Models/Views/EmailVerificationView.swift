@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EmailVerificationView: View {
-    @StateObject var vm = EmailVerificationViewModel()
     @Environment (\.dismiss) private var dismiss
     @State private var navigateOTPView = false
     @State private var isLoading: Bool = false
@@ -40,13 +39,13 @@ struct EmailVerificationView: View {
         .onTapGesture {
             hideKeyboard()
         }
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 backButtonView
             }
             
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     // Back Button View
