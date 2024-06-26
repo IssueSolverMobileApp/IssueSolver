@@ -47,24 +47,23 @@ struct PasswordChangeView: View {
     var textFieldView: some View {
         VStack (spacing: 20 ){
             
-            CustomTextField(placeholder: "Şifrənizi təyin edin",title: "Şifrə", isSecure: true, text: $vm.passwordText)
-            
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin",title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText)
+            CustomTextField(placeholder: "Şifrənizi təyin edin",title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.passwordError)
+        
+        CustomTextField(placeholder: "Şifrənizi təsdiq edin",title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText, isRightTextField: $vm.isRightConfirmPassword, errorMessage: $vm.confirmPasswordError)
         }
     }
     
     // Renew Button View
     var renewButtonView: some View {
         CustomButton(title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            // TODO: action must be added here
             Task {
                 await vm.updatePassword()
             }
         }
-        .disabled(vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty)
+        .disabled(vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !vm.isRightPassword && !vm.isRightConfirmPassword)
     }
     var canContinue: Bool {
-        !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty
+        !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightPassword && vm.isRightConfirmPassword
     }
 }
 
