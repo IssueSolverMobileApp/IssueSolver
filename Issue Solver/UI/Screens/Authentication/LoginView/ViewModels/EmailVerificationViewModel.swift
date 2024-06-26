@@ -23,6 +23,7 @@ class EmailVerificationViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var showAlert: Bool = false
     @Published var verificationSuccess: Bool = false
+    @Published var error: Error?
     
     func emailVerification(completion: @escaping ((Bool) -> Void)) async {
         let item = EmailModel(email: emailText)
