@@ -58,7 +58,9 @@ struct LoginView: View {
         VStack(spacing: 20) {
             // Email TextField View
             CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightEmail)
+            
             VStack(alignment:.trailing, spacing: 4) {
+
                 // Password TextField View
                 CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.errorMessage)
                 
@@ -89,7 +91,7 @@ struct LoginView: View {
             // Email Exists Button View
             HStack {
                 Text("Hesabınız yoxdur?")
-                    .foregroundColor(.secondaryGray)
+                    .foregroundStyle(.secondaryGray)
                 CustomButton(style: .text, title: "Qeydiyyatdan keçin") {
                     navigateToRegisterView = true
                 }

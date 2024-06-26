@@ -110,7 +110,7 @@ struct RegisterView: View {
             
             HStack {
                 Text("Hesabınız var mı?")
-                    .foregroundColor(.secondaryGray)
+                    .foregroundStyle(.secondaryGray)
                 CustomButton(style: .text, title: "Daxil olun") {
                     dismiss()
                 }
