@@ -94,7 +94,7 @@ public final class HTTPClient {
                             case .success(let model):
                                 UserDefaults.standard.accessToken = model.data
                                 self.sendNew(urlRequest: urlRequest, endPoint: endPoint, method: method, completion: completion)
-                            case .failure(let error):
+                            case .failure(_):
                                 completion(nil, NetworkError.refreshTokenTimeIsOver)
                             }
                         }

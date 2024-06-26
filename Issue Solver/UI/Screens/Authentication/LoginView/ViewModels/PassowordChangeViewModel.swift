@@ -17,12 +17,14 @@ class PasswordChangeViewModel: ObservableObject {
     
     func updatePassword() async {
         let item = ResetPasswordModel(password: passwordText, confirmPassword: confirmPasswordText)
-        do {
-            let result = try await authRepository.resetPassword(body: item)
-            print(result ?? "")
-        }
-        catch {
-            print(error.localizedDescription)
+        
+        authRepository.resetPassword(body: item) { result in
+            switch result {
+            case .success(let success):
+                print(success.message ?? "")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 }

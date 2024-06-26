@@ -18,13 +18,16 @@ class LoginViewModel: ObservableObject {
     
     func login() async {
         let item = LoginModel(email: emailText, password: passwordText)
-        do {
-            let result = try await authRepository.login(body: item)
-            print(result ?? "")
-        }
-        catch {
-            print(error.localizedDescription)
-            makeErrorMessage(errorMessage ?? "Something went wrong")
+        authRepository.login(body: item) { result in
+            switch result {
+            case .success(let result):
+                print(result.message ?? "")
+                UserDefaults.standard.accessToken = result.data?.accessToken
+                UserDefaults.standard.refreshToken = result.data?.refreshToken
+            case .failure(let error):
+                
+                print(error.localizedDescription)
+            }
         }
     }
 
