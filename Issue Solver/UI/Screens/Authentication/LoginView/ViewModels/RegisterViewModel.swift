@@ -52,18 +52,24 @@ class RegisterViewModel: ObservableObject {
     @Published var passwordError: String? = nil
     @Published var confirmPasswordError: String? = nil
     @Published var fullNameError: String? = nil
-        
+    @Published var isLoading: Bool = false
     
     
     func register(completion: @escaping (Bool) -> Void) async {
+        isLoading = true
+        
         let item = RegisterModel(email: emailText, fullName: fullNameText, password: passwordText, confirmPassword: confirmPasswordText)
         authRepository.register(body: item) { [weak self] result in
             guard let self else { return }
-            switch result {
-            case .success(let result):
-                completion(result.success ?? false)
-            case .failure(let error):
-                handleAPIEmailError(error.localizedDescription)
+            
+            DispatchQueue.main.async {
+                self.isLoading = false
+                switch result {
+                case .success(let result):
+                    completion(result.success ?? false)
+                case .failure(let error):
+                    self.handleAPIEmailError(error.localizedDescription)
+                }
             }
         }
     }

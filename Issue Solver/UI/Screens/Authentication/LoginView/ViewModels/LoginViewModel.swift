@@ -30,15 +30,19 @@ class LoginViewModel: ObservableObject {
     @Published var errorMessage: String? = ""
     @Published var isRightEmail: Bool = true
     @Published var isRightPassword: Bool = true
+    @Published var isLoading: Bool = false
     
     
     @MainActor
     func login() async {
+        isLoading = true
         
         let item = LoginModel(email: emailText, password: passwordText)
         authRepository.login(body: item) { [weak self] result in
+            guard let self else { return }
+            
             DispatchQueue.main.async {
-                guard let self else { return }
+                self.isLoading = false
                 switch result {
                 case .success(let result):
                     print(result.message ?? "")

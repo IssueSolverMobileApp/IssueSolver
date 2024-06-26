@@ -11,7 +11,6 @@ struct LoginView: View {
     @StateObject var vm = LoginViewModel()
     @State private var navigateToEmailVerificationView = false
     @State private var navigateToRegisterView = false
-    @State private var isLoading: Bool = false
     
     var body: some View {
         
@@ -30,12 +29,12 @@ struct LoginView: View {
             }
             .padding([.horizontal, .vertical], 16)
             
-            if isLoading {
+            if vm.isLoading {
                VStack {
                    Spacer()
                    ProgressView()
                        .progressViewStyle(CircularProgressViewStyle())
-                       .scaleEffect(2)
+                       .scaleEffect(1)
                        .padding()
                    Spacer()
                    }
@@ -77,10 +76,8 @@ struct LoginView: View {
         VStack {
             // Log in Button View
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-                isLoading = true
                 Task {
                     await vm.login()
-                    isLoading = false
                 }
             }
             .disabled(vm.emailText.isEmpty || vm.passwordText.isEmpty)

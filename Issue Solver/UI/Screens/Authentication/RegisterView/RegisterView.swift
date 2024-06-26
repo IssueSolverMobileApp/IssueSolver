@@ -15,7 +15,6 @@ struct RegisterView: View {
     
     @State var navigateOTPView: Bool = false
     @State var isChecked: Bool = false
-    @State private var isLoading: Bool = false
     
     var body: some View {
         
@@ -33,12 +32,12 @@ struct RegisterView: View {
                 }
                 .padding([.horizontal, .vertical], 16)
                 
-                if isLoading {
+                if vm.isLoading {
                    VStack {
                        Spacer()
                        ProgressView()
                            .progressViewStyle(CircularProgressViewStyle())
-                           .scaleEffect(2)
+                           .scaleEffect(1)
                            .padding()
                        Spacer()
                        }
@@ -91,13 +90,12 @@ struct RegisterView: View {
         VStack {
             
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-                isLoading = true
                 Task {
-                    await vm.register { boolean in
-                        navigateOTPView = boolean
-                        isLoading = false
+                    await vm.register { success in
+                        if success {
+                            navigateOTPView = true
+                        }
                     }
-                    
                 }
             }
             .background(
@@ -105,9 +103,7 @@ struct RegisterView: View {
                                isActive: $navigateOTPView,
                                label: {})
             )
-            
-            
-            .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty && vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !isChecked && !vm.isRightFields)
+            .disabled(!canContinue)
             
             HStack {
                 Text("Hesabınız var mı?")
