@@ -50,28 +50,36 @@ struct EmailVerificationView: View {
     
     //Email TextField
     var textFieldView: some View {
-        CustomTextField(placeholder: "E-poçtunuzu daxil edin",title: "E- poçt",text: $vm.emailText)
+        CustomTextField(placeholder: "E-poçtunuzu daxil edin",title: "E- poçt",text: $vm.emailText, isRightTextField: $vm.isRightEmail, errorMessage: $vm.emailError)
     }
     
     //Confirm Email Button
     var confirmButtonView: some View {
         CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            navigateOTPView = true
             Task {
                 await vm.emailVerification()
+                if vm.verificationSuccess {
+                    navigateOTPView = true
+                }
             }
         }
+        .disabled(vm.emailText.isEmpty && !vm.isRightEmail)
         
+        ///In success case will navigate PasswordChangeView
         .background(
         NavigationLink(
            destination: OTPView(isChangePassword: true),
            isActive: $navigateOTPView,
            label: {}))
-        .disabled(vm.emailText.isEmpty)
+        
+        ///In error case alert will shown
+        .alert(isPresented: $vm.showAlert) {
+               Alert(title: Text(""), message: Text(vm.errorMessage), dismissButton: .default(Text("Oldu")))
+           }
     }
     
     var canContinue: Bool {
-        !vm.emailText.isEmpty
+        !vm.emailText.isEmpty && vm.isRightEmail
     }
 }
 
