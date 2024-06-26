@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct EmailVerificationView: View {
-    @StateObject var vm = EmailVerificationViewModel()
     @Environment (\.dismiss) private var dismiss
-    @State private var navigateOTPView = false
+    @StateObject var vm = EmailVerificationViewModel()
+    @State var isNavigateToOTPView: Bool = false
     
     var body: some View {
         ZStack {
@@ -21,19 +21,17 @@ struct EmailVerificationView: View {
                 Spacer()
                 confirmButtonView
             }
-            .padding(.top, 24)
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
+            .padding([.horizontal, .vertical], 16)
         }
         .onTapGesture {
             hideKeyboard()
         }
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 backButtonView
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     // Back Button View
@@ -56,17 +54,17 @@ struct EmailVerificationView: View {
     //Confirm Email Button
     var confirmButtonView: some View {
         CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            navigateOTPView = true
             Task {
-                await vm.emailVerification()
+                await vm.emailVerification { result in
+                    isNavigateToOTPView = true
+                }
             }
         }
-        
         .background(
-        NavigationLink(
-           destination: OTPView(isChangePassword: true),
-           isActive: $navigateOTPView,
-           label: {}))
+            NavigationLink(
+                destination: OTPView(emailModel: EmailModel(email: vm.emailText), isChangePassword: true, error: vm.error),
+                isActive: $isNavigateToOTPView,
+                label: {}))
         .disabled(vm.emailText.isEmpty)
     }
     

@@ -33,6 +33,7 @@
 		A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFD2C18DD7300E18665 /* CustomButton.swift */; };
 		A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFF2C18E11700E18665 /* CustomTextField.swift */; };
 		A82DAE032C18E34B00E18665 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DAE022C18E34B00E18665 /* Constants.swift */; };
+		A8BF680F2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF680E2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift */; };
 		FB161FB82C2A9AF600C0A8E9 /* String+ Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB161FB72C2A9AF600C0A8E9 /* String+ Ext.swift */; };
 		FB55BD552C1B0CAD00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */; };
 		FB55BD562C1B0CAD00F81FDB /* PlusJakartaSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */; };
@@ -97,6 +98,7 @@
 		A82DADFD2C18DD7300E18665 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A8BF680E2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentProperties.swift; sourceTree = "<group>"; };
 		FB161FB72C2A9AF600C0A8E9 /* String+ Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ Ext.swift"; sourceTree = "<group>"; };
 		FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				6F75354A2C1998D5003D12AC /* CustomTitleView.swift */,
 				6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */,
 				FB967D242C2584DC002BA572 /* CustomRowView.swift */,
+				A8BF680E2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				8C264F482C2446ED00FDAAE3 /* RegisterViewModel.swift in Sources */,
 				8C22A9692C1C5E5400B3879B /* JSONConverter.swift in Sources */,
 				A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */,
+				A8BF680F2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift in Sources */,
 				FB161FB82C2A9AF600C0A8E9 /* String+ Ext.swift in Sources */,
 				8C22A9622C1C5AE800B3879B /* ResetPasswordModel.swift in Sources */,
 				A82DAE032C18E34B00E18665 /* Constants.swift in Sources */,

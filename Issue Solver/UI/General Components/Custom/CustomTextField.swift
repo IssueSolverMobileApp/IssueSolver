@@ -39,58 +39,59 @@ struct CustomTextField: View {
         }
     }
     
-    /// - Title view of the custom textfield
+    // TitleView
     var titleView: some View {
         ZStack {
             if let title {
                 Text(title)
                     .jakartaFont(.heading)
-                    //.foregroundStyle(textColor ?? .black)
                     .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
             }
         }
     }
     
-    /// - Custom text field view
+    // Custom TextField view
     var textFieldView: some View {
         VStack(alignment: .leading) {
-        ZStack {
-            if !isSecure {
-                TextField(placeholder ?? "", text: $text)
+            ZStack {
+                if !isSecure {
+                    TextField(placeholder ?? "", text: $text)
                     
-            } else {
-                HStack {
-                    if isShowPassword {
-                        TextField(placeholder ?? "", text: $text)
-                            
-                    } else {
-                        SecureField(placeholder ?? "", text: $text)
-                           
-                    }
+                } else {
                     HStack {
-                        showPasswordButtonView
+                        if isShowPassword {
+                            TextField(placeholder ?? "", text: $text)
+                            
+                        } else {
+                            SecureField(placeholder ?? "", text: $text)
+                            
+                        }
+                        HStack {
+                            showPasswordButtonView
+                        }
                     }
                 }
             }
-        }
-        .padding()
-        .overlay(RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke((isRightTextField) ? Color.clear : Color.red, lineWidth: 1))
-        .background {
-            RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                .fill(color ?? .white)
-        }
-         if let errorMessage {
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke((isRightTextField) ? Color.clear : Color.red, lineWidth: 1))
+            .background {
+                RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                    .fill(color ?? .white)
+            }
+            .textInputAutocapitalization(.never)
+            
+            if let errorMessage {
                 Text(errorMessage)
                     .foregroundStyle(.red)
                     .jakartaFont(.subtitle2)
-                    }
+            }
             
-                }
+        }
         
         .jakartaFont(.subtitle)
     }
     
-    /// - Show/hide password
+    // Show/hide password
     var showPasswordButtonView: some View {
         Button {
             isShowPassword.toggle()
@@ -99,8 +100,6 @@ struct CustomTextField: View {
                 .foregroundStyle(isRightTextField ? Color.primaryBlue :  .red)
                 .background(.white)
         }
-       
-
     }
     
 }

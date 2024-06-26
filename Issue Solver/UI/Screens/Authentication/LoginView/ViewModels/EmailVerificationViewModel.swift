@@ -13,15 +13,19 @@ class EmailVerificationViewModel: ObservableObject {
     private var authRepository = HTTPAuthRepository()
 
     @Published var emailText: String = ""
+    @Published var error: Error?
     
-    func emailVerification() async {
+    func emailVerification(completion: @escaping ((Bool) -> Void)) async {
         let item = EmailModel(email: emailText)
         authRepository.forgetPassword(body: item) { result in
             switch result {
-            case .success(let success):
-                print(success.message ?? "")
+            case .success(_):
+                completion(true)
             case .failure(let error):
-                print(error.localizedDescription)
+                DispatchQueue.main.async { [ weak self ] in
+                    self?.error = error
+                }
+                completion(false)
             }
         }
     }

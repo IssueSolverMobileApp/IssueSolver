@@ -6,23 +6,28 @@
 //
 
 import Foundation
+import NetworkingPack
 
 final class OTPViewModel: ObservableObject {
     
     @Published var otpText: String = ""
+    @Published var isLoading: Bool = false
+    
+    /// - We use optional here, as we open OTPView, timer will be set to nil
+    /// - Also we need to reuse timer many times, so we can set new value when we need
+    @Published var timer: CountdownView?
+    @Published var isTimerFinished: Bool = true
     
     private var authRepository = HTTPAuthRepository()
     
-    
-    func sendOTPTrust() async {
+    func sendOTPTrust(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
         let item  = OTPModel(otpCode: otpText)
-        
         authRepository.otpTrust(body: item) { result in
             switch result {
-            case .success(let success):
-                print(success)
+            case .success(_):
+                completion(.success(true))
             case .failure(let error):
-                print(error.localizedDescription)
+                completion(.failure(error))
             }
         }
     }
@@ -36,6 +41,17 @@ final class OTPViewModel: ObservableObject {
                 print(success.message ?? "")
             case .failure(let error):
                 print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func resendOTP(with email: EmailModel) {
+        authRepository.resendOTP(body: email) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+            case .failure(let error):
+                print(error)
             }
         }
     }
