@@ -23,19 +23,19 @@ class EmailVerificationViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var showAlert: Bool = false
     @Published var verificationSuccess: Bool = false
+    @Published var error: Error?
     
-    func emailVerification() async {
+    func emailVerification(completion: @escaping ((Bool) -> Void)) async {
         let item = EmailModel(email: emailText)
         authRepository.forgetPassword(body: item) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let success):
-                    print(success.message ?? "")
-                    self.verificationSuccess = true
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self.handleAPIEmailError(self.errorMessage)
+            switch result {
+            case .success(_):
+                completion(true)
+            case .failure(let error):
+                DispatchQueue.main.async { [ weak self ] in
+                    self?.error = error
                 }
+                completion(false)
             }
         }
     }

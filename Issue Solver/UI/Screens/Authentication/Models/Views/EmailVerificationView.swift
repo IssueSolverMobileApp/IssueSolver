@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct EmailVerificationView: View {
-    @StateObject var vm = EmailVerificationViewModel()
     @Environment (\.dismiss) private var dismiss
+    @StateObject var vm = EmailVerificationViewModel()
     @State private var navigateOTPView = false
     @State private var isLoading: Bool = false
     
@@ -40,13 +40,13 @@ struct EmailVerificationView: View {
         .onTapGesture {
             hideKeyboard()
         }
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 backButtonView
             }
             
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     // Back Button View
@@ -72,10 +72,11 @@ struct EmailVerificationView: View {
             isLoading = true
             
             Task {
-                await vm.emailVerification()
-                if vm.verificationSuccess {
-                    navigateOTPView = true
-                    isLoading = false
+                await vm.emailVerification() { result in
+                    if vm.verificationSuccess {
+                        navigateOTPView = true
+                        isLoading = false
+                    }
                 }
             }
         }
@@ -84,7 +85,7 @@ struct EmailVerificationView: View {
         ///In success case will navigate PasswordChangeView
         .background(
         NavigationLink(
-           destination: OTPView(isChangePassword: true),
+            destination: OTPView(emailModel: EmailModel(email: vm.emailText),isChangePassword: true, error: vm.error),
            isActive: $navigateOTPView,
            label: {}))
         
