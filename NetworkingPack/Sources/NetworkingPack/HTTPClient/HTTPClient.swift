@@ -48,7 +48,7 @@ public final class HTTPClient {
             self.checkError(error: error, completion: completion)
             self.checkStatus(endPoint: endPoint, response: response, data: data, urlRequest: urlRequest, method: method, completion: completion)
             
-        }
+        }.resume()
     }
     
     func checkError<T: Decodable>(error: Error?, completion: @escaping(T?, Error?) -> Void){
