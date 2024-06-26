@@ -10,9 +10,9 @@ import SwiftUI
 struct PasswordChangeView: View {
     
     @StateObject var vm: PasswordChangeViewModel = PasswordChangeViewModel()
+    @State private var isLoading: Bool = false
     
     var body: some View {
-        
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
@@ -25,6 +25,17 @@ struct PasswordChangeView: View {
             .padding(.top, 24)
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
+            
+        if isLoading {
+           VStack {
+               Spacer()
+               ProgressView()
+                   .progressViewStyle(CircularProgressViewStyle())
+                   .scaleEffect(2)
+                   .padding()
+               Spacer()
+                }
+            }
         }
         .onTapGesture {
             hideKeyboard()
@@ -56,8 +67,11 @@ struct PasswordChangeView: View {
     // Renew Button View
     var renewButtonView: some View {
         CustomButton(title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+            isLoading = true
+            
             Task {
                 await vm.updatePassword()
+                isLoading = false
             }
         }
         .disabled(vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !vm.isRightPassword && !vm.isRightConfirmPassword)
