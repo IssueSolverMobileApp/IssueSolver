@@ -94,7 +94,7 @@ struct RegisterView: View {
             )
             
             
-            .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty && vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !isChecked)
+            .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty && vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !isChecked && !vm.isRightFields)
             
             HStack {
                 Text("Hesabınız var mı?")
@@ -109,7 +109,7 @@ struct RegisterView: View {
     }
     
     var canContinue: Bool {
-        return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && isChecked
+        return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && isChecked && vm.isRightFields
     }
 }
 
