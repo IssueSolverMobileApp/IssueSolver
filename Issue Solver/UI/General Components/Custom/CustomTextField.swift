@@ -29,7 +29,6 @@ struct CustomTextField: View {
         self._isRightTextField = isRightTextField
         self.isShowPassword = isShowPassword
         self._errorMessage = errorMessage
-        
     }
     
     var body: some View {
@@ -53,7 +52,7 @@ struct CustomTextField: View {
     // Custom TextField view
     var textFieldView: some View {
         VStack(alignment: .leading) {
-            ZStack {
+            Group {
                 if !isSecure {
                     TextField(placeholder ?? "", text: $text)
                     
@@ -85,9 +84,7 @@ struct CustomTextField: View {
                     .foregroundStyle(.red)
                     .jakartaFont(.subtitle2)
             }
-            
         }
-        
         .jakartaFont(.subtitle)
     }
     

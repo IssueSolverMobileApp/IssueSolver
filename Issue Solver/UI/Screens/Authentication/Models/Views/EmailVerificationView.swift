@@ -16,22 +16,22 @@ struct EmailVerificationView: View {
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 24 ) {
+            VStack(alignment: .leading) {
                 titleView
                 textFieldView
                 Spacer()
                 confirmButtonView
             }
-            .padding(.top, 24)
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
+            .padding(.horizontal,20)
+            .padding(.vertical, 24)
             
+            ///Progress View
             if isLoading {
                VStack {
                    Spacer()
                    ProgressView()
                        .progressViewStyle(CircularProgressViewStyle())
-                       .scaleEffect(2)
+                       .scaleEffect(1)
                        .padding()
                    Spacer()
                        }
