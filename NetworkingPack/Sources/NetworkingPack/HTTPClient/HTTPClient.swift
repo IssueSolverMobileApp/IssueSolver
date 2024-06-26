@@ -87,8 +87,9 @@ public final class HTTPClient {
                     
                     switch response.statusCode {
                     case 400:
-                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "error message has problem"))
+                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
                     case 401:
+                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
                         sendRefreshToken { result in
                             switch result {
                             case .success(let model):
@@ -101,7 +102,7 @@ public final class HTTPClient {
                     case 402...403:
                         completion(nil, NetworkError.unauthorization)
                     case 404:
-                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "error message has problem"))
+                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
                     case 500:
                         completion(nil, NetworkError.unauthorization)
                     default:

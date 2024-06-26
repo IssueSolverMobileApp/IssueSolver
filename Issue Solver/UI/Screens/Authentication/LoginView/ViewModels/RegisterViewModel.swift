@@ -16,6 +16,7 @@ class RegisterViewModel: ObservableObject {
             validateFullName()
         }
     }
+        
     @Published var emailText: String = "" {
         didSet {
             validateEmail()
@@ -38,6 +39,7 @@ class RegisterViewModel: ObservableObject {
     @Published var isRightEmail: Bool = true
     @Published var isRightPassword: Bool = true
     @Published var isRightConfirmEmail: Bool = true
+    @Published var isRightFields: Bool = false
     
     ///For making textfield color to red after touch, write and then  delete something
     @Published var hasTouchedFullName: Bool = false
@@ -55,12 +57,13 @@ class RegisterViewModel: ObservableObject {
     
     func register(completion: @escaping (Bool) -> Void) async {
         let item = RegisterModel(email: emailText, fullName: fullNameText, password: passwordText, confirmPassword: confirmPasswordText)
-        authRepository.register(body: item) { result in
+        authRepository.register(body: item) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let result):
                 completion(result.success ?? false)
             case .failure(let error):
-                print(error.localizedDescription)
+                handleAPIEmailError(error.localizedDescription)
             }
         }
     }
@@ -100,6 +103,12 @@ class RegisterViewModel: ObservableObject {
                 isRightEmail = true
             }
         }
+        
+        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmEmail {
+            isRightFields = true
+        } else {
+            isRightFields = false
+        }
     }
     
     ///Password local validation function
@@ -123,6 +132,13 @@ class RegisterViewModel: ObservableObject {
                 isRightPassword = true
             }
         }
+        
+        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmEmail {
+            isRightFields = true
+        } else {
+            isRightFields = false
+        }
+
     }
     
     ///Confirm password local validation function
@@ -142,6 +158,12 @@ class RegisterViewModel: ObservableObject {
                 isRightConfirmEmail = true
             }
         }
+        if isRightEmail && isRightPassword && isRightFullName && isRightConfirmEmail {
+            isRightFields = true
+        } else {
+            isRightFields = false
+        }
+
     }
     
     /// Email error that comes from API

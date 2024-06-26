@@ -15,24 +15,25 @@ class LoginViewModel: ObservableObject {
     @Published var errorMessage: String? = ""
     @Published var isRightTextField: Bool = true
     
-    
+    @MainActor
     func login() async {
+        
         let item = LoginModel(email: emailText, password: passwordText)
-        authRepository.login(body: item) { result in
+        authRepository.login(body: item) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let result):
                 print(result.message ?? "")
                 UserDefaults.standard.accessToken = result.data?.accessToken
                 UserDefaults.standard.refreshToken = result.data?.refreshToken
             case .failure(let error):
-                
-                print(error.localizedDescription)
+                self.makeErrorMessage(error.localizedDescription)
             }
         }
     }
 
     func makeErrorMessage(_ string: String) {
             isRightTextField = false
-            errorMessage = "Bu texti silib string yazarsan yerinə,Valeh."
+            errorMessage = string
     }
 }
