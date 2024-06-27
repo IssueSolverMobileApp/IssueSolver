@@ -13,7 +13,6 @@ struct OTPView: View {
     @StateObject var vm = OTPViewModel()
     @State var emailModel: EmailModel?
     @State var isChangePassword: Bool = false
-//    @State var error: Error?
     
     @State private var isOTPHasError: Bool = false
     @State private var navigateLoginView: Bool = false
@@ -37,14 +36,6 @@ struct OTPView: View {
 //            }))
             
 //        }
-        .onAppear {
-//            if let _ = error {
-//                isOTPHasError = error != nil ? true : false
-//            }
-//            vm.timer = CountdownView { /// - When timer finishes, do something
-//                vm.isTimerFinished = true
-//            }
-        }
     }
     
     // MARK: - Views
@@ -53,9 +44,8 @@ struct OTPView: View {
         VStack(alignment: .leading, spacing: 24) {
             titleView
             otfFieldsView
-            if vm.isTimerFinished {
-                timerView
-            }
+            timerView
+            
             Spacer()
             confirmButtonView
         }

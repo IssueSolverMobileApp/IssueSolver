@@ -20,6 +20,12 @@ final class OTPViewModel: ObservableObject {
     
     private var authRepository = HTTPAuthRepository()
     
+    init() {
+        timer = CountdownView { [ weak self ] in /// - When timer finishes, do something
+            self?.isTimerFinished = true
+        }
+    }
+    
     func sendOTPTrust(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
         let item  = OTPModel(otpCode: otpText)
         authRepository.otpTrust(body: item) { result in
