@@ -28,10 +28,12 @@ struct LoginView: View {
                 
                 loginButtonView
             }
-            .padding([.horizontal, .vertical], 16)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 24)
             
         }
-        .background{
+        .background {
+            
             NavigationLink(
                 destination: EmailVerificationView(),
                 isActive: $navigateToEmailVerificationView,
@@ -41,6 +43,7 @@ struct LoginView: View {
                 destination: RegisterView(),
                 isActive: $navigateToRegisterView,
                 label: {})
+            
         }
         .navigationBarBackButtonHidden(true)
         
@@ -53,14 +56,14 @@ struct LoginView: View {
     }
     
     var textFieldsView: some View {
-        
-        VStack(alignment: .trailing, spacing: 20) {
-            // Email TextField View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightTextField)
-            
-            // Password TextField View
-            CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightTextField, errorMessage: $vm.errorMessage)
-            
+        VStack(alignment: .trailing) {
+            VStack (spacing: 20) {
+                // Email TextField View
+                CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightTextField)
+                
+                // Password TextField View
+                CustomTextField(placeholder: "Şifrənizi daxil edin", title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightTextField, errorMessage: $vm.errorMessage)
+            }
             // Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
                 navigateToEmailVerificationView = true
@@ -76,6 +79,7 @@ struct LoginView: View {
                 Task {
                     await vm.login()
                 }
+                
             }
             .disabled(vm.emailText.isEmpty && vm.passwordText.isEmpty)
             
