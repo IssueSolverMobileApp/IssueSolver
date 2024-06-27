@@ -86,8 +86,9 @@ struct RegisterView: View {
             CustomCheckBox(isChecked: $isChecked, borderColor: showCheckboxError && !isChecked ? .red : .clear)
             
             TextView(text: "Şərtlər və qaydaları qəbul edirəm", clickableTexts: [ Constants.termsOfUse])
+                .jakartaFont(.subtitle)
         }
-        .jakartaFont(.subtitle)
+        
     }
     
     var continueButtonView: some View {
