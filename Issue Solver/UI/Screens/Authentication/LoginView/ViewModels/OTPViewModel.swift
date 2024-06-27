@@ -18,6 +18,9 @@ final class OTPViewModel: ObservableObject {
     @Published var timer: CountdownView?
     @Published var isTimerFinished: Bool = true
     
+    /// errorText is show all type of error
+    @Published var errorText: String = ""
+    
     private var authRepository = HTTPAuthRepository()
     
     init() {
@@ -33,6 +36,7 @@ final class OTPViewModel: ObservableObject {
             case .success(_):
                 completion(.success(true))
             case .failure(let error):
+                self.errorText = error.localizedDescription
                 completion(.failure(error))
             }
         }
@@ -46,7 +50,7 @@ final class OTPViewModel: ObservableObject {
             case .success(let success):
                 print(success.message ?? "")
             case .failure(let error):
-                print(error.localizedDescription)
+                self.errorText = error.localizedDescription
             }
         }
     }
@@ -57,7 +61,7 @@ final class OTPViewModel: ObservableObject {
             case .success(let success):
                 print(success)
             case .failure(let error):
-                print(error)
+                self.errorText = error.localizedDescription
             }
         }
     }

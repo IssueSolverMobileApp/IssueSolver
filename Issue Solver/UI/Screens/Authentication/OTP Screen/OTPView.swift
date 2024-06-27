@@ -63,7 +63,14 @@ struct OTPView: View {
     
     // Title View
     var titleView: some View {
-        CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin.")
+        HStack(alignment: .top) {
+            CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin.")
+            HStack {
+                Image(.timerIcon)
+                vm.timer
+            }
+            .padding(.vertical,6)
+        }
     }
     
     // OTP Fields View
@@ -83,10 +90,9 @@ struct OTPView: View {
     // Countdown View
     var timerView: some View {
         HStack {
-            Text("Qalan vaxt:")
-                .foregroundStyle(.primaryBlue)
+            Text(vm.errorText)
+                .foregroundStyle(.red)
                 .font(.system(size: 17))
-            vm.timer
         }
     }
     
