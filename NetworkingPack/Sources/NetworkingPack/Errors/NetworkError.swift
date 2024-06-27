@@ -19,6 +19,8 @@ public enum NetworkError: Error, LocalizedError {
     case statusError
     case corruptedData
     case unknowned
+    case statusCode(String)
+
     
     public var errorDescription: String? {
         switch self {
@@ -44,6 +46,9 @@ public enum NetworkError: Error, LocalizedError {
             return "Unknowned"
         case .refreshTokenTimeIsOver:
             return "Sessiya bitmişdir yenidən login olun"
+        case .statusCode(let number):
+            return number
+        
         }
     }
 }

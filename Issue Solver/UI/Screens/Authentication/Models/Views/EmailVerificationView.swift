@@ -16,22 +16,22 @@ struct EmailVerificationView: View {
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 24 ) {
                 titleView
                 textFieldView
                 Spacer()
                 confirmButtonView
             }
-            .padding(.horizontal,20)
-            .padding(.vertical, 24)
+            .padding(.top, 24)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
             
-            ///Progress View
             if isLoading {
                VStack {
                    Spacer()
                    ProgressView()
                        .progressViewStyle(CircularProgressViewStyle())
-                       .scaleEffect(1)
+                       .scaleEffect(2)
                        .padding()
                    Spacer()
                        }
@@ -73,10 +73,10 @@ struct EmailVerificationView: View {
             
             Task {
                 await vm.emailVerification() { result in
-                    if vm.verificationSuccess {
-                        navigateOTPView = true
+//                    if vm.verificationSuccess {
+                        navigateOTPView = result
                         isLoading = false
-                    }
+//                    }
                 }
             }
         }
@@ -85,7 +85,7 @@ struct EmailVerificationView: View {
         ///In success case will navigate PasswordChangeView
         .background(
         NavigationLink(
-            destination: OTPView(emailModel: EmailModel(email: vm.emailText),isChangePassword: true, error: vm.error),
+            destination: OTPView(emailModel: EmailModel(email: vm.emailText),isChangePassword: true/*, error: vm.error*/),
            isActive: $navigateOTPView,
            label: {}))
         

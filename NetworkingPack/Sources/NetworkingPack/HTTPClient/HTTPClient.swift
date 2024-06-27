@@ -103,6 +103,8 @@ public final class HTTPClient {
                         completion(nil, NetworkError.unauthorization)
                     case 404:
                         completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
+                    case 409:
+                        completion(nil, NetworkError.statusCode("\(errorDecode.status ?? Int())"))
                     case 500:
                         completion(nil, NetworkError.unauthorization)
                     default:
@@ -120,6 +122,7 @@ public final class HTTPClient {
             do {
                 let decode = try JSONDecoder().decode(T.self, from: data)
                 getQueryItem(endPoint: endPoint, decodable: decode)
+                getAccessToken(decodable: decode)
                 completion(decode, nil)
             }
             catch {
@@ -145,16 +148,33 @@ public final class HTTPClient {
         UserDefaults.standard.queryToken = nil
     }
     
+//    MARK: GetAccessToken
+    func getAccessToken(decodable: Decodable) {
+        print(decodable)
+        if let decode = decodable as? LoginSuccessModel {
+            print(decode.data?.accessToken ?? "" )
+            UserDefaults.standard.accessToken = decode.data?.accessToken
+            UserDefaults.standard.refreshToken = decode.data?.refreshToken
+//            guard let accessToken = decode.data?.accessToken else { return }
+//            guard let refreshToken = decode.data?.refreshToken else { return }
+//            print(TokenEnum.accessToken.rawValue + "-------------------------------")
+//            KeychainManager().save(token: accessToken, key: TokenEnum.accessToken.rawValue)
+//            KeychainManager().save(token: refreshToken, key: TokenEnum.refreshToken.rawValue)
+        }
+    }
+    
 //    MARK: setAccessToken
     func setAccessToken(urlRequest: inout URLRequest) {
         guard let accessToken = UserDefaults.standard.accessToken else { return }
-        urlRequest.setValue("token", forHTTPHeaderField: accessToken)
+//        let token = KeychainManager().get(for: TokenEnum.accessToken.rawValue)
+        urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: TokenEnum.accessToken.rawValue)
     }
     
 //    MARK: Send refresh
     func sendRefreshToken(completion: @escaping(Result<RefreshTokenSuccessModel, Error>) -> Void) {
         UserDefaults.standard.accessToken = nil
         guard let refreshToken = UserDefaults.standard.refreshToken else { return }
+//        let refreshToken = KeychainManager().get(for: TokenEnum.refreshToken.rawValue)
         do {
             let body = RefreshTokenModel(token: refreshToken)
             let encode = try JSONEncoder().encode(body)
