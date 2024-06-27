@@ -30,19 +30,25 @@ class LoginViewModel: ObservableObject {
     @Published var errorMessage: String? = ""
     @Published var isRightEmail: Bool = true
     @Published var isRightPassword: Bool = true
+    @Published var isLoading: Bool = false
     
     func login() async {
+        isLoading = true
         
         let item = LoginModel(email: emailText, password: passwordText)
         authRepository.login(body: item) { [weak self] result in
             guard let self else { return }
-            switch result {
-            case .success(let result):
-                print(result.message ?? "")
-//                UserDefaults.standard.accessToken = result.data?.accessToken
-//                UserDefaults.standard.refreshToken = result.data?.refreshToken
-            case .failure(let error):
-                self.makeErrorMessage(error.localizedDescription)
+            
+            DispatchQueue.main.async {
+                self.isLoading = false
+                switch result {
+                case .success(let result):
+                    print(result.message ?? "")
+                    //                UserDefaults.standard.accessToken = result.data?.accessToken
+                    //                UserDefaults.standard.refreshToken = result.data?.refreshToken
+                case .failure(let error):
+                    self.makeErrorMessage(error.localizedDescription)
+                }
             }
         }
     }
