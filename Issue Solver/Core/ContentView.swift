@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var selectedTab: Tab = .home
+    @EnvironmentObject var coordinator: NavigationCoordinator
     
+    @State var selectedTab: Tab = .home
+    @State private var isRootPresenting: Bool = false
     var body: some View {
         NavigationView {
             LoginView()
+                .environmentObject(coordinator)
         }
     }
 }

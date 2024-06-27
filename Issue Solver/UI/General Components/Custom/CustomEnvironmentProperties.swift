@@ -7,18 +7,38 @@
 
 import SwiftUI
 
-struct RootPresentationKey: EnvironmentKey {
-    static let defaultValue: Binding<Bool> = .constant(false)
+//struct RootPresentationKey: EnvironmentKey {
+//    static let defaultValue: Binding<Bool> = .constant(false)
+//}
+//
+//
+//extension EnvironmentValues {
+//    var isLoginRootPresenting: Binding<Bool> {
+//        get {
+//            self[RootPresentationKey.self]
+//        }
+//        set {
+//            self[RootPresentationKey.self] = newValue
+//        }
+//    }
+//}
+
+struct RootPresentationModeKey: EnvironmentKey {
+    static let defaultValue: Binding<RootPresentationMode> = .constant(RootPresentationMode())
 }
 
-
 extension EnvironmentValues {
-    var isLoginRootPresenting: Binding<Bool> {
-        get {
-            self[RootPresentationKey.self]
-        }
-        set {
-            self[RootPresentationKey.self] = newValue
-        }
+    var rootPresentationMode: Binding<RootPresentationMode> {
+        get { return self[RootPresentationModeKey.self] }
+        set { self[RootPresentationModeKey.self] = newValue }
+    }
+}
+
+typealias RootPresentationMode = Bool
+
+extension RootPresentationMode {
+    
+    public mutating func dismiss() {
+        self.toggle()
     }
 }

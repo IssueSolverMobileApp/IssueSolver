@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var coordinator: NavigationCoordinator
+    
     @StateObject var vm = LoginViewModel()
     @State private var navigateToEmailVerificationView = false
     @State private var navigateToRegisterView = false
@@ -18,19 +20,17 @@ struct LoginView: View {
             Color.surfaceBackground.ignoresSafeArea()
             
             VStack {
-                
                 ScrollView(showsIndicators: false) {
-
-                    titleView
-                    textFieldsView
-
+                    LazyVStack {
+                        titleView
+                        textFieldsView
+                    }
                 }
                 
                 loginButtonView
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 24)
-            
         }
         .background {
             
@@ -87,7 +87,7 @@ struct LoginView: View {
                 Text("Hesabınız yoxdur?")
                     .foregroundColor(.secondaryGray)
                 CustomButton(style: .text, title: "Qeydiyyatdan keçin") {
-                    navigateToRegisterView = true
+                    coordinator.show(RegisterView(), animated: true)
                 }
             }
             .jakartaFont(.subtitle)
