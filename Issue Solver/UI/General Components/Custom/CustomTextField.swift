@@ -60,10 +60,10 @@ struct CustomTextField: View {
                     HStack {
                         if isShowPassword {
                             TextField(placeholder ?? "", text: $text)
-                            
+                                
                         } else {
                             SecureField(placeholder ?? "", text: $text)
-                            
+                                
                         }
                         HStack {
                             showPasswordButtonView
@@ -86,7 +86,6 @@ struct CustomTextField: View {
             }
         }
         .jakartaFont(.subtitle)
-        .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
     }
     
     // Show/hide password

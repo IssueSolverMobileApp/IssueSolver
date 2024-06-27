@@ -33,7 +33,7 @@ class PasswordChangeViewModel: ObservableObject {
     @Published var passwordError: String? = nil
     @Published var confirmPasswordError: String? = nil
 
-    
+    @Published var showAlert: Bool = false
     func updatePassword() async {
         let item = ResetPasswordModel(password: passwordText, confirmPassword: confirmPasswordText)
         
@@ -94,5 +94,6 @@ class PasswordChangeViewModel: ObservableObject {
         self.confirmPasswordError = error
         isRightPassword = false
         isRightConfirmPassword = false
+        showAlert = true
     }
 }

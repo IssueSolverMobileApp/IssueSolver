@@ -68,13 +68,13 @@ struct PasswordChangeView: View {
     var renewButtonView: some View {
         CustomButton(title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
             isLoading = true
-            
             Task {
                 await vm.updatePassword()
                 isLoading = false
             }
         }
-        .disabled(vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !vm.isRightPassword && !vm.isRightConfirmPassword)
+        .disabled(!canContinue)
+        
     }
     var canContinue: Bool {
         !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightPassword && vm.isRightConfirmPassword

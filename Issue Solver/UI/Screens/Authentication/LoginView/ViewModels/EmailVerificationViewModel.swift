@@ -15,6 +15,11 @@ class EmailVerificationViewModel: ObservableObject {
     @Published var emailText: String = "" {
         didSet {
             validateEmail()
+            if emailText.isEmpty {
+               isRightEmail = true
+               emailError = ""
+                
+            }
         }
     }
     @Published var isRightEmail: Bool = true

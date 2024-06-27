@@ -13,14 +13,18 @@ class LoginViewModel: ObservableObject {
 
     @Published var emailText: String = "" {
         didSet {
-            isRightEmail = true
-            errorMessage = ""
+            if emailText.isEmpty {
+                isRightEmail = true
+                errorMessage = ""
+            }
         }
     }
     @Published var passwordText: String = "" {
         didSet {
-            isRightPassword = true
-            errorMessage = ""
+            if passwordText.isEmpty {
+                isRightPassword = true
+                errorMessage = ""
+            }
         }
     }
     @Published var errorMessage: String? = ""
