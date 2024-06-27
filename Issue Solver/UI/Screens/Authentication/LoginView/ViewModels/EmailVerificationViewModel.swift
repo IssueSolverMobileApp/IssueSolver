@@ -18,7 +18,6 @@ class EmailVerificationViewModel: ObservableObject {
             if emailText.isEmpty {
                isRightEmail = true
                emailError = ""
-                
             }
         }
     }
