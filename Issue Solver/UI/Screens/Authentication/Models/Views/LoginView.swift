@@ -13,19 +13,14 @@ struct LoginView: View {
     @State private var navigateToRegisterView = false
     
     var body: some View {
-        
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
             VStack {
-                
                 ScrollView(showsIndicators: false) {
-
                     titleView
                     textFieldsView
-
                 }
-                
                 loginButtonView
             }
             .padding(.horizontal, 20)
@@ -69,6 +64,7 @@ struct LoginView: View {
                 navigateToEmailVerificationView = true
             }
         }
+        .padding(1)
     }
     
     var loginButtonView: some View {

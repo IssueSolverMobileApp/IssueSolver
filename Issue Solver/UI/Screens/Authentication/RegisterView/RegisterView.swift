@@ -14,6 +14,7 @@ struct RegisterView: View {
     @StateObject var vm = RegisterViewModel()
     @State var navigateOTPView: Bool = false
     @State var isChecked: Bool = false
+    @State var showCheckboxError: Bool = false
     
     var body: some View {
         
@@ -77,15 +78,17 @@ struct RegisterView: View {
             checkboxView
                 .padding(.vertical, 8)
         }
+        .padding(1)
     }
     ///CheckBox View
     var checkboxView: some View {
         HStack {
-            CustomCheckBox(isChecked: $isChecked)
+            CustomCheckBox(isChecked: $isChecked, borderColor: showCheckboxError && !isChecked ? .red : .clear)
             
             TextView(text: "Şərtlər və qaydaları qəbul edirəm", clickableTexts: [ Constants.termsOfUse])
+                .jakartaFont(.subtitle)
         }
-        .jakartaFont(.subtitle)
+        
     }
     
     var continueButtonView: some View {
@@ -93,6 +96,11 @@ struct RegisterView: View {
             
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
+                    if !isChecked {
+                      showCheckboxError = true
+                    } else {
+                        showCheckboxError = false
+                    }
                     await vm.register { success in
                         if success {
                             navigateOTPView = true
