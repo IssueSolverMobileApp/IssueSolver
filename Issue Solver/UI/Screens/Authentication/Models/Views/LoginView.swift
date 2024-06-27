@@ -26,6 +26,18 @@ struct LoginView: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 24)
             
+            ///Progress View
+            if vm.isLoading {
+               VStack {
+                   Spacer()
+                   ProgressView()
+                       .progressViewStyle(CircularProgressViewStyle())
+                       .scaleEffect(1)
+                       .padding()
+                   Spacer()
+                   }
+               }
+            
         }
         .background {
             
@@ -76,7 +88,7 @@ struct LoginView: View {
                 }
                 
             }
-            .disabled(vm.emailText.isEmpty && vm.passwordText.isEmpty)
+            .disabled(vm.emailText.isEmpty || vm.passwordText.isEmpty)
             
             // Email Exists Button View
             HStack {

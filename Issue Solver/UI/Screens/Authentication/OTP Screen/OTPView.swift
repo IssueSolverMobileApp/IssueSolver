@@ -161,6 +161,7 @@ struct OTPView: View {
         vm.isLoading = true
         if let emailModel {
             vm.resendOTP(with: emailModel)
+            vm.isLoading = false
         }
     }
 }

@@ -35,6 +35,7 @@ class PasswordChangeViewModel: ObservableObject {
 
     @Published var showAlert: Bool = false
     @Published var confirmPasswordSuccess: Bool = false
+    @Published var errorMessage: String = ""
     
     func updatePassword() async {
         let item = ResetPasswordModel(password: passwordText, confirmPassword: confirmPasswordText)
@@ -97,9 +98,8 @@ class PasswordChangeViewModel: ObservableObject {
     
     /// Email error that comes from API
     private func handleAPIEmailError(_ error: String) {
-        self.confirmPasswordError = error
-        isRightPassword = false
-        isRightConfirmPassword = false
+        self.errorMessage = error
+        self.confirmPasswordSuccess = false
         showAlert = true
     }
 }

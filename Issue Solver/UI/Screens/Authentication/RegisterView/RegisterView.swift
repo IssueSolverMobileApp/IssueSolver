@@ -97,13 +97,14 @@ struct RegisterView: View {
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
                     if !isChecked {
-                      showCheckboxError = true
+                        showCheckboxError = true
                     } else {
                         showCheckboxError = false
-                    }
-                    await vm.register { success in
-                        if success {
-                            navigateOTPView = true
+                        vm.isLoading = true
+                        await vm.register { success in
+                            if success {
+                                navigateOTPView = true
+                            }
                         }
                     }
                 }
@@ -113,7 +114,7 @@ struct RegisterView: View {
                                isActive: $navigateOTPView,
                                label: {})
             )
-            .disabled(!canContinue)
+            .disabled(vm.fullNameText.isEmpty || vm.emailText.isEmpty || vm.passwordText.isEmpty || vm.confirmPasswordText.isEmpty || !vm.isRightFields)
             
             HStack {
                 Text("Hesabınız var mı?")
@@ -128,7 +129,7 @@ struct RegisterView: View {
     }
     
     var canContinue: Bool {
-        return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightFields
+        return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightFields && isChecked
     }
 }
 

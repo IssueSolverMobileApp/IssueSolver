@@ -68,6 +68,8 @@ struct PasswordChangeView: View {
                 if vm.confirmPasswordSuccess {
                     isLoading = false
                     navigateToLoginView = true
+                } else {
+                    isLoading = false
                 }
             }
         }
@@ -82,7 +84,7 @@ struct PasswordChangeView: View {
         
         ///In error case alert will shown
         .alert(isPresented: $vm.showAlert) {
-            Alert(title: Text(""), message: Text(vm.confirmPasswordError!), dismissButton: .default(Text("Oldu")) {isLoading = false})
+            Alert(title: Text(""), message: Text(vm.errorMessage), dismissButton: .default(Text("Oldu")) {isLoading = false})
            }
     }
     var canContinue: Bool {
