@@ -13,7 +13,6 @@ struct OTPView: View {
     @StateObject var vm = OTPViewModel()
     @State var emailModel: EmailModel?
     @State var isChangePassword: Bool = false
-//    @State var error: Error?
     
     @State private var isOTPHasError: Bool = false
     @State private var navigateLoginView: Bool = false

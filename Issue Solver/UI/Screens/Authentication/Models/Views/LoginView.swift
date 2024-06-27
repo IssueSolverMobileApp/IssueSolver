@@ -18,30 +18,38 @@ struct LoginView: View {
             Color.surfaceBackground.ignoresSafeArea()
             
             VStack {
+                
                 ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 24) {
-                        titleView
-                        textFieldsView
-                        Spacer()
-                    }
+
+                    titleView
+                    textFieldsView
+
                 }
-                Button("salam") {
-                    vm.getMe()
-                }
+                
                 loginButtonView
             }
             .padding([.horizontal, .vertical], 16)
             
         }
-        .navigationBarBackButtonHidden(true)
-        .onTapGesture {
-            hideKeyboard()
+        .background{
+            NavigationLink(
+                destination: EmailVerificationView(),
+                isActive: $navigateToEmailVerificationView,
+                label: {})
+            
+            NavigationLink(
+                destination: RegisterView(),
+                isActive: $navigateToRegisterView,
+                label: {})
         }
+        .navigationBarBackButtonHidden(true)
+        
     }
     
     // Title View
     var titleView: some View {
         CustomTitleView(title: "Daxil olun", subtitle: "Zəhmət olmasa, giriş üçün məlumatlarınızı daxil edin.")
+            .padding(.bottom, 8)
     }
     
     var textFieldsView: some View {
@@ -57,11 +65,6 @@ struct LoginView: View {
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
                 navigateToEmailVerificationView = true
             }
-            .background(
-                NavigationLink(
-                    destination: EmailVerificationView(),
-                    isActive: $navigateToEmailVerificationView,
-                    label: {}))
         }
     }
     
@@ -83,11 +86,6 @@ struct LoginView: View {
                 CustomButton(style: .text, title: "Qeydiyyatdan keçin") {
                     navigateToRegisterView = true
                 }
-                .background(
-                    NavigationLink(
-                        destination: RegisterView(),
-                        isActive: $navigateToRegisterView,
-                        label: {}))
             }
             .jakartaFont(.subtitle)
             .padding(.top, 8)

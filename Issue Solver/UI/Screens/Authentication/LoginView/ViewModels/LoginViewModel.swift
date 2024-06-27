@@ -16,7 +16,6 @@ class LoginViewModel: ObservableObject {
     @Published var errorMessage: String? = ""
     @Published var isRightTextField: Bool = true
     
-    @MainActor
     func login() async {
         
         let item = LoginModel(email: emailText, password: passwordText)
