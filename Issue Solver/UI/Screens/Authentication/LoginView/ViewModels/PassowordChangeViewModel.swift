@@ -33,16 +33,22 @@ class PasswordChangeViewModel: ObservableObject {
     @Published var passwordError: String? = nil
     @Published var confirmPasswordError: String? = nil
 
+    @Published var showAlert: Bool = false
+    @Published var confirmPasswordSuccess: Bool = false
     
     func updatePassword() async {
         let item = ResetPasswordModel(password: passwordText, confirmPassword: confirmPasswordText)
         
         authRepository.resetPassword(body: item) { result in
-            switch result {
-            case .success(let success):
-                print(success.message ?? "")
-            case .failure(let error):
-                print(error.localizedDescription)
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    print(success.message ?? "")
+                    self.confirmPasswordSuccess = true
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.handleAPIEmailError(error.localizedDescription)
+                }
             }
         }
     }
@@ -94,5 +100,6 @@ class PasswordChangeViewModel: ObservableObject {
         self.confirmPasswordError = error
         isRightPassword = false
         isRightConfirmPassword = false
+        showAlert = true
     }
 }

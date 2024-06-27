@@ -60,10 +60,10 @@ struct CustomTextField: View {
                     HStack {
                         if isShowPassword {
                             TextField(placeholder ?? "", text: $text)
-                            
+                                
                         } else {
                             SecureField(placeholder ?? "", text: $text)
-                            
+                                
                         }
                         HStack {
                             showPasswordButtonView

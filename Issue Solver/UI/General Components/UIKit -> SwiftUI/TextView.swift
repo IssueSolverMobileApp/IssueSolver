@@ -18,7 +18,6 @@ struct TextView: UIViewRepresentable {
         textView.isUserInteractionEnabled = true
         textView.isEditable = false
         textView.backgroundColor = .clear
-        
         // Link Attributes
         textView.attributedText = setAttributesToText()
         textView.linkTextAttributes = [

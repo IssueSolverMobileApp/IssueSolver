@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct PasswordChangeView: View {
-    
     @StateObject var vm: PasswordChangeViewModel = PasswordChangeViewModel()
     @State private var isLoading: Bool = false
+    @State private var navigateToLoginView = false
     
     var body: some View {
         ZStack {
@@ -25,27 +25,22 @@ struct PasswordChangeView: View {
             .padding(.horizontal,20)
             .padding(.vertical, 24)
             
-        ///Progress View
-        if isLoading {
-           VStack {
-               Spacer()
-               ProgressView()
-                   .progressViewStyle(CircularProgressViewStyle())
-                   .scaleEffect(1)
-                   .padding()
-               Spacer()
+            ///Progress View
+            if isLoading {
+                VStack {
+                    Spacer()
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1)
+                        .padding()
+                    Spacer()
                 }
             }
         }
         .onTapGesture {
             hideKeyboard()
         }
-//        MARK: --- Reason: Test
-//        .task {
-//            do {
-//                await vm.sendOTP()
-//            }
-//        }
+        .navigationBarBackButtonHidden(true)
     }
     
     //Title View
@@ -68,13 +63,27 @@ struct PasswordChangeView: View {
     var renewButtonView: some View {
         CustomButton(title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
             isLoading = true
-            
             Task {
                 await vm.updatePassword()
-                isLoading = false
+                if vm.confirmPasswordSuccess {
+                    isLoading = false
+                    navigateToLoginView = true
+                }
             }
         }
-        .disabled(vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !vm.isRightPassword && !vm.isRightConfirmPassword)
+        .disabled(!canContinue)
+        
+        ///In success case will navigate PasswordChangeView
+        .background(
+            NavigationLink(
+                destination: LoginView(),
+                isActive: $navigateToLoginView,
+                label: {}))
+        
+        ///In error case alert will shown
+        .alert(isPresented: $vm.showAlert) {
+            Alert(title: Text(""), message: Text(vm.confirmPasswordError!), dismissButton: .default(Text("Oldu")) {isLoading = false})
+           }
     }
     var canContinue: Bool {
         !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightPassword && vm.isRightConfirmPassword

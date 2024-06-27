@@ -15,6 +15,10 @@ class EmailVerificationViewModel: ObservableObject {
     @Published var emailText: String = "" {
         didSet {
             validateEmail()
+            if emailText.isEmpty {
+               isRightEmail = true
+               emailError = ""
+            }
         }
     }
     @Published var isRightEmail: Bool = true
@@ -67,6 +71,6 @@ class EmailVerificationViewModel: ObservableObject {
     func handleAPIEmailError(_ string: String) {
             isRightEmail = false
             showAlert = true
-            errorMessage = string
+            emailError = string
     }
 }
