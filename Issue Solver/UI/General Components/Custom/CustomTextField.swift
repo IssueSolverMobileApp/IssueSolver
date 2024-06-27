@@ -86,6 +86,7 @@ struct CustomTextField: View {
             }
         }
         .jakartaFont(.subtitle)
+        .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
     }
     
     // Show/hide password

@@ -67,6 +67,6 @@ class EmailVerificationViewModel: ObservableObject {
     func handleAPIEmailError(_ string: String) {
             isRightEmail = false
             showAlert = true
-            errorMessage = string
+            emailError = string
     }
 }

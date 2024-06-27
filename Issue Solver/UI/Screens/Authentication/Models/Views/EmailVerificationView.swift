@@ -88,11 +88,7 @@ struct EmailVerificationView: View {
             destination: OTPView(emailModel: EmailModel(email: vm.emailText),isChangePassword: true/*, error: vm.error*/),
            isActive: $navigateOTPView,
            label: {}))
-        
-        ///In error case alert will shown
-        .alert(isPresented: $vm.showAlert) {
-            Alert(title: Text(""), message: Text(vm.errorMessage), dismissButton: .default(Text("Oldu")) {isLoading = false})
-           }
+     
     }
     
     var canContinue: Bool {

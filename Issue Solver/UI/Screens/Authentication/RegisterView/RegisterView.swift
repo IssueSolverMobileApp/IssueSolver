@@ -12,7 +12,6 @@ struct RegisterView: View {
     @Environment (\.dismiss) var dismiss
     
     @StateObject var vm = RegisterViewModel()
-    
     @State var navigateOTPView: Bool = false
     @State var isChecked: Bool = false
     
@@ -84,7 +83,7 @@ struct RegisterView: View {
         HStack {
             CustomCheckBox(isChecked: $isChecked)
             
-            TextView(text: "İstifadəçi şərtləri və Məxfilik siyasəti qəbul edirəm", clickableTexts: [Constants.privacyPolicy, Constants.termsOfUse])
+            TextView(text: "Şərtlər və qaydaları qəbul edirəm", clickableTexts: [ Constants.termsOfUse])
         }
         .jakartaFont(.subtitle)
     }
@@ -121,7 +120,7 @@ struct RegisterView: View {
     }
     
     var canContinue: Bool {
-        return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && isChecked && vm.isRightFields
+        return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightFields
     }
 }
 

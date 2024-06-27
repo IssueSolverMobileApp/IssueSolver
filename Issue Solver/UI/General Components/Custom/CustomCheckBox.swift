@@ -24,6 +24,7 @@ struct CustomCheckBox: View {
                     Image(systemName: "checkmark")
                 }
             }
+            .overlay(RoundedRectangle(cornerRadius: Constants.cornerRadius/2).stroke((isChecked) ? Color.clear : Color.red, lineWidth: 1))
         }
         .frame(width: boxSize.width, height: boxSize.height)
     }

@@ -11,10 +11,21 @@ import Foundation
 class LoginViewModel: ObservableObject {
     private var authRepository = HTTPAuthRepository()
 
-    @Published var emailText: String = ""
-    @Published var passwordText: String = ""
+    @Published var emailText: String = "" {
+        didSet {
+            isRightEmail = true
+            errorMessage = ""
+        }
+    }
+    @Published var passwordText: String = "" {
+        didSet {
+            isRightPassword = true
+            errorMessage = ""
+        }
+    }
     @Published var errorMessage: String? = ""
-    @Published var isRightTextField: Bool = true
+    @Published var isRightEmail: Bool = true
+    @Published var isRightPassword: Bool = true
     
     @MainActor
     func login() async {
@@ -35,7 +46,8 @@ class LoginViewModel: ObservableObject {
 
     ///For showing error that comes from API
     func makeErrorMessage(_ string: String) {
-            isRightTextField = false
+            isRightEmail = false
+            isRightPassword = false
             errorMessage = string
     }
     

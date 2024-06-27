@@ -45,11 +45,7 @@ struct CustomButton: View {
                 .foregroundStyle(color)
         }
     }
-    
     var roundedButtonView: some View {
-        
-        
-        
         Button {
             handler()
         } label: {
