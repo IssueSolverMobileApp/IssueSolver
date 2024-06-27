@@ -78,6 +78,7 @@ struct RegisterView: View {
             checkboxView
                 .padding(.vertical, 8)
         }
+        .padding(1)
     }
     ///CheckBox View
     var checkboxView: some View {
