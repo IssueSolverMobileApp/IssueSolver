@@ -13,7 +13,7 @@ struct OTPView: View {
     @StateObject var vm = OTPViewModel()
     @State var emailModel: EmailModel?
     @State var isChangePassword: Bool = false
-    @State var error: Error?
+//    @State var error: Error?
     
     @State private var isOTPHasError: Bool = false
     @State private var navigateLoginView: Bool = false
@@ -29,21 +29,21 @@ struct OTPView: View {
                 loadingView
             }
         }
-        .alert(isPresented: $isOTPHasError) { /// - Use default Alert view temporary
-            Alert(title: Text(error?.localizedDescription ?? ""), dismissButton: .default(Text("Oldu"), action: {
-                isOTPHasError = false
-                error = nil
-                presentationMode.wrappedValue.dismiss()
-            }))
+//        .alert(isPresented: $isOTPHasError) { / - Use default Alert view temporary
+//            Alert(title: Text(error?.localizedDescription ?? ""), dismissButton: .default(Text("Oldu"), action: {
+//                isOTPHasError = false
+////                error = nil
+//                presentationMode.wrappedValue.dismiss()
+//            }))
             
-        }
+//        }
         .onAppear {
-            if let _ = error {
-                isOTPHasError = error != nil ? true : false
-            }
-            vm.timer = CountdownView { /// - When timer finishes, do something
-                vm.isTimerFinished = true
-            }
+//            if let _ = error {
+//                isOTPHasError = error != nil ? true : false
+//            }
+//            vm.timer = CountdownView { /// - When timer finishes, do something
+//                vm.isTimerFinished = true
+//            }
         }
     }
     

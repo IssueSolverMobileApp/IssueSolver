@@ -29,6 +29,7 @@ public enum AuthEndPoint: EndPointProtocol {
     case resetPassword
     case loginRefreshToken
     case trustOTP
+    case getMe
     
     var url: String {
         switch self {
@@ -48,6 +49,8 @@ public enum AuthEndPoint: EndPointProtocol {
             return "\(baseURL)Auths/login-refreshtoken"
         case .trustOTP:
             return "\(baseURL)Auths/otp-trust"
+        case .getMe:
+            return "\(baseURL)Users/getme"
         }
     }
 }

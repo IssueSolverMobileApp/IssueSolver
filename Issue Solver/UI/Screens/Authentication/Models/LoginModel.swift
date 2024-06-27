@@ -13,15 +13,15 @@ struct LoginModel: Codable {
 }
 
 // MARK: - OTPSuccessModel
-struct LoginSuccessModel: Codable {
-    let data: TokenModel?
-    let success: Bool?
-    let status: Int?
-    let message: String?
-}
-
-// MARK: - DataClass
-struct TokenModel: Codable {
-    let accessToken, refreshToken: String?
-}
+//struct LoginSuccessModel: Codable {
+//    let data: TokenModel?
+//    let success: Bool?
+//    let status: Int?
+//    let message: String?
+//}
+//
+//// MARK: - DataClass
+//struct TokenModel: Codable {
+//    let accessToken, refreshToken: String?
+//}
 

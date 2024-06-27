@@ -23,7 +23,7 @@ class EmailVerificationViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var showAlert: Bool = false
     @Published var verificationSuccess: Bool = false
-    @Published var error: Error?
+//    @Published var error: Error?
     
     func emailVerification(completion: @escaping ((Bool) -> Void)) async {
         let item = EmailModel(email: emailText)
@@ -33,7 +33,9 @@ class EmailVerificationViewModel: ObservableObject {
                 completion(true)
             case .failure(let error):
                 DispatchQueue.main.async { [ weak self ] in
-                    self?.error = error
+                    guard let self else { return }
+//                    self.error = error
+                    handleAPIEmailError(error.localizedDescription)
                 }
                 completion(false)
             }
@@ -65,6 +67,6 @@ class EmailVerificationViewModel: ObservableObject {
     func handleAPIEmailError(_ string: String) {
             isRightEmail = false
             showAlert = true
-            errorMessage = "Bu error API den gelmelidir"
+            errorMessage = string
     }
 }

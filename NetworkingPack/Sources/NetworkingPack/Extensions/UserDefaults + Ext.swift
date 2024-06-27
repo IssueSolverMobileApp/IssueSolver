@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension UserDefaults {
+public extension UserDefaults {
     
     enum Keys: String {
         case queryKey = "queryItemKey"
@@ -25,7 +25,7 @@ extension UserDefaults {
         }
     }
     
-    public var accessToken: String? {
+    var accessToken: String? {
         get {
             return string(forKey: Keys.accessTokenKey.rawValue)
         }
@@ -34,7 +34,7 @@ extension UserDefaults {
         }
     }
 
-    public var refreshToken: String? {
+    var refreshToken: String? {
         get {
             return string(forKey: Keys.refreshTokenKey.rawValue)
         }
