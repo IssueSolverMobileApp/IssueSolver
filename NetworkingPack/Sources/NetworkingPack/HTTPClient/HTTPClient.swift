@@ -83,13 +83,7 @@ public final class HTTPClient {
                         print(result)
                     }
                     
-                    let errorDecode = try JSONDecoder().decode(ErrorModel.self, from: data)
-                    
-                    switch response.statusCode {
-                    case 400:
-                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
-                    case 401:
-                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
+                    if response.statusCode == 401{
                         sendRefreshToken { result in
                             switch result {
                             case .success(let model):
@@ -99,6 +93,14 @@ public final class HTTPClient {
                                 completion(nil, NetworkError.refreshTokenTimeIsOver)
                             }
                         }
+                        return
+                    }
+                    let errorDecode = try JSONDecoder().decode(ErrorModel.self, from: data)
+                    
+                    switch response.statusCode {
+                    case 400:
+                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
+                        return
                     case 402...403:
                         completion(nil, NetworkError.unauthorization)
                     case 404:
@@ -124,6 +126,7 @@ public final class HTTPClient {
                 getQueryItem(endPoint: endPoint, decodable: decode)
                 getAccessToken(decodable: decode)
                 completion(decode, nil)
+                return
             }
             catch {
                 self.decodingError(error: error)
@@ -148,33 +151,28 @@ public final class HTTPClient {
         UserDefaults.standard.queryToken = nil
     }
     
-//    MARK: GetAccessToken
+//    MARK: GetAccessTokentoken
     func getAccessToken(decodable: Decodable) {
         print(decodable)
         if let decode = decodable as? LoginSuccessModel {
             print(decode.data?.accessToken ?? "" )
             UserDefaults.standard.accessToken = decode.data?.accessToken
             UserDefaults.standard.refreshToken = decode.data?.refreshToken
-//            guard let accessToken = decode.data?.accessToken else { return }
-//            guard let refreshToken = decode.data?.refreshToken else { return }
-//            print(TokenEnum.accessToken.rawValue + "-------------------------------")
-//            KeychainManager().save(token: accessToken, key: TokenEnum.accessToken.rawValue)
-//            KeychainManager().save(token: refreshToken, key: TokenEnum.refreshToken.rawValue)
         }
     }
     
 //    MARK: setAccessToken
     func setAccessToken(urlRequest: inout URLRequest) {
         guard let accessToken = UserDefaults.standard.accessToken else { return }
-//        let token = KeychainManager().get(for: TokenEnum.accessToken.rawValue)
-        urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: TokenEnum.accessToken.rawValue)
+        print(accessToken)
+        print(TokenEnum.accessToken.value)
+        urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: TokenEnum.accessToken.value)
     }
     
 //    MARK: Send refresh
     func sendRefreshToken(completion: @escaping(Result<RefreshTokenSuccessModel, Error>) -> Void) {
         UserDefaults.standard.accessToken = nil
         guard let refreshToken = UserDefaults.standard.refreshToken else { return }
-//        let refreshToken = KeychainManager().get(for: TokenEnum.refreshToken.rawValue)
         do {
             let body = RefreshTokenModel(token: refreshToken)
             let encode = try JSONEncoder().encode(body)
@@ -184,6 +182,7 @@ public final class HTTPClient {
                 }
                 
                 if let data {
+                    UserDefaults.standard.accessToken = data.data
                     completion(.success(data))
                 }
             }
