@@ -49,14 +49,15 @@ final class HTTPAuthRepository {
     
     func otpTrust(body: OTPModel, completion: @escaping (Result<IDTokenSuccessModel, Error>) -> Void) {
         http.POST(endPoint: EndPoint.auth(.trustOTP), body: JSONConverter().encode(input: body)) { (data: IDTokenSuccessModel?, error: Error?) in
-            if let error {
-                completion(.failure(error))
-            }
-            if let data {
-                completion(.success(data))
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
             }
         }
-        
     }
     
     func resendOTP(body: EmailModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {

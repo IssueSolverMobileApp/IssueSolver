@@ -10,11 +10,10 @@ import SwiftUI
 struct OTPTextField: View {
     
     let numberOfFields: Int
+    let completion: (String) -> Void
     
     @State var enterValue: [String]
     @FocusState private var fieldFocus: Int?
-    
-    let completion: (String) -> Void
     
     init(numberOfFields: Int, completion: @escaping (String) -> Void) {
         self.numberOfFields = numberOfFields
