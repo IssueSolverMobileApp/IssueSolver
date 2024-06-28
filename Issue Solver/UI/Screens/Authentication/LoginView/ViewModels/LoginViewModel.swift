@@ -31,6 +31,7 @@ class LoginViewModel: ObservableObject {
     @Published var isRightEmail: Bool = true
     @Published var isRightPassword: Bool = true
     @Published var isLoading: Bool = false
+    @Published var navigateOTPView = false
     
     func login() async {
         isLoading = true
@@ -44,10 +45,13 @@ class LoginViewModel: ObservableObject {
                 switch result {
                 case .success(let result):
                     print(result.message ?? "")
-                    //                UserDefaults.standard.accessToken = result.data?.accessToken
-                    //                UserDefaults.standard.refreshToken = result.data?.refreshToken
+                    
                 case .failure(let error):
-                    self.makeErrorMessage(error.localizedDescription)
+                    if error.localizedDescription == "409" {
+                        self.navigateOTPView = true
+                    } else {
+                        self.makeErrorMessage(error.localizedDescription)
+                    }
                 }
             }
         }
@@ -59,7 +63,7 @@ class LoginViewModel: ObservableObject {
             isRightPassword = false
             errorMessage = string
     }
-    
+  
     func getMe() {
         let token = UserDefaults.standard.accessToken
         print(token ?? "" + "--------------------------")
