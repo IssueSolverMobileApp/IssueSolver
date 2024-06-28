@@ -11,17 +11,24 @@ struct TextView: UIViewRepresentable {
     let text: String
     var clickableTexts: [[String: String]]? /// - Use this when you want to make texts clickable;
     var completion: (() -> Void)?
+    var uiFont: UIFont
+    var isScrollEnabled: Bool = true
+    
     
     func makeUIView(context: Context) -> some UIView {
         let textView = UITextView()
         textView.text = text
+        textView.font = uiFont
+        textView.isScrollEnabled = isScrollEnabled
+        textView.backgroundColor = .clear
         textView.isUserInteractionEnabled = true
         textView.isEditable = false
-        textView.backgroundColor = .clear
+        
         // Link Attributes
         textView.attributedText = setAttributesToText()
         textView.linkTextAttributes = [
-            .foregroundColor: UIColor.primaryBlue
+            .foregroundColor: UIColor.primaryBlue,
+            .font: uiFont
         ]
         return textView
     }

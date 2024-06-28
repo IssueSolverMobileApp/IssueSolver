@@ -85,8 +85,7 @@ struct RegisterView: View {
         HStack {
             CustomCheckBox(isChecked: $isChecked, borderColor: showCheckboxError && !isChecked ? .red : .clear)
             
-            TextView(text: "Şərtlər və qaydaları qəbul edirəm", clickableTexts: [ Constants.termsOfUse])
-                .jakartaFont(.subtitle)
+            TextView(text: "Şərtlər və qaydaları qəbul edirəm", clickableTexts: [ Constants.termsOfUse], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
         }
         
     }

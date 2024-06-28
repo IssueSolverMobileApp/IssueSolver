@@ -29,6 +29,7 @@ final class OTPViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func sendOTPTrust(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
         let item  = OTPModel(otpCode: otpText)
         authRepository.otpTrust(body: item) { result in
@@ -36,12 +37,14 @@ final class OTPViewModel: ObservableObject {
             case .success(_):
                 completion(.success(true))
             case .failure(let error):
-                self.errorText = error.localizedDescription
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    self.errorText = error.localizedDescription
+                    completion(.failure(error))
+                }
             }
         }
     }
-    
+    @MainActor
     func sendOTPConfirm() async {
         let item  = OTPModel(otpCode: otpText)
         

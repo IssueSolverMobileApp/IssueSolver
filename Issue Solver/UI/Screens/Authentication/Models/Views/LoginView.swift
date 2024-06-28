@@ -11,6 +11,7 @@ struct LoginView: View {
     @StateObject var vm = LoginViewModel()
     @State private var navigateToEmailVerificationView = false
     @State private var navigateToRegisterView = false
+    @State private var navigateToHomeView = false
     
     var body: some View {
         ZStack {
@@ -35,22 +36,14 @@ struct LoginView: View {
                        .scaleEffect(1)
                        .padding()
                    Spacer()
-                   }
-               }
-            
-        }
+                }
+            }
+         }
         .background {
-            
-            NavigationLink(
-                destination: EmailVerificationView(),
-                isActive: $navigateToEmailVerificationView,
-                label: {})
-            
-            NavigationLink(
-                destination: RegisterView(),
-                isActive: $navigateToRegisterView,
-                label: {})
-            
+            NavigationLink(destination: EmailVerificationView(),isActive: $navigateToEmailVerificationView, label: {})
+            NavigationLink(destination: RegisterView(), isActive: $navigateToRegisterView, label: {})
+            NavigationLink(destination: OTPView(), isActive: $vm.navigateOTPView, label: {})
+            NavigationLink(destination: EmptyView(), isActive: $navigateToHomeView, label: {})
         }
         .navigationBarBackButtonHidden(true)
         
@@ -85,9 +78,13 @@ struct LoginView: View {
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
                     await vm.login()
+                    if vm.loginSuccess {
+                        navigateToHomeView = true
+                    }
                 }
                 
             }
+             
             .disabled(vm.emailText.isEmpty || vm.passwordText.isEmpty)
             
             // Email Exists Button View
