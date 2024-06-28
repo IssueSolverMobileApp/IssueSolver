@@ -11,50 +11,55 @@ class RegisterViewModel: ObservableObject {
     
     private var authRepository = HTTPAuthRepository()
     
+    /// - For checking if text inside textfields is true or false in right time
     @Published var fullNameText: String = ""  {
         didSet {
-            validateFullName()
-        }
-    }
-        
-    @Published var emailText: String = "" {
-        didSet {
-            validateEmail()
-        }
-    }
-    @Published var passwordText: String = ""
-    {
-        didSet {
-            validatePassword()
-        }
-    }
-    @Published var confirmPasswordText: String = "" {
-        didSet {
-            validateConfirmPassword()
-        }
+            validateFullName() }
     }
     
-    ///For checking if textfield format is right or not
+    @Published var emailText: String = "" {
+        didSet {
+            validateEmail() }
+    }
+    
+    @Published var passwordText: String = "" {
+        didSet {
+            validatePassword() }
+    }
+    
+    @Published var confirmPasswordText: String = "" {
+        didSet {
+            validateConfirmPassword() }
+    }
+    
+    /// - For checking if textfield format is right or not
     @Published var isRightFullName: Bool = true
     @Published var isRightEmail: Bool = true
     @Published var isRightPassword: Bool = true
     @Published var isRightConfirmPassword: Bool = true
     @Published var isRightFields: Bool = false
     
-    ///For making textfield color to red after touch, write and then  delete something
+    /// - For making textfield color to red after touch, write and then  delete something
     @Published var hasTouchedFullName: Bool = false
     @Published var hasTouchedEmail: Bool = false
     @Published var hasTouchedPassword: Bool = false
     @Published var hasTouchedConfirmPassword: Bool = false
     
-    ///For showing specific error below every textfield
+    /// - For showing specific error below every textfield
     @Published var emailError: String? = nil
     @Published var passwordError: String? = nil
     @Published var confirmPasswordError: String? = nil
     @Published var fullNameError: String? = nil
+    
+    /// - For navigating to other views
+    @Published var navigateOTPView: Bool = false
+    @Published var isChecked: Bool = false
+    @Published var showCheckboxError: Bool = false
+    
     @Published var isLoading: Bool = false
     
     
+    // MARK: - Fetching Data
     func register(completion: @escaping (Bool) -> Void) async {
         isLoading = true
         
@@ -74,7 +79,7 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    ///Full name  local validation function
+    // MARK: - Local validation function for FullNameTextfield
     private func validateFullName() {
         if !fullNameText.isEmpty {
             hasTouchedFullName = true
@@ -90,7 +95,7 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    ///Email local validation function
+    // MARK: - Local validation function for EmailTextfield
     private func validateEmail() {
         if !emailText.isEmpty {
             hasTouchedEmail = true
@@ -109,7 +114,7 @@ class RegisterViewModel: ObservableObject {
                 isRightEmail = true
             }
         }
-        
+        /// - We can use isRightTextField when all textfields is true
         if isRightEmail && isRightPassword && isRightFullName && isRightConfirmPassword {
             isRightFields = true
         } else {
@@ -117,12 +122,11 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    ///Password local validation function
+    // MARK: - Local validation function for PasswordTextfield
     private func validatePassword() {
         if !passwordText.isEmpty {
             hasTouchedPassword = true
         }
-        
         if hasTouchedPassword {
             if passwordText.isEmpty {
                 passwordError = "Şifrə boş ola bilməz"
@@ -144,10 +148,9 @@ class RegisterViewModel: ObservableObject {
         } else {
             isRightFields = false
         }
-
     }
     
-    ///Confirm password local validation function
+    // MARK: - Local validation function for ConfirmPasswordTextfield
     private func validateConfirmPassword() {
         if !confirmPasswordText.isEmpty {
             hasTouchedConfirmPassword = true
@@ -169,10 +172,9 @@ class RegisterViewModel: ObservableObject {
         } else {
             isRightFields = false
         }
-
     }
     
-    /// Email error that comes from API
+    // MARK: - For showing email error that comes from API
     private func handleAPIEmailError(_ error: String) {
         self.emailError = error
         self.isRightEmail = false

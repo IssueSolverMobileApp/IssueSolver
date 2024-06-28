@@ -10,32 +10,36 @@ import Foundation
 class PasswordChangeViewModel: ObservableObject {
     
     private var authRepository = HTTPAuthRepository()
-
+    
+    /// - For checking if text inside textfields is true or false in right time
     @Published var passwordText: String = "" {
         didSet {
-            validatePassword()
-        }
+            validatePassword() }
      }
+    
     @Published var confirmPasswordText: String = "" {
     didSet {
-        validateConfirmPassword()
-        }
+        validateConfirmPassword() }
     }
-    ///For checking if textfield format is right or not
+    
+    /// - For checking if textfield format is right or not
     @Published var isRightPassword: Bool = true
     @Published var isRightConfirmPassword: Bool = true
     
-    ///For making textfield color to red after touch, write and then  delete something
+    /// - For making textfield color to red after touch, write and then  delete something
     @Published var hasTouchedPassword: Bool = false
     @Published var hasTouchedConfirmPassword: Bool = false
     
-    ///For showing specific error below every textfield
+    /// - For showing specific error below every textfield
     @Published var passwordError: String? = nil
     @Published var confirmPasswordError: String? = nil
-
+    
+    @Published var navigateToLoginView = false
+    @Published var isLoading: Bool = false
     @Published var showAlert: Bool = false
     @Published var errorMessage: String = ""
     
+    // MARK: - Fetcing Data
     @MainActor
     func updatePassword(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
         let item = ResetPasswordModel(password: passwordText, confirmPassword: confirmPasswordText)
@@ -56,7 +60,7 @@ class PasswordChangeViewModel: ObservableObject {
         }
     }
     
-    ///Password local validation function
+    // MARK: - Local validation function for PasswordTextfield
     private func validatePassword() {
         if !passwordText.isEmpty {
             hasTouchedPassword = true
@@ -79,7 +83,7 @@ class PasswordChangeViewModel: ObservableObject {
         }
     }
     
-    ///Confirm password local validation function
+    // MARK: - Local validation function for ConfirmPasswordTextfield
     private func validateConfirmPassword() {
         if !confirmPasswordText.isEmpty {
             hasTouchedConfirmPassword = true
@@ -98,7 +102,7 @@ class PasswordChangeViewModel: ObservableObject {
         }
     }
     
-    /// Email error that comes from API
+    // MARK: - For showing email error that comes from API
     private func handleAPIEmailError(_ error: String) {
         self.errorMessage = error
         showAlert = true

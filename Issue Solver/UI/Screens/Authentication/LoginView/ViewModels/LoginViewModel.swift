@@ -10,30 +10,37 @@ import Foundation
 
 class LoginViewModel: ObservableObject {
     private var authRepository = HTTPAuthRepository()
-
+    
+    /// - For checking if text inside textfields is true or false in right time
     @Published var emailText: String = "" {
         didSet {
             if emailText.isEmpty {
                 isRightEmail = true
-                errorMessage = ""
-            }
+                errorMessage = "" }
         }
     }
     @Published var passwordText: String = "" {
         didSet {
             if passwordText.isEmpty {
                 isRightPassword = true
-                errorMessage = ""
-            }
+                errorMessage = "" }
         }
     }
+    /// - For navigating other views
+    @Published var navigateToEmailVerificationView = false
+    @Published var navigateToRegisterView = false
+    @Published var navigateToHomeView = false
+    @Published var navigateOTPView = false
+    
+    /// - Variables for checking error cases
     @Published var errorMessage: String? = ""
     @Published var isRightEmail: Bool = true
     @Published var isRightPassword: Bool = true
-    @Published var isLoading: Bool = false
-    @Published var navigateOTPView = false
     @Published var loginSuccess: Bool = false
+    @Published var isLoading: Bool = false
     
+    
+    // MARK: - Fetching data
     @MainActor
     func login() async {
         isLoading = true
@@ -53,18 +60,18 @@ class LoginViewModel: ObservableObject {
                     if error.localizedDescription == "409" {
                         self.navigateOTPView = true
                     } else {
-                        self.makeErrorMessage(error.localizedDescription)
+                        self.handleAPIEmailError(error.localizedDescription)
                     }
                 }
             }
         }
     }
 
-    ///For showing error that comes from API
-    func makeErrorMessage(_ string: String) {
+    // MARK: - For showing error that comes from API
+    func handleAPIEmailError(_ error: String) {
             isRightEmail = false
             isRightPassword = false
-            errorMessage = string
+            errorMessage = error
     }
   
     func getMe() {
