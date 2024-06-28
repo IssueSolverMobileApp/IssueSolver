@@ -75,7 +75,7 @@ struct PasswordChangeView: View {
           }
        }
     
-    // MARK: - For making button color with opacity logic
+    // MARK: - For Making Button Color With Opacity Logic
     var canContinue: Bool {
         !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightPassword && vm.isRightConfirmPassword
     }

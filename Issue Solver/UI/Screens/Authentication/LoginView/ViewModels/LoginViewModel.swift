@@ -6,8 +6,8 @@
 //
 
 import Foundation
-//import NetworkingPack
 
+@MainActor
 class LoginViewModel: ObservableObject {
     private var authRepository = HTTPAuthRepository()
     
@@ -40,16 +40,13 @@ class LoginViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     
-    // MARK: - Fetching data
-    @MainActor
+    // MARK: - Fetching Data
     func login() async {
         isLoading = true
         
         let item = LoginModel(email: emailText, password: passwordText)
         authRepository.login(body: item) { [weak self] result in
             guard let self else { return }
-            
-            DispatchQueue.main.async {
                 self.isLoading = false
                 switch result {
                 case .success(let result):
@@ -61,13 +58,12 @@ class LoginViewModel: ObservableObject {
                         self.navigateOTPView = true
                     } else {
                         self.handleAPIEmailError(error.localizedDescription)
-                    }
                 }
             }
         }
     }
 
-    // MARK: - For showing error that comes from API
+    // MARK: - For Showing Error that Comes From API
     func handleAPIEmailError(_ error: String) {
             isRightEmail = false
             isRightPassword = false

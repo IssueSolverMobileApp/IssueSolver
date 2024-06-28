@@ -10,8 +10,6 @@ import SwiftUI
 struct EmailVerificationView: View {
     @Environment (\.dismiss) private var dismiss
     @StateObject var vm = EmailVerificationViewModel()
-    @State private var navigateOTPView = false
-    @State private var isLoading: Bool = false
     
     var body: some View {
         ZStack {
@@ -24,19 +22,12 @@ struct EmailVerificationView: View {
             }
             .padding(.vertical, 24)
             .padding(.horizontal, 20)
-            
-            ///Progress View
-            if isLoading {
-                VStack {
-                    Spacer()
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(1)
-                        .padding()
-                    Spacer()
-                }
+          
+            if vm.isLoading {
+            loadingView
             }
         }
+        .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
         }
@@ -44,53 +35,57 @@ struct EmailVerificationView: View {
             ToolbarItem(placement: .topBarLeading) {
                 backButtonView
             }
-            
         }
-        .navigationBarBackButtonHidden(true)
-    }
+        /// - In success case will navigate PasswordChangeView
+        .background(
+            NavigationLink(destination: OTPView(emailModel: EmailModel(email: vm.emailText), isChangePassword: true), isActive: $vm.navigateOTPView, label: {}))
+         }
     
-    // Back Button View
+    // MARK: - BackButtonView
     var backButtonView: some View {
         CustomButton(style: .back, title: "") {
             dismiss()
         }
     }
     
-    //Title View
+    // MARK: - TitleView
     var titleView: some View {
         CustomTitleView(title: "E-poçtunuzu daxil edin", subtitle: "E-poçt hesabınıza təsdiq kodu göndəriləcək.")
     }
     
-    //Email TextField
+    // MARK: - EmailTextField
     var textFieldView: some View {
         CustomTextField(placeholder: "E-poçtunuzu daxil edin",title: "E- poçt",text: $vm.emailText, isRightTextField: $vm.isRightEmail, errorMessage: $vm.emailError)
     }
     
-    //Confirm Email Button
+    // MARK: - ConfirmEmailButton
     var confirmButtonView: some View {
         CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            isLoading = true
+            vm.isLoading = true
             
             Task {
                 await vm.emailVerification() { result in
-                    navigateOTPView = result
-                    isLoading = false
+                    vm.navigateOTPView = result
+                    vm.isLoading = false
                 }
             }
         }
         .disabled(!canContinue)
-        
-        /// - In success case will navigate PasswordChangeView
-        .background(
-            NavigationLink(
-                destination: OTPView(emailModel: EmailModel(email: vm.emailText), isChangePassword: true),
-                isActive: $navigateOTPView,
-                label: {}))
-        
     }
     
+    // MARK: - For Making Button Color With Opacity Logic
     var canContinue: Bool {
         !vm.emailText.isEmpty && vm.isRightEmail
+    }
+    
+    // MARK: - LoadingView
+    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
+        ZStack {
+            Color.black.opacity(0.2)
+                .ignoresSafeArea()
+            ProgressView()
+                .progressViewStyle(.circular)
+        }
     }
 }
 

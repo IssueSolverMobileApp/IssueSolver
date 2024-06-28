@@ -65,7 +65,7 @@ struct LoginView: View {
         .padding(1)
     }
     
-    // MARK: - Buttons
+    // MARK: - BUTTONS
     var loginButtonView: some View {
         VStack {
             /// -  Log in Button View
@@ -91,10 +91,11 @@ struct LoginView: View {
             .padding(.top, 8)
         }
     }
-    // MARK: - For making button color with opacity logic
+    // MARK: - For Making Button Color With Opacity Logic
     var canContinue: Bool {
         return !vm.emailText.isEmpty && !vm.passwordText.isEmpty
     }
+    
     
     // MARK: - LoadingView
     var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view

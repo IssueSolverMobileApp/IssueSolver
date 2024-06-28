@@ -34,10 +34,13 @@ class PasswordChangeViewModel: ObservableObject {
     @Published var passwordError: String? = nil
     @Published var confirmPasswordError: String? = nil
     
-    @Published var navigateToLoginView = false
-    @Published var isLoading: Bool = false
+    /// - For showing specific error
     @Published var showAlert: Bool = false
     @Published var errorMessage: String = ""
+    
+    @Published var navigateToLoginView = false
+    @Published var isLoading: Bool = false
+   
     
     // MARK: - Fetcing Data
     @MainActor
@@ -60,7 +63,7 @@ class PasswordChangeViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Local validation function for PasswordTextfield
+    // MARK: - Local Validation Function for PasswordTextfield
     private func validatePassword() {
         if !passwordText.isEmpty {
             hasTouchedPassword = true
@@ -83,7 +86,7 @@ class PasswordChangeViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Local validation function for ConfirmPasswordTextfield
+    // MARK: - Local Validation Function for ConfirmPasswordTextfield
     private func validateConfirmPassword() {
         if !confirmPasswordText.isEmpty {
             hasTouchedConfirmPassword = true
@@ -102,7 +105,7 @@ class PasswordChangeViewModel: ObservableObject {
         }
     }
     
-    // MARK: - For showing email error that comes from API
+    // MARK: - For Showing Error that Comes From API
     private func handleAPIEmailError(_ error: String) {
         self.errorMessage = error
         showAlert = true

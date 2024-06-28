@@ -7,28 +7,35 @@
 
 import Foundation
 
-
 class EmailVerificationViewModel: ObservableObject {
     
     private var authRepository = HTTPAuthRepository()
-
+    
+    /// - For checking if text inside textfield is true or false in right time
     @Published var emailText: String = "" {
         didSet {
             validateEmail()
             if emailText.isEmpty {
                isRightEmail = true
-               emailError = ""
-            }
+               emailError = "" }
         }
     }
+    /// - For checking if textfield format is right or not
     @Published var isRightEmail: Bool = true
+    
+    /// - For making textfield color to red after touch, write and then  delete something
     @Published var hasTouchedEmail: Bool = false
+    
+    /// - For showing specific error
     @Published var emailError: String? = nil
     @Published var errorMessage: String = ""
     @Published var showAlert: Bool = false
-    @Published var verificationSuccess: Bool = false
-//    @Published var error: Error?
     
+    @Published var verificationSuccess = false
+    @Published var navigateOTPView = false
+    @Published var isLoading: Bool = false
+    
+    // MARK: - Fetcing Data
     func emailVerification(completion: @escaping ((Bool) -> Void)) async {
         let item = EmailModel(email: emailText)
         authRepository.forgetPassword(body: item) { result in
@@ -38,7 +45,6 @@ class EmailVerificationViewModel: ObservableObject {
             case .failure(let error):
                 DispatchQueue.main.async { [ weak self ] in
                     guard let self else { return }
-//                    self.error = error
                     handleAPIEmailError(error.localizedDescription)
                 }
                 completion(false)
@@ -46,12 +52,11 @@ class EmailVerificationViewModel: ObservableObject {
         }
     }
     
-    ///Email local validation function
+    // MARK: - Local Validation Function for EmailTextfield
     private func validateEmail() {
         if !emailText.isEmpty {
             hasTouchedEmail = true
         }
-        
         if hasTouchedEmail {
             if emailText.isEmpty {
                 emailError = "E-poçt boş ola bilməz"
@@ -67,7 +72,7 @@ class EmailVerificationViewModel: ObservableObject {
         }
     }
     
-    
+    // MARK: - For Showing Email Error That Comes from API
     func handleAPIEmailError(_ string: String) {
             isRightEmail = false
             showAlert = true

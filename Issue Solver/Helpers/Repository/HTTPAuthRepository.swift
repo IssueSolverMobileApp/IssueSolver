@@ -11,14 +11,15 @@ import NetworkingPack
 final class HTTPAuthRepository {
     
     private var http: HTTPClient = .shared
-    
     func register(body: RegisterModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
         http.POST(endPoint: EndPoint.auth(.register), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
-            if let error {
-                completion(.failure(error))
-            }
-            if let data {
-                completion(.success(data))
+              DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
             }
         }
     }
@@ -27,11 +28,13 @@ final class HTTPAuthRepository {
     func login(body: LoginModel, completion: @escaping (Result<LoginSuccessModel, Error>) -> Void) {
         
         http.POST(endPoint: EndPoint.auth(.login), body: JSONConverter().encode(input: body)) { (data: LoginSuccessModel?, error: Error?) in
-            if let error {
-                completion(.failure(error))
-            }
-            if let data {
-                completion(.success(data))
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
             }
         }
     }
