@@ -29,6 +29,7 @@ final class OTPViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func sendOTPTrust(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
         let item  = OTPModel(otpCode: otpText)
         authRepository.otpTrust(body: item) { result in
@@ -43,7 +44,7 @@ final class OTPViewModel: ObservableObject {
             }
         }
     }
-    
+    @MainActor
     func sendOTPConfirm() async {
         let item  = OTPModel(otpCode: otpText)
         

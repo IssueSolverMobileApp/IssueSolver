@@ -36,6 +36,7 @@ class PasswordChangeViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var errorMessage: String = ""
     
+    @MainActor
     func updatePassword(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
         let item = ResetPasswordModel(password: passwordText, confirmPassword: confirmPasswordText)
         

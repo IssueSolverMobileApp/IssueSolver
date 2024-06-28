@@ -34,6 +34,7 @@ class LoginViewModel: ObservableObject {
     @Published var navigateOTPView = false
     @Published var loginSuccess: Bool = false
     
+    @MainActor
     func login() async {
         isLoading = true
         
