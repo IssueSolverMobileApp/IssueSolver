@@ -42,7 +42,7 @@ struct RegisterView: View {
     }
     
     
-    // MARK: - Title View
+    // MARK: - TitleView
     var titleView: some View {
         CustomTitleView(title: "Qeydiyyat", subtitle: "Zəhmət olmasa, şəxsi məlumatlarınızı daxil edin.")
     }
@@ -71,7 +71,7 @@ struct RegisterView: View {
         .padding(1)
     }
     
-    // MARK: - CheckBox View
+    // MARK: - CheckBoxView
     var checkboxView: some View {
         HStack {
             CustomCheckBox(isChecked: $vm.isChecked, borderColor: vm.showCheckboxError && !vm.isChecked ? .red : .clear)
@@ -80,7 +80,7 @@ struct RegisterView: View {
         }
     }
     
-    // MARK: - BUTTONS VIEW
+    // MARK: - BUTTONS
     var continueButtonView: some View {
         VStack {
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
@@ -100,7 +100,7 @@ struct RegisterView: View {
             }
             .disabled(vm.fullNameText.isEmpty || vm.emailText.isEmpty || vm.passwordText.isEmpty || vm.confirmPasswordText.isEmpty || !vm.isRightFields)
             
-            // MARK: - If have already an account LOGIN BUTTON
+            // MARK: - If Have Already an Account LOGIN BUTTON
             HStack {
                 Text("Hesabınız var mı?")
                     .foregroundStyle(.secondaryGray)
@@ -113,7 +113,7 @@ struct RegisterView: View {
         }
     }
     
-    // MARK: - For making button color with opacity logic
+    // MARK: - For Making Button Color With Opacity Logic
     var canContinue: Bool {
         return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightFields && vm.isChecked
     }

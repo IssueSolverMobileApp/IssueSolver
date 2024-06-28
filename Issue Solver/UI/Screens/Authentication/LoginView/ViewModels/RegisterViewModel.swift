@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class RegisterViewModel: ObservableObject {
     
     private var authRepository = HTTPAuthRepository()
@@ -66,20 +67,17 @@ class RegisterViewModel: ObservableObject {
         let item = RegisterModel(email: emailText, fullName: fullNameText, password: passwordText, confirmPassword: confirmPasswordText)
         authRepository.register(body: item) { [weak self] result in
             guard let self else { return }
-            
-            DispatchQueue.main.async {
                 self.isLoading = false
                 switch result {
                 case .success(let result):
                     completion(result.success ?? false)
                 case .failure(let error):
                     self.handleAPIEmailError(error.localizedDescription)
-                }
             }
         }
     }
     
-    // MARK: - Local validation function for FullNameTextfield
+    // MARK: - Local Validation Function for FullNameTextfield
     private func validateFullName() {
         if !fullNameText.isEmpty {
             hasTouchedFullName = true
@@ -95,7 +93,7 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Local validation function for EmailTextfield
+    // MARK: - Local Validation Function for EmailTextfield
     private func validateEmail() {
         if !emailText.isEmpty {
             hasTouchedEmail = true
@@ -122,7 +120,7 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Local validation function for PasswordTextfield
+    // MARK: - Local Validation Function for PasswordTextfield
     private func validatePassword() {
         if !passwordText.isEmpty {
             hasTouchedPassword = true
@@ -150,7 +148,7 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Local validation function for ConfirmPasswordTextfield
+    // MARK: - Local Validation Function for ConfirmPasswordTextfield
     private func validateConfirmPassword() {
         if !confirmPasswordText.isEmpty {
             hasTouchedConfirmPassword = true
@@ -174,7 +172,7 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    // MARK: - For showing email error that comes from API
+    // MARK: - For Showing Error that Comes From API
     private func handleAPIEmailError(_ error: String) {
         self.emailError = error
         self.isRightEmail = false
