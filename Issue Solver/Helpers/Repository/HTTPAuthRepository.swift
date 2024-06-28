@@ -8,72 +8,103 @@
 import Foundation
 import NetworkingPack
 
-class HTTPAuthRepository {
+final class HTTPAuthRepository {
     
     private var http: HTTPClient = .shared
-    
-    func register(body: RegisterModel) async throws -> SuccessModel? {
-        do {
-            return try await http.POST(endPoint: EndPoint.auth(.register), body: JSONConverter().encode(input: body))
-        }
-        catch {
-            throw error
-        }
-    }
-     
-    
-    func login(body: LoginModel) async throws -> LoginSuccessModel? {
-        do {
-            return try await http.POST(endPoint: EndPoint.auth(.login), body: JSONConverter().encode(input: body))
-        }
-        catch {
-            throw error
+    func register(body: RegisterModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
+        http.POST(endPoint: EndPoint.auth(.register), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
+              DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
+            }
         }
     }
     
-    func confirmOTP(body: OTPModel) async throws -> SuccessModel? {
-        do {
-            return try await http.POST(endPoint: EndPoint.auth(.confirmOTP), body: JSONConverter().encode(input: body))
-        }
-        catch {
-            throw error
-        }
-    }
     
-    func otpTrust(body: OTPModel) async throws -> IDTokenSuccessModel? {
-        do {
-            return try await http.POST(endPoint: EndPoint.auth(.trustOTP), body: JSONConverter().encode(input: body))
-        }
-        catch {
-            throw error
-        }
+    func login(body: LoginModel, completion: @escaping (Result<LoginSuccessModel, Error>) -> Void) {
         
-    }
-    
-    func resendOTP(body: EmailModel) async throws -> SuccessModel? {
-        do {
-            return try await http.POST(endPoint: EndPoint.auth(.resendOTP), body: JSONConverter().encode(input: body))
-        }
-        catch {
-            throw error
-        }
-    }
-    
-    func forgetPassword(body: EmailModel) async throws -> SuccessModel? {
-        do {
-            return try await http.POST(endPoint: EndPoint.auth(.forgetPassword), body: JSONConverter().encode(input: body))
-        }
-        catch {
-            throw error
+        http.POST(endPoint: EndPoint.auth(.login), body: JSONConverter().encode(input: body)) { (data: LoginSuccessModel?, error: Error?) in
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
+            }
         }
     }
     
-    func resetPassword(body: ResetPasswordModel) async throws -> SuccessModel? {
-        do {
-            return try await http.POST(endPoint: EndPoint.auth(.resetPassword), body: JSONConverter().encode(input: body))
+    func confirmOTP(body: OTPModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
+        http.POST(endPoint: EndPoint.auth(.confirmOTP), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
+            if let error {
+                completion(.failure(error))
+            }
+            if let data {
+                completion(.success(data))
+            }
         }
-        catch {
-            throw error
+    }
+    
+    func otpTrust(body: OTPModel, completion: @escaping (Result<IDTokenSuccessModel, Error>) -> Void) {
+        http.POST(endPoint: EndPoint.auth(.trustOTP), body: JSONConverter().encode(input: body)) { (data: IDTokenSuccessModel?, error: Error?) in
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
+            }
+        }
+    }
+    
+    func resendOTP(body: EmailModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
+        http.POST(endPoint: EndPoint.auth(.resendOTP), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
+            if let error {
+                completion(.failure(error))
+            }
+            if let data {
+                completion(.success(data))
+            }
+        }
+    }
+    
+    func forgetPassword(body: EmailModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
+        http.POST(endPoint: EndPoint.auth(.forgetPassword), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
+            if let error {
+                completion(.failure(error))
+            }
+            if let data {
+                completion(.success(data))
+            }
+        }
+    }
+    
+    func resetPassword(body: ResetPasswordModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
+        http.POST(endPoint: EndPoint.auth(.resetPassword), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
+            if let error {
+                completion(.failure(error))
+            }
+            if let data {
+                completion(.success(data))
+            }
+        }
+    }
+    
+    func getme(completion: @escaping (Result<ProfileModel, Error>) -> Void) {
+        http.GET(endPoint: EndPoint.auth(.getMe)) { (data: ProfileModel?, error: Error?) in
+            if let error {
+                completion(.failure(error))
+            }
+            
+            if let data {
+                completion(.success(data))
+            }
         }
     }
 }

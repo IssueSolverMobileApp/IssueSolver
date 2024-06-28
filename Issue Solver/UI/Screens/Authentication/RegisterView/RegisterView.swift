@@ -8,113 +8,102 @@
 import SwiftUI
 
 struct RegisterView: View {
+    
     @Environment (\.dismiss) var dismiss
     @StateObject var vm = RegisterViewModel()
-    @State var navigateOTPView: Bool = false
-
-    
-    // Dummy variables
-    @State var isChecked: Bool = false
-    
+   
+    @MainActor
     var body: some View {
-        NavigationView {
             ZStack {
                 Color.surfaceBackground.ignoresSafeArea()
-                
                 VStack {
                     ScrollView(showsIndicators: false) {
-                        VStack (spacing: 24){
-                            VStack {
-                                titleView
-                                textFieldsView
-                                Spacer()
-                            }
+                        VStack (alignment: .leading){
+                            titleView
+                            textFieldsView
+                            Spacer()
                         }
                     }
                     continueButtonView
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 24)
+                
+                if vm.isLoading {
+                 loadingView
+                }
             }
             .navigationBarBackButtonHidden(true)
             .onTapGesture {
                 hideKeyboard()
-            }
-            .navigationBarBackButtonHidden(false)
         }
+          .background(
+            NavigationLink(destination: OTPView(isChangePassword: false), isActive: $vm.navigateOTPView, label: {}))
     }
     
+    
+    // MARK: - TitleView
     var titleView: some View {
         CustomTitleView(title: "Qeydiyyat", subtitle: "Zəhmət olmasa, şəxsi məlumatlarınızı daxil edin.")
     }
     
+    // MARK: - TextFieldViews
     var textFieldsView: some View {
         VStack(alignment: .leading, spacing: 20) {
             
-            //Name Surname Text Field View
-            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText)
+            /// - Name Surname Text Field View
+            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText,isRightTextField: $vm.isRightFullName, errorMessage: $vm.fullNameError)
             
-            
-            // Email Text Field View
-            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText)
-            
-            // Password TextField View
+            /// - Email Text Field View
+            CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightEmail, errorMessage: $vm.emailError)
+                   
+            /// - Password TextField View
             VStack(alignment: .leading, spacing: 8) {
-                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $vm.passwordText)
-                Text("Supporting text or hint")
-                    .jakartaFont(.subtitle2)
-                    .foregroundColor(.secondaryGray)
+                CustomTextField(placeholder: "Şifrənizi təyin edin", title: "Şifrə", isSecure: true, text: $vm.passwordText,isRightTextField: $vm.isRightPassword, errorMessage: $vm.passwordError)
             }
             
-            // Confirm Password TextField View
-            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText)
+            /// - Confirm Password TextField View
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin", title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText,isRightTextField: $vm.isRightConfirmPassword, errorMessage: $vm.confirmPasswordError)
             
             checkboxView
                 .padding(.vertical, 8)
         }
+        .padding(1)
     }
     
+    // MARK: - CheckBoxView
     var checkboxView: some View {
         HStack {
-            CustomCheckBox(isChecked: $isChecked)
+            CustomCheckBox(isChecked: $vm.isChecked, borderColor: vm.showCheckboxError && !vm.isChecked ? .red : .clear)
             
-            Text("İstifadəçi şərtləri və Məxfilik siyasəti")
-                .foregroundColor(.primaryBlue)
-            //                .onTapGesture {
-            //                  //functionality must be added
-            //                    print("Privacy Policy tapped")
-            //                }
-            +
-            Text(" qəbul edirəm.")
-            
+            TextView(text: "Şərtlər və qaydaları qəbul edirəm", clickableTexts: [ Constants.termsOfUse], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
         }
-        .jakartaFont(.subtitle)
     }
     
+    // MARK: - BUTTONS
     var continueButtonView: some View {
         VStack {
-            
             CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
-                    
-                    await vm.register { boolean in
-                        navigateOTPView = boolean
+                    if !vm.isChecked {
+                        vm.showCheckboxError = true
+                    } else {
+                        vm.showCheckboxError = false
+                        vm.isLoading = true
+                        await vm.register { success in
+                            if success {
+                                vm.navigateOTPView = true
+                            }
+                        }
                     }
-                    
                 }
             }
-            .background(
-                NavigationLink(destination: OTPView(isChangePassword: false),
-                               isActive: $navigateOTPView,
-                                       label: {})
-            )
+            .disabled(vm.fullNameText.isEmpty || vm.emailText.isEmpty || vm.passwordText.isEmpty || vm.confirmPasswordText.isEmpty || !vm.isRightFields)
             
-            
-            .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty && vm.passwordText.isEmpty && vm.confirmPasswordText.isEmpty && !isChecked)
-            
+            // MARK: - If Have Already an Account LOGIN BUTTON
             HStack {
                 Text("Hesabınız var mı?")
-                    .foregroundColor(.secondaryGray)
+                    .foregroundStyle(.secondaryGray)
                 CustomButton(style: .text, title: "Daxil olun") {
                     dismiss()
                 }
@@ -124,12 +113,21 @@ struct RegisterView: View {
         }
     }
     
-    var canContinue: Bool { 
-        return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && isChecked
+    // MARK: - For Making Button Color With Opacity Logic
+    var canContinue: Bool {
+        return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightFields && vm.isChecked
+    }
+    
+    // MARK: - LoadingView
+    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
+        ZStack {
+            Color.black.opacity(0.2)
+                .ignoresSafeArea()
+            ProgressView()
+                .progressViewStyle(.circular)
+        }
     }
 }
-
-
 
 #Preview {
     RegisterView()

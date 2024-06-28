@@ -10,11 +10,10 @@ import SwiftUI
 struct OTPTextField: View {
     
     let numberOfFields: Int
+    let completion: (String) -> Void
     
     @State var enterValue: [String]
     @FocusState private var fieldFocus: Int?
-    
-    let completion: (String) -> Void
     
     init(numberOfFields: Int, completion: @escaping (String) -> Void) {
         self.numberOfFields = numberOfFields
@@ -23,23 +22,13 @@ struct OTPTextField: View {
     }
     
     var body: some View {
-  
-        GeometryReader { geometry in
-            
+        GeometryReader { proxy in
             HStack {
                 ForEach(0..<numberOfFields, id: \.self) { index in
                     if index > 0 && index % 3 == 0 {
-                        Image("line")
+                        Image(.line)
                     }
-                    TextField("", text: $enterValue[index])
-                        .keyboardType(.numberPad)
-                        .foregroundColor(.primaryBlue)
-                        .frame(width: (geometry.size.width - 62) / CGFloat(numberOfFields), height: 62)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(fieldFocus == index ? Color.blue : Color.white, lineWidth: 2)
-                                .background(.white))
-                        .cornerRadius(12)
+                    textFieldView(index: index, proxy: proxy)
                         .multilineTextAlignment(.center)
                         .focused($fieldFocus, equals: index)
                         .onChange(of: enterValue[index]) { newValue in
@@ -49,32 +38,52 @@ struct OTPTextField: View {
                             
                             if !newValue.isEmpty && index < numberOfFields - 1 {
                                 fieldFocus = index + 1
-                                
                             } else if newValue.isEmpty && index > 0 {
                                 fieldFocus = index - 1
+                            } else if newValue.count < 1 {
+                                fieldFocus = index - 1
                             }
-                            completion(creatString())
+                            
+                            completion(createString())
                         }
                         .onTapGesture {
                             fieldFocus = index
                         }
                     
                 }
-            }
-            .onAppear {
-                fieldFocus = 0
+                
+                .onAppear {
+                    fieldFocus = 0
+                }
             }
         }
         .frame(height: 64)
     }
     
-    func creatString() -> String {
+    // MARK: - Views
+    
+    func textFieldView(index: Int, proxy: GeometryProxy) -> some View {
+        TextField("", text: $enterValue[index])
+            .keyboardType(.numberPad)
+            .foregroundStyle(.primaryBlue)
+            .frame(width: (proxy.size.width - 62) / CGFloat(numberOfFields), height: 62)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(fieldFocus == index ? Color.blue : Color.white, lineWidth: 2)
+                    .background(.white))
+            .cornerRadius(12)
+            
+    }
+    
+    // MARK: - Private Functions
+    
+    private func createString() -> String {
         var newString: String = ""
         enterValue.forEach { result in
             newString.append(result)
         }
         
-         return newString
+        return newString
     }
     
 }

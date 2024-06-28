@@ -8,41 +8,68 @@
 import SwiftUI
 
 struct OTPView: View {
-  
-    @StateObject var vm = OTPViewModel()
     @Environment (\.dismiss) private var dismiss
-    @State var isChangePassword: Bool = false
-    @State var navigateLoginView: Bool = false
-    @State var navigatePasswordChangeView: Bool = false
-        
+    @Environment (\.presentationMode) private var presentationMode
+    @StateObject var vm = OTPViewModel()
+    
+    var emailModel: EmailModel?
+    var isChangePassword: Bool = false
+    
     var body: some View {
-        
         ZStack {
             Color.surfaceBackground
                 .ignoresSafeArea()
-
-            VStack(alignment: .leading, spacing: 24) {
-                titleView
-                OTPTextField(numberOfFields: 6) { code in
-                    vm.otpText = code
-                }
-                timerView
-                Spacer()
-                confirmButtonView
+            contentView
+            
+            if vm.isLoading {
+                loadingView
             }
-            .padding(.top, 24)
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
-            }
-        
+        }
+        .onAppear {
+            vm.emailModel = emailModel
+            vm.isChangePassword = isChangePassword
+        }
+    }
+    
+    // MARK: - Views
+    
+    var contentView: some View {
+        VStack(alignment: .leading, spacing: 24) {
+            titleView
+            otpFieldsView
+            timerView
+            
+            Spacer()
+            confirmButtonView
+        }
         .onTapGesture {
             hideKeyboard()
         }
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 backButtonView
             }
+        }
+        .padding([.horizontal, .vertical], 16)
+        .navigationBarBackButtonHidden(true)
+    }
+    
+    // Title View
+    var titleView: some View {
+        ZStack(alignment: .topTrailing) {
+            CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin.")
+            HStack {
+                Image(.timerIcon)
+                vm.timer
+            }
+            .padding(.vertical,6)
+        }
+    }
+    
+    // OTP Fields View
+    var otpFieldsView: some View {
+        OTPTextField(numberOfFields: Constants.numberOfOTPFields) { code in
+            vm.otpText = code
         }
     }
     
@@ -53,61 +80,51 @@ struct OTPView: View {
         }
     }
     
-    //Title View
-    var titleView: some View {
-        CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin.")
-    }
-    
-    //Countdown View
+    // Countdown View
     var timerView: some View {
         HStack {
-            Text("Qalan vaxt:")
-                .foregroundStyle(.primaryBlue)
+            Text(vm.errorText)
+                .foregroundStyle(.red)
                 .font(.system(size: 17))
-            CountdownView()
         }
     }
     
     // Button View
     var confirmButtonView: some View {
-        
         VStack(spacing: 16) {
-            
             CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
-               // TODO: action must be added here
-                if isChangePassword  {
-                    Task {
-                        await vm.sendOTPTrust()
-                    }
-                    navigatePasswordChangeView = true
-                } else {
-                    Task {
-                        await vm.sendOTPConfirm() 
-                    }
-                    navigateLoginView = true
-
-                }
+                vm.checkOTPCode()
             }
-            .background(
-                NavigationLink(
-                   destination: PasswordChangeView(),
-                   isActive: $navigatePasswordChangeView,
-                   label: {})
-            )  
-            .background(
-                NavigationLink(
-                   destination: LoginView(),
-                   isActive: $navigateLoginView,
-                   label: {})
-            )
-            
             
             CustomButton(style: .text, title: "Kodu yenidən göndər") {
-                
+                vm.resendOTP()
             }
             
         }
+        .background{
+            NavigationLink(
+                destination: PasswordChangeView(),
+                isActive: $vm.navigatePasswordChangeView,
+                label: {})
+            
+            NavigationLink(
+                destination: LoginView(),
+                isActive: $vm.navigateLoginView,
+                label: {})
+        }
     }
+    
+    // Loading View
+    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
+        ZStack {
+            Color.black.opacity(0.2)
+                .ignoresSafeArea()
+            ProgressView()
+                .progressViewStyle(.circular)
+            
+        }
+    }
+    
 }
 
 #Preview {

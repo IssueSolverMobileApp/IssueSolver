@@ -10,7 +10,9 @@ import SwiftUI
 struct CountdownView: View {
     @State var timeRemaining = 180
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
+    
+    var completion: () -> Void
+    
     var formattedTime: String {
          let minutes = timeRemaining / 60
          let seconds = timeRemaining % 60
@@ -19,17 +21,19 @@ struct CountdownView: View {
 
     var body: some View {
         Text(formattedTime)
-            .foregroundColor(.primaryBlue)
+            .foregroundStyle(.primaryBlue)
             .font(.system(size: 17))
             .onReceive(timer) { _ in
                 if timeRemaining > 0 {
                     timeRemaining -= 1
-                }
+                } else { completion() }
             }
     }
 }
 
 #Preview {
-    CountdownView()
+    CountdownView {
+        
+    }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum JakartaFonts {
     case title
@@ -31,4 +32,5 @@ enum JakartaFont: String {
     var font: String {
         return self.rawValue
     }
+    
 }

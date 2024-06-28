@@ -6,35 +6,104 @@
 //
 
 import Foundation
+import NetworkingPack
 
 final class OTPViewModel: ObservableObject {
     
     @Published var otpText: String = ""
+    @Published var isLoading: Bool = false
+    
+    /// - We use optional here, as we open OTPView, timer will be set to nil
+    /// - Also we need to reuse timer many times, so we can set new value when we need
+    @Published var timer: CountdownView?
+    @Published var isTimerFinished: Bool = true
+    
+    /// - 'errorText' is show all type of error
+    @Published var errorText: String = ""
+    
+    @Published var emailModel: EmailModel?
+    @Published var isChangePassword: Bool = false
+    
+    @Published var isOTPHasError: Bool = false
+    @Published var navigateLoginView: Bool = false
+    @Published var navigatePasswordChangeView: Bool = false
+    
     
     private var authRepository = HTTPAuthRepository()
     
-    
-    
-    func sendOTPTrust() async {
-        let item  = OTPModel(otpCode: otpText)
-        do {
-            let result = try await authRepository.otpTrust(body: item)
-            print(result ?? "")
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-    }  
-    
-    func sendOTPConfirm() async {
-        let item  = OTPModel(otpCode: otpText)
-        print(item)
-        do {
-            let result = try await authRepository.confirmOTP(body: item)
-            print(result ?? "")
-        }
-        catch {
-            print(error.localizedDescription)
+    init() {
+        timer = CountdownView { [ weak self ] in /// - When timer finishes, do something
+            self?.isTimerFinished = true
         }
     }
+    
+    @MainActor
+    func sendOTPTrust(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
+        let item  = OTPModel(otpCode: otpText)
+        authRepository.otpTrust(body: item) { result in
+            switch result {
+            case .success(_):
+                completion(.success(true))
+            case .failure(let error):
+                self.errorText = error.localizedDescription
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    @MainActor
+    func sendOTPConfirm() async {
+        let item  = OTPModel(otpCode: otpText)
+        authRepository.confirmOTP(body: item) { result in
+            switch result {
+            case .success(let success):
+                print(success.message ?? "")
+            case .failure(let error):
+                self.errorText = error.localizedDescription
+            }
+        }
+    }
+    
+    func resendOTP(with email: EmailModel) {
+        authRepository.resendOTP(body: email) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+            case .failure(let error):
+                self.errorText = error.localizedDescription
+            }
+        }
+    }
+    
+    func checkOTPCode() {
+        isLoading = true
+        if isChangePassword  {
+            Task {
+                await sendOTPTrust { [ weak self ] result in
+                    switch result {
+                    case .success(_):
+                        self?.isLoading = false
+                        self?.navigatePasswordChangeView = true
+                    case .failure(let error):
+                        self?.isLoading = false
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        } else {
+            Task {
+                await sendOTPConfirm()
+            }
+            navigateLoginView = true
+        }
+    }
+    
+    func resendOTP() {
+        isLoading = true
+        if let emailModel {
+            resendOTP(with: emailModel)
+            isLoading = false
+        }
+    }
+    
 }

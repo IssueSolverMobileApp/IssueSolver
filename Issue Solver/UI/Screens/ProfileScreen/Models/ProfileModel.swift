@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct ProfileModel: Codable {
+    let email, fullName: String?
+    let status: Bool?
+}

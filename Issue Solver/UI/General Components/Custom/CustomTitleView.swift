@@ -22,7 +22,7 @@ struct CustomTitleView: View {
             if let subtitle {
                 Text(subtitle)
                     .jakartaFont(.subtitle)
-                    .foregroundColor(.secondaryGray)
+                    .foregroundStyle(.secondaryGray)
             }
             customDivider
         }

@@ -15,7 +15,21 @@ struct CustomTextField: View {
     var color: Color?
     
     @Binding var text: String
+    @Binding var errorMessage: String?
+    @Binding var isRightTextField: Bool
     @State var isShowPassword: Bool = false
+    
+    init(placeholder: String? = nil, title: String? = nil, isSecure: Bool = false, textColor: Color? = nil, color: Color? = nil, text: Binding<String>, isRightTextField: Binding<Bool> = .constant(true), isShowPassword: Bool = false, errorMessage: Binding<String?> = .constant(nil)) {
+        self.placeholder = placeholder
+        self.title = title
+        self.isSecure = isSecure
+        self.textColor = textColor
+        self.color = color
+        self._text = text
+        self._isRightTextField = isRightTextField
+        self.isShowPassword = isShowPassword
+        self._errorMessage = errorMessage
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -24,58 +38,66 @@ struct CustomTextField: View {
         }
     }
     
-    /// - Title view of the custom textfield
+    // TitleView
     var titleView: some View {
         ZStack {
             if let title {
                 Text(title)
                     .jakartaFont(.heading)
-                    .foregroundStyle(textColor ?? .black)
+                    .foregroundStyle(isRightTextField ? (textColor ?? .black) :  .red)
             }
         }
     }
     
-    /// - Custom text field view
+    // Custom TextField view
     var textFieldView: some View {
-        Group {
-            if !isSecure {
-                TextField(placeholder ?? "", text: $text)
-            } else {
-                HStack {
-                    if isShowPassword {
-                        TextField(placeholder ?? "", text: $text)
-                    } else {
-                        SecureField(placeholder ?? "", text: $text)
-                    }
+        VStack(alignment: .leading) {
+            Group {
+                if !isSecure {
+                    TextField(placeholder ?? "", text: $text)
+                    
+                } else {
                     HStack {
-                        showPasswordButtonView
+                        if isShowPassword {
+                            TextField(placeholder ?? "", text: $text)
+                                
+                        } else {
+                            SecureField(placeholder ?? "", text: $text)
+                                
+                        }
+                        HStack {
+                            showPasswordButtonView
+                        }
                     }
                 }
             }
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke((isRightTextField) ? Color.clear : Color.red, lineWidth: 1))
+            .background {
+                RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                    .fill(color ?? .white)
+            }
+            .textInputAutocapitalization(.never)
+            
+            if let errorMessage {
+                Text(errorMessage)
+                    .foregroundStyle(.red)
+                    .jakartaFont(.subtitle2)
+            }
         }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                .fill(color ?? .white)
-        }
-        .jakartaFont(.heading)
+        .jakartaFont(.subtitle)
     }
     
-    /// - Show/hide password
+    // Show/hide password
     var showPasswordButtonView: some View {
         Button {
             isShowPassword.toggle()
         } label: {
             Image(isShowPassword ? "eye" : "closeeye")
-                .foregroundStyle(Color.primaryBlue)
+                .foregroundStyle(isRightTextField ? Color.primaryBlue :  .red)
                 .background(.white)
         }
-       
-
     }
     
 }
 
-#Preview {
-    CustomTextField(placeholder: "Enter your password", title: "Password", isSecure: true, text: .constant(""))
-}

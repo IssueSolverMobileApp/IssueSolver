@@ -15,11 +15,14 @@ public enum NetworkError: Error, LocalizedError {
     case noInternetConnection
     case notFound(String)
     case unauthorization
+    case refreshTokenTimeIsOver
     case statusError
     case corruptedData
     case unknowned
+    case statusCode(String)
+
     
-    var errorDescription: String {
+    public var errorDescription: String? {
         switch self {
         case .badUrl:
             return "Bad url for this request"
@@ -41,6 +44,18 @@ public enum NetworkError: Error, LocalizedError {
             return "Corrupted data"
         case .unknowned:
             return "Unknowned"
+        case .refreshTokenTimeIsOver:
+            return "Sessiya bitmişdir yenidən login olun"
+        case .statusCode(let number):
+            return number
+        
         }
+    }
+}
+
+public extension LocalizedError {
+    
+    var errorDescription: String {
+        return (self as NSError).localizedDescription
     }
 }

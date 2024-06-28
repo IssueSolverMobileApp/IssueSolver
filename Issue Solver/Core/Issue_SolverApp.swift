@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct Issue_SolverApp: App {
+    
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            ContentView()
         }
     }
 }
