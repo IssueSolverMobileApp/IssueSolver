@@ -18,8 +18,16 @@ final class OTPViewModel: ObservableObject {
     @Published var timer: CountdownView?
     @Published var isTimerFinished: Bool = true
     
-    /// errorText is show all type of error
+    /// - 'errorText' is show all type of error
     @Published var errorText: String = ""
+    
+    @Published var emailModel: EmailModel?
+    @Published var isChangePassword: Bool = false
+    
+    @Published var isOTPHasError: Bool = false
+    @Published var navigateLoginView: Bool = false
+    @Published var navigatePasswordChangeView: Bool = false
+    
     
     private var authRepository = HTTPAuthRepository()
     
@@ -37,17 +45,15 @@ final class OTPViewModel: ObservableObject {
             case .success(_):
                 completion(.success(true))
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self.errorText = error.localizedDescription
-                    completion(.failure(error))
-                }
+                self.errorText = error.localizedDescription
+                completion(.failure(error))
             }
         }
     }
+    
     @MainActor
     func sendOTPConfirm() async {
         let item  = OTPModel(otpCode: otpText)
-        
         authRepository.confirmOTP(body: item) { result in
             switch result {
             case .success(let success):
@@ -68,4 +74,36 @@ final class OTPViewModel: ObservableObject {
             }
         }
     }
+    
+    func checkOTPCode() {
+        isLoading = true
+        if isChangePassword  {
+            Task {
+                await sendOTPTrust { [ weak self ] result in
+                    switch result {
+                    case .success(_):
+                        self?.isLoading = false
+                        self?.navigatePasswordChangeView = true
+                    case .failure(let error):
+                        self?.isLoading = false
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        } else {
+            Task {
+                await sendOTPConfirm()
+            }
+            navigateLoginView = true
+        }
+    }
+    
+    func resendOTP() {
+        isLoading = true
+        if let emailModel {
+            resendOTP(with: emailModel)
+            isLoading = false
+        }
+    }
+    
 }

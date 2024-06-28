@@ -27,16 +27,16 @@ struct EmailVerificationView: View {
             
             ///Progress View
             if isLoading {
-               VStack {
-                   Spacer()
-                   ProgressView()
-                       .progressViewStyle(CircularProgressViewStyle())
-                       .scaleEffect(1)
-                       .padding()
-                   Spacer()
-                       }
-                   }
-         }
+                VStack {
+                    Spacer()
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1)
+                        .padding()
+                    Spacer()
+                }
+            }
+        }
         .onTapGesture {
             hideKeyboard()
         }
@@ -73,22 +73,20 @@ struct EmailVerificationView: View {
             
             Task {
                 await vm.emailVerification() { result in
-//                    if vm.verificationSuccess {
-                        navigateOTPView = result
-                        isLoading = false
-//                    }
+                    navigateOTPView = result
+                    isLoading = false
                 }
             }
         }
         .disabled(!canContinue)
         
-        ///In success case will navigate PasswordChangeView
+        /// - In success case will navigate PasswordChangeView
         .background(
-        NavigationLink(
-            destination: OTPView(emailModel: EmailModel(email: vm.emailText),isChangePassword: true/*, error: vm.error*/),
-           isActive: $navigateOTPView,
-           label: {}))
-     
+            NavigationLink(
+                destination: OTPView(emailModel: EmailModel(email: vm.emailText), isChangePassword: true),
+                isActive: $navigateOTPView,
+                label: {}))
+        
     }
     
     var canContinue: Bool {
