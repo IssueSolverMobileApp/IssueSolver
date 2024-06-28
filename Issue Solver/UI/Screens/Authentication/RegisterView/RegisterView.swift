@@ -12,6 +12,7 @@ struct RegisterView: View {
     @Environment (\.dismiss) var dismiss
     @StateObject var vm = RegisterViewModel()
    
+    @MainActor
     var body: some View {
             ZStack {
                 Color.surfaceBackground.ignoresSafeArea()

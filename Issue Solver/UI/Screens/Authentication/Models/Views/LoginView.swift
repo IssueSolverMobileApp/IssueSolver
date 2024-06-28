@@ -28,13 +28,16 @@ struct LoginView: View {
               loadingView
             }
          }
+        .navigationBarBackButtonHidden(true)
+        .onTapGesture {
+            hideKeyboard()
+    }
         .background {
             NavigationLink(destination: EmailVerificationView(),isActive: $vm.navigateToEmailVerificationView, label: {})
             NavigationLink(destination: RegisterView(), isActive: $vm.navigateToRegisterView, label: {})
             NavigationLink(destination: OTPView(), isActive: $vm.navigateOTPView, label: {})
             NavigationLink(destination: EmptyView(), isActive: $vm.navigateToHomeView, label: {})
         }
-        .navigationBarBackButtonHidden(true)
     }
     
     
