@@ -76,7 +76,9 @@ struct OTPView: View {
     // OTP Fields View
     var otfFieldsView: some View {
         OTPTextField(numberOfFields: Constants.numberOfOTPFields) { code in
-            vm.otpText = code
+            DispatchQueue.main.async {
+                vm.otpText = code
+            }
         }
     }
     

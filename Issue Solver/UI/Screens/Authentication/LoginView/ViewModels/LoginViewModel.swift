@@ -32,6 +32,7 @@ class LoginViewModel: ObservableObject {
     @Published var isRightPassword: Bool = true
     @Published var isLoading: Bool = false
     @Published var navigateOTPView = false
+    @Published var loginSuccess: Bool = false
     
     func login() async {
         isLoading = true
@@ -45,6 +46,7 @@ class LoginViewModel: ObservableObject {
                 switch result {
                 case .success(let result):
                     print(result.message ?? "")
+                    self.loginSuccess = true
                     
                 case .failure(let error):
                     if error.localizedDescription == "409" {

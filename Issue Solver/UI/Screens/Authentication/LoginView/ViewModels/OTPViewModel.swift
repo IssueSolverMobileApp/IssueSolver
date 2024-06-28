@@ -36,8 +36,10 @@ final class OTPViewModel: ObservableObject {
             case .success(_):
                 completion(.success(true))
             case .failure(let error):
-                self.errorText = error.localizedDescription
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    self.errorText = error.localizedDescription
+                    completion(.failure(error))
+                }
             }
         }
     }

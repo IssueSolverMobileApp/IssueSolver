@@ -36,10 +36,9 @@ struct LoginView: View {
                        .scaleEffect(1)
                        .padding()
                    Spacer()
-                   }
-               }
-            
-        }
+                }
+            }
+         }
         .background {
             NavigationLink(destination: EmailVerificationView(),isActive: $navigateToEmailVerificationView, label: {})
             NavigationLink(destination: RegisterView(), isActive: $navigateToRegisterView, label: {})
@@ -79,7 +78,9 @@ struct LoginView: View {
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
                     await vm.login()
-                    navigateToHomeView = true
+                    if vm.loginSuccess {
+                        navigateToHomeView = true
+                    }
                 }
                 
             }

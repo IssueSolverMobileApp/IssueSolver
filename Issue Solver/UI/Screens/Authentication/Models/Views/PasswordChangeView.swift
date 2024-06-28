@@ -11,6 +11,7 @@ struct PasswordChangeView: View {
     @StateObject var vm: PasswordChangeViewModel = PasswordChangeViewModel()
     @State private var isLoading: Bool = false
     @State private var navigateToLoginView = false
+   
     
     var body: some View {
         ZStack {
@@ -49,9 +50,8 @@ struct PasswordChangeView: View {
     }
     
     //Text Field View
-    
     var textFieldView: some View {
-        VStack (spacing: 20 ){
+        VStack (spacing:20) {
             
             CustomTextField(placeholder: "Şifrənizi təyin edin",title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.passwordError)
         
@@ -59,20 +59,23 @@ struct PasswordChangeView: View {
         }
     }
     
-    // Renew Button View
+    /// Renew Button View
     var renewButtonView: some View {
         CustomButton(title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+            
             isLoading = true
-            Task {
-                await vm.updatePassword()
-                if vm.confirmPasswordSuccess {
-                    isLoading = false
-                    navigateToLoginView = true
-                } else {
-                    isLoading = false
+                Task {
+                    await vm.updatePassword() { result in
+                        switch result {
+                        case .success(_):
+                            isLoading = false
+                            navigateToLoginView = true
+                        case .failure(_):
+                            isLoading = false
+                        }
+                    }
                 }
             }
-        }
         .disabled(!canContinue)
         
         ///In success case will navigate PasswordChangeView
