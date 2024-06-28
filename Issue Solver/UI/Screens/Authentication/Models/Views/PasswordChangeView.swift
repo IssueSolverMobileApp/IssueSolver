@@ -9,9 +9,6 @@ import SwiftUI
 
 struct PasswordChangeView: View {
     @StateObject var vm: PasswordChangeViewModel = PasswordChangeViewModel()
-    @State private var isLoading: Bool = false
-    @State private var navigateToLoginView = false
-   
     
     var body: some View {
         ZStack {
@@ -26,72 +23,71 @@ struct PasswordChangeView: View {
             .padding(.horizontal,20)
             .padding(.vertical, 24)
             
-            ///Progress View
-            if isLoading {
-                VStack {
-                    Spacer()
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(1)
-                        .padding()
-                    Spacer()
-                }
+            if vm.isLoading {
+               loadingView
             }
         }
+        .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
         }
-        .navigationBarBackButtonHidden(true)
+        /// - In success case view will navigate to PasswordChangeView
+        .background(
+            NavigationLink(destination: LoginView(), isActive: $vm.navigateToLoginView, label: {}))
     }
     
-    //Title View
+    // MARK: - TitleView
     var titleView: some View {
         CustomTitleView(title: "Yeni şifrə", subtitle: "Daxil olmaq üçün yeni şifrə təyin edin.")
     }
     
-    //Text Field View
+    // MARK: - TextFieldViews
     var textFieldView: some View {
         VStack (spacing:20) {
-            
             CustomTextField(placeholder: "Şifrənizi təyin edin",title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.passwordError)
         
-        CustomTextField(placeholder: "Şifrənizi təsdiq edin",title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText, isRightTextField: $vm.isRightConfirmPassword, errorMessage: $vm.confirmPasswordError)
+            CustomTextField(placeholder: "Şifrənizi təsdiq edin",title: "Şifrənin təsdiqi", isSecure: true, text: $vm.confirmPasswordText, isRightTextField: $vm.isRightConfirmPassword, errorMessage: $vm.confirmPasswordError)
         }
     }
     
-    /// Renew Button View
+    // MARK: - RenewButtonView
     var renewButtonView: some View {
         CustomButton(title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
             
-            isLoading = true
+            vm.isLoading = true
                 Task {
                     await vm.updatePassword() { result in
                         switch result {
                         case .success(_):
-                            isLoading = false
-                            navigateToLoginView = true
+                            vm.isLoading = false
+                            vm.navigateToLoginView = true
                         case .failure(_):
-                            isLoading = false
+                            vm.isLoading = false
                         }
                     }
                 }
             }
         .disabled(!canContinue)
         
-        ///In success case will navigate PasswordChangeView
-        .background(
-            NavigationLink(
-                destination: LoginView(),
-                isActive: $navigateToLoginView,
-                label: {}))
-        
-        ///In error case alert will shown
+        /// - In error case alert will shown
         .alert(isPresented: $vm.showAlert) {
-            Alert(title: Text(""), message: Text(vm.errorMessage), dismissButton: .default(Text("Oldu")) {isLoading = false})
-           }
-    }
+            Alert(title: Text(""), message: Text(vm.errorMessage), dismissButton: .default(Text("Oldu")) {vm.isLoading = false})
+          }
+       }
+    
+    // MARK: - For making button color with opacity logic
     var canContinue: Bool {
         !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightPassword && vm.isRightConfirmPassword
+    }
+    
+    // MARK: - LoadingView
+    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
+        ZStack {
+            Color.black.opacity(0.2)
+                .ignoresSafeArea()
+            ProgressView()
+                .progressViewStyle(.circular)
+        }
     }
 }
 
