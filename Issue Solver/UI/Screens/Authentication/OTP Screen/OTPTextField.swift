@@ -9,34 +9,34 @@ import SwiftUI
 
 struct OTPTextField: View {
     
-    let numberOfFields: Int
-    let completion: (String) -> Void
+    @Binding var enteredValue: [String]
+    @Binding var isError: Bool
     
-    @State var enterValue: [String]
     @FocusState private var fieldFocus: Int?
     
-    init(numberOfFields: Int, completion: @escaping (String) -> Void) {
-        self.numberOfFields = numberOfFields
-        self.enterValue =  Array(repeating: "", count: numberOfFields)
-        self.completion = completion
+    init(enteredValue: Binding<[String]>, isError: Binding<Bool>) {
+        self._enteredValue = enteredValue
+        self._isError = isError
     }
     
     var body: some View {
         GeometryReader { proxy in
             HStack {
-                ForEach(0..<numberOfFields, id: \.self) { index in
+                ForEach(0..<enteredValue.count, id: \.self) { index in
                     if index > 0 && index % 3 == 0 {
                         Image(.line)
                     }
                     textFieldView(index: index, proxy: proxy)
                         .multilineTextAlignment(.center)
                         .focused($fieldFocus, equals: index)
-                        .onChange(of: enterValue[index]) { newValue in
+                        .onChange(of: enteredValue[index]) { newValue in
+                            print("------ DEBUG: newValue ------")
+                            print(newValue)
                             if newValue.count > 1 {
-                                enterValue[index] = String(enterValue[index].suffix(1))
+                                enteredValue[index] = String(enteredValue[index].suffix(1))
                             }
                             
-                            if !newValue.isEmpty && index < numberOfFields - 1 {
+                            if !newValue.isEmpty && index < enteredValue.count - 1 {
                                 fieldFocus = index + 1
                             } else if newValue.isEmpty && index > 0 {
                                 fieldFocus = index - 1
@@ -44,14 +44,13 @@ struct OTPTextField: View {
                                 fieldFocus = index - 1
                             }
                             
-                            completion(createString())
+                            isError = false
                         }
                         .onTapGesture {
                             fieldFocus = index
                         }
                     
                 }
-                
                 .onAppear {
                     fieldFocus = 0
                 }
@@ -63,31 +62,18 @@ struct OTPTextField: View {
     // MARK: - Views
     
     func textFieldView(index: Int, proxy: GeometryProxy) -> some View {
-        TextField("", text: $enterValue[index])
+        TextField("", text: $enteredValue[index])
             .keyboardType(.numberPad)
-            .foregroundStyle(.primaryBlue)
-            .frame(width: (proxy.size.width - 62) / CGFloat(numberOfFields), height: 62)
+            .foregroundStyle(isError ? Color.red : .primaryBlue)
+            .frame(width: (proxy.size.width - 62) / CGFloat(enteredValue.count), height: 62)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(fieldFocus == index ? Color.blue : Color.white, lineWidth: 2)
-                    .background(.white))
+                            // ------- 1 -------    -------------------- 2 ------------------
+                    .stroke( isError ? Color.red : (fieldFocus == index ? Color.blue : Color.white), lineWidth: 2)
+                    .background(isError ? Color.red.opacity(0.1) : .white))
             .cornerRadius(12)
-            
-    }
-    
-    // MARK: - Private Functions
-    
-    private func createString() -> String {
-        var newString: String = ""
-        enterValue.forEach { result in
-            newString.append(result)
-        }
         
-        return newString
     }
     
 }
 
-#Preview {
-    OTPTextField(numberOfFields: 6) {code in}
-}

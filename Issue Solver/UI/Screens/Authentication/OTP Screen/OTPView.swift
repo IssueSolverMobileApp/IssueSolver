@@ -36,7 +36,6 @@ struct OTPView: View {
         VStack(alignment: .leading, spacing: 24) {
             titleView
             otpFieldsView
-            timerView
             
             Spacer()
             confirmButtonView
@@ -57,18 +56,18 @@ struct OTPView: View {
     var titleView: some View {
         ZStack(alignment: .topTrailing) {
             CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin.")
-            HStack {
-                Image(.timerIcon)
-                vm.timer
-            }
-            .padding(.vertical,6)
+            timerView
         }
     }
     
     // OTP Fields View
     var otpFieldsView: some View {
-        OTPTextField(numberOfFields: Constants.numberOfOTPFields) { code in
-            vm.otpText = code
+        VStack(alignment: .leading) {
+            OTPTextField(enteredValue: $vm.otpCode, isError: $vm.isError)
+            
+            Text(vm.errorText)
+                .foregroundStyle(.red)
+                .font(.system(size: 17))
         }
     }
     
@@ -82,10 +81,12 @@ struct OTPView: View {
     // Countdown View
     var timerView: some View {
         HStack {
-            Text(vm.errorText)
-                .foregroundStyle(.red)
-                .font(.system(size: 17))
+            if vm.timer != nil {
+                Image(.timerIcon)
+            }
+            vm.timer
         }
+        .padding(.vertical,6)
     }
     
     // Button View
@@ -108,6 +109,8 @@ struct OTPView: View {
             CustomButton(style: .text, title: "Kodu yenidən göndər") {
                 vm.resendOTP()
             }
+            .disabled(!vm.isTimerFinished)
+            .opacity(vm.isTimerFinished ? 1 : 0.5)
             
         }
     }

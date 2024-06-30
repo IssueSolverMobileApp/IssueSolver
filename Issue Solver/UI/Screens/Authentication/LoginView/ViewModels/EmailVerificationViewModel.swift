@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class EmailVerificationViewModel: ObservableObject {
     
     private var authRepository = HTTPAuthRepository()
@@ -16,8 +17,8 @@ class EmailVerificationViewModel: ObservableObject {
         didSet {
             validateEmail()
             if emailText.isEmpty {
-               isRightEmail = true
-               emailError = "" }
+                isRightEmail = true
+                emailError = "" }
         }
     }
     /// - For checking if textfield format is right or not
@@ -38,16 +39,15 @@ class EmailVerificationViewModel: ObservableObject {
     // MARK: - Fetcing Data
     func emailVerification(completion: @escaping ((Bool) -> Void)) async {
         let item = EmailModel(email: emailText)
-        authRepository.forgetPassword(body: item) { result in
-            switch result {
-            case .success(_):
-                completion(true)
-            case .failure(let error):
-                DispatchQueue.main.async { [ weak self ] in
-                    guard let self else { return }
-                    handleAPIEmailError(error.localizedDescription)
+        authRepository.forgetPassword(body: item) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    completion(true)
+                case .failure(let error):
+                    self?.handleAPIEmailError(error.localizedDescription)
+                    completion(false)
                 }
-                completion(false)
             }
         }
     }
@@ -74,8 +74,8 @@ class EmailVerificationViewModel: ObservableObject {
     
     // MARK: - For Showing Email Error That Comes from API
     func handleAPIEmailError(_ string: String) {
-            isRightEmail = false
-            showAlert = true
-            emailError = string
+        isRightEmail = false
+        showAlert = true
+        emailError = string
     }
 }
