@@ -56,7 +56,7 @@ final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
     }
     
     public func dismissView() {
-        navigationController.dismiss(animated: true)
+        navigationController.popViewController(animated: true)
     }
     
     // MARK: - UINavigationControllerDelegate

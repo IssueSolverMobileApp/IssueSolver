@@ -72,6 +72,8 @@ struct LoginView: View {
                     await vm.login()
                     if vm.loginSuccess {
                         vm.navigateToHomeView = true
+                    } else {
+                        router.navigate(to: OTPView(isChangePassword: false).environmentObject(router))
                     }
                 }
             }
