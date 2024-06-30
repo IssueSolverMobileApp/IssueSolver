@@ -32,9 +32,7 @@ final class OTPViewModel: ObservableObject {
     private var authRepository = HTTPAuthRepository()
     
     init() {
-        timer = CountdownView { [ weak self ] in /// - When timer finishes, do something
-            self?.isTimerFinished = true
-        }
+        setTimer()
     }
     
     @MainActor
@@ -52,12 +50,12 @@ final class OTPViewModel: ObservableObject {
     }
     
     @MainActor
-    func sendOTPConfirm() async {
+    func sendOTPConfirm(completion: @escaping (Bool) -> Void) async {
         let item  = OTPModel(otpCode: otpText)
         authRepository.confirmOTP(body: item) { result in
             switch result {
-            case .success(let success):
-                print(success.message ?? "")
+            case .success(_):
+                completion(true)
             case .failure(let error):
                 self.errorText = error.localizedDescription
             }
@@ -75,7 +73,7 @@ final class OTPViewModel: ObservableObject {
         }
     }
     
-    func checkOTPCode() {
+    func checkOTPCode(completion: @escaping (Bool) -> Void) {
         isLoading = true
         if isChangePassword  {
             Task {
@@ -83,7 +81,7 @@ final class OTPViewModel: ObservableObject {
                     switch result {
                     case .success(_):
                         self?.isLoading = false
-                        self?.navigatePasswordChangeView = true
+                        completion(true)
                     case .failure(let error):
                         self?.isLoading = false
                         print(error.localizedDescription)
@@ -92,9 +90,10 @@ final class OTPViewModel: ObservableObject {
             }
         } else {
             Task {
-                await sendOTPConfirm()
+                await sendOTPConfirm { success in
+                    completion(success)
+                }
             }
-            navigateLoginView = true
         }
     }
     
@@ -102,8 +101,15 @@ final class OTPViewModel: ObservableObject {
         isLoading = true
         if let emailModel {
             resendOTP(with: emailModel)
+            setTimer()
+            errorText = ""
             isLoading = false
         }
     }
     
+    func setTimer() {
+        timer = CountdownView { [ weak self ] in /// - When timer finishes, do something
+            self?.isTimerFinished = true
+        }
+    }
 }

@@ -34,6 +34,8 @@
 		A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFF2C18E11700E18665 /* CustomTextField.swift */; };
 		A82DAE032C18E34B00E18665 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DAE022C18E34B00E18665 /* Constants.swift */; };
 		A8BF680F2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF680E2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift */; };
+		A8BF68122C2F558F0005AE43 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF68112C2F558F0005AE43 /* Router.swift */; };
+		A8BF68142C2F56FE0005AE43 /* CustomNavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF68132C2F56FE0005AE43 /* CustomNavigationStack.swift */; };
 		FB161FB82C2A9AF600C0A8E9 /* String+ Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB161FB72C2A9AF600C0A8E9 /* String+ Ext.swift */; };
 		FB55BD552C1B0CAD00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */; };
 		FB55BD562C1B0CAD00F81FDB /* PlusJakartaSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */; };
@@ -99,6 +101,8 @@
 		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A8BF680E2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentProperties.swift; sourceTree = "<group>"; };
+		A8BF68112C2F558F0005AE43 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		A8BF68132C2F56FE0005AE43 /* CustomNavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationStack.swift; sourceTree = "<group>"; };
 		FB161FB72C2A9AF600C0A8E9 /* String+ Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ Ext.swift"; sourceTree = "<group>"; };
 		FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -270,6 +274,15 @@
 			path = "General Components";
 			sourceTree = "<group>";
 		};
+		A8BF68102C2F55830005AE43 /* NavigationRouter */ = {
+			isa = PBXGroup;
+			children = (
+				A8BF68112C2F558F0005AE43 /* Router.swift */,
+				A8BF68132C2F56FE0005AE43 /* CustomNavigationStack.swift */,
+			);
+			path = NavigationRouter;
+			sourceTree = "<group>";
+		};
 		FB55BD462C1B0B6600F81FDB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +395,7 @@
 		FBA4BA1F2C183D3B00BEDA9E /* UI Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A8BF68102C2F55830005AE43 /* NavigationRouter */,
 				A82DAE022C18E34B00E18665 /* Constants.swift */,
 				FB55BD462C1B0B6600F81FDB /* Fonts */,
 			);
@@ -541,6 +555,7 @@
 				FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */,
 				6F6B8CA82C298B7000BB52FE /* Tab.swift in Sources */,
 				6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */,
+				A8BF68122C2F558F0005AE43 /* Router.swift in Sources */,
 				8CA3EB062C1C65DD00514134 /* LoginViewModel.swift in Sources */,
 				A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */,
 				FB5A10332C277FDE00E16828 /* MyAccountView.swift in Sources */,
@@ -566,6 +581,7 @@
 				8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */,
 				FB5A10392C2787FD00E16828 /* DeleteAccountViewModel.swift in Sources */,
 				FB5A10352C277FF700E16828 /* MyAccountViewModel.swift in Sources */,
+				A8BF68142C2F56FE0005AE43 /* CustomNavigationStack.swift in Sources */,
 				FB967D232C2581B6002BA572 /* ProfileViewModel.swift in Sources */,
 				FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */,
 				FB967D212C2581A2002BA572 /* ProfileView.swift in Sources */,

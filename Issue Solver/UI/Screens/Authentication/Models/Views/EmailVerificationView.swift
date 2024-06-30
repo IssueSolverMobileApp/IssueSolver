@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EmailVerificationView: View {
-    @Environment (\.dismiss) private var dismiss
+    @EnvironmentObject var router: Router
     @StateObject var vm = EmailVerificationViewModel()
     
     var body: some View {
@@ -22,9 +22,9 @@ struct EmailVerificationView: View {
             }
             .padding(.vertical, 24)
             .padding(.horizontal, 20)
-          
+            
             if vm.isLoading {
-            loadingView
+                loadingView
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -36,15 +36,13 @@ struct EmailVerificationView: View {
                 backButtonView
             }
         }
-        /// - In success case will navigate PasswordChangeView
-        .background(
-            NavigationLink(destination: OTPView(emailModel: EmailModel(email: vm.emailText), isChangePassword: true), isActive: $vm.navigateOTPView, label: {}))
-         }
+        
+    }
     
     // MARK: - BackButtonView
     var backButtonView: some View {
         CustomButton(style: .back, title: "") {
-            dismiss()
+            router.dismissView()
         }
     }
     
@@ -64,8 +62,13 @@ struct EmailVerificationView: View {
             vm.isLoading = true
             
             Task {
-                await vm.emailVerification() { result in
-                    vm.navigateOTPView = result
+                await vm.emailVerification() { success in
+                    if success {
+                        DispatchQueue.main.async {
+                            /// - In success case will navigate PasswordChangeView
+                            router.navigate(to: OTPView(emailModel: EmailModel(email: vm.emailText), isChangePassword: true).environmentObject(router))
+                        }
+                    }
                     vm.isLoading = false
                 }
             }

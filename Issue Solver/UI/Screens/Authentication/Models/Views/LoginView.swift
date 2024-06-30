@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var router: Router
     @StateObject var vm = LoginViewModel()
     
     var body: some View {
@@ -22,7 +23,7 @@ struct LoginView: View {
                 loginButtonView
             }
             .padding(.horizontal, 20)
-            .padding(.vertical, 24)
+            
             
             if vm.isLoading {
               loadingView
@@ -33,9 +34,6 @@ struct LoginView: View {
             hideKeyboard()
     }
         .background {
-            NavigationLink(destination: EmailVerificationView(),isActive: $vm.navigateToEmailVerificationView, label: {})
-            NavigationLink(destination: RegisterView(), isActive: $vm.navigateToRegisterView, label: {})
-            NavigationLink(destination: OTPView(), isActive: $vm.navigateOTPView, label: {})
             NavigationLink(destination: EmptyView(), isActive: $vm.navigateToHomeView, label: {})
         }
     }
@@ -59,7 +57,7 @@ struct LoginView: View {
             }
             /// - Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
-                vm.navigateToEmailVerificationView = true
+                router.navigate(to: EmailVerificationView().environmentObject(router))
             }
         }
         .padding(1)
@@ -84,11 +82,11 @@ struct LoginView: View {
                 Text("Hesabınız yoxdur?")
                     .foregroundColor(.secondaryGray)
                 CustomButton(style: .text, title: "Qeydiyyatdan keçin") {
-                    vm.navigateToRegisterView = true
+                    router.navigate(to: RegisterView().environmentObject(router))
                 }
             }
             .jakartaFont(.subtitle)
-            .padding(.top, 8)
+            .padding(.vertical, 8)
         }
     }
     // MARK: - For Making Button Color With Opacity Logic

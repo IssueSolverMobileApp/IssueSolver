@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PasswordChangeView: View {
+    @EnvironmentObject var router: Router
     @StateObject var vm: PasswordChangeViewModel = PasswordChangeViewModel()
     
     var body: some View {
@@ -60,7 +61,9 @@ struct PasswordChangeView: View {
                         switch result {
                         case .success(_):
                             vm.isLoading = false
-                            vm.navigateToLoginView = true
+                            DispatchQueue.main.async {
+                                router.popToRoot()
+                            }
                         case .failure(_):
                             vm.isLoading = false
                         }
