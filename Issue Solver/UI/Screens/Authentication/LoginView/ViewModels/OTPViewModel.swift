@@ -38,14 +38,15 @@ final class OTPViewModel: ObservableObject {
     
     @MainActor
     func sendOTPTrust(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
+        
         let item = OTPModel(otpCode: otpCode.joined())
-        authRepository.otpTrust(body: item) { result in
+        authRepository.otpTrust(body: item) { [weak self] result in
             switch result {
             case .success(_):
                 completion(.success(true))
             case .failure(let error):
-                self.errorText = error.localizedDescription
-                self.isError = true
+                self?.errorText = error.localizedDescription
+                self?.isError = true
                 completion(.failure(error))
             }
         }
@@ -54,13 +55,14 @@ final class OTPViewModel: ObservableObject {
     @MainActor
     func sendOTPConfirm(completion: @escaping (Bool) -> Void) async {
         let item  = OTPModel(otpCode: otpCode.joined())
-        authRepository.confirmOTP(body: item) { result in
+        authRepository.confirmOTP(body: item) { [weak self] result in
             switch result {
             case .success(_):
                 completion(true)
             case .failure(let error):
-                self.isError = true
-                self.errorText = error.localizedDescription
+                self?.isError = true
+                self?.errorText = error.localizedDescription
+                completion(false)
             }
         }
     }

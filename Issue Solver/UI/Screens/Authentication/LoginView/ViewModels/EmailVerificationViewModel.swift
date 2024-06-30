@@ -38,9 +38,12 @@ class EmailVerificationViewModel: ObservableObject {
     
     // MARK: - Fetcing Data
     func emailVerification(completion: @escaping ((Bool) -> Void)) async {
+        isLoading = true
         let item = EmailModel(email: emailText)
         authRepository.forgetPassword(body: item) { [weak self] result in
             DispatchQueue.main.async {
+                self?.isLoading = false
+                
                 switch result {
                 case .success(_):
                     completion(true)

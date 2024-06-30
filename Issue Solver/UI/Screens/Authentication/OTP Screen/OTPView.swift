@@ -20,9 +20,6 @@ struct OTPView: View {
                 .ignoresSafeArea()
             contentView
             
-            if vm.isLoading {
-                loadingView
-            }
         }
         .onAppear {
             vm.emailModel = emailModel
@@ -92,12 +89,12 @@ struct OTPView: View {
     // Button View
     var confirmButtonView: some View {
         VStack(spacing: 16) {
-            CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
+            CustomButton(title: "Təsdiqlə", color: .primaryBlue, isLoading: vm.isLoading) {
                 vm.checkOTPCode { success in
                     if success {
                         DispatchQueue.main.async {
                             if vm.isChangePassword {
-                                router.navigate(to: PasswordChangeView().environmentObject(router))
+                                router.navigate { PasswordChangeView() }
                             } else {
                                 router.popToRoot()
                             }
@@ -111,17 +108,6 @@ struct OTPView: View {
             }
             .disabled(!vm.isTimerFinished)
             .opacity(vm.isTimerFinished ? 1 : 0.5)
-            
-        }
-    }
-    
-    // Loading View
-    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
-        ZStack {
-            Color.black.opacity(0.2)
-                .ignoresSafeArea()
-            ProgressView()
-                .progressViewStyle(.circular)
             
         }
     }

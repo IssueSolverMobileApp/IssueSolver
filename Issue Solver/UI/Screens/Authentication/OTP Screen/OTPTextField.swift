@@ -63,6 +63,7 @@ struct OTPTextField: View {
     
     func textFieldView(index: Int, proxy: GeometryProxy) -> some View {
         TextField("", text: $enteredValue[index])
+            .textContentType(.oneTimeCode)
             .keyboardType(.numberPad)
             .foregroundStyle(isError ? Color.red : .primaryBlue)
             .frame(width: (proxy.size.width - 62) / CGFloat(enteredValue.count), height: 62)

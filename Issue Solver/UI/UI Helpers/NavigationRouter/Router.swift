@@ -24,6 +24,11 @@ final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
     /// - Parameters:
     ///  - setupNavigationController: Create a new navigation controller, which will be the root of a navigaiton stack
     
+    /// Every time we create a new hosting controller, which is a view controller of a SwiftUI view,
+    /// we have to pass observed object of a `Router` class to each view, to be able to use router functions
+    /// to manipulate view controllers of a navigation stack further.
+    /// * Use `self` to pass as an environment object to another view
+    
     public func setupNavigationController<C: View>(with view: C) -> UINavigationController {
         let rootViewController = UIHostingController(rootView: view.environmentObject(self))
         navigationController.viewControllers.append(rootViewController)
@@ -37,6 +42,7 @@ final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
         
         /// - Customization navigation bar appearance
         let navigationBar = navigationController.navigationBar
+        let navigationItem = navigationController.navigationItem
         navigationBar.isTranslucent = true
     }
     
@@ -45,9 +51,10 @@ final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
     /// - Parameters:
     ///  - navigate: Pushes a new view controller onto the existing navigation stack
     ///  - popToRoot: Pops to the root view controller, which is in the existing navigation stack
+    ///  - dismissView: Dismisses the view controller, which is visible right now
     
-    public func navigate<C: View>(to view: C) {
-        let newHostingController = UIHostingController(rootView: view)
+    public func navigate<C: View>(@ViewBuilder view: () -> C) {
+        let newHostingController = UIHostingController(rootView: view().environmentObject(self))
         navigationController.pushViewController(newHostingController, animated: true)
     }
     

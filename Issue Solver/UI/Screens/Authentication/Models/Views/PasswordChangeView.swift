@@ -24,9 +24,6 @@ struct PasswordChangeView: View {
             .padding(.horizontal,20)
             .padding(.vertical, 24)
             
-            if vm.isLoading {
-               loadingView
-            }
         }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
@@ -83,15 +80,6 @@ struct PasswordChangeView: View {
         !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightPassword && vm.isRightConfirmPassword
     }
     
-    // MARK: - LoadingView
-    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
-        ZStack {
-            Color.black.opacity(0.2)
-                .ignoresSafeArea()
-            ProgressView()
-                .progressViewStyle(.circular)
-        }
-    }
 }
 
 #Preview {
