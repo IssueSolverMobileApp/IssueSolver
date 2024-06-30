@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct OTPView: View {
-    @Environment (\.dismiss) private var dismiss
-    @Environment (\.presentationMode) private var presentationMode
+    @EnvironmentObject var router: Router
     @StateObject var vm = OTPViewModel()
     
     var emailModel: EmailModel?
@@ -76,7 +75,7 @@ struct OTPView: View {
     // Back Button View
     var backButtonView: some View {
         CustomButton(style: .back, title: "") {
-            dismiss()
+            router.dismissView()
         }
     }
     
@@ -93,24 +92,23 @@ struct OTPView: View {
     var confirmButtonView: some View {
         VStack(spacing: 16) {
             CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
-                vm.checkOTPCode()
+                vm.checkOTPCode { success in
+                    if success {
+                        DispatchQueue.main.async {
+                            if vm.isChangePassword {
+                                router.navigate(to: PasswordChangeView().environmentObject(router))
+                            } else {
+                                router.popToRoot()
+                            }
+                        }
+                    }
+                }
             }
             
             CustomButton(style: .text, title: "Kodu yenidən göndər") {
                 vm.resendOTP()
             }
             
-        }
-        .background{
-            NavigationLink(
-                destination: PasswordChangeView(),
-                isActive: $vm.navigatePasswordChangeView,
-                label: {})
-            
-            NavigationLink(
-                destination: LoginView(),
-                isActive: $vm.navigateLoginView,
-                label: {})
         }
     }
     

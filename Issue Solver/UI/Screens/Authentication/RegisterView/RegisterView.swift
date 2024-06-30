@@ -8,37 +8,32 @@
 import SwiftUI
 
 struct RegisterView: View {
-    
-    @Environment (\.dismiss) var dismiss
+    @EnvironmentObject var router: Router
     @StateObject var vm = RegisterViewModel()
    
-    @MainActor
     var body: some View {
-            ZStack {
-                Color.surfaceBackground.ignoresSafeArea()
-                VStack {
-                    ScrollView(showsIndicators: false) {
-                        VStack (alignment: .leading){
-                            titleView
-                            textFieldsView
-                            Spacer()
-                        }
+        ZStack {
+            Color.surfaceBackground.ignoresSafeArea()
+            VStack {
+                ScrollView(showsIndicators: false) {
+                    VStack (alignment: .leading){
+                        titleView
+                        textFieldsView
+                        Spacer()
                     }
-                    continueButtonView
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 24)
-                
-                if vm.isLoading {
-                 loadingView
-                }
+                continueButtonView
             }
-            .navigationBarBackButtonHidden(true)
-            .onTapGesture {
-                hideKeyboard()
+            .padding(.horizontal, 20)
+            
+            if vm.isLoading {
+                loadingView
+            }
         }
-          .background(
-            NavigationLink(destination: OTPView(isChangePassword: false), isActive: $vm.navigateOTPView, label: {}))
+        .navigationBarBackButtonHidden(true)
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
     
     
@@ -92,7 +87,7 @@ struct RegisterView: View {
                         vm.isLoading = true
                         await vm.register { success in
                             if success {
-                                vm.navigateOTPView = true
+                                router.navigate(to: OTPView(isChangePassword: false).environmentObject(router))
                             }
                         }
                     }
@@ -105,7 +100,7 @@ struct RegisterView: View {
                 Text("Hesabınız var mı?")
                     .foregroundStyle(.secondaryGray)
                 CustomButton(style: .text, title: "Daxil olun") {
-                    dismiss()
+                    router.popToRoot()
                 }
             }
             .jakartaFont(.subtitle)

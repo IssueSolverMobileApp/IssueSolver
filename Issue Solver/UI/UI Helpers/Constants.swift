@@ -9,9 +9,22 @@ import SwiftUI
 
 class Constants {
     
-    /// - Clickable Texts and their url strings
+    // MARK: - Strings
+    
+    /// - Clickable texts and their URL strings
     static let termsOfUse: [String: String] = ["Şərtlər və qaydaları": "https://www.youtube.com/watch?v=82Afo639J-0"]
+    
+    // MARK: - Numbers
     
     static let cornerRadius: CGFloat = 12
     static let numberOfOTPFields: Int = 6
+    
+    // MARK: - Colors
+    
+    /// - Parameters:
+    ///  - backgroundColor: Background color of the view
+    ///  - uiBackgroundColor: Same as 'backgroundColor', but color type is UIColor
+    static let backgroundColor: Color = Color.surfaceBackground
+    static let uiBackgroundColor: UIColor = UIColor.surfaceBackground
+    
 }
