@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var selectedTab: Tab = .home
     
     var body: some View {
-        NavigationView {
-            LoginView()
+        ZStack {
+            CustomNavigationStack {
+                LoginView()
+            }
+            .ignoresSafeArea()
         }
     }
 }
