@@ -8,12 +8,13 @@
 import Foundation
 import NetworkingPack
 
+@MainActor
 final class OTPViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     
     /// - We use optional here, as we open OTPView, timer will be set to nil
-    /// - Also we need to reuse timer as much as we need, so we can set a new value 
+    /// - Also we need to reuse timer as much as we need, so we can set a new value
     @Published var timer: CountdownView?
     @Published var isTimerFinished: Bool = false
     
@@ -36,7 +37,6 @@ final class OTPViewModel: ObservableObject {
         setTimer()
     }
     
-    @MainActor
     func sendOTPTrust(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
         
         let item = OTPModel(otpCode: otpCode.joined())
@@ -52,7 +52,6 @@ final class OTPViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     func sendOTPConfirm(completion: @escaping (Bool) -> Void) async {
         let item  = OTPModel(otpCode: otpCode.joined())
         authRepository.confirmOTP(body: item) { [weak self] result in
@@ -84,19 +83,22 @@ final class OTPViewModel: ObservableObject {
         if isChangePassword  {
             Task {
                 await sendOTPTrust { [ weak self ] result in
+                    
+                    self?.isLoading = false
+                    
                     switch result {
                     case .success(_):
-                        self?.isLoading = false
                         completion(true)
                     case .failure(let error):
-                        self?.isLoading = false
                         print(error.localizedDescription)
                     }
+                    
                 }
             }
         } else {
             Task {
-                await sendOTPConfirm { success in
+                await sendOTPConfirm { [weak self] success in
+                    self?.isLoading = false
                     completion(success)
                 }
             }
@@ -113,10 +115,8 @@ final class OTPViewModel: ObservableObject {
     
     func setTimer() {
         timer = CountdownView { [ weak self ] in /// - When timer finishes, do something
-            DispatchQueue.main.async {
-                self?.isTimerFinished = true
-                self?.timer = nil
-            }
+            self?.isTimerFinished = true
+            self?.timer = nil
         }
     }
 }

@@ -61,6 +61,7 @@ struct CustomButton: View {
                     if isLoading {
                         ProgressView()
                             .progressViewStyle(.circular)
+                            .foregroundStyle(.white)
                     }
                 }
             }
