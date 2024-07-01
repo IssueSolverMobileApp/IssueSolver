@@ -164,8 +164,6 @@ public final class HTTPClient {
 //    MARK: setAccessToken
     func setAccessToken(urlRequest: inout URLRequest) {
         guard let accessToken = UserDefaults.standard.accessToken else { return }
-        print(accessToken)
-        print(TokenEnum.accessToken.value)
         urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: TokenEnum.accessToken.value)
     }
     

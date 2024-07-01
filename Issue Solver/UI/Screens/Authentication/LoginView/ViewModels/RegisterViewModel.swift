@@ -66,13 +66,13 @@ class RegisterViewModel: ObservableObject {
         
         let item = RegisterModel(email: emailText, fullName: fullNameText, password: passwordText, confirmPassword: confirmPasswordText)
         authRepository.register(body: item) { [weak self] result in
-            guard let self else { return }
-                self.isLoading = false
+                self?.isLoading = false
+            
                 switch result {
                 case .success(let result):
                     completion(result.success ?? false)
                 case .failure(let error):
-                    self.handleAPIEmailError(error.localizedDescription)
+                    self?.handleAPIEmailError(error.localizedDescription)
             }
         }
     }

@@ -23,11 +23,9 @@ struct LoginView: View {
                 loginButtonView
             }
             .padding(.horizontal, 20)
+            .padding(.bottom, 16)
             
-            
-            if vm.isLoading {
-              loadingView
-            }
+            LoadingView(isLoading: vm.isLoading)
          }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
@@ -57,7 +55,7 @@ struct LoginView: View {
             }
             /// - Forgot Password Button View
             CustomButton(style: .text, font: .subtitle, title: "Şifrənizi unutmusunuz?") {
-                router.navigate(to: EmailVerificationView().environmentObject(router))
+                router.navigate { EmailVerificationView() }
             }
         }
         .padding(1)
@@ -69,11 +67,12 @@ struct LoginView: View {
             /// -  Log in Button View
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
-                    await vm.login()
-                    if vm.loginSuccess {
-                        vm.navigateToHomeView = true
-                    } else {
-                        router.navigate(to: OTPView(isChangePassword: false).environmentObject(router))
+                    await vm.login { success in
+                        if success {
+                            vm.navigateToHomeView = true
+                        } else {
+                            router.navigate { OTPView(isChangePassword: false) }
+                        }
                     }
                 }
             }
@@ -84,7 +83,7 @@ struct LoginView: View {
                 Text("Hesabınız yoxdur?")
                     .foregroundColor(.secondaryGray)
                 CustomButton(style: .text, title: "Qeydiyyatdan keçin") {
-                    router.navigate(to: RegisterView().environmentObject(router))
+                    router.navigate { RegisterView() }
                 }
             }
             .jakartaFont(.subtitle)
@@ -94,17 +93,6 @@ struct LoginView: View {
     // MARK: - For Making Button Color With Opacity Logic
     var canContinue: Bool {
         return !vm.emailText.isEmpty && !vm.passwordText.isEmpty
-    }
-    
-    
-    // MARK: - LoadingView
-    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
-        ZStack {
-            Color.black.opacity(0.2)
-                .ignoresSafeArea()
-            ProgressView()
-                .progressViewStyle(.circular)
-        }
     }
 }
 

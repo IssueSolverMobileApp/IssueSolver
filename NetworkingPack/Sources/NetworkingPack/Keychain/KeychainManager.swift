@@ -83,16 +83,4 @@ final public class KeychainManager {
         
         return result as? Data
     }
-    
-//    static private func updateItem(value: String, key: String) {
-//
-//        let query: [CFString: Any] = [
-//            kSecClass: kSecClassGenericPassword,
-//            kSecAttrAccount: key,
-//            kSecValueData: value,
-//        ]
-//
-//        let status = SecItemUpdate(query as CFDictionary, <#T##attributesToUpdate: CFDictionary##CFDictionary#>)
-//
-//    }
 }

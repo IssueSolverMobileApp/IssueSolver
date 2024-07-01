@@ -51,9 +51,12 @@ struct CustomButton: View {
         } label: {
             ZStack {
                 Capsule().fill(color)
-                Text(title)
-                    .jakartaFont(.roundedButton)
-                    .foregroundStyle(Color.surfaceBackground)
+                HStack {
+                    Text(title)
+                        .jakartaFont(.roundedButton)
+                        .foregroundStyle(Color.surfaceBackground)
+                        .padding(.trailing)
+                }
             }
         }
         .frame(width: width, height: height)

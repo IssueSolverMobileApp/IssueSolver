@@ -20,12 +20,11 @@ struct EmailVerificationView: View {
                 Spacer()
                 confirmButtonView
             }
-            .padding(.vertical, 24)
             .padding(.horizontal, 20)
+            .padding(.bottom, 16)
+
+            LoadingView(isLoading: vm.isLoading)
             
-            if vm.isLoading {
-                loadingView
-            }
         }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
@@ -59,17 +58,14 @@ struct EmailVerificationView: View {
     // MARK: - ConfirmEmailButton
     var confirmButtonView: some View {
         CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            vm.isLoading = true
-            
             Task {
                 await vm.emailVerification() { success in
                     if success {
                         DispatchQueue.main.async {
                             /// - In success case will navigate PasswordChangeView
-                            router.navigate(to: OTPView(emailModel: EmailModel(email: vm.emailText), isChangePassword: true).environmentObject(router))
+                            router.navigate { OTPView(emailModel: EmailModel(email: vm.emailText), isChangePassword: true) }
                         }
                     }
-                    vm.isLoading = false
                 }
             }
         }
@@ -81,15 +77,6 @@ struct EmailVerificationView: View {
         !vm.emailText.isEmpty && vm.isRightEmail
     }
     
-    // MARK: - LoadingView
-    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
-        ZStack {
-            Color.black.opacity(0.2)
-                .ignoresSafeArea()
-            ProgressView()
-                .progressViewStyle(.circular)
-        }
-    }
 }
 
 #Preview {
