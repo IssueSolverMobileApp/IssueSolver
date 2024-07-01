@@ -22,8 +22,8 @@ struct PasswordChangeView: View {
                 renewButtonView
             }
             .padding(.horizontal,20)
-            .padding(.vertical, 24)
-            
+            .padding(.bottom, 16)
+
         }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
@@ -34,12 +34,12 @@ struct PasswordChangeView: View {
             NavigationLink(destination: LoginView(), isActive: $vm.navigateToLoginView, label: {}))
     }
     
-    // MARK: - TitleView
+    // TitleView
     var titleView: some View {
         CustomTitleView(title: "Yeni şifrə", subtitle: "Daxil olmaq üçün yeni şifrə təyin edin.")
     }
     
-    // MARK: - TextFieldViews
+    // TextFieldViews
     var textFieldView: some View {
         VStack (spacing:20) {
             CustomTextField(placeholder: "Şifrənizi təyin edin",title: "Şifrə", isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.passwordError)
@@ -48,7 +48,7 @@ struct PasswordChangeView: View {
         }
     }
     
-    // MARK: - RenewButtonView
+    // RenewButtonView
     var renewButtonView: some View {
         CustomButton(title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
             
@@ -75,7 +75,7 @@ struct PasswordChangeView: View {
           }
        }
     
-    // MARK: - For Making Button Color With Opacity Logic
+    //  For Making Button Color With Opacity Logic
     var canContinue: Bool {
         !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightPassword && vm.isRightConfirmPassword
     }

@@ -15,16 +15,20 @@ struct RegisterView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             VStack {
-                ScrollView(showsIndicators: false) {
+                ScrollView() {
                     VStack (alignment: .leading){
                         titleView
                         textFieldsView
-                        Spacer()
+                        
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 16)
                 }
                 continueButtonView
             }
-            .padding(.horizontal, 20)
+            
+
+            LoadingView(isLoading: vm.isLoading)
         }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
@@ -74,7 +78,7 @@ struct RegisterView: View {
     // MARK: - BUTTONS
     var continueButtonView: some View {
         VStack {
-            CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5), isLoading: vm.isLoading) {
+            CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
                     if !vm.isChecked {
                         vm.showCheckboxError = true
@@ -101,21 +105,13 @@ struct RegisterView: View {
             .jakartaFont(.subtitle)
             .padding(.top, 8)
         }
+        .padding(.horizontal, 20)
+        .padding(.bottom, 16)
     }
     
     // MARK: - For Making Button Color With Opacity Logic
     var canContinue: Bool {
         return !vm.fullNameText.isEmpty && !vm.emailText.isEmpty && !vm.passwordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightFields && vm.isChecked
-    }
-    
-    // MARK: - LoadingView
-    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
-        ZStack {
-            Color.black.opacity(0.2)
-                .ignoresSafeArea()
-            ProgressView()
-                .progressViewStyle(.circular)
-        }
     }
 }
 

@@ -30,8 +30,6 @@ struct OTPTextField: View {
                         .multilineTextAlignment(.center)
                         .focused($fieldFocus, equals: index)
                         .onChange(of: enteredValue[index]) { newValue in
-                            print("------ DEBUG: newValue ------")
-                            print(newValue)
                             if newValue.count > 1 {
                                 enteredValue[index] = String(enteredValue[index].suffix(1))
                             }

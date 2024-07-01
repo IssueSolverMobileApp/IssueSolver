@@ -19,7 +19,7 @@ struct OTPView: View {
             Color.surfaceBackground
                 .ignoresSafeArea()
             contentView
-            
+            LoadingView(isLoading: vm.isLoading)
         }
         .onAppear {
             vm.emailModel = emailModel
@@ -89,7 +89,7 @@ struct OTPView: View {
     // Button View
     var confirmButtonView: some View {
         VStack(spacing: 16) {
-            CustomButton(title: "Təsdiqlə", color: .primaryBlue, isLoading: vm.isLoading) {
+            CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
                 vm.checkOTPCode { success in
                     if success {
                         DispatchQueue.main.async {

@@ -50,8 +50,7 @@ class LoginViewModel: ObservableObject {
                 self.isLoading = false
             
                 switch result {
-                case .success(let result):
-                    print(result.message ?? "")
+                case .success(_):
                     completion(true)
                 case .failure(let error):
                     if error.localizedDescription == "409" {

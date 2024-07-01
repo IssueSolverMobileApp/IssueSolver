@@ -39,10 +39,9 @@ final class Router: NSObject, ObservableObject, UINavigationControllerDelegate {
     
     private func setupNavigation() {
         navigationController.delegate = self
-        
+    
         /// - Customization navigation bar appearance
         let navigationBar = navigationController.navigationBar
-        let navigationItem = navigationController.navigationItem
         navigationBar.isTranslucent = true
     }
     

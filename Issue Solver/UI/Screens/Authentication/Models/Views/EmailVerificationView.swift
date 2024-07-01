@@ -20,8 +20,10 @@ struct EmailVerificationView: View {
                 Spacer()
                 confirmButtonView
             }
-            .padding(.vertical, 24)
             .padding(.horizontal, 20)
+            .padding(.bottom, 16)
+
+            LoadingView(isLoading: vm.isLoading)
             
         }
         .navigationBarBackButtonHidden(true)
@@ -55,7 +57,7 @@ struct EmailVerificationView: View {
     
     // MARK: - ConfirmEmailButton
     var confirmButtonView: some View {
-        CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5), isLoading: vm.isLoading) {
+        CustomButton(title: "Təsdiq kodu göndər", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
             Task {
                 await vm.emailVerification() { success in
                     if success {
