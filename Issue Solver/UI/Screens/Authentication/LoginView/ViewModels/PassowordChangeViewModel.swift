@@ -47,7 +47,7 @@ class PasswordChangeViewModel: ObservableObject {
     func updatePassword(completion: @escaping ((Result<Bool, Error>) -> Void)) async {
         let item = ResetPasswordModel(password: passwordText, confirmPassword: confirmPasswordText)
         
-        authRepository.resetPassword(body: item) { result in
+        authRepository.resetPassword(body: item) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
@@ -56,7 +56,7 @@ class PasswordChangeViewModel: ObservableObject {
     
                 case .failure(let error):
                     print(error.localizedDescription)
-                    self.handleAPIEmailError(error.localizedDescription)
+                    self?.handleAPIEmailError(error.localizedDescription)
                     completion(.failure(error))
                 }
             }

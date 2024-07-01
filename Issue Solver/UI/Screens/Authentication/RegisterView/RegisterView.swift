@@ -25,10 +25,6 @@ struct RegisterView: View {
                 continueButtonView
             }
             .padding(.horizontal, 20)
-            
-            if vm.isLoading {
-                loadingView
-            }
         }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
@@ -78,16 +74,15 @@ struct RegisterView: View {
     // MARK: - BUTTONS
     var continueButtonView: some View {
         VStack {
-            CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+            CustomButton(title: "Davam et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5), isLoading: vm.isLoading) {
                 Task {
                     if !vm.isChecked {
                         vm.showCheckboxError = true
                     } else {
                         vm.showCheckboxError = false
-                        vm.isLoading = true
                         await vm.register { success in
                             if success {
-                                router.navigate(to: OTPView(isChangePassword: false).environmentObject(router))
+                                router.navigate { OTPView(isChangePassword: false) }
                             }
                         }
                     }

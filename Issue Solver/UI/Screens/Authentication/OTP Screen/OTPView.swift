@@ -20,9 +20,6 @@ struct OTPView: View {
                 .ignoresSafeArea()
             contentView
             
-            if vm.isLoading {
-                loadingView
-            }
         }
         .onAppear {
             vm.emailModel = emailModel
@@ -36,7 +33,6 @@ struct OTPView: View {
         VStack(alignment: .leading, spacing: 24) {
             titleView
             otpFieldsView
-            timerView
             
             Spacer()
             confirmButtonView
@@ -57,18 +53,18 @@ struct OTPView: View {
     var titleView: some View {
         ZStack(alignment: .topTrailing) {
             CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin.")
-            HStack {
-                Image(.timerIcon)
-                vm.timer
-            }
-            .padding(.vertical,6)
+            timerView
         }
     }
     
     // OTP Fields View
     var otpFieldsView: some View {
-        OTPTextField(numberOfFields: Constants.numberOfOTPFields) { code in
-            vm.otpText = code
+        VStack(alignment: .leading) {
+            OTPTextField(enteredValue: $vm.otpCode, isError: $vm.isError)
+            
+            Text(vm.errorText)
+                .foregroundStyle(.red)
+                .font(.system(size: 17))
         }
     }
     
@@ -82,21 +78,23 @@ struct OTPView: View {
     // Countdown View
     var timerView: some View {
         HStack {
-            Text(vm.errorText)
-                .foregroundStyle(.red)
-                .font(.system(size: 17))
+            if vm.timer != nil {
+                Image(.timerIcon)
+            }
+            vm.timer
         }
+        .padding(.vertical,6)
     }
     
     // Button View
     var confirmButtonView: some View {
         VStack(spacing: 16) {
-            CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
+            CustomButton(title: "Təsdiqlə", color: .primaryBlue, isLoading: vm.isLoading) {
                 vm.checkOTPCode { success in
                     if success {
                         DispatchQueue.main.async {
                             if vm.isChangePassword {
-                                router.navigate(to: PasswordChangeView().environmentObject(router))
+                                router.navigate { PasswordChangeView() }
                             } else {
                                 router.popToRoot()
                             }
@@ -108,17 +106,8 @@ struct OTPView: View {
             CustomButton(style: .text, title: "Kodu yenidən göndər") {
                 vm.resendOTP()
             }
-            
-        }
-    }
-    
-    // Loading View
-    var loadingView: some View {  /// - Creating loading view for some time, to replace actual full customized loading view
-        ZStack {
-            Color.black.opacity(0.2)
-                .ignoresSafeArea()
-            ProgressView()
-                .progressViewStyle(.circular)
+            .disabled(!vm.isTimerFinished)
+            .opacity(vm.isTimerFinished ? 1 : 0.5)
             
         }
     }

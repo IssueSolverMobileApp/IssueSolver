@@ -41,21 +41,21 @@ class LoginViewModel: ObservableObject {
     
     
     // MARK: - Fetching Data
-    func login() async {
+    func login(completion: @escaping (Bool) -> Void) async {
         isLoading = true
         
         let item = LoginModel(email: emailText, password: passwordText)
         authRepository.login(body: item) { [weak self] result in
             guard let self else { return }
                 self.isLoading = false
+            
                 switch result {
                 case .success(let result):
                     print(result.message ?? "")
-                    self.loginSuccess = true
-                    
+                    completion(true)
                 case .failure(let error):
                     if error.localizedDescription == "409" {
-                        self.navigateOTPView = true
+                        completion(false)
                     } else {
                         self.handleAPIEmailError(error.localizedDescription)
                 }

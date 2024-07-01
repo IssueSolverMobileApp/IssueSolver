@@ -41,11 +41,13 @@ final class HTTPAuthRepository {
     
     func confirmOTP(body: OTPModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
         http.POST(endPoint: EndPoint.auth(.confirmOTP), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
-            if let error {
-                completion(.failure(error))
-            }
-            if let data {
-                completion(.success(data))
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
             }
         }
     }
@@ -65,11 +67,13 @@ final class HTTPAuthRepository {
     
     func resendOTP(body: EmailModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
         http.POST(endPoint: EndPoint.auth(.resendOTP), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
-            if let error {
-                completion(.failure(error))
-            }
-            if let data {
-                completion(.success(data))
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
             }
         }
     }
