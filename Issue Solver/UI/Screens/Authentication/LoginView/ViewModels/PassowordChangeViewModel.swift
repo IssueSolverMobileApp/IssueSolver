@@ -50,9 +50,8 @@ class PasswordChangeViewModel: ObservableObject {
         authRepository.resetPassword(body: item) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let success):
+                case .success(_):
                     completion(.success(true))
-                    print(success.message ?? "")
     
                 case .failure(let error):
                     print(error.localizedDescription)

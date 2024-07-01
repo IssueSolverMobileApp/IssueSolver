@@ -20,7 +20,6 @@ struct CustomButton: View {
     var height: CGFloat? = 50
     let title: String
     var color: Color = .primaryBlue
-    var isLoading: Bool = false
     
     let handler: () -> Void
     
@@ -57,12 +56,6 @@ struct CustomButton: View {
                         .jakartaFont(.roundedButton)
                         .foregroundStyle(Color.surfaceBackground)
                         .padding(.trailing)
-                    
-                    if isLoading {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .foregroundStyle(.white)
-                    }
                 }
             }
         }

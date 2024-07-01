@@ -23,6 +23,9 @@ struct LoginView: View {
                 loginButtonView
             }
             .padding(.horizontal, 20)
+            .padding(.bottom, 16)
+            
+            LoadingView(isLoading: vm.isLoading)
          }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
@@ -62,7 +65,7 @@ struct LoginView: View {
     var loginButtonView: some View {
         VStack {
             /// -  Log in Button View
-            CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5), isLoading: vm.isLoading) {
+            CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
                     await vm.login { success in
                         if success {
