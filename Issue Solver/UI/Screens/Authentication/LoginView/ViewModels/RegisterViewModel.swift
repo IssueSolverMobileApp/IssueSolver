@@ -66,13 +66,13 @@ class RegisterViewModel: ObservableObject {
         
         let item = RegisterModel(email: emailText, fullName: fullNameText, password: passwordText, confirmPassword: confirmPasswordText)
         authRepository.register(body: item) { [weak self] result in
-                self?.isLoading = false
+            self?.isLoading = false
             
-                switch result {
-                case .success(let result):
-                    completion(result.success ?? false)
-                case .failure(let error):
-                    self?.handleAPIEmailError(error.localizedDescription)
+            switch result {
+            case .success(let result):
+                completion(result.success ?? false)
+            case .failure(let error):
+                self?.handleAPIEmailError(error.localizedDescription)
             }
         }
     }
@@ -135,6 +135,9 @@ class RegisterViewModel: ObservableObject {
             } else if !passwordText.isValidPassword {
                 passwordError = "Şifrədə ən azı bir böyük latın hərfi, bir kiçik latın hərfi, simvol və rəqəm istifadə olunmalıdır"
                 isRightPassword = false
+            } else if  !confirmPasswordText.isEmpty && passwordText != confirmPasswordText {
+                confirmPasswordError = "Hər iki şifrə eyni olmalıdır"
+                isRightConfirmPassword = false
             } else {
                 passwordError = nil
                 isRightPassword = true
