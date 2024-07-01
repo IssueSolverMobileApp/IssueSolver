@@ -30,6 +30,7 @@
 		8CA3EB062C1C65DD00514134 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3EB052C1C65DD00514134 /* LoginViewModel.swift */; };
 		8CA3EB082C1C67EF00514134 /* EmailVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3EB072C1C67EF00514134 /* EmailVerificationViewModel.swift */; };
 		8CA3EB0A2C1C70F900514134 /* PassowordChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3EB092C1C70F900514134 /* PassowordChangeViewModel.swift */; };
+		8CE645362C32A254004A956E /* NewRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE645352C32A254004A956E /* NewRequestView.swift */; };
 		A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFD2C18DD7300E18665 /* CustomButton.swift */; };
 		A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DADFF2C18E11700E18665 /* CustomTextField.swift */; };
 		A82DAE032C18E34B00E18665 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82DAE022C18E34B00E18665 /* Constants.swift */; };
@@ -98,6 +99,7 @@
 		8CA3EB052C1C65DD00514134 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		8CA3EB072C1C67EF00514134 /* EmailVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewModel.swift; sourceTree = "<group>"; };
 		8CA3EB092C1C70F900514134 /* PassowordChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassowordChangeViewModel.swift; sourceTree = "<group>"; };
+		8CE645352C32A254004A956E /* NewRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRequestView.swift; sourceTree = "<group>"; };
 		A82DADFD2C18DD7300E18665 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A82DADFF2C18E11700E18665 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A82DAE022C18E34B00E18665 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -266,6 +268,46 @@
 			path = LoginView/ViewModels;
 			sourceTree = "<group>";
 		};
+		8CE6452E2C32A163004A956E /* NewRequest */ = {
+			isa = PBXGroup;
+			children = (
+				8CE645322C32A21A004A956E /* Views */,
+				8CE645312C32A216004A956E /* ViewModels */,
+				8CE645302C32A208004A956E /* Components */,
+				8CE6452F2C32A200004A956E /* Models */,
+			);
+			path = NewRequest;
+			sourceTree = "<group>";
+		};
+		8CE6452F2C32A200004A956E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8CE645302C32A208004A956E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		8CE645312C32A216004A956E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8CE645322C32A21A004A956E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8CE645352C32A254004A956E /* NewRequestView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		A82DADFC2C18DCC400E18665 /* General Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +439,7 @@
 		FBA4BA1E2C183D2800BEDA9E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				8CE6452E2C32A163004A956E /* NewRequest */,
 				FBA4BA222C18467200BEDA9E /* Authentication */,
 				FB967D1A2C258137002BA572 /* ProfileScreen */,
 			);
@@ -591,6 +634,7 @@
 				FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */,
 				8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */,
 				8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */,
+				8CE645362C32A254004A956E /* NewRequestView.swift in Sources */,
 				FB5A10392C2787FD00E16828 /* DeleteAccountViewModel.swift in Sources */,
 				FB5A10352C277FF700E16828 /* MyAccountViewModel.swift in Sources */,
 				A8BF68142C2F56FE0005AE43 /* CustomNavigationStack.swift in Sources */,

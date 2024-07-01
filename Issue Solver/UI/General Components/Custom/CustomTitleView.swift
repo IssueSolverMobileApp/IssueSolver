@@ -11,14 +11,20 @@ struct CustomTitleView: View {
     let title: String
     var subtitle: String?
     var dividerSize: CGFloat? = 0.4
+    var image: ImageResource?
     
     var color: Color? 
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .jakartaFont(.title)
-                .foregroundStyle(color ?? .black)
+            HStack() {
+                Text(title)
+                    .jakartaFont(.title)
+                    .foregroundStyle(color ?? .black)
+                Spacer()
+                Image(image ?? ImageResource(name: "", bundle: Bundle()))
+            }
+            
             if let subtitle {
                 Text(subtitle)
                     .jakartaFont(.subtitle)
