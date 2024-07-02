@@ -13,23 +13,26 @@ struct NewRequestView: View {
     
     @State private var addressText: String = ""
     @State private var categoryPicker: String = ""
-    @State private var selectedGov: String = "Kategoriya"
+    @State var selectedGov: personModel = personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
     
-    private var gov: [String] = [
-        "Innovasiya ve Reqemsal Inkisaf Agentliyi",
-        "Innovasiya ve Reqemsal Inkisaf ",
-        "Innovasiya ve Reqemsal ",
-        "Innovasiya ve",
+    @State var explanation: String = ""
+    
+    private var governments: [personModel] = [
+    personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi"),
+    personModel(name: "Innovasiya ve Reqemsal Inkisaf "),
+    personModel(name: "Innovasiya ve Reqemsal "),
+    personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
     ]
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
-
+            
             VStack {
                 titleView
                 textFieldView
                 pickerView
+                textView
                 buttonView
             }
             .padding(.horizontal, 20)
@@ -38,10 +41,10 @@ struct NewRequestView: View {
     }
     
     
-     private var titleView: some View {
-         HStack {
-             CustomTitleView(title: "Yeni sorğu", image: .infoIcon)
-         }
+    private var titleView: some View {
+        HStack {
+            CustomTitleView(title: "Yeni sorğu", image: .infoIcon)
+        }
     }
     
     private var textFieldView: some View {
@@ -53,49 +56,54 @@ struct NewRequestView: View {
                     TextView(clickableTexts: [Constants.howToRequestShare], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
                         .background(Color.red)
                 }
-                    .frame(width: 120,height: 30)
-
+                .frame(width: 120,height: 30)
             }
         }
     }
     
     private var pickerView: some View {
         
-        VStack(alignment: .leading) {
+        VStack(spacing: 20) {
+            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin yönləndiriləcəyi qurum", placeholder: "Qurum")
             
-            HStack {
-                
-                Text("Problemin yönləndiriləcəyi qurum")
-                    .jakartaFont(.heading)
-                Spacer()
-            }
-            HStack {
-                Spacer()
-                Picker("", selection: $selectedGov) {
-                    ForEach(gov, id: \.self) { item in
-                        Text(item)
-                    }
-                }
-//                .selectio
-                .padding([.bottom, .top], 8)
-                Spacer()
-            }
-            .background(Color.white)
-            .clipShape(.rect(cornerRadius: 8))
+            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Kategoriya", placeholder: "Kategoriya")
         }
-      
     }
     
     
     private var buttonView: some View {
         VStack {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
-                
             }
+            
             CustomButton(style: .rounded, title: "Ləğv et", color: .white, foregroundStyle: .primaryBlue) {
-                
-            }  
+            }
         }
+    }
+    
+    private var textView: some View {
+        
+        ZStack {
+            ZStack {
+                TextEditor(text: $explanation)
+                
+                VStack {
+                    HStack {
+                        Text(explanation == "" ? "Problem haqqında ətraflı məlumat daxil edin" : "" )
+                            .foregroundStyle(explanation == "" ? Color.gray : Color.black)
+                        
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                .padding(.leading, 8)
+                .padding(.top, 8)
+            }
+            
+            .padding(3)
+        }
+        .background(Color.white)
+        .clipShape(.rect(cornerRadius: 12))
     }
 }
 

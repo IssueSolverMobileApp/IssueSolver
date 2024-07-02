@@ -27,6 +27,7 @@
 		8C22A9742C1C5F1800B3879B /* HTTPAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */; };
 		8C264F442C2405BF00FDAAE3 /* SuccessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C264F432C2405BF00FDAAE3 /* SuccessModel.swift */; };
 		8C264F482C2446ED00FDAAE3 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C264F472C2446ED00FDAAE3 /* RegisterViewModel.swift */; };
+		8C55350A2C3413A90084B18B /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5535092C3413A90084B18B /* CustomPickerView.swift */; };
 		8CA3EAFC2C1C647300514134 /* NetworkingPack in Frameworks */ = {isa = PBXBuildFile; productRef = 8CA3EAFB2C1C647300514134 /* NetworkingPack */; };
 		8CA3EB062C1C65DD00514134 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3EB052C1C65DD00514134 /* LoginViewModel.swift */; };
 		8CA3EB082C1C67EF00514134 /* EmailVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3EB072C1C67EF00514134 /* EmailVerificationViewModel.swift */; };
@@ -98,6 +99,7 @@
 		8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPAuthRepository.swift; sourceTree = "<group>"; };
 		8C264F432C2405BF00FDAAE3 /* SuccessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessModel.swift; sourceTree = "<group>"; };
 		8C264F472C2446ED00FDAAE3 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		8C5535092C3413A90084B18B /* CustomPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerView.swift; sourceTree = "<group>"; };
 		8CA3EB052C1C65DD00514134 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		8CA3EB072C1C67EF00514134 /* EmailVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewModel.swift; sourceTree = "<group>"; };
 		8CA3EB092C1C70F900514134 /* PassowordChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassowordChangeViewModel.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */,
 				FB967D242C2584DC002BA572 /* CustomRowView.swift */,
 				A8BF680E2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift */,
+				8C5535092C3413A90084B18B /* CustomPickerView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -281,8 +284,8 @@
 		8CE6452E2C32A163004A956E /* NewRequest */ = {
 			isa = PBXGroup;
 			children = (
-				5F1A84242C33D3DD00DF17E5 /* ViewModels */,
 				8CE645322C32A21A004A956E /* Views */,
+				5F1A84242C33D3DD00DF17E5 /* ViewModels */,
 			);
 			path = NewRequest;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */,
 				8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */,
 				8CE645362C32A254004A956E /* NewRequestView.swift in Sources */,
+				8C55350A2C3413A90084B18B /* CustomPickerView.swift in Sources */,
 				FB5A10392C2787FD00E16828 /* DeleteAccountViewModel.swift in Sources */,
 				FB5A10352C277FF700E16828 /* MyAccountViewModel.swift in Sources */,
 				A8BF68142C2F56FE0005AE43 /* CustomNavigationStack.swift in Sources */,
