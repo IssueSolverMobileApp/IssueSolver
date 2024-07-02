@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F1A84262C33D3F200DF17E5 /* NewReqeuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1A84252C33D3F200DF17E5 /* NewReqeuestViewModel.swift */; };
 		6F36E01F2C1C2EE200C41257 /* View + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36E01E2C1C2EE200C41257 /* View + Ext.swift */; };
 		6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */; };
 		6F6B8CA52C298B5000BB52FE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6B8CA42C298B5000BB52FE /* TabBarView.swift */; };
@@ -76,6 +77,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F1A84252C33D3F200DF17E5 /* NewReqeuestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReqeuestViewModel.swift; sourceTree = "<group>"; };
 		6F36E01E2C1C2EE200C41257 /* View + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View + Ext.swift"; sourceTree = "<group>"; };
 		6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JakartaFonts.swift; sourceTree = "<group>"; };
 		6F6B8CA42C298B5000BB52FE /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -158,6 +160,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F1A84242C33D3DD00DF17E5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5F1A84252C33D3F200DF17E5 /* NewReqeuestViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		6F36E0202C1C3B0800C41257 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,33 +281,10 @@
 		8CE6452E2C32A163004A956E /* NewRequest */ = {
 			isa = PBXGroup;
 			children = (
+				5F1A84242C33D3DD00DF17E5 /* ViewModels */,
 				8CE645322C32A21A004A956E /* Views */,
-				8CE645312C32A216004A956E /* ViewModels */,
-				8CE645302C32A208004A956E /* Components */,
-				8CE6452F2C32A200004A956E /* Models */,
 			);
 			path = NewRequest;
-			sourceTree = "<group>";
-		};
-		8CE6452F2C32A200004A956E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		8CE645302C32A208004A956E /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		8CE645312C32A216004A956E /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		8CE645322C32A21A004A956E /* Views */ = {
@@ -640,6 +627,7 @@
 				A8BF68142C2F56FE0005AE43 /* CustomNavigationStack.swift in Sources */,
 				FB967D232C2581B6002BA572 /* ProfileViewModel.swift in Sources */,
 				FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */,
+				5F1A84262C33D3F200DF17E5 /* NewReqeuestViewModel.swift in Sources */,
 				FB967D212C2581A2002BA572 /* ProfileView.swift in Sources */,
 				8C22A9742C1C5F1800B3879B /* HTTPAuthRepository.swift in Sources */,
 			);

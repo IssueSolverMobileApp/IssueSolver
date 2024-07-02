@@ -24,6 +24,7 @@ struct TextView: UIViewRepresentable {
         textView.isUserInteractionEnabled = true
         textView.isEditable = false
         
+        
         // Link Attributes
         textView.attributedText = setAttributesToText()
         textView.linkTextAttributes = [

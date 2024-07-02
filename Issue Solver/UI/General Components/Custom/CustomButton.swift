@@ -20,6 +20,7 @@ struct CustomButton: View {
     var height: CGFloat? = 50
     let title: String
     var color: Color = .primaryBlue
+    var foregroundStyle: Color = Color.surfaceBackground
     
     let handler: () -> Void
     
@@ -54,7 +55,7 @@ struct CustomButton: View {
                 HStack {
                     Text(title)
                         .jakartaFont(.roundedButton)
-                        .foregroundStyle(Color.surfaceBackground)
+                        .foregroundStyle(foregroundStyle)
                         .padding(.trailing)
                 }
             }
