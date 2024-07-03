@@ -14,29 +14,34 @@ struct NewRequestView: View {
     @State private var addressText: String = ""
     @State private var categoryPicker: String = ""
     @State var selectedGov: personModel = personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
+        
+    @State var isRightTextEditor: Bool = true
+
     
     @State var explanation: String = ""
-    
+
     private var governments: [personModel] = [
-    personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi"),
-    personModel(name: "Innovasiya ve Reqemsal Inkisaf "),
-    personModel(name: "Innovasiya ve Reqemsal "),
-    personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
+        personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi"),
+        personModel(name: "Innovasiya ve Reqemsal Inkisaf "),
+        personModel(name: "Innovasiya ve Reqemsal "),
+        personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
     ]
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            VStack {
-                titleView
-                textFieldView
-                pickerView
-                textView
-                buttonView
+            ScrollView {
+                VStack(spacing: 20) {
+                    titleView
+                    textFieldView
+                    pickerView
+                    textView
+                    buttonView
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 16)
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 16)
         }
     }
     
@@ -49,30 +54,24 @@ struct NewRequestView: View {
     
     private var textFieldView: some View {
         VStack {
-            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: $vm.errorMessage)
-            HStack {
-                Spacer()
-                ZStack {
-                    TextView(clickableTexts: [Constants.howToRequestShare], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
-                        .background(Color.red)
-                }
-                .frame(width: 120,height: 30)
-            }
+            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: $vm.errorMessage, clickableText: Constants.howToRequestShare, clickableTextWidth: 120)
+            
+        
         }
     }
     
     private var pickerView: some View {
         
-        VStack(spacing: 20) {
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin yönləndiriləcəyi qurum", placeholder: "Qurum")
+        VStack(spacing: 16) {
+            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin yönləndiriləcəyi qurum", placeholder: "Qurum", isRightTextEditor: $isRightTextEditor)
             
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Kategoriya", placeholder: "Kategoriya")
+            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Kategoriya", placeholder: "Kategoriya", isRightTextEditor: $isRightTextEditor)
         }
     }
     
     
     private var buttonView: some View {
-        VStack {
+        VStack(spacing: 16) {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
             }
             
@@ -83,27 +82,7 @@ struct NewRequestView: View {
     
     private var textView: some View {
         
-        ZStack {
-            ZStack {
-                TextEditor(text: $explanation)
-                
-                VStack {
-                    HStack {
-                        Text(explanation == "" ? "Problem haqqında ətraflı məlumat daxil edin" : "" )
-                            .foregroundStyle(explanation == "" ? Color.gray : Color.black)
-                        
-                        Spacer()
-                    }
-                    Spacer()
-                }
-                .padding(.leading, 8)
-                .padding(.top, 8)
-            }
-            
-            .padding(3)
-        }
-        .background(Color.white)
-        .clipShape(.rect(cornerRadius: 12))
+        CustomTextEditor(title: "Ətraflı izah", explanation: $explanation, isRightTextField: $isRightTextEditor)
     }
 }
 

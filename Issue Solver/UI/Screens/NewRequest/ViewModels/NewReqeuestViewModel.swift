@@ -10,6 +10,6 @@ import Foundation
 
 class NewReqeuestViewModel: ObservableObject {
     
-    @Published var errorMessage: String? = nil
+    @Published var errorMessage: String? = "Max: 50 simvol"
     
 }

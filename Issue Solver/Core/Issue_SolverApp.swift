@@ -12,7 +12,7 @@ struct Issue_SolverApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NewRequestView()
+            ContentView()
         }
     }
 }

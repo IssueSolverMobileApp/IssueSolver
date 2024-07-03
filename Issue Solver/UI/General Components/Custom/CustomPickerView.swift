@@ -17,18 +17,23 @@ struct CustomPickerView: View {
 //    @State private var categoryPicker: String = ""
     @Binding var selectedGov: personModel
     var items: [personModel]?
-    var title: String
+    var title: String?
     var placeholder: String
-    
+    var textColor: Color?
+    @Binding var isRightTextEditor: Bool
+
     
     var body: some View {
 
         VStack(alignment: .leading) {
             
             HStack {
-                Text(title)
-                    .jakartaFont(.heading)
-                Spacer()
+                if let title {
+                    Text(title)
+                        .jakartaFont(.heading)
+                        .foregroundStyle(isRightTextEditor ? (textColor ?? .black) :  .red)
+                    Spacer()
+                }
             }
             HStack {
                 Spacer()
