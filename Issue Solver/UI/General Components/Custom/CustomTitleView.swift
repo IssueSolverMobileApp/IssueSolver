@@ -10,11 +10,20 @@ import SwiftUI
 struct CustomTitleView: View {
     let title: String
     var subtitle: String?
-    var dividerSize: CGFloat? = 0.4
+    var dividerSize: CGFloat?
     var image: ImageResource?
     var color: Color? 
     
-    var titleButtonHandler: (() -> Void)
+    let titleButtonHandler: (() -> Void)?
+    
+    init(title: String, subtitle: String? = nil, dividerSize: CGFloat? = 0.4, image: ImageResource? = nil, color: Color? = nil, titleButtonHandler: (() -> Void)? = nil) {
+        self.title = title
+        self.subtitle = subtitle
+        self.dividerSize = dividerSize
+        self.image = image
+        self.color = color
+        self.titleButtonHandler = titleButtonHandler
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -23,7 +32,8 @@ struct CustomTitleView: View {
                     .jakartaFont(.title)
                     .foregroundStyle(color ?? .black)
                 Spacer()
-                if let image {
+                if let image, let titleButtonHandler {
+
                     Button(action: {
                         titleButtonHandler()
                     }, label: {
@@ -50,7 +60,6 @@ struct CustomTitleView: View {
             .frame(height: dividerSize)
             .padding(.top, 8)
     }
-        
 }
 
 #Preview {

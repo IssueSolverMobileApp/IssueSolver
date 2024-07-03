@@ -93,11 +93,12 @@ struct CustomTextField: View {
                         .foregroundStyle(.gray)
                     Spacer()
                 }
-                ZStack {
-
-                    TextView(clickableTexts:  [clickableText ?? [:]], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
+                if let clickableText {
+                    ZStack {
+                        TextView(clickableTexts:  [clickableText], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
+                    }
+                    .frame(width: clickableTextWidth,height: clickableTextHeight)
                 }
-                .frame(width: clickableTextWidth,height: clickableTextHeight)
             }
         }
         .jakartaFont(.subtitle)

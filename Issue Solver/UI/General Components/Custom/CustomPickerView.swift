@@ -14,7 +14,6 @@ struct personModel: Identifiable, Hashable {
 }
 struct CustomPickerView: View {
     
-//    @State private var categoryPicker: String = ""
     @Binding var selectedGov: personModel
     var items: [personModel]?
     var title: String?
@@ -64,7 +63,3 @@ struct CustomPickerView: View {
         }
     }
 }
-
-//#Preview {
-//    CustomPickerView(selectedGov: "")
-//}

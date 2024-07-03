@@ -48,13 +48,15 @@ struct NewRequestView: View {
     
     private var titleView: some View {
         HStack {
-            CustomTitleView(title: "Yeni sorğu", image: .infoIcon)
+            CustomTitleView(title: "Yeni sorğu", image: .infoIcon) {
+//          MARK: - navigation action must be here
+            }
         }
     }
     
     private var textFieldView: some View {
         VStack {
-            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: $vm.errorMessage, clickableText: Constants.howToRequestShare, clickableTextWidth: 120)
+            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: $vm.errorMessage, clickableText: Constants.howToRequestShare, clickableTextWidth: 116)
             
         
         }
