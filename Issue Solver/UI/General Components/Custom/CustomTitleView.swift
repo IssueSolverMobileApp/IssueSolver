@@ -12,8 +12,9 @@ struct CustomTitleView: View {
     var subtitle: String?
     var dividerSize: CGFloat? = 0.4
     var image: ImageResource?
-    
     var color: Color? 
+    
+    var titleButtonHandler: (() -> Void)
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -22,7 +23,13 @@ struct CustomTitleView: View {
                     .jakartaFont(.title)
                     .foregroundStyle(color ?? .black)
                 Spacer()
-                Image(image ?? ImageResource(name: "", bundle: Bundle()))
+                if let image {
+                    Button(action: {
+                        titleButtonHandler()
+                    }, label: {
+                        Image(image)
+                    })
+                }
             }
             
             if let subtitle {
