@@ -30,7 +30,7 @@ struct CustomTitleView: View {
             HStack() {
                 Text(title)
                     .jakartaFont(.title)
-                    .foregroundStyle(color ?? .black)
+                    .foregroundStyle(color ?? .primaryBlue)
                 Spacer()
                 if let image, let titleButtonHandler {
 
