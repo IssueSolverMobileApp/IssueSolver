@@ -10,16 +10,20 @@ import SwiftUI
 struct CustomTextField: View {
     var placeholder: String?
     var title: String?
+    var clickableText: [String: String]?
     var isSecure: Bool = false
     var textColor: Color?
     var color: Color?
+    
+    var clickableTextWidth: CGFloat?
+    var clickableTextHeight: CGFloat?
     
     @Binding var text: String
     @Binding var errorMessage: String?
     @Binding var isRightTextField: Bool
     @State var isShowPassword: Bool = false
     
-    init(placeholder: String? = nil, title: String? = nil, isSecure: Bool = false, textColor: Color? = nil, color: Color? = nil, text: Binding<String>, isRightTextField: Binding<Bool> = .constant(true), isShowPassword: Bool = false, errorMessage: Binding<String?> = .constant(nil)) {
+    init(placeholder: String? = nil, title: String? = nil, isSecure: Bool = false, textColor: Color? = nil, color: Color? = nil, text: Binding<String>, isRightTextField: Binding<Bool> = .constant(true), isShowPassword: Bool = false, errorMessage: Binding<String?> = .constant(nil), clickableText: [String: String]? = nil, clickableTextWidth: CGFloat? = nil,clickableTextHeight: CGFloat? = nil) {
         self.placeholder = placeholder
         self.title = title
         self.isSecure = isSecure
@@ -29,6 +33,9 @@ struct CustomTextField: View {
         self._isRightTextField = isRightTextField
         self.isShowPassword = isShowPassword
         self._errorMessage = errorMessage
+        self.clickableText = clickableText
+        self.clickableTextWidth = clickableTextWidth
+        self.clickableTextHeight = clickableTextHeight
     }
     
     var body: some View {
@@ -79,10 +86,19 @@ struct CustomTextField: View {
             }
             .textInputAutocapitalization(.never)
             
-            if let errorMessage {
-                Text(errorMessage)
-                    .foregroundStyle(.red)
-                    .jakartaFont(.subtitle2)
+            HStack {
+                if let errorMessage {
+                    Text(errorMessage)
+                        .jakartaFont(.subtitle2)
+                        .foregroundStyle(.gray)
+                    Spacer()
+                }
+                if let clickableText {
+                    ZStack {
+                        TextView(clickableTexts:  [clickableText], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
+                    }
+                    .frame(width: clickableTextWidth,height: clickableTextHeight)
+                }
             }
         }
         .jakartaFont(.subtitle)
