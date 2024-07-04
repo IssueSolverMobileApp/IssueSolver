@@ -73,6 +73,7 @@
 		FB9ADD9A2C327B6900D5A16B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9ADD992C327B6900D5A16B /* LoadingView.swift */; };
 		FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA242C185BDD00BEDA9E /* OTPView.swift */; };
 		FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */; };
+		FBC5DB822C36B851002AA056 /* UINavigationController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC5DB812C36B851002AA056 /* UINavigationController + Ext.swift */; };
 		FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */; };
 		FBE048742C182C5D00C71D2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE048732C182C5D00C71D2D /* Assets.xcassets */; };
 		FBE048772C182C5D00C71D2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE048762C182C5D00C71D2D /* Preview Assets.xcassets */; };
@@ -148,6 +149,7 @@
 		FB9ADD992C327B6900D5A16B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		FBA4BA242C185BDD00BEDA9E /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OTPTextField.swift; path = "../OTP Screen/OTPTextField.swift"; sourceTree = "<group>"; };
+		FBC5DB812C36B851002AA056 /* UINavigationController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + Ext.swift"; sourceTree = "<group>"; };
 		FBE0486C2C182C5900C71D2D /* Issue Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Issue Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue_SolverApp.swift; sourceTree = "<group>"; };
 		FBE048732C182C5D00C71D2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				FB55BD642C1B0D7100F81FDB /* Fonts + Ext.swift */,
 				6F36E01E2C1C2EE200C41257 /* View + Ext.swift */,
 				FB161FB72C2A9AF600C0A8E9 /* String+ Ext.swift */,
+				FBC5DB812C36B851002AA056 /* UINavigationController + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				FB967D182C257678002BA572 /* OTPViewModel.swift in Sources */,
 				FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */,
 				FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */,
+				FBC5DB822C36B851002AA056 /* UINavigationController + Ext.swift in Sources */,
 				6F6B8CA82C298B7000BB52FE /* Tab.swift in Sources */,
 				6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */,
 				8CE6D1F42C358789002704C6 /* NewRequestInfoView.swift in Sources */,
