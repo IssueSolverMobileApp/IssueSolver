@@ -373,8 +373,8 @@
 		FB967D1A2C258137002BA572 /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
-				FB967D1D2C258164002BA572 /* Models */,
 				FB967D1B2C258150002BA572 /* Views */,
+				FB967D1D2C258164002BA572 /* Models */,
 				FB967D1C2C258157002BA572 /* ViewModels */,
 			);
 			path = ProfileScreen;
@@ -461,9 +461,9 @@
 		FBA4BA222C18467200BEDA9E /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				8C22A95C2C1C5A9B00B3879B /* Models */,
 				8C22A9792C1C62E700B3879B /* Views */,
 				8CA3EB002C1C650200514134 /* ViewModels */,
+				8C22A95C2C1C5A9B00B3879B /* Models */,
 				FB967D192C257686002BA572 /* Components */,
 			);
 			path = Authentication;

@@ -25,13 +25,12 @@ struct NewRequestInfoView: View {
         }
     
     
-    private var titleView: some View {
-        
+    var titleView: some View {
             CustomTitleView(title: "Qaydalar")
             
     }
     
-    private var infoView: some View {
+    var infoView: some View {
         VStack(spacing: 24) {
             HStack {
                 Text("Məlumatlar")
