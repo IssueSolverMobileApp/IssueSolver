@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkingPack
 
 @MainActor
 class LoginViewModel: ObservableObject {
@@ -30,7 +31,6 @@ class LoginViewModel: ObservableObject {
     @Published var navigateToEmailVerificationView = false
     @Published var navigateToRegisterView = false
     @Published var navigateToHomeView = false
-    @Published var navigateOTPView = false
     
     /// - Variables for checking error cases
     @Published var errorMessage: String? = ""

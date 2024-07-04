@@ -83,7 +83,7 @@ public final class HTTPClient {
                         print(result)
                     }
                     
-                    if response.statusCode == 401{
+                    if response.statusCode == 401 {
                         sendRefreshToken { result in
                             switch result {
                             case .success(let model):
@@ -106,7 +106,7 @@ public final class HTTPClient {
                     case 404:
                         completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
                     case 409:
-                        completion(nil, NetworkError.statusCode("\(errorDecode.status ?? Int())"))
+                        completion(nil, NetworkError.statusCode("\(response.statusCode)"))
                     case 500:
                         completion(nil, NetworkError.unauthorization)
                     default:
@@ -224,6 +224,7 @@ public final class HTTPClient {
         }
     }
 }
+
 extension HTTPClient {
     
     public func GET<T: Decodable>(endPoint: EndPoint,completion: @escaping(T?, Error?) -> Void) where T : Decodable  {
@@ -241,6 +242,34 @@ extension HTTPClient {
     
     public func POST<T: Decodable>(endPoint: EndPoint, body: Data?, completion: @escaping(T?, Error?) -> Void) where T : Decodable   {
         self.request(endPoint: endPoint, method: .POST, body: body) { (data: T?, error: Error?) in
+            if let err = error as? NetworkError {
+                completion(nil, err)
+                return
+            }
+            
+            if let result = data {
+                completion(result, nil)
+            }
+        }
+    }
+    
+    public func PUT<T: Decodable>(endPoint: EndPoint, body: Data?, completion: @escaping(T?, Error?) -> Void) {
+        
+        self.request(endPoint: endPoint, method: .PUT, body: body) { (data: T?, error: Error? ) in
+            if let err = error as? NetworkError {
+                completion(nil, err)
+                return
+            }
+            
+            if let result = data {
+                completion(result, nil)
+            }
+        }
+    }
+    
+    
+    public func DELETE<T: Decodable>(endPoint: EndPoint, body: Data?, completion: @escaping(T?, Error?) -> Void) {
+        self.request(endPoint: endPoint, method: .DELETE, body: body) { (data: T?, error: Error? ) in
             if let err = error as? NetworkError {
                 completion(nil, err)
                 return

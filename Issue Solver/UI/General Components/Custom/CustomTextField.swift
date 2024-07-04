@@ -90,7 +90,7 @@ struct CustomTextField: View {
                 if let errorMessage {
                     Text(errorMessage)
                         .jakartaFont(.subtitle2)
-                        .foregroundStyle(isRightTextField ? .red : .gray)
+                        .foregroundStyle(isRightTextField ? .gray : .red)
                     Spacer()
                 }
                 if let clickableText {

@@ -1,23 +1,11 @@
 //
-//  EndPoint.swift
+//  AuthEndPoint.swift
 //  
 //
-//  Created by Valeh Amirov on 22.06.24.
+//  Created by Valeh Amirov on 04.07.24.
 //
 
 import Foundation
-
-public enum EndPoint: EndPointProtocol {
-    
-    case auth(AuthEndPoint)
-    
-    var url: String {
-        switch self {
-        case .auth(let authEndPoint):
-            return authEndPoint.url
-        }
-    }
-}
 
 public enum AuthEndPoint: EndPointProtocol {
     
@@ -53,17 +41,4 @@ public enum AuthEndPoint: EndPointProtocol {
             return "\(baseURL)Users/getme"
         }
     }
-}
-
-protocol EndPointProtocol {
-    var baseURL: String { get }
-    var url: String { get }
-}
-
-extension EndPointProtocol {
-    
-    var baseURL: String {
-        return "https://govermentauthapi20240610022027.azurewebsites.net/api/"
-    }
-
 }

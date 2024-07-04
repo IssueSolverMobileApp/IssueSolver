@@ -12,8 +12,8 @@ class Constants {
     // MARK: - Strings
     
     /// - Clickable texts and their URL strings
-    static let termsOfUse: [String: String] = ["Şərtlər və qaydaları": "https://www.youtube.com/watch?v=82Afo639J-0"]
-    static let howToRequestShare: [String: String] = ["Şərtlər və qaydalar": "https://www.youtube.com/watch?v=82Afo639J-0"]
+    static let termsOfUse: [String: String] = ["Şərtlər və qaydaları": "https://my.gov.az"]
+    static let howToRequestShare: [String: String] = ["Şərtlər və qaydalar": "https://my.gov.az"]
     
     // MARK: - Numbers
     

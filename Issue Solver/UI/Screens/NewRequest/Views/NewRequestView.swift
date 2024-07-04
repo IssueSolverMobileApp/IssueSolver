@@ -45,7 +45,7 @@ struct NewRequestView: View {
     }
     
     
-    private var titleView: some View {
+    var titleView: some View {
         HStack {
             CustomTitleView(title: "Yeni sorğu", image: .infoIcon) {
 //          MARK: - navigation action must be here
@@ -55,7 +55,7 @@ struct NewRequestView: View {
         }
     }
     
-    private var textFieldView: some View {
+    var textFieldView: some View {
         VStack {
             CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: $vm.errorMessage, clickableText: Constants.howToRequestShare, clickableTextWidth: 116)
             
@@ -63,7 +63,7 @@ struct NewRequestView: View {
         }
     }
     
-    private var pickerView: some View {
+    var pickerView: some View {
         
         VStack(spacing: 16) {
             CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin yönləndiriləcəyi qurum", placeholder: "Qurum", isRightTextEditor: $isRightTextEditor)
@@ -73,7 +73,7 @@ struct NewRequestView: View {
     }
     
     
-    private var buttonView: some View {
+    var buttonView: some View {
         VStack(spacing: 16) {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
                 //  MARK: Paylaş button action must be here
@@ -85,7 +85,7 @@ struct NewRequestView: View {
         }
     }
     
-    private var textView: some View {
+    var textView: some View {
         
         CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $explanationEditorText, isRightTextField: $isRightTextEditor)
     }
