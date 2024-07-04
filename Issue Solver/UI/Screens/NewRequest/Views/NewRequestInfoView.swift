@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewRequestInfoView: View {
     
+    @StateObject var vm = NewRequestInfoViewModel()
     
     var body: some View {
             VStack {
@@ -39,30 +40,17 @@ struct NewRequestInfoView: View {
             }
             VStack {
                 HStack {
-                    Text("Zəhmət olmasa, sorğunuzu aşağıdakı tələblərə uyğun şəkildə paylaşın:")
+                    Text(vm.infoSubTitleText)
                         .multilineTextAlignment(.leading)
                     Spacer()
                 }
                 HStack(alignment: .top) {
-                    Text("""
-                        •
-                        •
-                        •
-                        """
-                    )
-                    
+                    Text(vm.infoIconText)
                     .jakartaFont(.custom(.regular, 16))
-                    
-                    
-                    Text(
-                    """
-                    Nəzakətli bir dil istifadə edin.
-                    Dəqiq yerləri qeyd edin.
-                    Problemin nə qədər müddətdir davam etdiyini bildirin.
-                    """
-                    )
-                    Spacer()
+                    Text(vm.infoText)
                         .jakartaFont(.custom(.regular, 17))
+                    Spacer()
+
                 }
                 
             }
@@ -79,33 +67,19 @@ struct NewRequestInfoView: View {
             }
             VStack {
                 HStack {
-                    Text("Zəhmət olmasa, sorğunuzda aşağıdakı məlumatları daxil etməyin:")
+                    Text(vm.warningSubTitleText)
                         .multilineTextAlignment(.leading)
                     Spacer()
-                    //                        .jakartaFont(.custom(.regular, 17))
                 }
                 HStack(alignment: .top) {
-                    Text("""
-                        •
-                        
-                        •
-                        
-                        •
-                        """
-                    )
-                    
+                    Text(vm.warningIconText)
                     .jakartaFont(.custom(.regular, 17))
                     
                     
-                    Text(
-                    """
-                    Şəxsi əlaqə məlumatları (telefon nömrəsi, e-poçt ünvanı, ev ünvanı və s.)
-                    Başqalarını müəyyən edən məlumatlar (ad, soyad, FİN və s.)
-                    Başqalarını ittiham edən ifadələr
-                    """
-                    )
-                    Spacer()
+                    Text(vm.warningText)
                         .jakartaFont(.custom(.regular, 17))
+                    Spacer()
+
                 }
                 
             }
