@@ -27,6 +27,10 @@ struct LoginView: View {
             
             LoadingView(isLoading: vm.isLoading)
          }
+        .onAppear {
+                vm.emailText = ""
+                vm.passwordText = ""
+        }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()

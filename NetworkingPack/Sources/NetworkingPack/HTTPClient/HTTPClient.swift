@@ -106,7 +106,7 @@ public final class HTTPClient {
                     case 404:
                         completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
                     case 409:
-                        completion(nil, NetworkError.statusCode("\(errorDecode.status ?? Int())"))
+                        completion(nil, NetworkError.statusCode("\(response.statusCode)"))
                     case 500:
                         completion(nil, NetworkError.unauthorization)
                     default:
