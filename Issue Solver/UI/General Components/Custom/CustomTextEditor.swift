@@ -11,7 +11,7 @@ struct CustomTextEditor: View {
     
     var title: String?
     var textColor: Color?
-
+    var errorText: String?
     
     @Binding var explanation: String
 
@@ -58,6 +58,15 @@ struct CustomTextEditor: View {
             }
             .background(Color.white)
             .clipShape(.rect(cornerRadius: 12))
+            
+            if let errorText {
+                HStack {
+                    Text(errorText)
+                        .jakartaFont(.subtitle2)
+                        .foregroundStyle(.gray)
+                    Spacer()
+                }
+            }
         }
     }
 }

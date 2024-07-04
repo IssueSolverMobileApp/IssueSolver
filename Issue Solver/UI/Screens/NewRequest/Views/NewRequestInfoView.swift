@@ -11,31 +11,30 @@ struct NewRequestInfoView: View {
     
     
     var body: some View {
-        VStack {
-            titleView
-            VStack(spacing: 48) {
-                infoView
-                warningView
+            VStack {
+                titleView
+                VStack(spacing: 48) {
+                    infoView
+                    warningView
+                }
+                Spacer()
             }
-            Spacer()
+            .padding(.horizontal, 20)
+            .padding(.bottom, 16)
         }
-        //        .padding()
-        .padding(.horizontal, 20)
-        .padding(.bottom, 16)
-    }
-    
-    
     
     
     private var titleView: some View {
-        CustomTitleView(title: "Məlumatlar və Xəbərdarlıqlar")
+        
+            CustomTitleView(title: "Qaydalar")
+            
     }
     
     private var infoView: some View {
         VStack(spacing: 24) {
             HStack {
                 Text("Məlumatlar")
-                    .jakartaFont(.custom(.regular, 28))
+                    .jakartaFont(.custom(.bold, 20))
                 Spacer()
             }
             VStack {
@@ -43,7 +42,6 @@ struct NewRequestInfoView: View {
                     Text("Zəhmət olmasa, sorğunuzu aşağıdakı tələblərə uyğun şəkildə paylaşın:")
                         .multilineTextAlignment(.leading)
                     Spacer()
-                    //                        .jakartaFont(.custom(.regular, 17))
                 }
                 HStack(alignment: .top) {
                     Text("""
@@ -73,10 +71,10 @@ struct NewRequestInfoView: View {
     
     private var warningView: some View {
         
-        VStack {
+        VStack(spacing: 24) {
             HStack {
                 Text("Xəbərdarlıqlar")
-                    .jakartaFont(.custom(.regular, 28))
+                    .jakartaFont(.custom(.bold, 20))
                 Spacer()
             }
             VStack {
