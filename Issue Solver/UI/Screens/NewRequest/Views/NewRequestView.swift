@@ -2,23 +2,22 @@
 //  NewRequestView.swift
 //  Issue Solver
 //
-//  Created by ValehAmirov on 01.07.24.
-//
+//  Created by Valeh Amirov on 01.07.24.
+// 
 
 import SwiftUI
 
 struct NewRequestView: View {
     
     @StateObject var vm = NewReqeuestViewModel()
+    @EnvironmentObject var router: Router
     
     @State private var addressText: String = ""
     @State private var categoryPicker: String = ""
     @State var selectedGov: personModel = personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
         
     @State var isRightTextEditor: Bool = true
-
-    
-    @State var explanation: String = ""
+    @State var explanationEditorText: String = ""
 
     private var governments: [personModel] = [
         personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi"),
@@ -50,6 +49,8 @@ struct NewRequestView: View {
         HStack {
             CustomTitleView(title: "Yeni sorğu", image: .infoIcon) {
 //          MARK: - navigation action must be here
+                router.navigate { NewRequestInfoView() }
+
             }
         }
     }
@@ -75,16 +76,18 @@ struct NewRequestView: View {
     private var buttonView: some View {
         VStack(spacing: 16) {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
+                //  MARK: Paylaş button action must be here
             }
             
-            CustomButton(style: .rounded, title: "Ləğv et", color: .white, foregroundStyle: .primaryBlue) {
+            CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
+                //  MARK: sıfırla button action must be here
             }
         }
     }
     
     private var textView: some View {
         
-        CustomTextEditor(title: "Ətraflı izah", explanation: $explanation, isRightTextField: $isRightTextEditor)
+        CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $explanationEditorText, isRightTextField: $isRightTextEditor)
     }
 }
 
