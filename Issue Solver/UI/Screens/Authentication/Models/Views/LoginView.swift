@@ -72,10 +72,13 @@ struct LoginView: View {
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
                     await vm.login { success in
-                        if success {
+                        
+                        switch success {
+                        case true:
                             vm.navigateToHomeView = true
-                        } else {
-                            router.navigate { OTPView(isChangePassword: false) }
+                        case false:
+                                let item = EmailModel(email: vm.emailText)
+                                router.navigate { OTPView(emailModel: item, isChangePassword: false) }
                         }
                     }
                 }
