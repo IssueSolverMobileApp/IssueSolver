@@ -36,7 +36,7 @@ struct LoginView: View {
             hideKeyboard()
     }
         .background {
-            NavigationLink(destination: EmptyView(), isActive: $vm.navigateToHomeView, label: {})
+            NavigationLink(destination: ProfileView(), isActive: $vm.navigateToProfileView, label: {})
         }
     }
     
@@ -75,7 +75,9 @@ struct LoginView: View {
                         
                         switch success {
                         case true:
-                            vm.navigateToHomeView = true
+                            router.navigate {
+                                ProfileView()
+                            }
                         case false:
                                 let item = EmailModel(email: vm.emailText)
                                 router.navigate { OTPView(emailModel: item, isChangePassword: false) }
