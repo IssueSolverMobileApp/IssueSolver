@@ -50,7 +50,6 @@ struct NewRequestView: View {
             CustomTitleView(title: "Yeni sorğu", image: .infoIcon) {
 //          MARK: - navigation action must be here
                 router.navigate { NewRequestInfoView() }
-
             }
         }
     }
@@ -58,8 +57,6 @@ struct NewRequestView: View {
     var textFieldView: some View {
         VStack {
             CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: $vm.errorMessage, clickableText: Constants.howToRequestShare, clickableTextWidth: 116)
-            
-        
         }
     }
     
