@@ -32,13 +32,13 @@ struct MyRequestView: View {
     
     var postView: some View {
         
-        VStack(spacing: 10) {
+        VStack(alignment: .leading,spacing: 10) {
             HStack {
                 Image(.profile)
                     .resizable()
                     .frame(width: 32, height: 32)
                     .scaledToFit()
-                Text("Aynur Qəmbərova")
+                Text("Valeh Amirov")
                     .jakartaFont(.subtitle)
                     .foregroundStyle(.primaryBlue)
                 Spacer()
@@ -55,15 +55,28 @@ struct MyRequestView: View {
                 .clipShape(.rect(cornerRadius: 100))
             }
             
+            ZStack {
+                Text("Küçə heyvanlarına qarşı zorbalıq")
+                    .jakartaFont(.subtitle2)
+                    .foregroundStyle(.disabledGray)
+            }
+            .padding(.horizontal,10)
+            .padding(.vertical, 8)
+            .background(Color.surfaceBackground)
+            .clipShape(.rect(cornerRadius: 100))
+            
             Divider().overlay {
                 Color.primaryBlueOutLine.opacity(0.28)
             }
             
             
             if vm.postText.count >= 120 {
-                Text(vm.postText.prefix(120))
-                + Text("...daha çox göstər").foregroundColor(.blue)
-//                    .jakartaFont(.heading)
+                ZStack {
+                    Text(vm.postText.prefix(120))
+                    + Text("...daha çox göstər").foregroundColor(.blue)
+                }
+                .foregroundStyle(Color.primaryGray)
+                .jakartaFont(.subheading)
             } else {
                 Text(vm.postText)
                     .jakartaFont(.heading)
