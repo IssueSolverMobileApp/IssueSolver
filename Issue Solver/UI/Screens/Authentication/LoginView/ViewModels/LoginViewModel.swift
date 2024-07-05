@@ -30,7 +30,7 @@ class LoginViewModel: ObservableObject {
     /// - For navigating other views
     @Published var navigateToEmailVerificationView = false
     @Published var navigateToRegisterView = false
-    @Published var navigateToHomeView = false
+    @Published var navigateToProfileView = false
     
     /// - Variables for checking error cases
     @Published var errorMessage: String? = ""

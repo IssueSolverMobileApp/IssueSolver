@@ -10,11 +10,14 @@ import Foundation
 public enum EndPoint: EndPointProtocol {
     
     case auth(AuthEndPoint)
+    case profile(ProfileEndPoint)
     
     var url: String {
         switch self {
         case .auth(let authEndPoint):
             return authEndPoint.url
+        case .profile(let profileEndPoint):
+            return profileEndPoint.url
         }
     }
 }

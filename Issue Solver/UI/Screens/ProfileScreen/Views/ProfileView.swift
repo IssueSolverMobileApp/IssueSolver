@@ -9,13 +9,10 @@ import SwiftUI
 
 struct ProfileView: View {
     
+    @EnvironmentObject var router: Router
     @StateObject var vm = ProfileViewModel()
-    @State private var navigateToDeleteAccountView = false
-    @State private var navigateToMyAccountView = false
     
     var body: some View {
-        
-        NavigationView {
             ZStack {
                 Color.surfaceBackground.ignoresSafeArea()
                 ScrollView {
@@ -29,10 +26,9 @@ struct ProfileView: View {
                     .padding(.horizontal, 16)
                 }
             }
-        }
+        .navigationBarBackButtonHidden(true)
     }
 
-    
     /// 1st section
     var firstSectionView: some View {
         
@@ -45,17 +41,19 @@ struct ProfileView: View {
                           width: 48, height: 48,
                           color: .primaryBlue ,
                           font: .custom(.bold, 20),
-                          handler: { navigateToMyAccountView = true })
+                          handler: { router.navigate {
+                MyAccountView()
+            } })
 
              .frame(height: 86)
-             .background(
-             NavigationLink(
-                destination: MyAccountView(),
-                isActive: $navigateToMyAccountView,
-                label: { EmptyView() }))
+            
+             .onTapGesture {
+                 router.navigate {
+                     MyAccountView()
+                 }
+             }
             
             ///Change Password View
-            NavigationLink(destination: NewPasswordView()) {
                 CustomRowView(title: "Şifrəni dəyiş", 
                               subtitle: nil,
                               leftImage: "privacy",
@@ -63,9 +61,14 @@ struct ProfileView: View {
                               width: 38, height: 38, 
                               handler: {})
                     .frame(height: 86)
-            }
-        }
-    }
+    
+                    .onTapGesture {
+                        router.navigate {
+                            NewPasswordView()
+                        }
+                    }
+               }
+          }
         
     
    /// 2nd section
@@ -74,34 +77,47 @@ struct ProfileView: View {
         VStack(alignment: .leading, spacing: 12) {
         
         ///Privacy Policy View
-            NavigationLink(destination: EmptyView()) {
                 CustomRowView(title: "Məxfilik siyasəti", 
                               subtitle: nil,
                               leftImage: nil,
                               rightImage: "chevron",
                               handler: {})
                     .frame(height: 76)
-            }
+            
+                    .onTapGesture {
+                        router.navigate {
+                            EmptyView()
+                        }
+                    }
+            
         ///FAQ View
-            NavigationLink(destination: EmptyView()) {
                 CustomRowView(title: "Tez-tez verilən suallar", 
                               subtitle: nil,
                               leftImage: nil,
                               rightImage: "chevron",
                               handler: {})
                     .frame(height: 76)
-            }
+            
+                    .onTapGesture {
+                        router.navigate {
+                            EmptyView()
+                        }
+                    }
         ///About App View
-            NavigationLink(destination: EmptyView()) {
-                CustomRowView(title: "Tətbiq haqqında", 
+                CustomRowView(title: "Tətbiq haqqında",
                               subtitle: nil,
                               leftImage: nil,
                               rightImage: "chevron",
                               handler: {})
                     .frame(height: 76)
-            }
-        }
-    }
+            
+                    .onTapGesture {
+                        router.navigate {
+                            EmptyView()
+                        }
+                    }
+               }
+           }
     
     /// 3rd section
     var thirdSection: some View {
@@ -121,7 +137,9 @@ struct ProfileView: View {
                     .alert( isPresented: $vm.showExitAccountAlert) {
                         Alert(title: Text(""),
                               message: Text("Hesabdan çıxış etməyə əminsiniz?"),
-                              primaryButton: .destructive(Text("Çıxış")) ,
+                              primaryButton: .destructive(Text("Çıxış"), action: {
+                            router.popToRoot()
+                        }) ,
                               secondaryButton: .default(Text("İmtina")))
             }
             
@@ -139,15 +157,11 @@ struct ProfileView: View {
                     .alert( isPresented: $vm.showDeleteAccountAlert) {
                         Alert(title: Text(""),
                               message: Text("Hesabınızı silmək istədiyinizə əminsiniz?"),
-                              primaryButton: .destructive(Text("Bəli"), action: { navigateToDeleteAccountView = true }) ,
+                              primaryButton: .destructive(Text("Bəli"), action: { router.navigate {
+                            DeleteAccountView()
+                        } }) ,
                               secondaryButton: .default(Text("Xeyr")))
             }
-            
-            NavigationLink(
-                destination: DeleteAccountView(),
-                isActive: $navigateToDeleteAccountView,
-                label: {
-                    EmptyView() })
         }
     }
 }

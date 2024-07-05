@@ -11,6 +11,7 @@ struct DeleteAccountView: View {
     
     @StateObject var vm = DeleteAccountViewModel()
     @Environment (\.dismiss) private var dismiss
+    @EnvironmentObject var router: Router
     
     var body: some View {
         ZStack {
@@ -51,14 +52,16 @@ struct DeleteAccountView: View {
     ///  Password Textfield View
     var textFieldView: some View {
 
-        CustomTextField(placeholder: "***********",title: "Şifrə",isSecure: true, text: $vm.passwordText)
+        CustomTextField(placeholder: "***********",title: "Şifrə",isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.errorMessage)
     }
 
     /// saveChangesButtonView
     var deleteAccountButtonView: some View {
         
         CustomButton(style:.rounded,title: "Hesabı sil", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            
+            Task {
+                await vm.deleteAccount(with: router)
+            }
         }
         .disabled(vm.passwordText.isEmpty)
     }
