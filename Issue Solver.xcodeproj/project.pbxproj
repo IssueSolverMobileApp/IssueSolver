@@ -191,13 +191,13 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		5FE7E1122C37A971007879E3 /* MyRequest */ = {
+		5FE7E1122C37A971007879E3 /* MyQuery */ = {
 			isa = PBXGroup;
 			children = (
 				5FE7E1142C37A982007879E3 /* Views */,
 				5FE7E1172C37AC3B007879E3 /* ViewModels */,
 			);
-			path = MyRequest;
+			path = MyQuery;
 			sourceTree = "<group>";
 		};
 		5FE7E1142C37A982007879E3 /* Views */ = {
@@ -332,13 +332,13 @@
 			path = LoginView/ViewModels;
 			sourceTree = "<group>";
 		};
-		8CE6452E2C32A163004A956E /* NewRequest */ = {
+		8CE6452E2C32A163004A956E /* NewQuery */ = {
 			isa = PBXGroup;
 			children = (
 				8CE645322C32A21A004A956E /* Views */,
 				5F1A84242C33D3DD00DF17E5 /* ViewModels */,
 			);
-			path = NewRequest;
+			path = NewQuery;
 			sourceTree = "<group>";
 		};
 		8CE645322C32A21A004A956E /* Views */ = {
@@ -482,8 +482,8 @@
 		FBA4BA1E2C183D2800BEDA9E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				5FE7E1122C37A971007879E3 /* MyRequest */,
-				8CE6452E2C32A163004A956E /* NewRequest */,
+				5FE7E1122C37A971007879E3 /* MyQuery */,
+				8CE6452E2C32A163004A956E /* NewQuery */,
 				FBA4BA222C18467200BEDA9E /* Authentication */,
 				FB967D1A2C258137002BA572 /* ProfileScreen */,
 			);
