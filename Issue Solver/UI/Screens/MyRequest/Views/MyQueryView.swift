@@ -10,6 +10,7 @@ import SwiftUI
 struct MyQueryView: View {
     
     @StateObject var vm = MyQueryViewModel()
+    @State var isOn: Bool = false
     
     var body: some View {
         ZStack {
@@ -17,86 +18,12 @@ struct MyQueryView: View {
                 .ignoresSafeArea()
             ScrollView  {
                 VStack {
-                    titleView
-                    postView
-                }
+                    CustomTitleView(title: "Mənim sorğularım")
+                    CustomPostRowView(postText: vm.postText, isDetailView: true, postID: "ID: 16217", postToGovernmentName: "Daxili İşlər Nazirliyi", userName: "Valeh Amirov", postStatus: "Gözləmədə", isOn: $isOn)                }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
             }
         }
-    }
-    
-    var titleView: some View {
-        CustomTitleView(title: "Mənim sorğularım")
-    }
-    
-    var postView: some View {
-        
-        VStack(alignment: .leading,spacing: 10) {
-            HStack {
-                Image(.profile)
-                    .resizable()
-                    .frame(width: 32, height: 32)
-                    .scaledToFit()
-                Text("Valeh Amirov")
-                    .jakartaFont(.subtitle)
-                    .foregroundStyle(.primaryBlue)
-                Spacer()
-                HStack {
-                    Image(.blueDotIcon)
-                        .foregroundStyle(.primaryBluePressed)
-                    Text("Gözləmədə")
-                        .jakartaFont(.subheading)
-                        .foregroundStyle(Color.primaryBluePressed)
-                }
-                .padding(.horizontal)
-                .padding(.vertical, 8)
-                .background(.outLineContainerBlue)
-                .clipShape(.rect(cornerRadius: 100))
-            }
-            
-            ZStack {
-                Text("Küçə heyvanlarına qarşı zorbalıq")
-                    .jakartaFont(.subtitle2)
-                    .foregroundStyle(.disabledGray)
-            }
-            .padding(.horizontal,10)
-            .padding(.vertical, 8)
-            .background(Color.surfaceBackground)
-            .clipShape(.rect(cornerRadius: 100))
-            
-            Divider().overlay {
-                Color.primaryBlueOutLine.opacity(0.28)
-            }
-            
-            
-            if vm.postText.count >= 120 {
-                ZStack {
-                    Text(vm.postText.prefix(120))
-                    + Text("...daha çox göstər").foregroundColor(.blue)
-                }
-                .foregroundStyle(Color.primaryGray)
-                .jakartaFont(.subheading)
-            } else {
-                Text(vm.postText)
-                    .jakartaFont(.heading)
-            }
-            
-            Divider().overlay {
-                Color.primaryBlueOutLine.opacity(0.28)
-            }
-            HStack {
-                Image(.likeIcon)
-                    .padding(.trailing, 24)
-                Image(.commentIcon)
-                Spacer()
-                Image(.optionDotsIcon)
-                    .padding(.trailing)
-            }
-        }
-        .padding(16)
-        .background(.white)
-        .clipShape(.rect(cornerRadius: Constants.cornerRadius))
     }
 }
 
