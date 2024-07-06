@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct MyRequestView: View {
+struct MyQueryView: View {
     
-    @StateObject var vm = MyRequestViewModel()
+    @StateObject var vm = MyQueryViewModel()
     
     var body: some View {
         ZStack {
@@ -101,5 +101,5 @@ struct MyRequestView: View {
 }
 
 #Preview {
-    MyRequestView()
+    MyQueryView()
 }

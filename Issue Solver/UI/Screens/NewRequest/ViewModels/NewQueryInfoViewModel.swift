@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NewRequestInfoViewModel: ObservableObject {
+class NewQueryInfoViewModel: ObservableObject {
     
     @Published var infoSubTitleText: String  = "Zəhmət olmasa, sorğunuzu aşağıdakı tələblərə uyğun şəkildə paylaşın:"
     

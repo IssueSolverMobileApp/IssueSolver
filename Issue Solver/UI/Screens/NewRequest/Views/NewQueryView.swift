@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct NewRequestView: View {
+struct NewQueryView: View {
     
-    @StateObject var vm = NewReqeuestViewModel()
+    @StateObject var vm = NewQueryViewModel()
     @EnvironmentObject var router: Router
     
     @State private var addressText: String = ""
@@ -49,7 +49,7 @@ struct NewRequestView: View {
         HStack {
             CustomTitleView(title: "Yeni sorğu", image: .infoIcon) {
 //          MARK: - navigation action must be here
-                router.navigate { NewRequestInfoView() }
+                router.navigate { NewQueryInfoView() }
             }
         }
     }
@@ -89,5 +89,5 @@ struct NewRequestView: View {
 }
 
 #Preview {
-    NewRequestView()
+    NewQueryView()
 }

@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct NewRequestInfoView: View {
+struct NewQueryInfoView: View {
     
-    @StateObject var vm = NewRequestInfoViewModel()
+    @StateObject var vm = NewQueryInfoViewModel()
     
     var body: some View {
             VStack {
@@ -87,5 +87,5 @@ struct NewRequestInfoView: View {
 }
 
 #Preview {
-    NewRequestInfoView()
+    NewQueryInfoView()
 }
