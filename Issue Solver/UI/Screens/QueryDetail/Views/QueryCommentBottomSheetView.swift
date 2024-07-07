@@ -15,34 +15,13 @@ struct QueryCommentBottomSheetView: View {
     var body: some View {
         VStack {
             ScrollView {
-                VStack {
-                    VStack(alignment:.leading ,spacing: 12) {
-                        HStack {
-                            Image(.profile)
-                            Text("Valeh Amirov")
-                                .jakartaFont(.custom(.semiBold, 15))
-                                .foregroundStyle(.primaryBlue)
-                            Spacer()
-                            Text("07.01.2012")
-                                .jakartaFont(.custom(.regular, 14))
-                                .foregroundStyle(.secondaryGray)
-                        }
-                        
-                        Text("Office ipsum you must be muted. This food playing ping every must. Need wanted best thought ditching leverage circle fruit eod. Activities me seems investigation guys. By sop is closing old pups.")
-                            .jakartaFont(.heading)
-                            .lineSpacing(12)
-                        
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 16)
-                    customDividerOpacity
-                }
+                CustomCommentRowView()
             }
-            sendCommentView
+            addCommentView
         }
     }
     
-    var sendCommentView: some View {
+    var addCommentView: some View {
         ScrollView {
             customBlueDivider
             VStack(alignment: .center) {
@@ -63,12 +42,6 @@ struct QueryCommentBottomSheetView: View {
                 .frame(minHeight: 48)
             }
             
-        }
-    }
-    
-    var customDividerOpacity: some View {
-        Divider().overlay {
-            Color.primaryBluePressed.opacity(0.28)
         }
     }
     
