@@ -14,23 +14,21 @@ struct CustomPostRowView: View {
     var isDetailView: Bool = true
     var likeCount: String?
     var commentCount: String?
-    var postID: String
     var postToGovernmentName: String
     var userName: String
     var postStatus: String
     
-    @Binding var isOn: Bool
+    @Binding var isLiked: Bool
     
-    init(postText: String, isDetailView: Bool, likeCount: String? = nil, commentCount: String? = nil, postID: String, postToGovernmentName: String, userName: String, postStatus: String, isOn: Binding<Bool>) {
+    init(postText: String, isDetailView: Bool, likeCount: String? = nil, commentCount: String? = nil, postToGovernmentName: String, userName: String, postStatus: String, isLiked: Binding<Bool>) {
         self.postText = postText
         self.isDetailView = isDetailView
         self.likeCount = likeCount
         self.commentCount = commentCount
-        self.postID = postID
         self.postToGovernmentName = postToGovernmentName
         self.userName = userName
         self.postStatus = postStatus
-        self._isOn = isOn
+        self._isLiked = isLiked
     }
     
     var body: some View {
@@ -73,11 +71,7 @@ struct CustomPostRowView: View {
             }
             
             if isDetailView {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(postID)
-                        .foregroundStyle(.secondaryGray)
                     Text(postToGovernmentName)
-                }
                 .jakartaFont(.subheading)
             }
         }
@@ -136,7 +130,7 @@ struct CustomPostRowView: View {
     var bottomView: some View {
         HStack {
             VStack(spacing: 5) {
-                Toggle("", isOn: $isOn)
+                Toggle("", isOn: $isLiked)
                     .toggleStyle(CustomToggleLikeStyle())
                 if isDetailView {
                     Text(likeCount ?? "0")
