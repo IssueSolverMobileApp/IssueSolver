@@ -10,7 +10,7 @@ import SwiftUI
 struct MyQueryView: View {
     
     @StateObject var vm = MyQueryViewModel()
-    @State var isOn: Bool = false
+    @State var isLiked: Bool = false
     
     var body: some View {
         ZStack {
@@ -19,7 +19,7 @@ struct MyQueryView: View {
             ScrollView  {
                 VStack {
                     CustomTitleView(title: "Mənim sorğularım")
-                    CustomPostRowView(postText: vm.postText, isDetailView: true, postID: "ID: 16217", postToGovernmentName: "Daxili İşlər Nazirliyi", userName: "Valeh Amirov", postStatus: "Gözləmədə", isOn: $isOn)                }
+                    CustomPostRowView(postText: vm.postText, isDetailView: true,  postToGovernmentName: "Daxili İşlər Nazirliyi", userName: "Valeh Amirov", postStatus: "Gözləmədə", isLiked: $isLiked)                }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
             }
