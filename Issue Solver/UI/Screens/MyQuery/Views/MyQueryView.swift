@@ -19,7 +19,8 @@ struct MyQueryView: View {
             ScrollView  {
                 VStack {
                     CustomTitleView(title: "Mənim sorğularım")
-                    CustomPostRowView(postText: vm.postText, isDetailView: false,  postToGovernmentName: "Daxili İşlər Nazirliyi", userName: "Valeh Amirov", postStatus: "Gözləmədə", isLiked: $isLiked)                }
+                    CustomPostRowView(postText: vm.postText, isDetailView: false,  postToGovernmentName: "Daxili İşlər Nazirliyi", userName: "Valeh Amirov", postStatus: "Gözləmədə", isLiked: $isLiked) {}
+                }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
             }

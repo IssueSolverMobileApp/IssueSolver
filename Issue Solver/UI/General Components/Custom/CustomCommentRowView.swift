@@ -27,8 +27,6 @@ struct CustomCommentRowView: View {
                     .lineSpacing(12)
                 
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 16)
             customDivider
         }
     }
