@@ -8,23 +8,14 @@
 import SwiftUI
 
 struct NewQueryView: View {
-    
-    @StateObject var vm = NewQueryViewModel()
     @EnvironmentObject var router: Router
+    @StateObject var vm = NewQueryViewModel()
     
     @State private var addressText: String = ""
     @State private var categoryPicker: String = ""
-    @State var selectedGov: personModel = personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
         
     @State var isRightTextEditor: Bool = true
     @State var explanationEditorText: String = ""
-
-    private var governments: [personModel] = [
-        personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi"),
-        personModel(name: "Innovasiya ve Reqemsal Inkisaf "),
-        personModel(name: "Innovasiya ve Reqemsal "),
-        personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
-    ]
     
     var body: some View {
         ZStack {
@@ -48,7 +39,6 @@ struct NewQueryView: View {
     var titleView: some View {
         HStack {
             CustomTitleView(title: "Yeni sorğu", image: .infoIcon) {
-//          MARK: - navigation action must be here
                 router.navigate { NewQueryInfoView() }
             }
         }
@@ -56,16 +46,25 @@ struct NewQueryView: View {
     
     var textFieldView: some View {
         VStack {
-            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: $vm.errorMessage, clickableText: Constants.howToRequestShare, clickableTextWidth: 116)
+            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: .constant(""), clickableText: Constants.howToRequestShare, clickableTextWidth: 116)
         }
     }
     
     var pickerView: some View {
         
         VStack(spacing: 16) {
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin yönləndiriləcəyi qurum", placeholder: "Qurum", isRightTextEditor: $isRightTextEditor)
+            CustomPickerView(selection: $vm.selectedCategory, selectedTitle: vm.selectedCategory?.categoryName ?? "", title: "Problemin yönləndiriləcəyi qurum", isRightTextEditor: $isRightTextEditor) {
+                
+            }
             
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Kategoriya", placeholder: "Kategoriya", isRightTextEditor: $isRightTextEditor)
+            CustomPickerView(selection: $vm.selectedCategory, selectedTitle: vm.selectedCategory?.categoryName ?? "", title: "Kategoriya", isRightTextEditor: $isRightTextEditor) {
+                
+                ForEach(vm.categories) { category in
+                    Text(category.categoryName ?? "")
+                        .tag(category.id)
+                }
+            }
+            
         }
     }
     
@@ -73,11 +72,11 @@ struct NewQueryView: View {
     var buttonView: some View {
         VStack(spacing: 16) {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
-                //  MARK: Paylaş button action must be here
+                // TODO: Paylaş button action must be here
             }
             
             CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
-                //  MARK: sıfırla button action must be here
+                // TODO: sıfırla button action must be here
             }
         }
     }

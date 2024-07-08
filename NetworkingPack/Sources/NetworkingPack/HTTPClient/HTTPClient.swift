@@ -163,8 +163,8 @@ public final class HTTPClient {
     
 //    MARK: setAccessToken
     func setAccessToken(urlRequest: inout URLRequest) {
-        guard let accessToken = UserDefaults.standard.accessToken else { return }
-        urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: TokenEnum.accessToken.value)
+//        guard let accessToken = UserDefaults.standard.accessToken else { return }
+        urlRequest.setValue("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbGtpbnN1bGV5bWFub3YyMDBAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiIsIkdPVkVSTUVOVCIsIlNVUEVSX1NUQUZGIiwiU1RBRkYiLCJBRE1JTiJdLCJuYmYiOjE3MTk0Nzg3NTYsImV4cCI6MjAzNTAxMTU0NSwiaXNzIjoiaWxraW5AU3VsZXltYW5vdi5jb20iLCJhdWQiOiJpbGtpbkBTdWxleW1hbm92LmNvbSJ9.QHD7oSGvy3h-zKMbhQvo1ieREFhW2ic_4WMaWVMtnL0", forHTTPHeaderField: TokenEnum.accessToken.value)
     }
     
 //    MARK: Send refresh

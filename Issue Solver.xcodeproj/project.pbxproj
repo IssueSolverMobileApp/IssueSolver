@@ -16,6 +16,9 @@
 		5FD44FAD2C3B1F0A00CC4DEB /* CustomCommentRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD44FAC2C3B1F0900CC4DEB /* CustomCommentRowView.swift */; };
 		5FE7E1162C37A98F007879E3 /* MyQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE7E1152C37A98F007879E3 /* MyQueryView.swift */; };
 		5FE7E11A2C37AC53007879E3 /* MyQueryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE7E1192C37AC53007879E3 /* MyQueryViewModel.swift */; };
+		6F21382B2C3BCBA9000A8DEB /* HTTPQueryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21382A2C3BCBA9000A8DEB /* HTTPQueryRepository.swift */; };
+		6F2138302C3BD024000A8DEB /* QueryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21382F2C3BD024000A8DEB /* QueryModel.swift */; };
+		6F2138322C3BD71B000A8DEB /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2138312C3BD71B000A8DEB /* CategoryModel.swift */; };
 		6F36E01F2C1C2EE200C41257 /* View + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36E01E2C1C2EE200C41257 /* View + Ext.swift */; };
 		6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */; };
 		6F6B8CA52C298B5000BB52FE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6B8CA42C298B5000BB52FE /* TabBarView.swift */; };
@@ -99,6 +102,9 @@
 		5FD44FAC2C3B1F0900CC4DEB /* CustomCommentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCommentRowView.swift; sourceTree = "<group>"; };
 		5FE7E1152C37A98F007879E3 /* MyQueryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQueryView.swift; sourceTree = "<group>"; };
 		5FE7E1192C37AC53007879E3 /* MyQueryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQueryViewModel.swift; sourceTree = "<group>"; };
+		6F21382A2C3BCBA9000A8DEB /* HTTPQueryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPQueryRepository.swift; sourceTree = "<group>"; };
+		6F21382F2C3BD024000A8DEB /* QueryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryModel.swift; sourceTree = "<group>"; };
+		6F2138312C3BD71B000A8DEB /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		6F36E01E2C1C2EE200C41257 /* View + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View + Ext.swift"; sourceTree = "<group>"; };
 		6F36E0212C1C3BBA00C41257 /* JakartaFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JakartaFonts.swift; sourceTree = "<group>"; };
 		6F6B8CA42C298B5000BB52FE /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -239,6 +245,15 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		6F21382E2C3BCFF0000A8DEB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6F21382F2C3BD024000A8DEB /* QueryModel.swift */,
+				6F2138312C3BD71B000A8DEB /* CategoryModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		6F36E0202C1C3B0800C41257 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +326,7 @@
 			children = (
 				8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */,
 				FBAE3D712C37E47C00C12CA2 /* HTTPProfileRepository.swift */,
+				6F21382A2C3BCBA9000A8DEB /* HTTPQueryRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -359,6 +375,7 @@
 		8CE6452E2C32A163004A956E /* NewQuery */ = {
 			isa = PBXGroup;
 			children = (
+				6F21382E2C3BCFF0000A8DEB /* Models */,
 				8CE645322C32A21A004A956E /* Views */,
 				5F1A84242C33D3DD00DF17E5 /* ViewModels */,
 			);
@@ -669,6 +686,7 @@
 				6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */,
 				FB9ADD9A2C327B6900D5A16B /* LoadingView.swift in Sources */,
 				FB5A10312C27724500E16828 /* NewPasswordViewModel.swift in Sources */,
+				6F21382B2C3BCBA9000A8DEB /* HTTPQueryRepository.swift in Sources */,
 				FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */,
 				6F36E01F2C1C2EE200C41257 /* View + Ext.swift in Sources */,
 				8C264F442C2405BF00FDAAE3 /* SuccessModel.swift in Sources */,
@@ -679,6 +697,7 @@
 				FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */,
 				FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */,
 				FBC5DB822C36B851002AA056 /* UINavigationController + Ext.swift in Sources */,
+				6F2138302C3BD024000A8DEB /* QueryModel.swift in Sources */,
 				6F6B8CA82C298B7000BB52FE /* Tab.swift in Sources */,
 				6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */,
 				8CE6D1F42C358789002704C6 /* NewQueryInfoView.swift in Sources */,
@@ -696,6 +715,7 @@
 				FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */,
 				FB967D1F2C25818B002BA572 /* ProfileModel.swift in Sources */,
 				8CA3EB0A2C1C70F900514134 /* PassowordChangeViewModel.swift in Sources */,
+				6F2138322C3BD71B000A8DEB /* CategoryModel.swift in Sources */,
 				FB5A10372C2787E500E16828 /* DeleteAccountView.swift in Sources */,
 				6F7535452C19956E003D12AC /* RegisterView.swift in Sources */,
 				FBAE3D702C37DED900C12CA2 /* PasswordModel.swift in Sources */,

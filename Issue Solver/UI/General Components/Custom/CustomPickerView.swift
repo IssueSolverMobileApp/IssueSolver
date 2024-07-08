@@ -7,47 +7,37 @@
 
 import SwiftUI
 
-struct personModel: Identifiable, Hashable {
-    let id = UUID()
-    let name: String
+
+struct CustomPickerView<V, C>: View where V : Codable, V : Hashable, C : View{
     
-}
-struct CustomPickerView: View {
-    
-    @Binding var selectedGov: personModel
-    var items: [personModel]?
+    @Binding var selection: V
+    @State var selectedTitle: String
     var title: String?
-    var placeholder: String
     var textColor: Color?
     @Binding var isRightTextEditor: Bool
-
+    
+    @ViewBuilder var view: () -> C
     
     var body: some View {
 
         VStack(alignment: .leading) {
-            
-            HStack {
-                if let title {
-                    Text(title)
-                        .jakartaFont(.heading)
-                        .foregroundStyle(isRightTextEditor ? (textColor ?? .black) :  .red)
-                    Spacer()
-                }
+            if let title {
+                Text(title)
+                    .jakartaFont(.heading)
+                    .foregroundStyle(isRightTextEditor ? (textColor ?? .black) :  .red)
+                
             }
+            
             HStack {
                 Spacer()
                 
                 Menu {
-                    Picker("reminderFrequency", selection: $selectedGov) {
-                        ForEach(items ?? []) { item in
-                            Text(item.name)
-                                .tag(item)
-                        }
+                    Picker("reminderFrequency", selection: $selection) {
+                        view()
                     }
-                    
                 } label: {
                     HStack {
-                        Text(selectedGov.name)
+                        Text(selectedTitle)
                             .jakartaFont(.custom(.light, 14))
                             .foregroundStyle(.gray)
                         
