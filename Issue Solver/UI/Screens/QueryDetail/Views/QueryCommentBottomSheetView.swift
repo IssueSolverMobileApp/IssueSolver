@@ -17,33 +17,36 @@ struct QueryCommentBottomSheetView: View {
             ScrollView {
                 CustomCommentRowView()
             }
+//            Spacer()
             addCommentView
         }
     }
     
     var addCommentView: some View {
-        ScrollView {
+        LazyVStack(alignment: .center) {
             customBlueDivider
-            VStack(alignment: .center) {
-                Spacer()
-                
-                HStack(spacing: 3) {
-                    ScrollView {
-                        TextEditor(text: $commentText)
-                            .textEditorBackground(.outLineContainerBlue)
-                            .frame(minHeight: 34)
-                    }
-                    .padding(10)
-                    .background(Color.outLineContainerBlue)
-                    .clipShape(.rect(cornerRadius: 100))
-                    Image(.sendCommentIcon)
-                }
-                .padding(.horizontal, 8)
-                .frame(minHeight: 48)
-            }
             
+            HStack() {
+                VStack {
+                    TextEditor(text: $commentText)
+                        .textEditorBackground(.outLineContainerBlue)
+                        .padding(.horizontal)
+                        .jakartaFont(.heading)
+                        .frame(minHeight: 30)
+                        .frame(maxHeight: 100)
+                        .padding(.vertical, 6)
+                }
+                .background(Color.outLineContainerBlue)
+                .clipShape(.rect(cornerRadius: 24))
+                Image(.sendCommentIcon)
+            }
+            .padding(.horizontal, 7)
+            .frame(minHeight: 48)
         }
+        .frame(maxHeight: 124)
+        .frame(minHeight: 74)
     }
+        
     
     var customBlueDivider: some View {
         Divider().overlay {
