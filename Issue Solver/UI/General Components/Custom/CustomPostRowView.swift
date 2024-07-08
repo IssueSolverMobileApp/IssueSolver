@@ -18,9 +18,11 @@ struct CustomPostRowView: View {
     var userName: String
     var postStatus: String
     
+    let commentHandler: () -> Void
+    
     @Binding var isLiked: Bool
     
-    init(postText: String, isDetailView: Bool, likeCount: String? = nil, commentCount: String? = nil, postToGovernmentName: String, userName: String, postStatus: String, isLiked: Binding<Bool>) {
+    init(postText: String, isDetailView: Bool, likeCount: String? = nil, commentCount: String? = nil, postToGovernmentName: String, userName: String, postStatus: String, isLiked: Binding<Bool>, commentHandler: @escaping () -> Void) {
         self.postText = postText
         self.isDetailView = isDetailView
         self.likeCount = likeCount
@@ -29,6 +31,7 @@ struct CustomPostRowView: View {
         self.userName = userName
         self.postStatus = postStatus
         self._isLiked = isLiked
+        self.commentHandler = commentHandler
     }
     
     var body: some View {
@@ -139,7 +142,11 @@ struct CustomPostRowView: View {
             }
             .padding(.trailing, 24)
             VStack {
-                Image(.commentIcon)
+                Button(action: {
+                    commentHandler()
+                }, label: {
+                    Image(.commentIcon)
+                })
                 if isDetailView {
                     Text(commentCount ?? "0")
                         .jakartaFont(.custom(.medium, 10))
