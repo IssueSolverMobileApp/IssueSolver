@@ -18,13 +18,12 @@ struct NewPasswordView: View {
             
             VStack (spacing: 24) {
                 ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 16) {
                         titleView
                         textFieldView
                     }
-                }
-                Spacer()
-                renewButtonView
+                // .padding(.top, 24)
+                    renewButtonView
+                
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)

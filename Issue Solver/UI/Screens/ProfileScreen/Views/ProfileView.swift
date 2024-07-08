@@ -22,7 +22,7 @@ struct ProfileView: View {
                         thirdSection
                         Spacer()
                     }
-                    .padding(.vertical, 24)
+                    .padding(.vertical, 12)
                     .padding(.horizontal, 16)
                 }
             }
@@ -45,13 +45,7 @@ struct ProfileView: View {
                 MyAccountView()
             } })
 
-             .frame(height: 86)
-            
-             .onTapGesture {
-                 router.navigate {
-                     MyAccountView()
-                 }
-             }
+             .frame(height: 100)
             
             ///Change Password View
                 CustomRowView(title: "Şifrəni dəyiş", 
