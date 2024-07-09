@@ -11,7 +11,7 @@ struct FloatingTabBar: View {
     
     var tabs = ["homeIcon", "queryIcon", "addIcon", "interactionsIcon", "profileIcon"]
     
-    @State var selectedTab = "home"
+    @State var selectedTab = "homeIcon"
     
     // Location of each curve
     @State var xAxis: CGFloat = 0
@@ -26,19 +26,20 @@ struct FloatingTabBar: View {
             TabView(selection: $selectedTab) {
                 Color.red
                     .ignoresSafeArea(.all, edges: .all)
-                    .tag("home")
+                    .tag("homeIcon")
                 
-                Color.blue
-                    .ignoresSafeArea(.all, edges: .all)
-                    .tag("notifications")
+               MyQueryView()
+                    .tag("queryIcon")
                 
-                Color.orange
-                    .ignoresSafeArea(.all, edges: .all)
-                    .tag("search")
+               NewQueryView()
+                    .tag("addIcon")
                 
                 Color.brown
                     .ignoresSafeArea(.all, edges: .all)
-                    .tag("basket")
+                    .tag("interactionsIcon")
+                
+               ProfileView()
+                    .tag("profileIcon")
             }
             
             // Custom Tab Bar
@@ -46,9 +47,9 @@ struct FloatingTabBar: View {
                 ForEach(tabs, id: \.self) { image in
                     GeometryReader { reader in
                         Button(action: {
-                            withAnimation {
+                            withAnimation(.spring()) {
                                 selectedTab = image
-                                xAxis = reader.frame(in: .global).minX
+                                xAxis = reader.frame(in: .global).midX
                             }
                         }, label: {
                             Image(image)
@@ -58,15 +59,23 @@ struct FloatingTabBar: View {
                                 .frame(width: 32, height: 32)
                                 .foregroundColor(selectedTab == image ? .white : .black)
                                 .padding(selectedTab == image ? 15 : 0)
-                                .background(Color.blue.opacity(selectedTab == image ? 1 : 0).clipShape(Circle()))
-                                .matchedGeometryEffect(id: image, in: animation)
-                                .offset(x: selectedTab == image ? -30 : 0, y: selectedTab == image ? -20 : 0)
+                                .background(
+                                    ZStack {
+                                        if selectedTab == image {
+                                            Circle()
+                                                .fill(Color.blue)
+                                                .frame(width: 60, height: 60)
+                                                .matchedGeometryEffect(id: "background", in: animation)
+                                        }
+                                    }
+                                )
+                                .offset(y: selectedTab == image ? -20 : 0)
                         })
-                        .onAppear(perform: {
+                        .onAppear {
                             if image == tabs.first {
-                                xAxis = reader.frame(in: .global).minX
+                                xAxis = reader.frame(in: .global).midX
                             }
-                        })
+                        }
                     }
                     .frame(width: 35, height: 40)
                     if image != tabs.last { Spacer() }
@@ -74,9 +83,13 @@ struct FloatingTabBar: View {
             }
             .padding(.horizontal, 30)
             .padding(.vertical)
-            .background(Color.white.clipShape(CustomShape(xAxis: xAxis)))
-            
-
+            .background(
+                Color.white
+                    .clipShape(CustomShape(xAxis: xAxis))
+                    .cornerRadius(12)
+                    .animation(.smooth, value: 10)
+            )
+            .padding(.bottom, 0)
         }
         .ignoresSafeArea(.all, edges: .bottom)
     }
@@ -109,12 +122,12 @@ struct CustomShape: Shape {
             path.move(to: CGPoint(x: center - 50, y: 0))
             
             let to1 = CGPoint(x: center, y: 60)
-            let control1 = CGPoint(x: center - 25, y: 0)
-            let control2 = CGPoint(x: center - 25, y: 40)
+            let control1 = CGPoint(x: center - 20, y: 0)
+            let control2 = CGPoint(x: center - 30, y: 20)
             
             let to2 = CGPoint(x: center + 50, y: 0)
-            let control3 = CGPoint(x: center + 25, y: 40)
-            let control4 = CGPoint(x: center + 25, y: 0)
+            let control3 = CGPoint(x: center + 80, y: 40)
+            let control4 = CGPoint(x: center + 30, y: 0)
             
             path.addCurve(to: to1, control1: control1, control2: control2)
             path.addCurve(to: to2, control1: control3, control2: control4)
@@ -122,27 +135,5 @@ struct CustomShape: Shape {
     }
 }
 
-struct MyIcon: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let width = rect.size.width
-        let height = rect.size.height
-        
-        path.addRect(CGRect(x: 0, y: 0.05*height, width: 1.02381*width, height: 0.95*height))
-        
-        path.move(to: CGPoint(x: 0.20714*width, y: 0.05*height))
-        
-        path.addCurve(to: CGPoint(x: 0.23575*width, y: 0.31014*height), control1: CGPoint(x: 0.22791*width, y: 0.05*height), control2: CGPoint(x: 0.23146*width, y: 0.16786*height))
-        
-        path.addCurve(to: CGPoint(x: 0.32381*width, y: 0.8*height), control1: CGPoint(x: 0.24228*width, y: 0.52677*height), control2: CGPoint(x: 0.25052*width, y: 0.8*height))
-        
-        path.addCurve(to: CGPoint(x: 0.4156*width, y: 0.30719*height), control1: CGPoint(x: 0.39744*width, y: 0.8*height), control2: CGPoint(x: 0.4076*width, y: 0.52428*height))
-        
-        path.addCurve(to: CGPoint(x: 0.44524*width, y: 0.05*height), control1: CGPoint(x: 0.4208*width, y: 0.16623*height), control2: CGPoint(x: 0.42509*width, y: 0.05*height))
-        
-        path.addLine(to: CGPoint(x: 0.20714*width, y: 0.05*height))
-        
-        path.closeSubpath()
-        return path
-    }
-}
+
+
