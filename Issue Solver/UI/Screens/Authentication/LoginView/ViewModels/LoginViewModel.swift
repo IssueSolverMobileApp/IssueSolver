@@ -75,7 +75,7 @@ class LoginViewModel: ObservableObject {
         authRepository.getme { result in
             switch result {
             case .success(let success):
-                print(success.fullName ?? "sehv")
+                print(success.data)
             case .failure(let error):
                 print(error.localizedDescription)
             }

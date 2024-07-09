@@ -11,6 +11,7 @@ struct NewPasswordView: View {
     
     @StateObject var vm = NewPasswordViewModel()
     @Environment (\.dismiss) private var dismiss
+    @EnvironmentObject var router: Router
     
     var body: some View {
         ZStack {
@@ -21,9 +22,7 @@ struct NewPasswordView: View {
                         titleView
                         textFieldView
                     }
-                // .padding(.top, 24)
                     renewButtonView
-                
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)
@@ -73,6 +72,7 @@ struct NewPasswordView: View {
     /// Renew button
     var renewButtonView: some View {
         CustomButton(style:.rounded,title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+                 vm.updateUserPassword(with:router)
         }
         .disabled(vm.currentPasswordText.isEmpty && vm.newPasswordText.isEmpty && vm.confirmPasswordText.isEmpty && !vm.isRightFields )
     }

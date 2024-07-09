@@ -42,6 +42,21 @@ class NewPasswordViewModel: ObservableObject {
     @Published var confirmPasswordError: String? = nil
     
     
+    func updateUserPassword(with router: Router) {
+        let item = UpdatePasswordModel(currentPassword: currentPasswordText, password: newPasswordText, confirmPassword: confirmPasswordText)
+        profileRepository.changePassword(body: item) { [weak self] result in
+            guard self != nil else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    router.dismissView()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self?.handleAPIEmailError(error.localizedDescription)
+                }
+            }
+        }
+    }
     // MARK: - Local Validation Function for CurrentPasswordTextfield
     private func validateCurrentPassword() {
         if !currentPasswordText.isEmpty {
@@ -120,8 +135,8 @@ class NewPasswordViewModel: ObservableObject {
     
     // MARK: - For Showing Error that Comes From API
     private func handleAPIEmailError(_ error: String) {
-        self.confirmPasswordError = error
-        self.isRightConfirmPassword = false
+        self.currentPasswordError = error
+        self.isRightCurrentPassword = false
     }
     
 }

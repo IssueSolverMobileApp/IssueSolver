@@ -10,7 +10,6 @@ import Foundation
 public struct IDTokenSuccessModel: Codable {
     let data: String?
     let success: Bool?
-    let status: Int?
     let message: String?
 }
 
@@ -25,7 +24,6 @@ public struct RefreshTokenModel: Codable {
 struct RefreshTokenSuccessModel: Codable {
     let data: String?
     let success: Bool?
-    let status: Int?
     let message: String?
 }
 
@@ -33,7 +31,6 @@ struct RefreshTokenSuccessModel: Codable {
 public struct LoginSuccessModel: Codable {
     let data: TokenModel?
     let success: Bool?
-    let status: Int?
     public let message: String?
 }
 
