@@ -76,7 +76,7 @@ struct LoginView: View {
                         switch success {
                         case true:
                             router.navigate {
-                                ProfileView()
+                                FloatingTabBar()
                             }
                         case false:
                                 let item = EmailModel(email: vm.emailText)
