@@ -100,8 +100,8 @@ final class HTTPAuthRepository {
         }
     }
     
-    func getme(completion: @escaping (Result<ProfileModel, Error>) -> Void) {
-        http.GET(endPoint: EndPoint.auth(.getMe)) { (data: ProfileModel?, error: Error?) in
+    func getme(completion: @escaping (Result<ProfileSuccessModel, Error>) -> Void) {
+        http.GET(endPoint: EndPoint.auth(.getMe)) { (data: ProfileSuccessModel?, error: Error?) in
             if let error {
                 completion(.failure(error))
             }
