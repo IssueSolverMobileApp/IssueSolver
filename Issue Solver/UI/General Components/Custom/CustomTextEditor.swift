@@ -70,8 +70,3 @@ struct CustomTextEditor: View {
         }
     }
 }
-
-
-//#Preview {
-//    CustomTextEditor()
-//}

@@ -14,16 +14,21 @@ struct MyAccountView: View {
     
     var body: some View {
         ZStack {
-            Color.surfaceBackground.ignoresSafeArea()
+            Color.surfaceBackground
+                .ignoresSafeArea()
             
-            VStack(alignment: .leading, spacing: 24) {
-                titleView
-                textFieldView
-                Spacer()
-                saveChangesButtonView
+            VStack (spacing: 24) {
+                ScrollView {
+                    titleView
+                    VStack (spacing: 24) {
+                        fullNameTextFieldView
+                        emailTextView
+                    }
+                }
+                    saveChangesButtonView
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 24)
+            .padding(.bottom, 16)
         }
         .onTapGesture {
             hideKeyboard()
@@ -50,30 +55,39 @@ struct MyAccountView: View {
     
     /// Textfield View
     
-    var textFieldView: some View {
-        ScrollView {
-            
-            VStack(alignment: .leading, spacing: 20) {
-                
-                //Full Name View
-                CustomTextField(placeholder: "İRADƏ BƏKİRLİ",title: "Ad, soyad", text: $vm.fullNameText)
-                
-                //Email View
-                CustomTextField(placeholder: "iradebekirli@gmail.com",title: "E-poçt",textColor: .disabledGray, color: .disabledGray.opacity(0.12) , text: $vm.emailText)
-            }
-        }
-    }
+    var fullNameTextFieldView: some View {
+        CustomTextField(placeholder: "İRADƏ BƏKİRLİ",title: "Ad, soyad", text: $vm.fullNameText, isRightTextField: $vm.isRightFullName, errorMessage: $vm.fullNameError)
+      }
+    
+   var emailTextView: some View {
+       VStack(alignment: .leading) {
+           Text("E-poçt")
+               .foregroundStyle(.disabledGray)
+               .jakartaFont(.heading)
+           ZStack(alignment: .leading) {
+               RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                   .fill(Color(.lightGray.withAlphaComponent(0.2)))
+                   .frame(height: 56)
+                   
+               
+               Text("salam")
+                   .foregroundStyle(.primaryGray)
+                   .padding(.horizontal, 16)
+                   .jakartaFont(.subtitle)
+           }
+       }
+  }
     
     /// saveChangesButtonView
     var saveChangesButtonView: some View {
         CustomButton(style:.rounded,title: "Dəyişiklikləri yadda saxla", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
             
         }
-        .disabled(vm.fullNameText.isEmpty && vm.emailText.isEmpty)
+        .disabled(vm.fullNameText.isEmpty)
     }
     
     var canContinue: Bool {
-        !vm.fullNameText.isEmpty && !vm.emailText.isEmpty
+        !vm.fullNameText.isEmpty
     }
 }
 

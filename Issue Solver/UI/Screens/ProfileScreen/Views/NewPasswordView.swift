@@ -16,16 +16,14 @@ struct NewPasswordView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-            VStack {
+            VStack (spacing: 24) {
                 ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 24) {
                         titleView
                         textFieldView
-                        Spacer()
-                        
                     }
-                }
-                renewButtonView
+                // .padding(.top, 24)
+                    renewButtonView
+                
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)
@@ -61,13 +59,13 @@ struct NewPasswordView: View {
             VStack(alignment: .leading, spacing: 20) {
                 
                 //Current Password View
-                CustomTextField(placeholder: "Şifrənizi daxil edin",title: "Cari şifrə",isSecure: true, text: $vm.currentPasswordText)
+                CustomTextField(placeholder: "Şifrənizi daxil edin",title: "Cari şifrə",isSecure: true, text: $vm.currentPasswordText, isRightTextField: $vm.isRightCurrentPassword, errorMessage: $vm.currentPasswordError)
                 
                 //New Password View
-                CustomTextField(placeholder: "Yeni şifrəni təyin edin",title: "Yeni şifrə",isSecure: true, text: $vm.newPasswordText)
+                CustomTextField(placeholder: "Yeni şifrəni təyin edin",title: "Yeni şifrə",isSecure: true, text: $vm.newPasswordText, isRightTextField: $vm.isRightNewPassword, errorMessage: $vm.newPasswordError)
                 
                 //Confirm New Password View
-                CustomTextField(placeholder: "Şifrəni təsdiq edin",title: "Şifrənin təsdiqi",isSecure: true, text: $vm.confirmPasswordtext)
+                CustomTextField(placeholder: "Şifrəni təsdiq edin",title: "Şifrənin təsdiqi",isSecure: true, text: $vm.confirmPasswordText, isRightTextField: $vm.isRightConfirmPassword, errorMessage: $vm.confirmPasswordError)
             }
         }
     }
@@ -76,11 +74,12 @@ struct NewPasswordView: View {
     var renewButtonView: some View {
         CustomButton(style:.rounded,title: "Yenilə", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
         }
-        .disabled(vm.currentPasswordText.isEmpty && vm.newPasswordText.isEmpty && vm.confirmPasswordtext.isEmpty)
+        .disabled(vm.currentPasswordText.isEmpty && vm.newPasswordText.isEmpty && vm.confirmPasswordText.isEmpty && !vm.isRightFields )
     }
+        
     
     var canContinue: Bool {
-        !vm.currentPasswordText.isEmpty && !vm.newPasswordText.isEmpty && !vm.confirmPasswordtext.isEmpty
+        !vm.currentPasswordText.isEmpty && !vm.newPasswordText.isEmpty && !vm.confirmPasswordText.isEmpty && vm.isRightFields
     }
 }
 

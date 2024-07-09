@@ -8,7 +8,7 @@
 import Foundation
 
 
-class NewReqeuestViewModel: ObservableObject {
+class NewQueryViewModel: ObservableObject {
     
     @Published var errorMessage: String? = "Max: 50 simvol"
     
