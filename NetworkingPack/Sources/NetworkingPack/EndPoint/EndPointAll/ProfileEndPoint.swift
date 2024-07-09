@@ -15,7 +15,7 @@ public enum ProfileEndPoint: EndPointProtocol {
     var url: String {
         switch self {
         case .deleteAccount:
-            return "\(baseURL)Users/delete"
+            return "\(baseAuthURL)Users/delete"
         case .changePassword:
             return "SALAM BUNU DEYISH"
         }

@@ -11,11 +11,10 @@ public enum MyQueryEndPoint: EndPointProtocol {
     
     case myquery(String)
     
-    
     var url: String {
         switch self {
         case .myquery(let pageNumber):
-            return "\(baseRequestMS)request/user-requests?page=\(pageNumber)&size=10&sortBy=createDate"
+            return "\(baseRequestMSURL)request/user-requests?page=\(pageNumber)&size=10&sortBy=createDate"
         }
     }
 }
