@@ -81,6 +81,7 @@
 		FB967D252C2584DC002BA572 /* CustomRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D242C2584DC002BA572 /* CustomRowView.swift */; };
 		FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9753F02C19D49F006AF6A5 /* CountdownView.swift */; };
 		FB9ADD9A2C327B6900D5A16B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9ADD992C327B6900D5A16B /* LoadingView.swift */; };
+		FBA207142C3D54D500F15F1B /* FullNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA207132C3D54D500F15F1B /* FullNameModel.swift */; };
 		FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA242C185BDD00BEDA9E /* OTPView.swift */; };
 		FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */; };
 		FBAE3D702C37DED900C12CA2 /* PasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAE3D6F2C37DED900C12CA2 /* PasswordModel.swift */; };
@@ -169,6 +170,7 @@
 		FB967D242C2584DC002BA572 /* CustomRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRowView.swift; sourceTree = "<group>"; };
 		FB9753F02C19D49F006AF6A5 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
 		FB9ADD992C327B6900D5A16B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		FBA207132C3D54D500F15F1B /* FullNameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullNameModel.swift; sourceTree = "<group>"; };
 		FBA4BA242C185BDD00BEDA9E /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OTPTextField.swift; path = "../OTP Screen/OTPTextField.swift"; sourceTree = "<group>"; };
 		FBAE3D6F2C37DED900C12CA2 /* PasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordModel.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 			children = (
 				FB967D1E2C25818B002BA572 /* ProfileModel.swift */,
 				FBAE3D6F2C37DED900C12CA2 /* PasswordModel.swift */,
+				FBA207132C3D54D500F15F1B /* FullNameModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -750,6 +753,7 @@
 				A8BF68142C2F56FE0005AE43 /* CustomNavigationStack.swift in Sources */,
 				FB967D232C2581B6002BA572 /* ProfileViewModel.swift in Sources */,
 				FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */,
+				FBA207142C3D54D500F15F1B /* FullNameModel.swift in Sources */,
 				5F1A84262C33D3F200DF17E5 /* NewQueryViewModel.swift in Sources */,
 				FB967D212C2581A2002BA572 /* ProfileView.swift in Sources */,
 				8C22A9742C1C5F1800B3879B /* HTTPAuthRepository.swift in Sources */,

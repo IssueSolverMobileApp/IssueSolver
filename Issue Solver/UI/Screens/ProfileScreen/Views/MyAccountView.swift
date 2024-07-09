@@ -11,6 +11,8 @@ struct MyAccountView: View {
     
     @StateObject var vm = MyAccountViewModel()
     @Environment (\.dismiss) private var dismiss
+    @EnvironmentObject var router: Router
+    
     
     var body: some View {
         ZStack {
@@ -74,7 +76,6 @@ struct MyAccountView: View {
                RoundedRectangle(cornerRadius: Constants.cornerRadius)
                    .fill(Color(.lightGray.withAlphaComponent(0.2)))
                    .frame(height: 56)
-                   
                
                Text(vm.emailText)
                    .foregroundStyle(.primaryGray)
@@ -83,15 +84,15 @@ struct MyAccountView: View {
            }
        }
   }
-    
     /// saveChangesButtonView
     var saveChangesButtonView: some View {
         CustomButton(style:.rounded,title: "Dəyişiklikləri yadda saxla", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            
+            Task {
+               await vm.updateUserFullName(with: router)
+            }
         }
         .disabled(vm.fullNameText.isEmpty)
     }
-    
     var canContinue: Bool {
         !vm.fullNameText.isEmpty
     }

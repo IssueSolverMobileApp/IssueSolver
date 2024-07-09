@@ -7,9 +7,11 @@
 
 import Foundation
 
+@MainActor
 class MyAccountViewModel: ObservableObject {
     
     private var profileRepository = HTTPProfileRepository()
+    
     
     @Published var fullNameText = "" {
         didSet {
@@ -21,21 +23,38 @@ class MyAccountViewModel: ObservableObject {
     @Published var isRightFullName: Bool = true
     @Published var fullNameError: String? = nil
     
-    
     @MainActor
      func getUserInfo() async {
          profileRepository.getme { [weak self] result in
              guard let self = self else { return }
-             switch result {
-             case .success(let result):
-                 self.fullNameText = result.data?.fullName ?? ""
-                 self.emailText = result.data?.email ?? ""
-                 print(result.data?.fullName ?? "")
-             case .failure(let error):
-                 print(error.localizedDescription)
+             DispatchQueue.main.async {
+                 switch result {
+                 case .success(let result):
+                     self.fullNameText = result.data?.fullName ?? ""
+                     self.emailText = result.data?.email ?? ""
+                     print(result.data?.fullName ?? "")
+                 case .failure(let error):
+                     print(error.localizedDescription)
+                 }
              }
          }
      }
+    
+    func updateUserFullName(with router: Router) async {
+        var item = FullNameModel(fullName: fullNameText)
+        
+        profileRepository.changeFullName(body: item) { [weak self] result in
+            guard self != nil else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    router.dismissView()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
     
     // MARK: - Local Validation Function for FullNameTextfield
     private func validateFullName() {

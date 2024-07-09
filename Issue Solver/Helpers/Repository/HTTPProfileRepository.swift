@@ -38,6 +38,17 @@ final class HTTPProfileRepository {
         }
     }
     
+    /// - Change FullName Function
+    func changeFullName(body: FullNameModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
+        http.PUT(endPoint: EndPoint.profile(.updateFullName), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
+            if let error {
+                completion(.failure(error))
+            }
+            if let data {
+                completion(.success(data))
+            }
+        }
+    }
     
     /// - Change Password Function
     func changePassword(body: PasswordModel, completion: @escaping (Result<SuccessModel, Error>) -> Void){

@@ -23,13 +23,14 @@ class ProfileViewModel: ObservableObject {
     func getFullName() async {
         profileRepository.getme { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case .success(let result):
-                self.fullNameText = result.data?.fullName ?? ""
-                self.emailText = result.data?.email ?? ""
-                print(result.data?.fullName ?? "")
-            case .failure(let error):
-                print(error.localizedDescription)
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    self.fullNameText = result.data?.fullName ?? ""
+                    self.emailText = result.data?.email ?? ""
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
         }
     }
