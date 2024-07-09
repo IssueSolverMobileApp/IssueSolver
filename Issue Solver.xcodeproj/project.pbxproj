@@ -82,6 +82,7 @@
 		FB9753F12C19D49F006AF6A5 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9753F02C19D49F006AF6A5 /* CountdownView.swift */; };
 		FB9ADD9A2C327B6900D5A16B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9ADD992C327B6900D5A16B /* LoadingView.swift */; };
 		FBA207142C3D54D500F15F1B /* FullNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA207132C3D54D500F15F1B /* FullNameModel.swift */; };
+		FBA207162C3D63F200F15F1B /* UpdatePasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA207152C3D63F200F15F1B /* UpdatePasswordModel.swift */; };
 		FBA4BA252C185BDD00BEDA9E /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA242C185BDD00BEDA9E /* OTPView.swift */; };
 		FBA4BA272C185EC100BEDA9E /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */; };
 		FBAE3D702C37DED900C12CA2 /* PasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAE3D6F2C37DED900C12CA2 /* PasswordModel.swift */; };
@@ -171,6 +172,7 @@
 		FB9753F02C19D49F006AF6A5 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
 		FB9ADD992C327B6900D5A16B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		FBA207132C3D54D500F15F1B /* FullNameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullNameModel.swift; sourceTree = "<group>"; };
+		FBA207152C3D63F200F15F1B /* UpdatePasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordModel.swift; sourceTree = "<group>"; };
 		FBA4BA242C185BDD00BEDA9E /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		FBA4BA262C185EC100BEDA9E /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OTPTextField.swift; path = "../OTP Screen/OTPTextField.swift"; sourceTree = "<group>"; };
 		FBAE3D6F2C37DED900C12CA2 /* PasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordModel.swift; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 				FB967D1E2C25818B002BA572 /* ProfileModel.swift */,
 				FBAE3D6F2C37DED900C12CA2 /* PasswordModel.swift */,
 				FBA207132C3D54D500F15F1B /* FullNameModel.swift */,
+				FBA207152C3D63F200F15F1B /* UpdatePasswordModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -714,6 +717,7 @@
 				5F34E5572C399506009A4A77 /* NewQueryInfoViewModel.swift in Sources */,
 				5FD44FAD2C3B1F0A00CC4DEB /* CustomCommentRowView.swift in Sources */,
 				8CA3EB062C1C65DD00514134 /* LoginViewModel.swift in Sources */,
+				FBA207162C3D63F200F15F1B /* UpdatePasswordModel.swift in Sources */,
 				5FE7E11A2C37AC53007879E3 /* MyQueryViewModel.swift in Sources */,
 				A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */,
 				FB5A10332C277FDE00E16828 /* MyAccountView.swift in Sources */,

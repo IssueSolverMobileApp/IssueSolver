@@ -20,7 +20,7 @@ public enum ProfileEndPoint: EndPointProtocol {
         case .updateFullName:
             return "\(baseAuthURL)Users/updatefullname"
         case .changePassword:
-            return "SALAM BUNU DEYISH"
+            return "\(baseAuthURL)Users/updatepassword"    
         }
     }
 }

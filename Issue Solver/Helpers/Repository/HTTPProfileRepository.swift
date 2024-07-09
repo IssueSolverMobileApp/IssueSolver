@@ -27,7 +27,7 @@ final class HTTPProfileRepository {
     }
     
     /// Get Username
-    func getme(completion: @escaping (Result<ProfileSuccessModel, Error>) -> Void) {
+    func getMe(completion: @escaping (Result<ProfileSuccessModel, Error>) -> Void) {
         http.GET(endPoint: EndPoint.auth(.getMe)) { (data: ProfileSuccessModel?, error: Error?) in
             if let error {
                 completion(.failure(error))
@@ -51,15 +51,13 @@ final class HTTPProfileRepository {
     }
     
     /// - Change Password Function
-    func changePassword(body: PasswordModel, completion: @escaping (Result<SuccessModel, Error>) -> Void){
-        
-        http.POST(endPoint: EndPoint.profile(.changePassword), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
+    func changePassword(body: UpdatePasswordModel, completion: @escaping (Result<SuccessModel, Error>) -> Void){
+        http.PUT(endPoint: EndPoint.profile(.changePassword), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
                 if let error {
                     completion(.failure(error))
                 }
                 if let data {
                     completion(.success(data))
-                    
             }
         }
     }

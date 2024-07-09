@@ -22,17 +22,18 @@ class DeleteAccountViewModel: ObservableObject {
     @Published var errorMessage: String? = ""
     @Published var isRightPassword: Bool = true
     
-    @MainActor
-    func deleteAccount(with router: Router) async {
+    func deleteAccount(with router: Router) {
         let item = PasswordModel(password: passwordText)
         profileRepository.deleteAccount(body: item) { [weak self] result in
             guard let self else { return }
-            switch result {
-            case .success(let result):
-                router.popToRoot()
-                print(result.message ?? "")
-            case .failure(let error):
-                self.handleAPIEmailError(error.localizedDescription)
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let result):
+                    router.popToRoot()
+                    print(result.message ?? "")
+                case .failure(let error):
+                    self.handleAPIEmailError(error.localizedDescription)
+                }
             }
         }
     }

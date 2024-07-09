@@ -32,9 +32,7 @@ struct ProfileView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            Task {
-                await vm.getFullName()
-            }
+                vm.getFullName()
         }
     }
     

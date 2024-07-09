@@ -9,19 +9,13 @@ import Foundation
 
 class ProfileViewModel: ObservableObject {
     
-    @Published var emailText: String
-    @Published var fullNameText: String
+    @Published var emailText: String = ""
+    @Published var fullNameText: String = ""
     private var profileRepository = HTTPProfileRepository()
     
-    init(emailText: String = "", fullNameText: String = "", profileRepository: HTTPProfileRepository = HTTPProfileRepository()) {
-        self.emailText = emailText
-        self.fullNameText = fullNameText
-        self.profileRepository = profileRepository
-    }
 
-   @MainActor
-    func getFullName() async {
-        profileRepository.getme { [weak self] result in
+    func getFullName() {
+        profileRepository.getMe { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {

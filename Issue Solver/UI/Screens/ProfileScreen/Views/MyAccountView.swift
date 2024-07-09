@@ -43,9 +43,7 @@ struct MyAccountView: View {
         }
         
         .onAppear {
-            Task {
-                await vm.getUserInfo()
-            }
+                 vm.getUserInfo()
         }
     }
     
@@ -87,9 +85,7 @@ struct MyAccountView: View {
     /// saveChangesButtonView
     var saveChangesButtonView: some View {
         CustomButton(style:.rounded,title: "Dəyişiklikləri yadda saxla", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            Task {
-               await vm.updateUserFullName(with: router)
-            }
+                vm.updateUserFullName(with: router)
         }
         .disabled(vm.fullNameText.isEmpty)
     }

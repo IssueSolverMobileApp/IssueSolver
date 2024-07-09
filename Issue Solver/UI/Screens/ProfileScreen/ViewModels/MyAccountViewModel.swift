@@ -7,11 +7,9 @@
 
 import Foundation
 
-@MainActor
 class MyAccountViewModel: ObservableObject {
     
     private var profileRepository = HTTPProfileRepository()
-    
     
     @Published var fullNameText = "" {
         didSet {
@@ -23,9 +21,9 @@ class MyAccountViewModel: ObservableObject {
     @Published var isRightFullName: Bool = true
     @Published var fullNameError: String? = nil
     
-    @MainActor
-     func getUserInfo() async {
-         profileRepository.getme { [weak self] result in
+
+     func getUserInfo() {
+         profileRepository.getMe { [weak self] result in
              guard let self = self else { return }
              DispatchQueue.main.async {
                  switch result {
@@ -40,14 +38,13 @@ class MyAccountViewModel: ObservableObject {
          }
      }
     
-    func updateUserFullName(with router: Router) async {
-        var item = FullNameModel(fullName: fullNameText)
-        
+    func updateUserFullName(with router: Router) {
+        let item = FullNameModel(fullName: fullNameText)
         profileRepository.changeFullName(body: item) { [weak self] result in
             guard self != nil else { return }
             DispatchQueue.main.async {
                 switch result {
-                case .success(let result):
+                case .success(_):
                     router.dismissView()
                 case .failure(let error):
                     print(error.localizedDescription)
