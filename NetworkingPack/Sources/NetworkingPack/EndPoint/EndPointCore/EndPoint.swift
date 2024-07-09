@@ -26,17 +26,22 @@ public enum EndPoint: EndPointProtocol {
 }
 
 protocol EndPointProtocol {
-    var baseURL: String { get }
-    var baseRequestMS: String { get }
+    var baseAuthURL: String { get }
+    var baseRequestMSURL: String { get }
+    var baseAdminMSURL: String { get }
 }
 
 extension EndPointProtocol {
     
-    var baseURL: String {
-        return "https://govermentauthapi20240610022027.azurewebsites.net/api/"
+    var baseAuthURL: String {
+        return "https://govermentauthapi20240708181106.azurewebsites.net/api/"
     }
     
-    var baseRequestMS: String {
+    var baseRequestMSURL: String {
         return "https://request-ms-d25203bd24ff.herokuapp.com/"
+    }
+    
+    var baseAdminMSURL: String {
+        return "https://adminapi20240708182629.azurewebsites.net/api/"
     }
 }
