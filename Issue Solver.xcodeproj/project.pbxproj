@@ -88,6 +88,7 @@
 		FBAE3D702C37DED900C12CA2 /* PasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAE3D6F2C37DED900C12CA2 /* PasswordModel.swift */; };
 		FBAE3D722C37E47C00C12CA2 /* HTTPProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAE3D712C37E47C00C12CA2 /* HTTPProfileRepository.swift */; };
 		FBC5DB822C36B851002AA056 /* UINavigationController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC5DB812C36B851002AA056 /* UINavigationController + Ext.swift */; };
+		FBCB347A2C3BFA9D00AF5F16 /* TabBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBCB34792C3BFA9D00AF5F16 /* TabBarScreen.swift */; };
 		FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */; };
 		FBE048742C182C5D00C71D2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE048732C182C5D00C71D2D /* Assets.xcassets */; };
 		FBE048772C182C5D00C71D2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE048762C182C5D00C71D2D /* Preview Assets.xcassets */; };
@@ -178,6 +179,7 @@
 		FBAE3D6F2C37DED900C12CA2 /* PasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordModel.swift; sourceTree = "<group>"; };
 		FBAE3D712C37E47C00C12CA2 /* HTTPProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPProfileRepository.swift; sourceTree = "<group>"; };
 		FBC5DB812C36B851002AA056 /* UINavigationController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + Ext.swift"; sourceTree = "<group>"; };
+		FBCB34792C3BFA9D00AF5F16 /* TabBarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarScreen.swift; sourceTree = "<group>"; };
 		FBE0486C2C182C5900C71D2D /* Issue Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Issue Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE0486F2C182C5900C71D2D /* Issue_SolverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue_SolverApp.swift; sourceTree = "<group>"; };
 		FBE048732C182C5D00C71D2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 		FBA4BA1E2C183D2800BEDA9E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				FBCB34782C3BFA7600AF5F16 /* TabBar */,
 				5FB56F0E2C3A875B00671B86 /* QueryDetail */,
 				5FE7E1122C37A971007879E3 /* MyQuery */,
 				8CE6452E2C32A163004A956E /* NewQuery */,
@@ -565,6 +568,14 @@
 				FB967D192C257686002BA572 /* Components */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		FBCB34782C3BFA7600AF5F16 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				FBCB34792C3BFA9D00AF5F16 /* TabBarScreen.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		FBE048632C182C5900C71D2D = {
@@ -722,6 +733,7 @@
 				A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */,
 				FB5A10332C277FDE00E16828 /* MyAccountView.swift in Sources */,
 				8C22A95E2C1C5AB000B3879B /* RegisterModel.swift in Sources */,
+				FBCB347A2C3BFA9D00AF5F16 /* TabBarScreen.swift in Sources */,
 				5FE7E1162C37A98F007879E3 /* MyQueryView.swift in Sources */,
 				5FDBC72B2C3C69E900DF3F20 /* AdaptasionToKeyboard.swift in Sources */,
 				5F4A053B2C39EE6D00574153 /* CustomToggleLikeStyle.swift in Sources */,
