@@ -21,9 +21,7 @@ struct NewPasswordView: View {
                         titleView
                         textFieldView
                     }
-                // .padding(.top, 24)
                     renewButtonView
-                
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)

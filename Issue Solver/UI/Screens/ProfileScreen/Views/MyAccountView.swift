@@ -39,6 +39,12 @@ struct MyAccountView: View {
                 backButtonView
             }
         }
+        
+        .onAppear {
+            Task {
+                await vm.getUserInfo()
+            }
+        }
     }
     
    ///Back Button View
@@ -56,7 +62,7 @@ struct MyAccountView: View {
     /// Textfield View
     
     var fullNameTextFieldView: some View {
-        CustomTextField(placeholder: "İRADƏ BƏKİRLİ",title: "Ad, soyad", text: $vm.fullNameText, isRightTextField: $vm.isRightFullName, errorMessage: $vm.fullNameError)
+        CustomTextField(placeholder: "Name Surname",title: "Ad, soyad", text: $vm.fullNameText, isRightTextField: $vm.isRightFullName, errorMessage: $vm.fullNameError)
       }
     
    var emailTextView: some View {
@@ -70,7 +76,7 @@ struct MyAccountView: View {
                    .frame(height: 56)
                    
                
-               Text("salam")
+               Text(vm.emailText)
                    .foregroundStyle(.primaryGray)
                    .padding(.horizontal, 16)
                    .jakartaFont(.subtitle)

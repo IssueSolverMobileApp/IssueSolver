@@ -9,9 +9,15 @@ import Foundation
 
 class ProfileViewModel: ObservableObject {
     
-    @Published var emailText: String = ""
-    @Published var fullNameText: String = ""
+    @Published var emailText: String
+    @Published var fullNameText: String
     private var profileRepository = HTTPProfileRepository()
+    
+    init(emailText: String = "", fullNameText: String = "", profileRepository: HTTPProfileRepository = HTTPProfileRepository()) {
+        self.emailText = emailText
+        self.fullNameText = fullNameText
+        self.profileRepository = profileRepository
+    }
 
    @MainActor
     func getFullName() async {
