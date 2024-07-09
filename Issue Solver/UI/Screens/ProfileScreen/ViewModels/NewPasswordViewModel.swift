@@ -52,6 +52,7 @@ class NewPasswordViewModel: ObservableObject {
                     router.dismissView()
                 case .failure(let error):
                     print(error.localizedDescription)
+                    self?.handleAPIEmailError(error.localizedDescription)
                 }
             }
         }

@@ -85,6 +85,7 @@ struct MyAccountView: View {
     /// saveChangesButtonView
     var saveChangesButtonView: some View {
         CustomButton(style:.rounded,title: "Dəyişiklikləri yadda saxla", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+            
                 vm.updateUserFullName(with: router)
         }
         .disabled(vm.fullNameText.isEmpty)
