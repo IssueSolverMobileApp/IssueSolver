@@ -10,11 +10,14 @@ import Foundation
 public enum ProfileEndPoint: EndPointProtocol {
     
     case deleteAccount
+    case changePassword
     
     var url: String {
         switch self {
         case .deleteAccount:
             return "\(baseURL)Users/delete"
+        case .changePassword:
+            return "SALAM BUNU DEYISH"
         }
     }
 }

@@ -53,10 +53,8 @@ class RegisterViewModel: ObservableObject {
     @Published var fullNameError: String? = nil
     
     /// - For navigating to other views
-    @Published var navigateOTPView: Bool = false
     @Published var isChecked: Bool = false
     @Published var showCheckboxError: Bool = false
-    
     @Published var isLoading: Bool = false
     
     

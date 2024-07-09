@@ -19,7 +19,6 @@ class DeleteAccountViewModel: ObservableObject {
                 errorMessage = "" }
         }
     }
-    @Published var success: Bool = false
     @Published var errorMessage: String? = ""
     @Published var isRightPassword: Bool = true
     
