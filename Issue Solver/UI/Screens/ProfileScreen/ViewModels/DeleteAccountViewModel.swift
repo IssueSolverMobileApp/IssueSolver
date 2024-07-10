@@ -14,13 +14,13 @@ class DeleteAccountViewModel: ObservableObject {
     
     @Published var passwordText = "" {
         didSet {
-            if passwordText.isEmpty {
-                isRightPassword = true
-                errorMessage = "" }
+            validatePassword()
+            }
         }
-    }
-    @Published var errorMessage: String? = ""
+    
     @Published var isRightPassword: Bool = true
+    @Published var hasTappedPassword = false
+    @Published var passwordError: String? = nil
     
     func deleteAccount(with router: Router) {
         let item = PasswordModel(password: passwordText)
@@ -38,9 +38,25 @@ class DeleteAccountViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Local Validation Function for FullNameTextfield
+    private func validatePassword() {
+        if !passwordText.isEmpty {
+            hasTappedPassword = true
+        }
+        if hasTappedPassword {
+            if passwordText.isEmpty {
+                passwordError = "Şifrə boş ola bilməz"
+                isRightPassword = false
+            } else {
+                passwordError = nil
+                isRightPassword = true
+            }
+        }
+    }
+    
     // MARK: - For Showing Error that Comes From API
     func handleAPIEmailError(_ error: String) {
            isRightPassword = false
-            errorMessage = error
+            passwordError = error
     }
 }

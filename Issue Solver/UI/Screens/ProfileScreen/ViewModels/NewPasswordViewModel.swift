@@ -48,7 +48,7 @@ class NewPasswordViewModel: ObservableObject {
             guard self != nil else { return }
             DispatchQueue.main.async {
                 switch result {
-                case .success(let result):
+                case .success(_):
                     router.dismissView()
                 case .failure(let error):
                     print(error.localizedDescription)
