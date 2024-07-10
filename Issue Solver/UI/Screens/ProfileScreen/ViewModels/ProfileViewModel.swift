@@ -9,10 +9,9 @@ import Foundation
 
 class ProfileViewModel: ObservableObject {
     
+    private var profileRepository = HTTPProfileRepository()
     @Published var emailText: String = ""
     @Published var fullNameText: String = ""
-    private var profileRepository = HTTPProfileRepository()
-    
 
     func getFullName() {
         profileRepository.getMe { [weak self] result in

@@ -26,6 +26,8 @@ struct NewPasswordView: View {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)
+            
+            LoadingView(isLoading: vm.isLoading)
         }
         .onTapGesture {
             hideKeyboard()

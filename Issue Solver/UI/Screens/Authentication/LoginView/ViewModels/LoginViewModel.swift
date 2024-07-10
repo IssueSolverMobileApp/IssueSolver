@@ -69,16 +69,16 @@ class LoginViewModel: ObservableObject {
             errorMessage = error
     }
   
-    func getMe() {
-        let token = UserDefaults.standard.accessToken
-        print(token ?? "" + "--------------------------")
-        authRepository.getme { result in
-            switch result {
-            case .success(let success):
-                print(success.data)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
+//    func getMe() {
+//        let token = UserDefaults.standard.accessToken
+//        print(token ?? "" + "--------------------------")
+//        authRepository.getme { result in
+//            switch result {
+//            case .success(let success):
+//                print(success.data)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
 }

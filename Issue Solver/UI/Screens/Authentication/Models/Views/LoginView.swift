@@ -34,12 +34,8 @@ struct LoginView: View {
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
-    }
-        .background {
-            NavigationLink(destination: ProfileView(), isActive: $vm.navigateToProfileView, label: {})
-        }
-    }
-    
+     }
+   }
     
         // MARK: - TitleView
     var titleView: some View {
@@ -80,7 +76,8 @@ struct LoginView: View {
                             }
                         case false:
                                 let item = EmailModel(email: vm.emailText)
-                                router.navigate { OTPView(emailModel: item, isChangePassword: false) }
+                            router.navigate { OTPView(emailModel: item, isChangePassword: false)
+                            }
                         }
                     }
                 }

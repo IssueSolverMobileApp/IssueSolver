@@ -25,6 +25,8 @@ struct DeleteAccountView: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 24)
+            
+            LoadingView(isLoading: vm.isLoading)
         }
         .onTapGesture {
             hideKeyboard()
@@ -52,7 +54,7 @@ struct DeleteAccountView: View {
     ///  Password Textfield View
     var textFieldView: some View {
 
-        CustomTextField(placeholder: "***********",title: "Şifrə",isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.errorMessage)
+        CustomTextField(placeholder: "***********",title: "Şifrə",isSecure: true, text: $vm.passwordText, isRightTextField: $vm.isRightPassword, errorMessage: $vm.passwordError)
     }
 
     /// saveChangesButtonView
