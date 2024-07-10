@@ -15,7 +15,7 @@
 		5FB56F152C3A901600671B86 /* QueryCommentBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB56F142C3A901600671B86 /* QueryCommentBottomSheetView.swift */; };
 		5FD44FAD2C3B1F0A00CC4DEB /* CustomCommentRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD44FAC2C3B1F0900CC4DEB /* CustomCommentRowView.swift */; };
 		5FDBC72B2C3C69E900DF3F20 /* AdaptasionToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBC72A2C3C69E900DF3F20 /* AdaptasionToKeyboard.swift */; };
-		5FDBC7312C3D0FB500DF3F20 /* HTTPMyQueryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBC7302C3D0FB500DF3F20 /* HTTPMyQueryRepository.swift */; };
+		5FDBC7312C3D0FB500DF3F20 /* HTTPQueryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBC7302C3D0FB500DF3F20 /* HTTPQueryRepository.swift */; };
 		5FDBC7332C3D149C00DF3F20 /* QueryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBC7322C3D149C00DF3F20 /* QueryModel.swift */; };
 		5FE7E1162C37A98F007879E3 /* MyQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE7E1152C37A98F007879E3 /* MyQueryView.swift */; };
 		5FE7E11A2C37AC53007879E3 /* MyQueryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE7E1192C37AC53007879E3 /* MyQueryViewModel.swift */; };
@@ -104,7 +104,7 @@
 		5FB56F142C3A901600671B86 /* QueryCommentBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryCommentBottomSheetView.swift; sourceTree = "<group>"; };
 		5FD44FAC2C3B1F0900CC4DEB /* CustomCommentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCommentRowView.swift; sourceTree = "<group>"; };
 		5FDBC72A2C3C69E900DF3F20 /* AdaptasionToKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptasionToKeyboard.swift; sourceTree = "<group>"; };
-		5FDBC7302C3D0FB500DF3F20 /* HTTPMyQueryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMyQueryRepository.swift; sourceTree = "<group>"; };
+		5FDBC7302C3D0FB500DF3F20 /* HTTPQueryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPQueryRepository.swift; sourceTree = "<group>"; };
 		5FDBC7322C3D149C00DF3F20 /* QueryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryModel.swift; sourceTree = "<group>"; };
 		5FE7E1152C37A98F007879E3 /* MyQueryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQueryView.swift; sourceTree = "<group>"; };
 		5FE7E1192C37AC53007879E3 /* MyQueryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQueryViewModel.swift; sourceTree = "<group>"; };
@@ -340,7 +340,7 @@
 			children = (
 				8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */,
 				FBAE3D712C37E47C00C12CA2 /* HTTPProfileRepository.swift */,
-				5FDBC7302C3D0FB500DF3F20 /* HTTPMyQueryRepository.swift */,
+				5FDBC7302C3D0FB500DF3F20 /* HTTPQueryRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -759,7 +759,7 @@
 				FBEA6C9F2C1C16BB008953CB /* PasswordChangeView.swift in Sources */,
 				FB55BD652C1B0D7100F81FDB /* Fonts + Ext.swift in Sources */,
 				8C22A9662C1C5B1200B3879B /* EmailModel.swift in Sources */,
-				5FDBC7312C3D0FB500DF3F20 /* HTTPMyQueryRepository.swift in Sources */,
+				5FDBC7312C3D0FB500DF3F20 /* HTTPQueryRepository.swift in Sources */,
 				8C22A9642C1C5B0300B3879B /* OTPModel.swift in Sources */,
 				8CE645362C32A254004A956E /* NewQueryView.swift in Sources */,
 				8C55350A2C3413A90084B18B /* CustomPickerView.swift in Sources */,

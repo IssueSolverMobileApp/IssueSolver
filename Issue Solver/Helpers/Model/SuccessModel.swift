@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: - SuccessModel
 struct SuccessModel: Codable {
+    let data, message: String?
     let success: Bool?
-    let status: Int?
-    let message: String?
 }

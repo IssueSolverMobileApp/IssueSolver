@@ -17,12 +17,13 @@ struct CustomPostRowView: View {
     var postToGovernmentName: String
     var userName: String
     var postStatus: String
+    var categoryName: String
     
     let commentHandler: () -> Void
     
     @Binding var isLiked: Bool
     
-    init(postText: String, isDetailView: Bool, likeCount: String? = nil, commentCount: String? = nil, postToGovernmentName: String, userName: String, postStatus: String, isLiked: Binding<Bool>, commentHandler: @escaping () -> Void) {
+    init(postText: String, isDetailView: Bool, likeCount: String? = nil, commentCount: String? = nil, postToGovernmentName: String, userName: String, postStatus: String, isLiked: Binding<Bool>,categoryName: String, commentHandler: @escaping () -> Void) {
         self.postText = postText
         self.isDetailView = isDetailView
         self.likeCount = likeCount
@@ -31,6 +32,7 @@ struct CustomPostRowView: View {
         self.userName = userName
         self.postStatus = postStatus
         self._isLiked = isLiked
+        self.categoryName = categoryName
         self.commentHandler = commentHandler
     }
     
@@ -84,7 +86,7 @@ struct CustomPostRowView: View {
         VStack(alignment: .leading,spacing: 16) {
             
             ZStack {
-                Text("Küçə heyvanlarına qarşı zorbalıq")
+                Text(categoryName)
                     .jakartaFont(.subtitle2)
                     .foregroundStyle(.disabledGray)
             }
