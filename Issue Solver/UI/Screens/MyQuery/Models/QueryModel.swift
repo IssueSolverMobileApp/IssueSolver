@@ -7,15 +7,17 @@
 
 import Foundation
 
-// MARK: - MyQueryModel
+// MARK: - QueryModel
 struct QueryModel: Codable {
     let data: [QueryDataModel]?
     let message: String?
     let success: Bool?
-}
+    }
 
-// MARK: - Datum
-struct QueryDataModel: Codable {
+
+// MARK: - QueryDataModel
+struct QueryDataModel: Codable, Identifiable {
+    let id = UUID()
     let requestID: Int?
     let fullName, email, address, description: String?
     let status, organizationName, createDate, lastModified: String?
@@ -30,7 +32,7 @@ struct QueryDataModel: Codable {
     }
 }
 
-// MARK: - Category
+// MARK: - QueryCategoryModel
 struct QueryCategoryModel: Codable {
     let categoryID: Int?
     let categoryName, createDate, lastModified: String?
@@ -41,7 +43,7 @@ struct QueryCategoryModel: Codable {
     }
 }
 
-// MARK: - Comment
+// MARK: - QueryCommentModel
 struct QueryCommentModel: Codable {
     let commentID: Int?
     let fullName, email: String?
@@ -54,7 +56,7 @@ struct QueryCommentModel: Codable {
     }
 }
 
-// MARK: - Like
+// MARK: - QueryLikeModel
 struct QueryLikeModel: Codable {
     let likeID: Int?
     let fullName, email: String?
@@ -66,3 +68,12 @@ struct QueryLikeModel: Codable {
         case fullName, email, likeCount, createDate, lastModified
     }
 }
+
+
+// MARK: - LikeSuccessModel
+struct LikeSuccessModel: Codable {
+    let data: QueryLikeModel?
+    let message: String?
+    let success: Bool?
+}
+

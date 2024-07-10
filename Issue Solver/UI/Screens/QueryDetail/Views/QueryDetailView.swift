@@ -24,7 +24,7 @@ struct QueryDetailView: View {
             Color.surfaceBackground.ignoresSafeArea()
             ScrollView {
                 VStack {
-                    CustomPostRowView(postText: "postText", isDetailView: true, postToGovernmentName: "Daxili İşlər Nazirliyi", userName: "Valeh Amirov", postStatus: "Gözləmədə", isLiked: $isLike) {
+                    CustomPostRowView(postText: "postText", isDetailView: true, postToGovernmentName: "Daxili İşlər Nazirliyi", userName: "Valeh Amirov", postStatus: "Gözləmədə", isLiked: $isLike, categoryName: "") {
                         isPresented.toggle()
                     }
                     .fullScreenCover(isPresented: $isPresented, content: {
