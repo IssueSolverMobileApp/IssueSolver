@@ -20,11 +20,16 @@ class MyAccountViewModel: ObservableObject {
     @Published var hasTappedFullName = false
     @Published var isRightFullName: Bool = true
     @Published var fullNameError: String? = nil
+    @Published var isLoading: Bool = false
     
 
      func getUserInfo() {
+         isLoading = true
+         
          profileRepository.getMe { [weak self] result in
-             guard let self = self else { return }
+             guard let self else { return }
+             isLoading = false
+             
              DispatchQueue.main.async {
                  switch result {
                  case .success(let result):

@@ -31,6 +31,8 @@ struct MyAccountView: View {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
+            
+            LoadingView(isLoading: vm.isLoading)
         }
         .onTapGesture {
             hideKeyboard()
@@ -41,7 +43,6 @@ struct MyAccountView: View {
                 backButtonView
             }
         }
-        
         .onAppear {
                  vm.getUserInfo()
         }

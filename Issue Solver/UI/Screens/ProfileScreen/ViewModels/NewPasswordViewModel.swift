@@ -41,18 +41,22 @@ class NewPasswordViewModel: ObservableObject {
     @Published var newPasswordError: String? = nil
     @Published var confirmPasswordError: String? = nil
     
+    @Published var isLoading: Bool = false
     
     func updateUserPassword(with router: Router) {
+        isLoading = true
         let item = UpdatePasswordModel(currentPassword: currentPasswordText, password: newPasswordText, confirmPassword: confirmPasswordText)
         profileRepository.changePassword(body: item) { [weak self] result in
-            guard self != nil else { return }
+            guard let  self else { return }
+            self.isLoading = false
+            
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
                     router.dismissView()
                 case .failure(let error):
                     print(error.localizedDescription)
-                    self?.handleAPIEmailError(error.localizedDescription)
+                    self.handleAPIEmailError(error.localizedDescription)
                 }
             }
         }

@@ -17,15 +17,19 @@ class DeleteAccountViewModel: ObservableObject {
             validatePassword()
             }
         }
-    
     @Published var isRightPassword: Bool = true
     @Published var hasTappedPassword = false
     @Published var passwordError: String? = nil
+    @Published var isLoading: Bool = false
     
     func deleteAccount(with router: Router) {
+        isLoading = true
+        
         let item = PasswordModel(password: passwordText)
         profileRepository.deleteAccount(body: item) { [weak self] result in
             guard let self else { return }
+            isLoading = false
+            
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):

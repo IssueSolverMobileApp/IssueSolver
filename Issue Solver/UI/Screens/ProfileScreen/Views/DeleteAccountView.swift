@@ -25,6 +25,8 @@ struct DeleteAccountView: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 24)
+            
+            LoadingView(isLoading: vm.isLoading)
         }
         .onTapGesture {
             hideKeyboard()
