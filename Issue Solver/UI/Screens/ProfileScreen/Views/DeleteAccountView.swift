@@ -59,9 +59,7 @@ struct DeleteAccountView: View {
     var deleteAccountButtonView: some View {
         
         CustomButton(style:.rounded,title: "Hesabı sil", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
-            Task {
-                await vm.deleteAccount(with: router)
-            }
+                 vm.deleteAccount(with: router)
         }
         .disabled(vm.passwordText.isEmpty)
     }
