@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5F1A84262C33D3F200DF17E5 /* NewQueryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1A84252C33D3F200DF17E5 /* NewQueryViewModel.swift */; };
 		5F34E5572C399506009A4A77 /* NewQueryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D9DC52C3672720050342A /* NewQueryInfoViewModel.swift */; };
+		5F474AE42C3E6E7C004E32DA /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F474AE32C3E6E7C004E32DA /* Auth.swift */; };
 		5F4A053B2C39EE6D00574153 /* CustomToggleLikeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A053A2C39EE6D00574153 /* CustomToggleLikeStyle.swift */; };
 		5F4A053D2C39EEEE00574153 /* CustomPostRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A053C2C39EEEE00574153 /* CustomPostRowView.swift */; };
 		5FB56F132C3A87E500671B86 /* QueryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB56F122C3A87E500671B86 /* QueryDetailView.swift */; };
@@ -98,6 +99,7 @@
 
 /* Begin PBXFileReference section */
 		5F1A84252C33D3F200DF17E5 /* NewQueryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQueryViewModel.swift; sourceTree = "<group>"; };
+		5F474AE32C3E6E7C004E32DA /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		5F4A053A2C39EE6D00574153 /* CustomToggleLikeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleLikeStyle.swift; sourceTree = "<group>"; };
 		5F4A053C2C39EEEE00574153 /* CustomPostRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPostRowView.swift; sourceTree = "<group>"; };
 		5FB56F122C3A87E500671B86 /* QueryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryDetailView.swift; sourceTree = "<group>"; };
@@ -209,6 +211,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		5F474AE22C3E6E64004E32DA /* AuthManager */ = {
+			isa = PBXGroup;
+			children = (
+				5F474AE32C3E6E7C004E32DA /* Auth.swift */,
+			);
+			path = AuthManager;
+			sourceTree = "<group>";
+		};
 		5FB56F0E2C3A875B00671B86 /* QueryDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +281,7 @@
 		6F36E0202C1C3B0800C41257 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5F474AE22C3E6E64004E32DA /* AuthManager */,
 				8C264F422C2405B400FDAAE3 /* Model */,
 				8C22A9722C1C5F1000B3879B /* Repository */,
 				8C22A9672C1C5E4100B3879B /* DataManager */,
@@ -704,6 +715,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F474AE42C3E6E7C004E32DA /* Auth.swift in Sources */,
 				FB5A102F2C2771B400E16828 /* NewPasswordView.swift in Sources */,
 				8CA3EB082C1C67EF00514134 /* EmailVerificationViewModel.swift in Sources */,
 				8C22A9602C1C5AD800B3879B /* LoginModel.swift in Sources */,

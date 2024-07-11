@@ -20,19 +20,19 @@ class MyQueryViewModel: ObservableObject {
         self.queryData = queryData
     }
     
-    @MainActor
-    func getQuery() async {
-        queryRepository.getMyQuery(pageCount: "\(pageCount)") { result in
-            switch result {
-            case .success(let success):
-                if !((success.data?.isEmpty) != nil) {
-                    self.queryData.append(contentsOf: success.data ?? [])
-                    self.pageCount += 1
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        
-    }
+//    @MainActor
+//    func getQuery() async {
+//        queryRepository.getMyQuery(pageCount: "\(pageCount)") { result in
+//            switch result {
+//            case .success(let success):
+//                if !((success.data?.isEmpty) != nil) {
+//                    self.queryData.append(contentsOf: success.data ?? [])
+//                    self.pageCount += 1
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//        
+//    }
 }
