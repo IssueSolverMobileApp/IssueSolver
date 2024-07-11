@@ -1,5 +1,5 @@
 //
-//  CustomTabBar.swift
+//  TabBarView.swift
 //  Issue Solver
 //
 //  Created by Irada Bakirli on 11.07.24.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct CustomTabBar: View {
+struct TabBarView: View {
     
-    @State var currentTab: Tab = .Home
+    @State var currentTab: Tab = .homeIcon
     
     init() {
         UITabBar.appearance().isHidden = true
@@ -28,19 +28,19 @@ struct CustomTabBar: View {
         TabView(selection: $currentTab) {
             
             Color.red.ignoresSafeArea()
-                .tag(Tab.Home)
+                .tag(Tab.homeIcon)
             
-            Color.gray.ignoresSafeArea()
-                .tag(Tab.MyQuery)
+            MyQueryView()
+                .tag(Tab.queryIcon)
             
-            Color.yellow.ignoresSafeArea()
-                .tag(Tab.NewQuery)
+           NewQueryView()
+                .tag(Tab.addIcon)
             
             Color.green.ignoresSafeArea()
-                .tag(Tab.Interactions)
+                .tag(Tab.interactionsIcon)
             
-            Color.pink.ignoresSafeArea()
-                .tag(Tab.Profile)
+            ProfileView()
+                .tag(Tab.profileIcon)
             
         }
         /// - Curved Tab Bar
@@ -49,22 +49,20 @@ struct CustomTabBar: View {
                 
                 ForEach(Tab.allCases, id: \.rawValue) { tab in
                     TabButton(tab: tab)
-                    
+
                 }
-                
             }
                 .padding(.vertical)
                 .padding(.bottom, getSafeArea().bottom == 0 ? 10 : (getSafeArea().bottom))
                 .background(
                     Color.white
                         .clipShape(BottomCurve(currentXValue: currentXValue))
+
                 )
             , alignment: .bottom
         )
         .ignoresSafeArea(.all, edges: .bottom)
     }
-    
-
     
     /// - Tab Button
     @ViewBuilder
@@ -73,9 +71,8 @@ struct CustomTabBar: View {
         GeometryReader { proxy in
             
             Button {
-                withAnimation(.smooth) {
+                withAnimation(.spring(response: 0.8, dampingFraction: 0.8, blendDuration: 0.25)) {
                     currentTab = tab
-                    
                     currentXValue = proxy.frame(in: .global).midX
                 }
             } label: {
@@ -99,7 +96,7 @@ struct CustomTabBar: View {
                     
                     )
                     .contentShape(Rectangle())
-                    .offset(y: currentTab == tab ? -16 : 0)
+                    .offset(y: currentTab == tab ? -25 : 0)
             }
             .onAppear {
                 
@@ -110,21 +107,9 @@ struct CustomTabBar: View {
                 
             }
         }
-        .frame(height: 30)
+        .frame(height: 20)
     }
 }
-
-
-
-
-enum Tab: String, CaseIterable {
-    case Home = "homeIcon"
-    case MyQuery = "queryIcon"
-    case NewQuery = "addIcon"
-    case Interactions = "interactionsIcon"
-    case Profile = "profileIcon"
-}
-
 
 extension View {
    
@@ -140,3 +125,4 @@ extension View {
         return safeArea
     }
 }
+
