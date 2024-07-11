@@ -12,6 +12,8 @@ public final class HTTPClient {
     private init() {}
     public static let shared = HTTPClient()
     
+    private var refreshTokenRequestCount: Int = 0
+    
     let header: [String: String] = ["accept": "*/*", "Content-Type": "application/json"]
     
     /// it is generic function which is  send request to API and return us information
@@ -22,12 +24,13 @@ public final class HTTPClient {
     private func request<T: Decodable>(endPoint: EndPoint, method: HTTPMethod, body: Data?, completion: @escaping(T?, Error?) -> Void) {
         guard var url = URLComponents(string: endPoint.url) else {
             print(NetworkError.badUrl)
+            completion(nil, NetworkError.badUrl)
             return
         }
         
         setQueryItem(url: &url)
 
-        guard let url = url.url else { return }
+        guard let url = url.url else { completion(nil, NetworkError.badUrl); return }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
@@ -44,10 +47,9 @@ public final class HTTPClient {
         setAccessToken(urlRequest: &urlRequest)
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            
             self.checkError(error: error, completion: completion)
             self.checkStatus(endPoint: endPoint, response: response, data: data, urlRequest: urlRequest, method: method, completion: completion)
-            
+            return
         }.resume()
     }
     
@@ -64,6 +66,7 @@ public final class HTTPClient {
                     completion(nil, NetworkError.noInternetConnection)
                 }
             }
+            return
         }
     }
     
@@ -72,50 +75,8 @@ public final class HTTPClient {
 
         if let response = response as? HTTPURLResponse {
             guard response.statusCode == 200 || response.statusCode == 201 else {
-                do {
-                    if let httpBody = urlRequest.httpBody {
-                        print(try JSONSerialization.jsonObject(with: httpBody))
-                    }
-                    print("\(method.rawValue)", response)
-                                        
-                    guard let data = data else { throw NetworkError.badParsing }
-                    if let result = String(data: data, encoding: .utf8) {
-                        print(result)
-                    }
-                    
-                    if response.statusCode == 401 {
-                        sendRefreshToken { result in
-                            switch result {
-                            case .success(let model):
-                                UserDefaults.standard.accessToken = model.data
-                                self.sendNew(urlRequest: urlRequest, endPoint: endPoint, method: method, completion: completion)
-                            case .failure(_):
-                                completion(nil, NetworkError.refreshTokenTimeIsOver)
-                            }
-                        }
-                        return
-                    }
-                    let errorDecode = try JSONDecoder().decode(ErrorModel.self, from: data)
-                    
-                    switch response.statusCode {
-                    case 400:
-                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
-                        return
-                    case 402...403:
-                        completion(nil, NetworkError.unauthorization)
-                    case 404:
-                        completion(nil, NetworkError.badRequest(errorDecode.message ?? "Unknown problem"))
-                    case 409:
-                        completion(nil, NetworkError.statusCode("\(response.statusCode)"))
-                    case 500:
-                        completion(nil, NetworkError.unauthorization)
-                    default:
-                        completion(nil, NetworkError.statusError)
-                    }
-                }
-                catch {
-                    print(error)
-                }
+                debugData(response: response, data: data, urlRequest: urlRequest, method: method)
+                handleError(endPoint: endPoint, response: response, data: data, urlRequest: urlRequest, method: method, completion: completion)
                 return
             }
             
@@ -170,13 +131,16 @@ public final class HTTPClient {
 //    MARK: Send refresh
     func sendRefreshToken(completion: @escaping(Result<RefreshTokenSuccessModel, Error>) -> Void) {
         UserDefaults.standard.accessToken = nil
-        guard let refreshToken = UserDefaults.standard.refreshToken else { return }
+        guard let refreshToken = UserDefaults.standard.refreshToken else {
+            completion(.failure(NetworkError.unauthorization));
+            return }
         do {
             let body = RefreshTokenModel(token: refreshToken)
             let encode = try JSONEncoder().encode(body)
             POST(endPoint: EndPoint.auth(.loginRefreshToken), body: encode) { (data: RefreshTokenSuccessModel?, error: Error?) in
                 if let error {
-                    completion(.failure(error))
+                    completion(.failure(NetworkError.unauthorization))
+                    print(error.localizedDescription)
                 }
                 
                 if let data {
@@ -186,6 +150,7 @@ public final class HTTPClient {
             }
         }
         catch {
+            completion(.failure(NetworkError.unauthorization))
             print(error.localizedDescription)
         }
     }
@@ -249,6 +214,8 @@ extension HTTPClient {
             
             if let result = data {
                 completion(result, nil)
+            } else {
+                completion(nil, NetworkError.corruptedData)
             }
         }
     }
@@ -278,6 +245,69 @@ extension HTTPClient {
             if let result = data {
                 completion(result, nil)
             }
+        }
+    }
+}
+
+extension HTTPClient {
+    private func handleError<T: Decodable>(endPoint: EndPoint, response: HTTPURLResponse, data: Data?, urlRequest: URLRequest, method: HTTPMethod, completion: @escaping(T?, Error?) -> Void){
+        do {
+        guard let data = data else { return completion(nil, NetworkError.badParsing) }
+//            debugData(response: response, data: data, urlRequest: urlRequest, method: method)
+            
+            let errorDecode = try JSONDecoder().decode(ErrorModel.self, from: data)
+            
+            switch response.statusCode {
+            case 400:
+                completion(nil, NetworkError.badRequest(errorDecode.message ?? ""))
+                return
+            case 401:
+                if endPoint.url != AuthEndPoint.loginRefreshToken.url {
+                    handleUnauthorized(endPoint: endPoint, urlRequest: urlRequest, method: method, completion: completion)
+                } else {
+                    completion(nil, NetworkError.unauthorization)
+                }
+            case 402...403:
+                completion(nil, NetworkError.unauthorization)
+            case 404:
+                completion(nil, NetworkError.badRequest(errorDecode.message ?? ""))
+            case 409:
+                completion(nil, NetworkError.statusCode("\(response.statusCode)"))
+            case 500:
+                completion(nil, NetworkError.unauthorization)
+            default:
+                completion(nil, NetworkError.statusError)
+            }
+        }
+        catch {
+            completion(nil, NetworkError.badParsing)
+        }
+//
+    }
+    private func handleUnauthorized<T: Decodable>(endPoint: EndPoint, urlRequest: URLRequest, method: HTTPMethod, completion: @escaping(T?, Error?) -> Void){
+        sendRefreshToken { result in
+            switch result {
+            case .success(_):
+                self.sendNew(urlRequest: urlRequest, endPoint: endPoint, method: method, completion: completion)
+            case .failure(let error):
+                if let networkError = error as? NetworkError , case NetworkError.unauthorization = networkError {
+                    completion(nil, NetworkError.refreshTokenTimeIsOver)
+                } else {
+                    self.refreshTokenRequestCount += 1
+                }
+                print("---------\(self.refreshTokenRequestCount)---------")
+            }
+        }
+    }
+    
+    private func debugData(response: HTTPURLResponse, data: Data?, urlRequest: URLRequest, method: HTTPMethod){
+        if let httpBody = urlRequest.httpBody {
+            print((try? JSONSerialization.jsonObject(with: httpBody)) ?? "CANNOT HANDLE TRY")
+        }
+        print("\(method.rawValue)", response)
+                            
+        if let data, let result = String(data: data, encoding: .utf8) {
+            print(result)
         }
     }
 }

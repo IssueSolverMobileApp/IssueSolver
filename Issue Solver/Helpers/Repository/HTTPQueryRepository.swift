@@ -13,8 +13,8 @@ final class HTTPQueryRepository {
     
     private var http: HTTPClient = .shared
     
-    func getMyQuery(pageCount: String, completion: @escaping (Result<QueryModel, Error>) -> Void) {
-        http.GET(endPoint: EndPoint.myQuery(.myquery(pageCount))) { (data: QueryModel?,error: Error? ) in
+    func getMyQueries(pageCount: String, completion: @escaping (Result<QueryModel, Error>) -> Void) {
+        http.GET(endPoint: EndPoint.myQuery(.myqueries(pageCount))) { (data: QueryModel?,error: Error? ) in
             if let error {
                 completion(.failure(error))
             }
@@ -25,8 +25,8 @@ final class HTTPQueryRepository {
         }
     }
     
-    func postLike(postID: String, completion: @escaping(Result<LikeSuccessModel, Error>) -> Void) {
-        http.POST(endPoint: EndPoint.myQuery(.likePost(postID)), body: nil) { (data: LikeSuccessModel?, error: Error? )in
+    func postLike(queryID: String, completion: @escaping(Result<SuccessModel, Error>) -> Void) {
+        http.POST(endPoint: EndPoint.myQuery(.likePost(queryID)), body: nil) { (data: SuccessModel?, error: Error? )in
             if let error {
                 completion(.failure(error))
             }
@@ -38,8 +38,8 @@ final class HTTPQueryRepository {
     }
     
     
-    func deleteLike(likeID: String, completion: @escaping(Result<SuccessModel, Error>) -> Void) {
-        http.POST(endPoint: EndPoint.myQuery(.likeDelete(likeID)), body: nil) { (data: SuccessModel?, error: Error? )in
+    func deleteLike(queryID: String, completion: @escaping(Result<SuccessModel, Error>) -> Void) {
+        http.POST(endPoint: EndPoint.myQuery(.likeDelete(queryID)), body: nil) { (data: SuccessModel?, error: Error? )in
            
             if let error {
                 completion(.failure(error))
@@ -51,4 +51,8 @@ final class HTTPQueryRepository {
         }
     }
 
+//    
+//    func getMyQuery(queryID: String, completion: @escaping(SuccessModel, Error)) {
+//        http.POST(endPoint: EndPoint.m, body: <#T##Data?#>, completion: <#T##(Decodable?, (any Error)?) -> Void#>)
+//    }
 }
