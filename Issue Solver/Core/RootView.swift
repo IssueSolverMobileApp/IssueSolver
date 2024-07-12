@@ -12,7 +12,7 @@ struct RootView: View {
     @EnvironmentObject var auth: AuthManager
     var body: some View {
         if auth.loggedIn {
-            FloatingTabBar()
+            TabBarView()
         } else {
             LoginView()
         }
