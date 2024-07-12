@@ -10,19 +10,19 @@ import Foundation
 
 // MARK: - QueryModel
 struct QueryModel: Codable {
-    let data: QueryDataModel?
-    let message: String?
-    let success: Bool?
+    var data: QueryDataModel?
+    var message: String?
+    var success: Bool?
 }
 
 // MARK: - QueryDataModel
 struct QueryDataModel: Codable {
-    let requestID: Int?
-    let fullName, address, description, status: String?
-    let organizationName, createDate: String?
-    let commentCount, likeCount: Int?
-    let likeSuccess: Bool?
-    let category: QueryCategoryModel?
+    var requestID: Int?
+    var fullName, address, description, status: String?
+    var organizationName, createDate: String?
+    var commentCount, likeCount: Int?
+    var likeSuccess: Bool
+    var category: QueryCategoryModel?
 
     enum CodingKeys: String, CodingKey {
         case requestID = "requestId"
@@ -32,8 +32,8 @@ struct QueryDataModel: Codable {
 
 // MARK: - QueryCategoryModel
 struct QueryCategoryModel: Codable {
-    let categoryID: Int?
-    let categoryName: String?
+    var categoryID: Int?
+    var categoryName: String?
 
     enum CodingKeys: String, CodingKey {
         case categoryID = "categoryId"
