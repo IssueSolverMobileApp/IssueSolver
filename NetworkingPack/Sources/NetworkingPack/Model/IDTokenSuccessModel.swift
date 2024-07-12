@@ -22,11 +22,15 @@ public struct RefreshTokenModel: Codable {
 
 // MARK: - RefreshTokenSuccessModel
 struct RefreshTokenSuccessModel: Codable {
-    let data: String?
-    let success: Bool?
+    let data: RefreshTokensDataModel?
     let message: String?
+    let success: Bool?
 }
 
+// MARK: - DataClass
+struct RefreshTokensDataModel: Codable {
+    let token: String?
+}
 
 public struct LoginSuccessModel: Codable {
     let data: TokenModel?
