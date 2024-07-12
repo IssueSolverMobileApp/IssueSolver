@@ -22,7 +22,7 @@ struct MyQueryView: View {
                     ForEach(vm.queryData, id: \.requestID) { item in
                         
 //                        CustomPostRowView(postText: item.description ?? "", isDetailView: false,  postToGovernmentName: item.organizationName ?? "", userName: "Valeh Amirov", postStatus: "Gözləmədə", isLiked: $isLiked) {}
-//                        CustomPostRowView(postText: item.description ?? "", isDetailView: false, postToGovernmentName: item.organizationName ?? "", userName: item.fullName ?? "" , postStatus: item.status ?? "", isLiked: item.like , categoryName: item.category., commentHandler: <#T##() -> Void#>)
+//                        CustomPostRowView(postText: item.description ?? "", isDetailView: false, postToGovernmentName: item.organizationName ?? "", userName: item.fullName ?? "" , postStatus: item.status ?? "", isLiked: item.like , categoryName: item.category?.categoryName) {}
                     }
                 }
                 .padding(.horizontal, 20)
