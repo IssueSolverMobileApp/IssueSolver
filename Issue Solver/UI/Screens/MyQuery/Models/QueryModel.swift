@@ -4,7 +4,7 @@
 //
 //  Created by Valeh Amirov on 09.07.24.
 //
-
+ import Foundation
 
 // MARK: - QueryModel
 struct QueryModel: Codable {

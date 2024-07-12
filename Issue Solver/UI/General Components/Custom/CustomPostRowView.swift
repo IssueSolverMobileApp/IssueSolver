@@ -23,7 +23,7 @@ struct CustomPostRowView: View {
     
     @Binding var isLiked: Bool
     
-    init(postText: String, isDetailView: Bool, likeCount: String? = nil, commentCount: String? = nil, postToGovernmentName: String, userName: String, postStatus: String, isLiked: Binding<Bool>,categoryName: String, commentHandler: @escaping () -> Void) {
+    init(postText: String, isDetailView: Bool, likeCount: String? = nil, commentCount: String? = nil, postToGovernmentName: String, userName: String, postStatus: String, isLiked: Binding<Bool>, categoryName: String, commentHandler: @escaping () -> Void) {
         self.postText = postText
         self.isDetailView = isDetailView
         self.likeCount = likeCount

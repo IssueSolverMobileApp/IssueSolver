@@ -11,16 +11,18 @@ struct CustomTitleView: View {
     let title: String
     var subtitle: String?
     var dividerSize: CGFloat?
-    var image: ImageResource?
-    var color: Color? 
+    var image1: ImageResource?
+    var image2: ImageResource?
+    var color: Color?
     
     let titleButtonHandler: (() -> Void)?
     
-    init(title: String, subtitle: String? = nil, dividerSize: CGFloat? = 0.4, image: ImageResource? = nil, color: Color? = nil, titleButtonHandler: (() -> Void)? = nil) {
+    init(title: String, subtitle: String? = nil, dividerSize: CGFloat? = 0.4, image1: ImageResource? = nil, image2: ImageResource? = nil, color: Color? = nil, titleButtonHandler: (() -> Void)? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.dividerSize = dividerSize
-        self.image = image
+        self.image1 = image1
+        self.image2 = image2
         self.color = color
         self.titleButtonHandler = titleButtonHandler
     }
@@ -32,12 +34,21 @@ struct CustomTitleView: View {
                     .jakartaFont(.title)
                     .foregroundStyle(color ?? .primaryBlue)
                 Spacer()
-                if let image, let titleButtonHandler {
+                if let image1, let titleButtonHandler {
 
                     Button(action: {
                         titleButtonHandler()
                     }, label: {
-                        Image(image)
+                        Image(image1)
+                    })
+                }
+                
+                if let image2, let titleButtonHandler {
+
+                    Button(action: {
+                        titleButtonHandler()
+                    }, label: {
+                        Image(image2)
                     })
                 }
             }
