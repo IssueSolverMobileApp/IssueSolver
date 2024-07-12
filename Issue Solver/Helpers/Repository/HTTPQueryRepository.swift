@@ -50,6 +50,33 @@ final class HTTPQueryRepository {
             }
         }
     }
+    
+    func createNewQuery(body: QueryDataModel, completion: @escaping (Result<SuccessModel, Error>) -> Void) {
+        http.POST(endPoint: EndPoint.newQuery(.request(body.category?.categoryName ?? "")), body: JSONConverter().encode(input: body)) { (data: SuccessModel?, error: Error?) in
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
+            }
+        }
+    }
+    
+    func getCategories(completion: @escaping (Result<[CategoryModel], Error>) -> Void) {
+        http.GET(endPoint: EndPoint.newQuery(.category)) { (data: CategoryData?, error: Error?) in
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data.data ?? []))
+                }
+            }
+        }
+    }
+        
 
 //    
 //    func getMyQuery(queryID: String, completion: @escaping(SuccessModel, Error)) {

@@ -56,7 +56,7 @@ struct NewQueryView: View {
     
     var textFieldView: some View {
         VStack {
-            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: $vm.errorMessage, clickableText: Constants.howToRequestShare, clickableTextWidth: 116)
+            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: .constant(""), clickableText: Constants.howToRequestShare, clickableTextWidth: 116)
         }
     }
     
