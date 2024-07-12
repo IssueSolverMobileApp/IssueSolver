@@ -8,13 +8,17 @@
 import Foundation
 import NetworkingPack
 
-final class AuthManager {
+final class AuthManager: ObservableObject {
     
     static let shared = AuthManager()
     
+    let http: HTTPClient = .shared
+
     private init () {
         loggedIn = hasAccessToken()
+        http.deletage = self
     }
+    
     
     @Published var loggedIn: Bool = false
     
@@ -30,5 +34,13 @@ final class AuthManager {
     func logOut() {
         UserDefaults.standard.accessToken = nil
         UserDefaults.standard.refreshToken = nil
+    }
+}
+
+extension AuthManager: AuthTriggerProtocol {
+    func accessTokenTrigger(isActive: Bool) {
+        DispatchQueue.main.async {
+            self.loggedIn = isActive
+        }
     }
 }

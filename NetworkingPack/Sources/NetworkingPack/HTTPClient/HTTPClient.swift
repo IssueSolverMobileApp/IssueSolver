@@ -7,13 +7,17 @@
 
 import Foundation
 
+public protocol AuthTriggerProtocol: AnyObject {
+    func accessTokenTrigger(isActive: Bool)
+}
+
 public final class HTTPClient {
     
     private init() {}
     public static let shared = HTTPClient()
     
-    private var refreshTokenRequestCount: Int = 0
-    
+    public weak var deletage: AuthTriggerProtocol?
+        
     let header: [String: String] = ["accept": "*/*", "Content-Type": "application/json"]
     
     /// it is generic function which is  send request to API and return us information
@@ -74,6 +78,7 @@ public final class HTTPClient {
     func checkStatus<T: Decodable>(endPoint: EndPoint, response: URLResponse? , data: Data?, urlRequest: URLRequest, method: HTTPMethod, completion: @escaping(T?, Error?) -> Void) {
 
         if let response = response as? HTTPURLResponse {
+            
             guard response.statusCode == 200 || response.statusCode == 201 else {
                 debugData(response: response, data: data, urlRequest: urlRequest, method: method)
                 handleError(endPoint: endPoint, response: response, data: data, urlRequest: urlRequest, method: method, completion: completion)
@@ -114,7 +119,7 @@ public final class HTTPClient {
     
 //    MARK: GetAccessTokentoken
     func getAccessToken(decodable: Decodable) {
-        print(decodable)
+
         if let decode = decodable as? LoginSuccessModel {
             print(decode.data?.accessToken ?? "" )
             UserDefaults.standard.accessToken = decode.data?.accessToken
@@ -140,18 +145,19 @@ public final class HTTPClient {
             POST(endPoint: EndPoint.auth(.loginRefreshToken), body: encode) { (data: RefreshTokenSuccessModel?, error: Error?) in
                 if let error {
                     completion(.failure(NetworkError.unauthorization))
+                    self.deletage?.accessTokenTrigger(isActive: false)
                     print(error.localizedDescription)
                 }
                 
                 if let data {
-                    UserDefaults.standard.accessToken = data.data
+                    UserDefaults.standard.accessToken = data.data?.token
                     completion(.success(data))
                 }
             }
         }
         catch {
-            completion(.failure(NetworkError.unauthorization))
             print(error.localizedDescription)
+            completion(.failure(NetworkError.unauthorization))
         }
     }
     
@@ -163,7 +169,7 @@ public final class HTTPClient {
             
             self.checkError(error: error, completion: completion)
             self.checkStatus(endPoint: endPoint, response: response, data: data, urlRequest: newRequest, method: method, completion: completion)
-        }
+        }.resume()
     }
     
     /// When developer use decode and got error it will check developer's error
@@ -250,17 +256,18 @@ extension HTTPClient {
 }
 
 extension HTTPClient {
+//    MARK: --
     private func handleError<T: Decodable>(endPoint: EndPoint, response: HTTPURLResponse, data: Data?, urlRequest: URLRequest, method: HTTPMethod, completion: @escaping(T?, Error?) -> Void){
         do {
-        guard let data = data else { return completion(nil, NetworkError.badParsing) }
-//            debugData(response: response, data: data, urlRequest: urlRequest, method: method)
+            guard let data = data else { return
+                completion(nil, NetworkError.badParsing)
+            }
             
             let errorDecode = try JSONDecoder().decode(ErrorModel.self, from: data)
             
             switch response.statusCode {
             case 400:
                 completion(nil, NetworkError.badRequest(errorDecode.message ?? ""))
-                return
             case 401:
                 if endPoint.url != AuthEndPoint.loginRefreshToken.url {
                     handleUnauthorized(endPoint: endPoint, urlRequest: urlRequest, method: method, completion: completion)
@@ -278,24 +285,21 @@ extension HTTPClient {
             default:
                 completion(nil, NetworkError.statusError)
             }
+        } catch {
+            print(error.localizedDescription)
         }
-        catch {
-            completion(nil, NetworkError.badParsing)
-        }
-//
     }
+    
     private func handleUnauthorized<T: Decodable>(endPoint: EndPoint, urlRequest: URLRequest, method: HTTPMethod, completion: @escaping(T?, Error?) -> Void){
         sendRefreshToken { result in
             switch result {
             case .success(_):
+                print("\(endPoint.url) ---------- URL ----------")
                 self.sendNew(urlRequest: urlRequest, endPoint: endPoint, method: method, completion: completion)
             case .failure(let error):
                 if let networkError = error as? NetworkError , case NetworkError.unauthorization = networkError {
                     completion(nil, NetworkError.refreshTokenTimeIsOver)
-                } else {
-                    self.refreshTokenRequestCount += 1
                 }
-                print("---------\(self.refreshTokenRequestCount)---------")
             }
         }
     }
