@@ -52,6 +52,9 @@
 		A8BF68122C2F558F0005AE43 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF68112C2F558F0005AE43 /* Router.swift */; };
 		A8BF68142C2F56FE0005AE43 /* CustomNavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF68132C2F56FE0005AE43 /* CustomNavigationStack.swift */; };
 		FB161FB82C2A9AF600C0A8E9 /* String+ Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB161FB72C2A9AF600C0A8E9 /* String+ Ext.swift */; };
+		FB4CEBE32C414432007E1419 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CEBE22C414432007E1419 /* HomeView.swift */; };
+		FB4CEBE52C41453E007E1419 /* HTTPHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CEBE42C41453E007E1419 /* HTTPHomeRepository.swift */; };
+		FB4CEBE72C4151E1007E1419 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CEBE62C4151E1007E1419 /* HomeViewModel.swift */; };
 		FB55BD552C1B0CAD00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */; };
 		FB55BD562C1B0CAD00F81FDB /* PlusJakartaSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */; };
 		FB55BD572C1B0CAD00F81FDB /* PlusJakartaSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD492C1B0CAC00F81FDB /* PlusJakartaSans-ExtraLight.ttf */; };
@@ -143,6 +146,9 @@
 		A8BF68112C2F558F0005AE43 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		A8BF68132C2F56FE0005AE43 /* CustomNavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationStack.swift; sourceTree = "<group>"; };
 		FB161FB72C2A9AF600C0A8E9 /* String+ Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ Ext.swift"; sourceTree = "<group>"; };
+		FB4CEBE22C414432007E1419 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = ../../../../../../../../Documents/HomeView.swift; sourceTree = "<group>"; };
+		FB4CEBE42C41453E007E1419 /* HTTPHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHomeRepository.swift; sourceTree = "<group>"; };
+		FB4CEBE62C4151E1007E1419 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = "Issue Solver/Helpers/Repository/HomeViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD492C1B0CAC00F81FDB /* PlusJakartaSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -343,6 +349,7 @@
 				8C22A9732C1C5F1800B3879B /* HTTPAuthRepository.swift */,
 				FBAE3D712C37E47C00C12CA2 /* HTTPProfileRepository.swift */,
 				5FDBC7302C3D0FB500DF3F20 /* HTTPQueryRepository.swift */,
+				FB4CEBE42C41453E007E1419 /* HTTPHomeRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -422,6 +429,31 @@
 				A8BF68132C2F56FE0005AE43 /* CustomNavigationStack.swift */,
 			);
 			path = NavigationRouter;
+			sourceTree = "<group>";
+		};
+		FB4CEBDF2C4143C4007E1419 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FB4CEBE02C414419007E1419 /* View */,
+				FB4CEBE12C41441E007E1419 /* ViewModel */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FB4CEBE02C414419007E1419 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FB4CEBE22C414432007E1419 /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FB4CEBE12C41441E007E1419 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FB4CEBE62C4151E1007E1419 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		FB55BD462C1B0B6600F81FDB /* Fonts */ = {
@@ -539,11 +571,12 @@
 		FBA4BA1E2C183D2800BEDA9E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				FB4CEBDF2C4143C4007E1419 /* Home */,
+				FBA4BA222C18467200BEDA9E /* Authentication */,
 				FBCB34782C3BFA7600AF5F16 /* TabBar */,
 				5FB56F0E2C3A875B00671B86 /* QueryDetail */,
 				5FE7E1122C37A971007879E3 /* MyQuery */,
 				8CE6452E2C32A163004A956E /* NewQuery */,
-				FBA4BA222C18467200BEDA9E /* Authentication */,
 				FB967D1A2C258137002BA572 /* ProfileScreen */,
 			);
 			path = Screens;
@@ -729,6 +762,7 @@
 				6F36E0222C1C3BBA00C41257 /* JakartaFonts.swift in Sources */,
 				8CE6D1F42C358789002704C6 /* NewQueryInfoView.swift in Sources */,
 				A8BF68122C2F558F0005AE43 /* Router.swift in Sources */,
+				FB4CEBE52C41453E007E1419 /* HTTPHomeRepository.swift in Sources */,
 				5F34E5572C399506009A4A77 /* NewQueryInfoViewModel.swift in Sources */,
 				5FD44FAD2C3B1F0A00CC4DEB /* CustomCommentRowView.swift in Sources */,
 				8CA3EB062C1C65DD00514134 /* LoginViewModel.swift in Sources */,
@@ -752,6 +786,8 @@
 				8C264F482C2446ED00FDAAE3 /* RegisterViewModel.swift in Sources */,
 				8C22A9692C1C5E5400B3879B /* JSONConverter.swift in Sources */,
 				8C5B58DD2C3530FB00DC3AF5 /* CustomTextEditor.swift in Sources */,
+				FB4CEBE32C414432007E1419 /* HomeView.swift in Sources */,
+				FB4CEBE72C4151E1007E1419 /* HomeViewModel.swift in Sources */,
 				A82DAE002C18E11700E18665 /* CustomTextField.swift in Sources */,
 				A8BF680F2C2C8E9D0005AE43 /* CustomEnvironmentProperties.swift in Sources */,
 				FB161FB82C2A9AF600C0A8E9 /* String+ Ext.swift in Sources */,
