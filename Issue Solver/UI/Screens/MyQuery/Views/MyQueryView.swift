@@ -19,16 +19,22 @@ struct MyQueryView: View {
             ScrollView  {
                 VStack {
                     CustomTitleView(title: "Mənim sorğularım")
-                    ForEach(vm.queryData, id: \.requestID) { item in
-                        
-//                        CustomPostRowView(postText: item.description ?? "", isDetailView: false,  postToGovernmentName: item.organizationName ?? "", userName: "Valeh Amirov", postStatus: "Gözləmədə", isLiked: $isLiked) {}
-//                        CustomPostRowView(postText: item.description ?? "", isDetailView: false, postToGovernmentName: item.organizationName ?? "", userName: item.fullName ?? "" , postStatus: item.status ?? "", isLiked: item.like , categoryName: item.category?.categoryName) {}
+                    
+                    ForEach($vm.queryData, id: \.requestID) { item in
+                        CustomPostRowView(queryItem: item, isDetailView: false) {
+//                            MARK: Comment handler
+                        } likeHandler: { item in
+//                            MARK: Like handler
+                        }
                     }
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
             }
             
+        }
+        .onAppear {
+            vm.getMyQuery()
         }
     }
 }

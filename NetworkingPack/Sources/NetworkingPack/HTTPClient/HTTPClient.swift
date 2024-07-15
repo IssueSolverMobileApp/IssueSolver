@@ -272,7 +272,7 @@ extension HTTPClient {
                 if endPoint.url != AuthEndPoint.loginRefreshToken.url {
                     handleUnauthorized(endPoint: endPoint, urlRequest: urlRequest, method: method, completion: completion)
                 } else {
-                    completion(nil, NetworkError.unauthorization)
+                    completion(nil, NetworkError.badRequest(errorDecode.message ?? ""))
                 }
             case 402...403:
                 completion(nil, NetworkError.unauthorization)
@@ -281,7 +281,7 @@ extension HTTPClient {
             case 409:
                 completion(nil, NetworkError.statusCode("\(response.statusCode)"))
             case 500:
-                completion(nil, NetworkError.unauthorization)
+                completion(nil, NetworkError.badRequest(errorDecode.message ?? ""))
             default:
                 completion(nil, NetworkError.statusError)
             }

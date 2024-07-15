@@ -9,31 +9,20 @@ import SwiftUI
 
 struct CustomPostRowView: View {
     
-    var postText: String
-    /// if we need to use PostView into some detailView isDetailView variable must be true else false
+    @Binding var queryItem: QueryDataModel
+    
+//    /// if we need to use PostView into some detailView isDetailView variable must be true else false
     var isDetailView: Bool = true
-    var likeCount: String?
-    var commentCount: String?
-    var postToGovernmentName: String
-    var userName: String
-    var postStatus: String
-    var categoryName: String
     
     let commentHandler: () -> Void
-    
-    @Binding var isLiked: Bool
-    
-    init(postText: String, isDetailView: Bool, likeCount: String? = nil, commentCount: String? = nil, postToGovernmentName: String, userName: String, postStatus: String, isLiked: Binding<Bool>,categoryName: String, commentHandler: @escaping () -> Void) {
-        self.postText = postText
+    let likeHandler: (Bool) -> Void
+
+    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool, commentHandler: @escaping () -> Void, likeHandler: @escaping(Bool) -> Void
+) {
+        self._queryItem = queryItem
         self.isDetailView = isDetailView
-        self.likeCount = likeCount
-        self.commentCount = commentCount
-        self.postToGovernmentName = postToGovernmentName
-        self.userName = userName
-        self.postStatus = postStatus
-        self._isLiked = isLiked
-        self.categoryName = categoryName
         self.commentHandler = commentHandler
+        self.likeHandler = likeHandler
     }
     
     var body: some View {
@@ -57,7 +46,7 @@ struct CustomPostRowView: View {
                     .resizable()
                     .frame(width: 32, height: 32)
                     .scaledToFit()
-                Text(userName)
+                Text(queryItem.fullName ?? "")
                     .jakartaFont(.subtitle)
                     .foregroundStyle(.primaryBlue)
                     .lineLimit(2)
@@ -65,7 +54,7 @@ struct CustomPostRowView: View {
                 HStack {
                     Image(.blueDotIcon)
                         .foregroundStyle(.primaryBluePressed)
-                    Text(postStatus)
+                    Text(queryItem.status ?? "")
                         .jakartaFont(.subheading)
                         .foregroundStyle(Color.primaryBluePressed)
                 }
@@ -76,7 +65,7 @@ struct CustomPostRowView: View {
             }
             
             if isDetailView {
-                    Text(postToGovernmentName)
+                Text(queryItem.organizationName ?? "")
                 .jakartaFont(.subheading)
             }
         }
@@ -86,7 +75,7 @@ struct CustomPostRowView: View {
         VStack(alignment: .leading,spacing: 16) {
             
             ZStack {
-                Text(categoryName)
+                Text(queryItem.category?.categoryName ?? "")
                     .jakartaFont(.subtitle2)
                     .foregroundStyle(.disabledGray)
             }
@@ -96,9 +85,9 @@ struct CustomPostRowView: View {
             .clipShape(.rect(cornerRadius: 100))
             
 //            text of Post
-            if postText.count >= 120 && !isDetailView {
+            if queryItem.description?.count ?? 0  >= 120 && !isDetailView {
                 ZStack {
-                    Text(postText.prefix(120))
+                    Text(queryItem.description?.prefix(120) ?? "")
                     + Text("...daha çox göstər").foregroundColor(.blue)
                 }
                 .lineSpacing(9)
@@ -106,7 +95,7 @@ struct CustomPostRowView: View {
                 .jakartaFont(.subheading)
                 
             } else {
-                Text(postText)
+                Text(queryItem.description ?? "")
                     .lineSpacing(9)
                     .foregroundStyle(.primaryGray)
                     .jakartaFont(.subheading)
@@ -114,12 +103,12 @@ struct CustomPostRowView: View {
 //                Location and Date
                 HStack {
                     Image(.locationIcon)
-                    Text("Lorem ipsum dolor sit amet, consectetur efficitur.")
+                    Text(queryItem.address ?? "")
                         .jakartaFont(.subtitle2)
                         .foregroundStyle(.primaryBlue)
                     Spacer()
                     Image(.calendarIcon)
-                    Text("01.08.2024, 14:30")
+                    Text(queryItem.createDate ?? "")
                 }
                 .jakartaFont(.subtitle2)
             }
@@ -135,10 +124,19 @@ struct CustomPostRowView: View {
     var bottomView: some View {
         HStack {
             VStack(spacing: 5) {
-                Toggle("", isOn: $isLiked)
-                    .toggleStyle(CustomToggleLikeStyle())
+                
+//                Toggle("", isOn: $queryItem.likeSuccess)
+//                    .toggleStyle(CustomToggleLikeStyle())
+                
+                Button(action: {
+                    likeHandler(queryItem.likeSuccess ? false : true)
+//                    queryItem.likeSuccess.toggle()
+                }, label: {
+                    Image(queryItem.likeSuccess ? .likeIconFill : .likeIcon )
+                })
+                
                 if isDetailView {
-                    Text(likeCount ?? "0")
+                    Text("\(queryItem.likeCount ?? 0)")
                         .jakartaFont(.custom(.medium, 10))
                 }
             }
@@ -150,7 +148,7 @@ struct CustomPostRowView: View {
                     Image(.commentIcon)
                 })
                 if isDetailView {
-                    Text(commentCount ?? "0")
+                    Text("\(queryItem.commentCount ?? 0)")
                         .jakartaFont(.custom(.medium, 10))
                 }
             }

@@ -16,11 +16,11 @@ public enum ProfileEndPoint: EndPointProtocol {
     var url: String {
         switch self {
         case .deleteAccount:
-            return "\(baseAuthURL)Users/delete"
+            return "\(baseURL)Users/delete"
         case .updateFullName:
-            return "\(baseAuthURL)Users/updatefullname"
+            return "\(baseURL)Users/updatefullname"
         case .changePassword:
-            return "\(baseAuthURL)Users/updatepassword"    
+            return "\(baseURL)Users/updatepassword"    
         }
     }
 }

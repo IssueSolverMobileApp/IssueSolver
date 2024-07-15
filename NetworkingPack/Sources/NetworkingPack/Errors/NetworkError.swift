@@ -39,7 +39,7 @@ public enum NetworkError: Error, LocalizedError {
         case .notFound(let result):
             return result
         case .statusError:
-            return "Status error"
+            return "Xətanın səbəbi bilinmir"
         case .corruptedData:
             return "Corrupted data"
         case .unknowned:
