@@ -15,11 +15,14 @@ struct CustomPostRowView: View {
     var isDetailView: Bool = true
     
     let commentHandler: () -> Void
+    let likeHandler: (Bool) -> Void
 
-    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool, commentHandler: @escaping () -> Void) {
+    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool, commentHandler: @escaping () -> Void, likeHandler: @escaping(Bool) -> Void
+) {
         self._queryItem = queryItem
         self.isDetailView = isDetailView
         self.commentHandler = commentHandler
+        self.likeHandler = likeHandler
     }
     
     var body: some View {
@@ -122,8 +125,16 @@ struct CustomPostRowView: View {
         HStack {
             VStack(spacing: 5) {
                 
-                Toggle("", isOn: $queryItem.likeSuccess)
-                    .toggleStyle(CustomToggleLikeStyle())
+//                Toggle("", isOn: $queryItem.likeSuccess)
+//                    .toggleStyle(CustomToggleLikeStyle())
+                
+                Button(action: {
+                    likeHandler(queryItem.likeSuccess ? false : true)
+//                    queryItem.likeSuccess.toggle()
+                }, label: {
+                    Image(queryItem.likeSuccess ? .likeIconFill : .likeIcon )
+                })
+                
                 if isDetailView {
                     Text("\(queryItem.likeCount ?? 0)")
                         .jakartaFont(.custom(.medium, 10))

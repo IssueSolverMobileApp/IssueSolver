@@ -27,6 +27,8 @@ struct QueryDetailView: View {
                 VStack {
                     CustomPostRowView(queryItem: $queryItem, isDetailView: true) {
                         isPresented.toggle()
+                    } likeHandler: {_ in 
+                        
                     }
                     .fullScreenCover(isPresented: $isPresented, content: {
                         QueryCommentBottomSheetView()

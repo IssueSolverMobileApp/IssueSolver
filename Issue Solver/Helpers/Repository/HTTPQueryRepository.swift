@@ -50,9 +50,4 @@ final class HTTPQueryRepository {
             }
         }
     }
-
-//    
-//    func getMyQuery(queryID: String, completion: @escaping(SuccessModel, Error)) {
-//        http.POST(endPoint: EndPoint.m, body: <#T##Data?#>, completion: <#T##(Decodable?, (any Error)?) -> Void#>)
-//    }
 }

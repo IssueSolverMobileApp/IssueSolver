@@ -8,10 +8,8 @@
 import Foundation
 
 class MyQueryViewModel: ObservableObject {
-    
-    @Published var postText: String = "Office ipsum you must be muted. Teeth recap latest didn't at. Innovation hill as wider assassin heads-up stronger give. Who's cloud low out email later charts. Believe our territories good client incentivization decisions pole product with. Pushback like be reach incompetent. Need bake ditching another loss to. Algorithm now pants items future-proof needle elephant i'm synergize old. Optimize meat room dog board invested devil reach. Horse building more prioritize meat per stakeholders.building"
-    
-    @Published var queryData: [QueryDataModel]
+
+    @Published var queryData: [QueryDataModel] = []
     
     private var queryRepository = HTTPQueryRepository()
     private var pageCount: Int = 0
@@ -20,8 +18,25 @@ class MyQueryViewModel: ObservableObject {
         self.queryData = queryData
     }
     
-//    @MainActor
-//    func getQuery() async {
+    func getMyQuery() {
+        queryRepository.getMyQueries(pageCount: "\(pageCount)") { [weak self ]result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    guard let data =  success.data else { return }
+                    self.queryData.append(contentsOf: data)
+                    if success == QueryModel() {
+                        self.pageCount += 1
+                    } else {
+                        self.pageCount = 0
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
 //        queryRepository.getMyQuery(pageCount: "\(pageCount)") { result in
 //            switch result {
 //            case .success(let success):
@@ -33,6 +48,6 @@ class MyQueryViewModel: ObservableObject {
 //                print(error.localizedDescription)
 //            }
 //        }
-//        
-//    }
+        
+    }
 }
