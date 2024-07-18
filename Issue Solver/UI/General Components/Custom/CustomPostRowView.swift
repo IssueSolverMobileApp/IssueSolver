@@ -130,7 +130,7 @@ struct CustomPostRowView: View {
                 
                 Button(action: {
                     likeHandler(queryItem.likeSuccess ? false : true)
-//                    queryItem.likeSuccess.toggle()
+                    queryItem.likeSuccess.toggle()
                 }, label: {
                     Image(queryItem.likeSuccess ? .likeIconFill : .likeIcon )
                 })

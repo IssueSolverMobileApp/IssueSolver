@@ -20,11 +20,12 @@ struct MyQueryView: View {
                 VStack {
                     CustomTitleView(title: "Mənim sorğularım")
                     
-                    ForEach($vm.queryData, id: \.requestID) { item in
-                        CustomPostRowView(queryItem: item, isDetailView: false) {
+                    ForEach($vm.queryData, id: \.requestID) { $item in
+                        CustomPostRowView(queryItem: $item, isDetailView: false) {
 //                            MARK: Comment handler
-                        } likeHandler: { item in
+                        } likeHandler: { like in
 //                            MARK: Like handler
+                            vm.likeToggle(like: like, queryID: item.requestID)
                         }
                     }
                 }

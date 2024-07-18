@@ -39,8 +39,8 @@ final class HTTPQueryRepository {
     
     
     func deleteLike(queryID: String, completion: @escaping(Result<SuccessModel, Error>) -> Void) {
-        http.POST(endPoint: EndPoint.myQuery(.likeDelete(queryID)), body: nil) { (data: SuccessModel?, error: Error? )in
-           
+        
+        http.DELETE(endPoint: EndPoint.myQuery(.likeDelete(queryID)), body: nil) {(data: SuccessModel?, error: Error? ) in
             if let error {
                 completion(.failure(error))
             }
@@ -48,6 +48,11 @@ final class HTTPQueryRepository {
             if let data {
                 completion(.success(data))
             }
+
         }
+        
+//        http.POST(endPoint: EndPoint.myQuery(.likeDelete(queryID)), body: nil) { (data: SuccessModel?, error: Error? )in
+//           
+//        }
     }
 }
