@@ -14,7 +14,7 @@ public enum HomeEndpoint: EndPointProtocol {
     var url: String {
         switch self {
         case .allRequests(let pageNumber):
-            return "\(baseRequestMSURL)request?page=\(pageNumber)&size=10"
+            return "\(baseURL)request?page=\(pageNumber)&size=10"
         }
     }
 }

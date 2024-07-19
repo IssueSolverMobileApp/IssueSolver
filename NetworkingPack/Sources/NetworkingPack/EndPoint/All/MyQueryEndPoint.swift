@@ -19,8 +19,8 @@ public enum MyQueryEndPoint: EndPointProtocol {
             return "\(baseURL)request/user-requests?page=\(pageNumber)&size=10&sortBy=createDate"
         case .likePost(let requestID):
             return "\(baseURL)api/v1/likes/post?requestId=\(requestID)"
-        case .likeDelete(let likeID):
-            return "\(baseURL)api/v1/likes?likeId=\(likeID)"
+        case .likeDelete(let requestID):
+            return "\(baseURL)api/v1/likes?requestId=\(requestID)"
         }
     }
 }
