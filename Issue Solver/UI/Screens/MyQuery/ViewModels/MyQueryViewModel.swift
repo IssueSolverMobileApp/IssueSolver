@@ -11,7 +11,7 @@ class MyQueryViewModel: ObservableObject {
     
     @Published var queryData: [QueryDataModel] = []
     @Published var placeholderData = QueryDataModel()
-    
+    @Published var isDataEmptyButSuccess: Bool = false
     
     private var queryRepository = HTTPQueryRepository()
     private var pageCount: Int = 0
@@ -20,28 +20,11 @@ class MyQueryViewModel: ObservableObject {
         self.queryData = queryData
     }
     
-    var isLoading: Bool = false
+    private var isLoading: Bool = false
     
     func getMoreQuery() {
         if !isLoading {
             getMyQuery()
-        }
-    }
-    
-    func getMyQuery() {
-        self.isLoading = true
-        queryRepository.getMyQueries(pageCount: "\(pageCount)") { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let success):
-                    guard let data = success.data else { return }
-                    self.addData(queryData: data)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self.isLoading = false
-                }
-            }
         }
     }
     
@@ -51,6 +34,28 @@ class MyQueryViewModel: ObservableObject {
             addLike(queryID: "\(queryID)")
         } else {
             deleteLike(queryID: "\(queryID)")
+        }
+    }
+    
+    private func getMyQuery() {
+        self.isLoading = true
+        queryRepository.getMyQueries(pageCount: "\(pageCount)") { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    guard let data = success.data else { return }
+                    if data.isEmpty && self.pageCount == 0 {
+                        self.isDataEmptyButSuccess = true
+                    } else {
+                        self.addData(queryData: data)
+                        self.isDataEmptyButSuccess = false
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.isLoading = false
+                }
+            }
         }
     }
     

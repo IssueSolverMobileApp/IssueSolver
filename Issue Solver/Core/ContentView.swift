@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-//    @StateObject var auth: AuthManager = .shared
-    
+        
     var body: some View {
         ZStack {
             CustomNavigationStack {
