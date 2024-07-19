@@ -11,6 +11,9 @@ struct CustomPostRowView: View {
     
     @Binding var queryItem: QueryDataModel
     
+    @State private var statusBacgroundColor: Color = .primaryBlue.opacity(0.28)
+    @State private var statusForegroundColor: Color = .primaryBluePressed
+
 //    /// if we need to use PostView into some detailView isDetailView variable must be true else false
     var isDetailView: Bool = true
     
@@ -37,6 +40,10 @@ struct CustomPostRowView: View {
         .padding(16)
         .background(.white)
         .clipShape(.rect(cornerRadius: Constants.cornerRadius))
+        .onAppear {
+            setStatusBackgroundColor()
+            setStatusForeGroundColor()
+        }
     }
     
     var topView: some View {
@@ -53,14 +60,14 @@ struct CustomPostRowView: View {
                 Spacer()
                 HStack {
                     Image(.blueDotIcon)
-                        .foregroundStyle(.primaryBluePressed)
+                        .foregroundStyle(statusForegroundColor)
                     Text(queryItem.status ?? "")
                         .jakartaFont(.subheading)
-                        .foregroundStyle(Color.primaryBluePressed)
+                        .foregroundStyle(statusForegroundColor)
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 8)
-                .background(.outLineContainerBlue)
+                .background(statusBacgroundColor)
                 .clipShape(.rect(cornerRadius: 100))
             }
             
@@ -84,7 +91,7 @@ struct CustomPostRowView: View {
             .background(Color.surfaceBackground)
             .clipShape(.rect(cornerRadius: 100))
             
-//            text of Post
+            //            text of Post
             if queryItem.description?.count ?? 0  >= 120 && !isDetailView {
                 ZStack {
                     Text(queryItem.description?.prefix(120) ?? "")
@@ -100,17 +107,24 @@ struct CustomPostRowView: View {
                     .foregroundStyle(.primaryGray)
                     .jakartaFont(.subheading)
                 
-//                Location and Date
-                HStack {
-                    Image(.locationIcon)
-                    Text(queryItem.address ?? "")
-                        .jakartaFont(.subtitle2)
-                        .foregroundStyle(.primaryBlue)
-                    Spacer()
-                    Image(.calendarIcon)
-                    Text(queryItem.createDate ?? "")
+                //                Location and Date
+                if isDetailView {
+                VStack(alignment: .leading, spacing: 16) {
+                        HStack {
+                            
+                            Image(.locationIcon)
+                            Text(queryItem.address ?? "")
+                                .jakartaFont(.subtitle2)
+                                .foregroundStyle(.primaryBlue)
+                        }
+                        //                    Spacer()
+                        HStack {
+                            Image(.calendarIcon)
+                            Text(queryItem.createDate ?? "")
+                        }
+                    }
+                    .jakartaFont(.subtitle2)
                 }
-                .jakartaFont(.subtitle2)
             }
         }
     }
@@ -155,6 +169,44 @@ struct CustomPostRowView: View {
             Spacer()
             Image(.optionDotsIcon)
                 .padding(.trailing)
+        }
+    }
+    
+    private func setStatusBackgroundColor() {
+        switch queryItem.status {
+        case "Gözləmədə" :
+            statusBacgroundColor = .primaryBlue.opacity(0.28)
+        case "Baxılır" :
+            statusBacgroundColor = .outLineContainerOrange
+        case "Əssasızdır" :
+            statusBacgroundColor = .outLineContainerRed
+        case "Həll edildi" :
+            statusBacgroundColor = .outLineContainerGreen
+        case "Arxivdədir" :
+            statusBacgroundColor = .outLineContainerGray
+        case .none:
+            statusBacgroundColor = .surfaceBackground
+        case .some(_):
+            statusBacgroundColor = .surfaceBackground
+        }
+    }
+    
+    private func setStatusForeGroundColor() {
+        switch queryItem.status {
+        case "Gözləmədə" :
+            statusForegroundColor = .primaryBluePressed
+        case "Baxılır" :
+            statusForegroundColor = .primaryOrange
+        case "Əssasızdır" :
+            statusForegroundColor = .primaryRed
+        case "Həll edildi" :
+            statusForegroundColor = .primaryGreen
+        case "Arxivdədir" :
+            statusForegroundColor = .disabledGray
+        case .none:
+            statusForegroundColor = .primaryBluePressed
+        case .some(_):
+            statusForegroundColor = .primaryBluePressed
         }
     }
 }
