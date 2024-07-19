@@ -129,10 +129,10 @@ struct CustomPostRowView: View {
 //                    .toggleStyle(CustomToggleLikeStyle())
                 
                 Button(action: {
-                    likeHandler(queryItem.likeSuccess ? false : true)
-                    queryItem.likeSuccess.toggle()
+                    likeHandler(queryItem.likeSuccess ?? false ? false : true)
+                    queryItem.likeSuccess?.toggle()
                 }, label: {
-                    Image(queryItem.likeSuccess ? .likeIconFill : .likeIcon )
+                    Image(queryItem.likeSuccess ?? false ? .likeIconFill : .likeIcon )
                 })
                 
                 if isDetailView {

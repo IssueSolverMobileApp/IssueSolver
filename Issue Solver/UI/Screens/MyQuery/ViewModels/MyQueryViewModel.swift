@@ -18,21 +18,30 @@ class MyQueryViewModel: ObservableObject {
         self.queryData = queryData
     }
     
+    var isLoading: Bool = false
+    
     func getMyQuery() {
-        queryRepository.getMyQueries(pageCount: "\(pageCount)") { [weak self ]result in
+        queryRepository.getMyQueries(pageCount: "\(pageCount)") { [weak self] result in
             guard let self else { return }
+            self.isLoading = true
+
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
-                    guard let data =  success.data else { return }
-                    self.queryData.append(contentsOf: data)
-                    //                    if success == QueryModel() {
-                    //                        self.pageCount += 1
-                    //                    } else {
-                    //                        self.pageCount = 0
-                    //                    }
+                    guard let data = success.data else { return }
+                    print("------------DEBUG-----------")
+//                    if !self.isLoading {
+                        data.forEach { item in
+                            if !self.queryData.contains(item) && item != QueryDataModel() {
+                                self.queryData.append(item)
+                                self.pageCount = self.pageCount + 1
+                            }
+                        }
+//                    }
+                    self.isLoading = false
                 case .failure(let error):
                     print(error.localizedDescription)
+                    self.isLoading = false
                 }
             }
         }

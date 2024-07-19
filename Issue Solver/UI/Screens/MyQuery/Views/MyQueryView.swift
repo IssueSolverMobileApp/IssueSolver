@@ -16,23 +16,29 @@ struct MyQueryView: View {
         ZStack {
             Color.surfaceBackground
                 .ignoresSafeArea()
-            ScrollView  {
-                VStack {
+            ScrollView {
+                LazyVStack {
                     CustomTitleView(title: "Mənim sorğularım")
                     
                     ForEach($vm.queryData, id: \.requestID) { $item in
                         CustomPostRowView(queryItem: $item, isDetailView: false) {
-//                            MARK: Comment handler
+                            //                            MARK: Comment handler
                         } likeHandler: { like in
-//                            MARK: Like handler
+                            //                            MARK: Like handler
                             vm.likeToggle(like: like, queryID: item.requestID)
                         }
                     }
+                    
+                    Color.black.frame(height: 50)
+                        .onAppear {
+                            vm.getMyQuery()
+                        }
                 }
+                
+
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
             }
-            
         }
         .onAppear {
             vm.getMyQuery()
