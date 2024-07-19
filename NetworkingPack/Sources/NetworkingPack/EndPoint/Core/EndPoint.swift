@@ -12,6 +12,7 @@ public enum EndPoint: EndPointProtocol {
     case auth(AuthEndPoint)
     case profile(ProfileEndPoint)
     case myQuery(MyQueryEndPoint)
+    case home(HomeEndpoint)
     
     var url: String {
         switch self {
@@ -21,27 +22,19 @@ public enum EndPoint: EndPointProtocol {
             return profileEndPoint.url
         case .myQuery(let myQueryEndPoint):
             return myQueryEndPoint.url
+        case .home(let homeEndPoint):
+            return homeEndPoint.url
         }
     }
 }
 
 protocol EndPointProtocol {
-    var baseAuthURL: String { get }
-    var baseRequestMSURL: String { get }
-    var baseAdminMSURL: String { get }
+    var baseURL: String { get }
 }
 
 extension EndPointProtocol {
     
-    var baseAuthURL: String {
-        return "https://govermentauthapi20240708181106.azurewebsites.net/api/"
-    }
-    
-    var baseRequestMSURL: String {
-        return "https://request-ms-d25203bd24ff.herokuapp.com/"
-    }
-    
-    var baseAdminMSURL: String {
-        return "https://adminapi20240708182629.azurewebsites.net/api/"
+    var baseURL: String {
+        return "https://issue-solver-421da800ab88.herokuapp.com/"
     }
 }

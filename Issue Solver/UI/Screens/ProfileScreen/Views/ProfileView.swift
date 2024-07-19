@@ -83,9 +83,7 @@ struct ProfileView: View {
             .frame(height: 76)
             
             .onTapGesture {
-                router.navigate {
-                    EmptyView()
-                }
+                    UIApplication.shared.open(URL(string: "https://issue-solver.vercel.app/")!)
             }
             
             ///FAQ View
@@ -97,9 +95,7 @@ struct ProfileView: View {
             .frame(height: 76)
             
             .onTapGesture {
-                router.navigate {
-                    EmptyView()
-                }
+                    UIApplication.shared.open(URL(string: "https://issue-solver.vercel.app/")!)
             }
             ///About App View
             CustomRowView(title: "Tətbiq haqqında",
@@ -110,9 +106,7 @@ struct ProfileView: View {
             .frame(height: 76)
             
             .onTapGesture {
-                router.navigate {
-                    EmptyView()
-                }
+                    UIApplication.shared.open(URL(string: "https://issue-solver.vercel.app/")!)
             }
         }
     }

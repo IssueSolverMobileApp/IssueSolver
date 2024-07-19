@@ -22,23 +22,23 @@ public enum AuthEndPoint: EndPointProtocol {
     var url: String {
         switch self {
         case .register:
-            return "\(baseAuthURL)Auths/register"
+            return "\(baseURL)api/Auths/register"
         case .login:
-            return "\(baseAuthURL)Auths/login"
+            return "\(baseURL)api/Auths/login"
         case .confirmOTP:
-            return "\(baseAuthURL)Auths/confirm-otp"
+            return "\(baseURL)api/Auths/confirm-otp"
         case .resendOTP:
-            return "\(baseAuthURL)Auths/resend-otp"
+            return "\(baseURL)api/Auths/resend-otp"
         case .forgetPassword:
-            return "\(baseAuthURL)Auths/forget-password"
+            return "\(baseURL)api/Auths/forget-password"
         case .resetPassword:
-            return "\(baseAuthURL)Auths/reset-password"
+            return "\(baseURL)api/Auths/reset-password"
         case .loginRefreshToken:
-            return "\(baseAuthURL)Auths/login-refreshtoken"
+            return "\(baseURL)api/Auths/login-refreshtoken"
         case .trustOTP:
-            return "\(baseAuthURL)Auths/otp-trust"
+            return "\(baseURL)api/Auths/otp-trust"
         case .getMe:
-            return "\(baseAuthURL)Users/getme"
+            return "\(baseURL)api/Users/getme"
         }
     }
 }

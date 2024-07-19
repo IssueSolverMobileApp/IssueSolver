@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+        
     var body: some View {
         ZStack {
             CustomNavigationStack {
-                LoginView()
+              RootView()
+                    .environmentObject(AuthManager.shared)
             }
             .ignoresSafeArea()
         }

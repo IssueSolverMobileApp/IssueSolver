@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public extension UserDefaults {
     
     enum Keys: String {

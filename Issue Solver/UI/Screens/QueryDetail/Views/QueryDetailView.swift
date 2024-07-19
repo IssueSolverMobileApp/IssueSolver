@@ -11,6 +11,7 @@ struct QueryDetailView: View {
 
     @EnvironmentObject var router: Router
 
+    @State var queryItem: QueryDataModel = QueryDataModel(likeSuccess: false)
 //    var postText: String = ""
 //    var isDetailView: Bool
 //    var postToGovernmentName: String
@@ -24,12 +25,15 @@ struct QueryDetailView: View {
             Color.surfaceBackground.ignoresSafeArea()
             ScrollView {
                 VStack {
-                    CustomPostRowView(postText: "postText", isDetailView: true, postToGovernmentName: "Daxili İşlər Nazirliyi", userName: "Valeh Amirov", postStatus: "Gözləmədə", isLiked: $isLike, categoryName: "") {
+                    CustomPostRowView(queryItem: $queryItem, isDetailView: true) {
                         isPresented.toggle()
+                    } likeHandler: {_ in 
+                        
                     }
                     .fullScreenCover(isPresented: $isPresented, content: {
                         QueryCommentBottomSheetView()
                     })
+                    
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
