@@ -547,8 +547,8 @@
 			children = (
 				FBA4BA222C18467200BEDA9E /* Authentication */,
 				FBCB34782C3BFA7600AF5F16 /* TabBar */,
-				5FB56F0E2C3A875B00671B86 /* QueryDetail */,
 				5FE7E1122C37A971007879E3 /* MyQuery */,
+				5FB56F0E2C3A875B00671B86 /* QueryDetail */,
 				8CE6452E2C32A163004A956E /* NewQuery */,
 				FB967D1A2C258137002BA572 /* ProfileScreen */,
 			);

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct QueryCommentBottomSheetView: View {
     
-    @State var commentText: String = ""
+    @State private var commentText: String = ""
     
     var body: some View {
             
@@ -35,7 +35,6 @@ struct QueryCommentBottomSheetView: View {
         .adaptsToKeyboard()
         .ignoresSafeArea()
     }
-    
     
     var addCommentView: some View {
         LazyVStack {

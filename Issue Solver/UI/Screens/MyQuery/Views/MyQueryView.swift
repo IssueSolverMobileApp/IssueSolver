@@ -11,9 +11,10 @@ struct MyQueryView: View {
     
     @EnvironmentObject var router: Router
     
-    @StateObject var vm = MyQueryViewModel()
-    @State var isLiked: Bool = false
-    
+    @StateObject private var vm = MyQueryViewModel()
+    @State private var isLiked: Bool = false
+    @State private var isPresented: Bool = false
+
     var body: some View {
         ZStack {
             Color.surfaceBackground
@@ -39,11 +40,15 @@ struct MyQueryView: View {
                 
                 ForEach($vm.queryData, id: \.requestID) { $item in
                     CustomPostRowView(queryItem: $item, isDetailView: false) {
-//                            MARK: Comment handler
+                        // MARK: Comment handler
+                        isPresented.toggle()
                     } likeHandler: { like in
-//                            MARK: Like handler
+                        // MARK: Like handler
                         vm.likeToggle(like: like, queryID: item.requestID)
                     }
+                    .fullScreenCover(isPresented: $isPresented, content: {
+                        QueryCommentBottomSheetView()
+                    })
                 }
                 .onTapGesture {
                     router.navigate { QueryDetailView() }
