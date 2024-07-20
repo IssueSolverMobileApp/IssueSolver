@@ -11,13 +11,8 @@ struct QueryDetailView: View {
 
     @EnvironmentObject var router: Router
 
-    @State var queryItem: QueryDataModel = QueryDataModel(likeSuccess: false)
-//    var postText: String = ""
-//    var isDetailView: Bool
-//    var postToGovernmentName: String
-//    var userName: String
-//    var postStatus: String
-    @State var isLike: Bool = false
+    @State private var queryItem: QueryDataModel = QueryDataModel()
+    @State private var isLike: Bool = false
     @State private var isPresented: Bool = false
     
     var body: some View {
@@ -33,7 +28,6 @@ struct QueryDetailView: View {
                     .fullScreenCover(isPresented: $isPresented, content: {
                         QueryCommentBottomSheetView()
                     })
-                    
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
@@ -54,7 +48,6 @@ struct QueryDetailView: View {
     }
 
 }
-
 
 #Preview {
     QueryDetailView()
