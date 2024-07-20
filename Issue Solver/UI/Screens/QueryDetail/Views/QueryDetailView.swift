@@ -11,12 +11,7 @@ struct QueryDetailView: View {
 
     @EnvironmentObject var router: Router
 
-    @State var queryItem: QueryDataModel = QueryDataModel(likeSuccess: false)
-//    var postText: String = ""
-//    var isDetailView: Bool
-//    var postToGovernmentName: String
-//    var userName: String
-//    var postStatus: String
+    @State var queryItem: QueryDataModel = QueryDataModel()
     @State var isLike: Bool = false
     @State private var isPresented: Bool = false
     

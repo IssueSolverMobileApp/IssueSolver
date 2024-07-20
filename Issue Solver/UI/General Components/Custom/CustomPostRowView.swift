@@ -114,13 +114,12 @@ struct CustomPostRowView: View {
                             
                             Image(.locationIcon)
                             Text(queryItem.address ?? "")
-                                .jakartaFont(.subtitle2)
                                 .foregroundStyle(.primaryBlue)
                         }
-                        //                    Spacer()
                         HStack {
                             Image(.calendarIcon)
-                            Text(queryItem.createDate ?? "")
+                            /// this method can correct string date for our custom date format
+                            Text(Date().dateFormatter(queryItem.createDate, .all))
                         }
                     }
                     .jakartaFont(.subtitle2)
@@ -138,9 +137,6 @@ struct CustomPostRowView: View {
     var bottomView: some View {
         HStack {
             VStack(spacing: 5) {
-                
-//                Toggle("", isOn: $queryItem.likeSuccess)
-//                    .toggleStyle(CustomToggleLikeStyle())
                 
                 Button(action: {
                     likeHandler(queryItem.likeSuccess ?? false ? false : true)

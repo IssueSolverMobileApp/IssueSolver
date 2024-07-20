@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MyQueryView: View {
     
+    @EnvironmentObject var router: Router
+    
     @StateObject var vm = MyQueryViewModel()
     @State var isLiked: Bool = false
     
@@ -43,7 +45,10 @@ struct MyQueryView: View {
                         vm.likeToggle(like: like, queryID: item.requestID)
                     }
                 }
-                
+                .onTapGesture {
+                    router.navigate { QueryDetailView() }
+                }
+                    
                 HStack {
                     ProgressView()
                 }
