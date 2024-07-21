@@ -11,7 +11,7 @@ public enum EndPoint: EndPointProtocol {
     
     case auth(AuthEndPoint)
     case profile(ProfileEndPoint)
-    case myQuery(MyQueryEndPoint)
+    case query(QueryEndPoint)
     case home(HomeEndpoint)
     
     var url: String {
@@ -20,7 +20,7 @@ public enum EndPoint: EndPointProtocol {
             return authEndPoint.url
         case .profile(let profileEndPoint):
             return profileEndPoint.url
-        case .myQuery(let myQueryEndPoint):
+        case .query(let myQueryEndPoint):
             return myQueryEndPoint.url
         case .home(let homeEndPoint):
             return homeEndPoint.url

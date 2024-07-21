@@ -46,12 +46,12 @@ struct MyQueryView: View {
                         // MARK: Like handler
                         vm.likeToggle(like: like, queryID: item.requestID)
                     }
+                    .onTapGesture {
+                        router.navigate { QueryDetailView( queryItem: $item) }
+                    }
                     .fullScreenCover(isPresented: $isPresented, content: {
                         QueryCommentBottomSheetView()
                     })
-                }
-                .onTapGesture {
-                    router.navigate { QueryDetailView() }
                 }
                     
                 HStack {
@@ -60,6 +60,7 @@ struct MyQueryView: View {
                 .onAppear {
                     vm.getMoreQuery()
                 }
+                
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
