@@ -30,12 +30,14 @@ struct HomeView: View {
             vm.getMoreQuery()
         }
     }
-    
+        
     var mainView: some View {
         ScrollView {
             
             LazyVStack {
-                CustomTitleView(title: "• Issue Solver")
+                CustomTitleView(title: "• Issue Solver", image1: .filterIcon) {
+                    router.navigate { FilterView() }
+                }
                 
                 ForEach($vm.queryData, id: \.requestID) { $item in
                     CustomPostRowView(queryItem: $item, isDetailView: false) {
@@ -71,7 +73,7 @@ struct HomeView: View {
         ScrollView {
             
             VStack {
-                CustomTitleView(title: "• Issue Solver")
+                CustomTitleView(title: "• Issue Solver",  image1: .filterIcon)
                 
                 ForEach(1...3, id: \.self) {_ in
                     CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {

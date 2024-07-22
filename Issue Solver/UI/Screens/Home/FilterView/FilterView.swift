@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FilterView: View {
     
+    @EnvironmentObject var router: Router
     @StateObject var vm = HomeViewModel()
     @State var isRightTextEditor: Bool = true
     @State private var categoryPicker: String = ""
@@ -25,17 +26,30 @@ struct FilterView: View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
-                VStack(spacing: 20) {
-                    titleView
+            VStack(spacing: 20) {
                 ScrollView {
+                    titleView
                     pickerView
-                    buttonView
                 }
+                    buttonView
             }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 16)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 16)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                backButtonView
+            }
         }
     }
+    
+    ///Back Button View
+     var backButtonView: some View {
+         CustomButton(style: .back, title: "") {
+             router.dismissView()
+         }
+     }
     
     var titleView: some View {
         HStack {

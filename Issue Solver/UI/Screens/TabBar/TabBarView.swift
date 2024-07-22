@@ -36,8 +36,8 @@ struct TabBarView: View {
            NewQueryView()
                 .tag(Tab.addIcon)
             
-            Color.green.ignoresSafeArea()
-                .tag(Tab.interactionsIcon)
+//            Color.green.ignoresSafeArea()
+//                .tag(Tab.interactionsIcon)
             
             ProfileView()
                 .tag(Tab.profileIcon)

@@ -14,7 +14,7 @@ struct CustomPostRowView: View {
     @State private var statusBacgroundColor: Color = .primaryBlue.opacity(0.28)
     @State private var statusForegroundColor: Color = .primaryBluePressed
 
-//    /// if we need to use PostView into some detailView isDetailView variable must be true else false
+    /// if we need to use PostView into some detailView isDetailView variable must be true else false
     var isDetailView: Bool = true
     
     let commentHandler: () -> Void

@@ -58,6 +58,7 @@
 		FB1EDCA82C4E413F00B7EB7D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1EDCA72C4E413F00B7EB7D /* HomeView.swift */; };
 		FB1EDCAA2C4E417F00B7EB7D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1EDCA92C4E417F00B7EB7D /* HomeViewModel.swift */; };
 		FB1EDCAC2C4E41D000B7EB7D /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1EDCAB2C4E41D000B7EB7D /* FilterView.swift */; };
+		FB1EDCAE2C4E6DB300B7EB7D /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1EDCAD2C4E6DB300B7EB7D /* FilterViewModel.swift */; };
 		FB4CEBE52C41453E007E1419 /* HTTPHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CEBE42C41453E007E1419 /* HTTPHomeRepository.swift */; };
 		FB55BD552C1B0CAD00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */; };
 		FB55BD562C1B0CAD00F81FDB /* PlusJakartaSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */; };
@@ -156,6 +157,7 @@
 		FB1EDCA72C4E413F00B7EB7D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		FB1EDCA92C4E417F00B7EB7D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FB1EDCAB2C4E41D000B7EB7D /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		FB1EDCAD2C4E6DB300B7EB7D /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		FB4CEBE42C41453E007E1419 /* HTTPHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHomeRepository.swift; sourceTree = "<group>"; };
 		FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 			isa = PBXGroup;
 			children = (
 				FB1EDCAB2C4E41D000B7EB7D /* FilterView.swift */,
+				FB1EDCAD2C4E6DB300B7EB7D /* FilterViewModel.swift */,
 			);
 			path = FilterView;
 			sourceTree = "<group>";
@@ -858,6 +861,7 @@
 				5FACFBAE2C4A9BF7001B94C2 /* Date+Ext.swift in Sources */,
 				FBEA6C9D2C1C08E0008953CB /* EmailVerificationView.swift in Sources */,
 				FBA207142C3D54D500F15F1B /* FullNameModel.swift in Sources */,
+				FB1EDCAE2C4E6DB300B7EB7D /* FilterViewModel.swift in Sources */,
 				5F1A84262C33D3F200DF17E5 /* NewQueryViewModel.swift in Sources */,
 				FB967D212C2581A2002BA572 /* ProfileView.swift in Sources */,
 				8C22A9742C1C5F1800B3879B /* HTTPAuthRepository.swift in Sources */,
