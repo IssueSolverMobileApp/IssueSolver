@@ -66,5 +66,4 @@ final class QueryDetailViewModel: ObservableObject {
             }
         }
     }
-
 }

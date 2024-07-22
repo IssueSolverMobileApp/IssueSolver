@@ -10,6 +10,7 @@ import Foundation
 final class QeuryCommentViewModel: ObservableObject {
     
     @Published var commentData: [QueryCommentDataModel] = []
+    @Published var isDataEmptyButSuccess: Bool = false
     
     private var repository = HTTPQueryRepository()
     private var pageCount: Int = 0
@@ -36,5 +37,13 @@ final class QeuryCommentViewModel: ObservableObject {
         pageCount = pageCount + 1
     }
 
+    private func isDataEmptyHandler(data: [QueryCommentDataModel]) {
+        if data.isEmpty && pageCount == 0 {
+            isDataEmptyButSuccess = true
+        } else {
+            addData(commentData: data)
+            isDataEmptyButSuccess = false
+        }
+    }
 }
 
