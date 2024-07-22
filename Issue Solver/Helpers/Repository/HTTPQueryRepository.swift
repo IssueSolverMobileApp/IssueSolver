@@ -37,6 +37,19 @@ final class HTTPQueryRepository {
         }
     }
     
+    func getComments(requestID: String, pageCount: String, completion: @escaping( Result<QueryCommentModel, Error>) -> Void) {
+        http.GET(endPoint: EndPoint.query(.getQueryComments(requestID, pageCount))) { (data: QueryCommentModel?, error: Error?) in
+            if let error {
+                completion(.failure(error))
+            }
+            
+            if let data {
+                completion(.success(data))
+            }
+        
+        }
+    }
+    
     func postLike(queryID: String, completion: @escaping(Result<SuccessModel, Error>) -> Void) {
         http.POST(endPoint: EndPoint.query(.likePost(queryID)), body: nil) { (data: SuccessModel?, error: Error? )in
             if let error {
