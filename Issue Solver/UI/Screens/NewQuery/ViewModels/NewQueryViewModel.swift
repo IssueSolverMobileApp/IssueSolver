@@ -10,38 +10,70 @@ import Foundation
 @MainActor
 class NewQueryViewModel: ObservableObject {
     
-    @Published var newQuery: QueryDataModel?
     @Published var categories: [QueryCategoryModel] = []
-    @Published var selectedCategory: QueryCategoryModel?
+    @Published var organizations: [OrganizationModel] = []
+    @Published var selectedOrganization: OrganizationModel = OrganizationModel()
+    @Published var selectedCategory: QueryCategoryModel = QueryCategoryModel()
+    
+    
+    @Published var addressText: String = ""
+    @Published var categoryPicker: String = ""
+    @Published var isRightTextEditor: Bool = true
+    @Published var explanationEditorText: String = ""
+    @Published var notificationType: NotificationType?
     
     private let queryRepository: HTTPNewQueryRepository = HTTPNewQueryRepository()
     
     init() {
         getCategories()
-        self.selectedCategory = categories.first
+        getOrganizations()
     }
     
     func createNewQuery() {
-        if let newQuery {
-            queryRepository.createNewQuery(body: newQuery) { result in
+        let newQuery = QueryDataModel(address: addressText, description: explanationEditorText, organizationName: selectedOrganization.name, category: selectedCategory)
+            queryRepository.createNewQuery(body: newQuery) { [ weak self ] result in
                 switch result {
                 case .success(let success):
                     print(success)
-                case .failure(let failure):
-                    print(failure)
+                    self?.cleanFields()
+                    self?.notificationType = .success(success)
+                case .failure(let error):
+                    self?.notificationType = .error(error)
                 }
+            }
+    }
+    
+    func getCategories() {
+        queryRepository.getCategories { [ weak self ] result in
+            switch result {
+            case .success(let success):
+                self?.categories = success
+                self?.selectedCategory = success.first!
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
     
-    func getCategories() {
-        queryRepository.getCategories { result in
+    func getOrganizations() {
+        queryRepository.getOrganizations { [ weak self ] result in
             switch result {
             case .success(let success):
-                self.categories = success
+                self?.organizations = success
+                self?.selectedOrganization = success.first!
             case .failure(let error):
                 print(error.localizedDescription)
             }
+        }
+    }
+    
+    
+    func cleanFields() {
+        addressText = ""
+        explanationEditorText = ""
+        if !organizations.isEmpty && !categories.isEmpty {
+            selectedOrganization = organizations.first!
+            selectedCategory = categories.first!
         }
     }
 }

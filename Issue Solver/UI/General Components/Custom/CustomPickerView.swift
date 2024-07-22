@@ -7,15 +7,22 @@
 
 import SwiftUI
 
-struct CustomPickerView<V, C>: View where V : Codable, V : Hashable, C : View {
+struct CustomPickerView<V, C>: View where V : SelectionProtocol, C : View {
     
     @Binding var selection: V
-    @State var selectedTitle: String
     var title: String?
     var textColor: Color?
     @Binding var isRightTextEditor: Bool
     
     @ViewBuilder var view: () -> C
+    
+    init(selection: Binding<V>, title: String? = nil, textColor: Color? = nil, isRightTextEditor: Binding<Bool>, @ViewBuilder view: @escaping () -> C) {
+        self._selection = selection
+        self.title = title
+        self.textColor = textColor
+        self._isRightTextEditor = isRightTextEditor
+        self.view = view
+    }
     
     var body: some View {
 
@@ -36,7 +43,7 @@ struct CustomPickerView<V, C>: View where V : Codable, V : Hashable, C : View {
                     }
                 } label: {
                     HStack {
-                        Text(selectedTitle)
+                        Text(selection.name ?? "")
                             .jakartaFont(.custom(.light, 14))
                             .foregroundStyle(.gray)
                         

@@ -11,13 +11,16 @@ public enum NewQueryEndPoint: EndPointProtocol {
     
     case request(String)
     case category
+    case organizations
     
     var url: String {
         switch self {
         case .request(let query):
-            return "\(baseRequestMSURL)request?categoryName=\(query)"
+            return "\(baseURL)request?categoryName=\(query)"
         case .category:
-            return "\(baseRequestMSURL)category"
+            return "\(baseURL)category"
+        case .organizations:
+            return "\(baseURL)api/Organizations/getList"
         }
     }
 }

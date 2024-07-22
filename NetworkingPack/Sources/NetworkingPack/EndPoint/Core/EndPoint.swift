@@ -33,15 +33,10 @@ public enum EndPoint: EndPointProtocol {
 
 protocol EndPointProtocol {
     var baseURL: String { get }
-    var baseRequestMSURL: String { get }
 }
 
 extension EndPointProtocol {
-    
     var baseURL: String {
         return "https://gatewayy-f20db7ab0323.herokuapp.com/"
-    }
-    var baseRequestMSURL: String {
-        return "https://request-mss-05fdbd39d8f8.herokuapp.com/"
     }
 }
