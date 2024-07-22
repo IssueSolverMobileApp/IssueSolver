@@ -28,7 +28,7 @@ struct QueryDetailView: View {
                         vm.likeToggle()
                     }
                     .fullScreenCover(isPresented: $isPresented, content: {
-                        QueryCommentBottomSheetView()
+                        QueryCommentView()
                     })
                 }
                 .padding(.horizontal, 20)

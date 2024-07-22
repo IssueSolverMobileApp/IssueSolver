@@ -50,7 +50,7 @@ struct MyQueryView: View {
                         router.navigate { QueryDetailView( queryItem: $item) }
                     }
                     .fullScreenCover(isPresented: $isPresented, content: {
-                        QueryCommentBottomSheetView()
+                        QueryCommentView()
                     })
                 }
                     

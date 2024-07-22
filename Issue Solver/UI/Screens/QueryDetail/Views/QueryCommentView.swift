@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct QueryCommentBottomSheetView: View {
+struct QueryCommentView: View {
     
     @State private var commentText: String = ""
     
@@ -74,5 +74,5 @@ struct QueryCommentBottomSheetView: View {
 }
 
 #Preview {
-    QueryCommentBottomSheetView()
+    QueryCommentView()
 }

@@ -8,17 +8,26 @@
 import Foundation
 
 // MARK: - QueryCommentModel
-struct QueryCommentModel: Codable {
-    let data: [QueryCommentDataModel]
-    let message: String
-    let success: Bool
+struct QueryCommentModel: Codable, Hashable {
+    let data: [QueryCommentDataModel]?
+    let message: String?
+    let success: Bool?
+    
+    static func ==(lhs: QueryCommentModel, rhs: QueryCommentModel) -> Bool {
+        return lhs.success == rhs.success && lhs.message == rhs.message && lhs.data == rhs.data
+    }
 }
 
 // MARK: - Datum
-struct QueryCommentDataModel: Codable {
-    let commentID: Int
-    let fullName, authority, commentText, createDate: String
+struct QueryCommentDataModel: Codable, Hashable {
+    var commentID: Int?
+    var fullName, authority, commentText, createDate: String?
 
+    
+    static func ==(lhs: QueryCommentDataModel, rhs: QueryCommentDataModel) -> Bool {
+        return lhs.commentID == rhs.commentID && lhs.fullName == rhs.fullName && lhs.authority == rhs.authority && lhs.commentText == rhs.commentText && lhs.createDate == rhs.createDate
+    }
+    
     enum CodingKeys: String, CodingKey {
         case commentID = "commentId"
         case fullName, authority, commentText, createDate
