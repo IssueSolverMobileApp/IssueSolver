@@ -9,15 +9,16 @@ import Foundation
 
 class HomeViewModel: ObservableObject {
     
-    @Published var homeData: [QueryDataModel] = []
+    @Published var queryData: [QueryDataModel] = []
     @Published var placeholderData = QueryDataModel()
     @Published var isDataEmptyButSuccess: Bool = false
     
     private var homeRepository = HTTPHomeRepository()
+    private var queryRepository = HTTPQueryRepository()
     private var pageCount: Int = 0
     
-    init(homeData: [QueryDataModel] = []) {
-        self.homeData = homeData
+    init(queryData: [QueryDataModel] = []) {
+        self.queryData = queryData
     }
     
     private var isLoading: Bool = false
@@ -55,7 +56,7 @@ class HomeViewModel: ObservableObject {
     }
     
     private func addLike(queryID: String) {
-        homeRepository.postLike(queryID: queryID) { result in
+        queryRepository.postLike(queryID: queryID) { result in
             switch result {
             case .success(let success):
                 print(success.message ?? "")
@@ -66,7 +67,7 @@ class HomeViewModel: ObservableObject {
     }
     
     private func deleteLike(queryID: String) {
-        homeRepository.deleteLike(queryID: queryID) { result in
+        queryRepository.deleteLike(queryID: queryID) { result in
             switch result {
             case .success(let success):
                 print(success.message ?? "")
@@ -76,10 +77,10 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    private func addData(homeData: [QueryDataModel]) {
-        homeData.forEach { item in
-            if !homeData.contains(item) && item != QueryDataModel() {
-                self.homeData.append(item)
+    private func addData(queryData: [QueryDataModel]) {
+        queryData.forEach { item in
+            if !queryData.contains(item) && item != QueryDataModel() {
+                self.queryData.append(item)
             }
         }
         pageCount = pageCount + 1
@@ -90,7 +91,7 @@ class HomeViewModel: ObservableObject {
         if data.isEmpty && pageCount == 0 {
             isDataEmptyButSuccess = true
         } else {
-            addData(homeData: data)
+            addData(queryData: data)
             isDataEmptyButSuccess = false
         }
     }

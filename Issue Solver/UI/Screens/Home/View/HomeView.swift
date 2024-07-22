@@ -18,7 +18,7 @@ struct HomeView: View {
         ZStack {
             Color.surfaceBackground
                 .ignoresSafeArea()
-                if vm.homeData.isEmpty && !vm.isDataEmptyButSuccess {
+                if vm.queryData.isEmpty && !vm.isDataEmptyButSuccess {
                     placeholderView
                 } else if vm.isDataEmptyButSuccess {
                     notDataView
@@ -35,9 +35,9 @@ struct HomeView: View {
         ScrollView {
             
             LazyVStack {
-                CustomTitleView(title: "Issue Solver")
+                CustomTitleView(title: "• Issue Solver")
                 
-                ForEach($vm.homeData, id: \.requestID) { $item in
+                ForEach($vm.queryData, id: \.requestID) { $item in
                     CustomPostRowView(queryItem: $item, isDetailView: false) {
                         // MARK: Comment handler
                         isPresented.toggle()
@@ -71,7 +71,7 @@ struct HomeView: View {
         ScrollView {
             
             VStack {
-                CustomTitleView(title: "Mənim sorğularım")
+                CustomTitleView(title: "• Issue Solver")
                 
                 ForEach(1...3, id: \.self) {_ in
                     CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
@@ -89,9 +89,9 @@ struct HomeView: View {
     
     var notDataView: some View {
         VStack {
-            CustomTitleView(title: "Mənim sorğularım")
+            CustomTitleView(title: "• Issue Solver")
             Spacer()
-            Text("Sorğunuz hələ ki yoxdur")
+            Text("Sistemdə sorğu mövcud deyil.")
                 .jakartaFont(.heading)
             Spacer()
             EmptyView()

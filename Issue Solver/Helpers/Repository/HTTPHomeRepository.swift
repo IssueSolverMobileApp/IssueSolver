@@ -22,29 +22,4 @@ class HTTPHomeRepository {
             }
         }
     }
-    
-    func postLike(queryID: String, completion: @escaping(Result<SuccessModel, Error>) -> Void) {
-        http.POST(endPoint: EndPoint.query(.likePost(queryID)), body: nil) { (data: SuccessModel?, error: Error? )in
-            if let error {
-                completion(.failure(error))
-            }
-            if let data {
-                completion(.success(data))
-            }
-        }
-    }
-    
-    func deleteLike(queryID: String, completion: @escaping(Result<SuccessModel, Error>) -> Void) {
-        
-        http.DELETE(endPoint: EndPoint.query(.likeDelete(queryID)), body: nil) {(data: SuccessModel?, error: Error? ) in
-            if let error {
-                completion(.failure(error))
-            }
-            if let data {
-                completion(.success(data))
-            }
-            
-        }
-    }
-    
 }
