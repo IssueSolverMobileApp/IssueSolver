@@ -105,7 +105,6 @@ struct MyQueryView: View {
     }
 }
 
-
 #Preview {
     MyQueryView()
 }
