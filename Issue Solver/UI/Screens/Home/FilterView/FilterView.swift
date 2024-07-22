@@ -11,16 +11,6 @@ struct FilterView: View {
     
     @EnvironmentObject var router: Router
     @StateObject var vm = HomeViewModel()
-    @State var isRightTextEditor: Bool = true
-    @State private var categoryPicker: String = ""
-    @State var selectedGov: personModel = personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
-
-    private var governments: [personModel] = [
-        personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi"),
-        personModel(name: "Innovasiya ve Reqemsal Inkisaf "),
-        personModel(name: "Innovasiya ve Reqemsal "),
-        personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
-    ]
     
     var body: some View {
         ZStack {
@@ -29,7 +19,7 @@ struct FilterView: View {
             VStack(spacing: 20) {
                 ScrollView {
                     titleView
-                    pickerView
+                    bottomSheetView
                 }
                     buttonView
             }
@@ -57,20 +47,20 @@ struct FilterView: View {
         }
     }
     
-    var pickerView: some View {
+    var bottomSheetView: some View {
         
         VStack(spacing: 24) {
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin yönləndiriləcəyi qurum", placeholder: "Qurum", isRightTextEditor: $isRightTextEditor)
             
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin Kateqoriyası", placeholder: "Kategoriya", isRightTextEditor: $isRightTextEditor)
+            CustomFilterRowView(title: "Problemin yönləndiriləcəyi qurum", subtitle: "Qurum", rightImage: "arrowDownIcon" )
             
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin statusu", placeholder: "Status", isRightTextEditor: $isRightTextEditor)
+            CustomFilterRowView(title: "Problemin Kateqoriyası", subtitle: "Kateqoriya", rightImage: "arrowDownIcon" )
             
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin paylaşılma tarixi", placeholder: "Tarix", isRightTextEditor: $isRightTextEditor)
+            CustomFilterRowView(title: "Problemin statusu", subtitle: "Status", rightImage: "arrowDownIcon" )
+              
             
+            CustomFilterRowView(title: "Problemin paylaşılma tarixi", subtitle: "Tarix", rightImage: "arrowDownIcon" )
         }
     }
-    
     
     var buttonView: some View {
             CustomButton(style: .rounded, title: "Tətbiq et", color: .primaryBlue) {

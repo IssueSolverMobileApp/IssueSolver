@@ -59,6 +59,7 @@
 		FB1EDCAA2C4E417F00B7EB7D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1EDCA92C4E417F00B7EB7D /* HomeViewModel.swift */; };
 		FB1EDCAC2C4E41D000B7EB7D /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1EDCAB2C4E41D000B7EB7D /* FilterView.swift */; };
 		FB1EDCAE2C4E6DB300B7EB7D /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1EDCAD2C4E6DB300B7EB7D /* FilterViewModel.swift */; };
+		FB1EDCB02C4E8CDE00B7EB7D /* CustomFilterRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1EDCAF2C4E8CDE00B7EB7D /* CustomFilterRowView.swift */; };
 		FB4CEBE52C41453E007E1419 /* HTTPHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CEBE42C41453E007E1419 /* HTTPHomeRepository.swift */; };
 		FB55BD552C1B0CAD00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */; };
 		FB55BD562C1B0CAD00F81FDB /* PlusJakartaSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */; };
@@ -158,6 +159,7 @@
 		FB1EDCA92C4E417F00B7EB7D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FB1EDCAB2C4E41D000B7EB7D /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		FB1EDCAD2C4E6DB300B7EB7D /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
+		FB1EDCAF2C4E8CDE00B7EB7D /* CustomFilterRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilterRowView.swift; sourceTree = "<group>"; };
 		FB4CEBE42C41453E007E1419 /* HTTPHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHomeRepository.swift; sourceTree = "<group>"; };
 		FB55BD472C1B0CAC00F81FDB /* PlusJakartaSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		FB55BD482C1B0CAC00F81FDB /* PlusJakartaSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				8C5B58DC2C3530FB00DC3AF5 /* CustomTextEditor.swift */,
 				5F4A053C2C39EEEE00574153 /* CustomPostRowView.swift */,
 				5FD44FAC2C3B1F0900CC4DEB /* CustomCommentRowView.swift */,
+				FB1EDCAF2C4E8CDE00B7EB7D /* CustomFilterRowView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				6F6B8CAB2C29C07100BB52FE /* TextView.swift in Sources */,
 				6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */,
 				FB9ADD9A2C327B6900D5A16B /* LoadingView.swift in Sources */,
+				FB1EDCB02C4E8CDE00B7EB7D /* CustomFilterRowView.swift in Sources */,
 				FB5A10312C27724500E16828 /* NewPasswordViewModel.swift in Sources */,
 				FBE048702C182C5900C71D2D /* Issue_SolverApp.swift in Sources */,
 				6F36E01F2C1C2EE200C41257 /* View + Ext.swift in Sources */,
