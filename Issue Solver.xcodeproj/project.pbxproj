@@ -10,6 +10,7 @@
 		5F1A84262C33D3F200DF17E5 /* NewQueryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1A84252C33D3F200DF17E5 /* NewQueryViewModel.swift */; };
 		5F34E5572C399506009A4A77 /* NewQueryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D9DC52C3672720050342A /* NewQueryInfoViewModel.swift */; };
 		5F474AE42C3E6E7C004E32DA /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F474AE32C3E6E7C004E32DA /* AuthManager.swift */; };
+		5F4881C22C4E43BE00D74126 /* QueryCommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4881C12C4E43BE00D74126 /* QueryCommentModel.swift */; };
 		5F4A053D2C39EEEE00574153 /* CustomPostRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A053C2C39EEEE00574153 /* CustomPostRowView.swift */; };
 		5F9F53542C3FF7C500494A44 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9F53532C3FF7C500494A44 /* RootView.swift */; };
 		5FACFBAE2C4A9BF7001B94C2 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFBAD2C4A9BF7001B94C2 /* Date+Ext.swift */; };
@@ -104,6 +105,7 @@
 /* Begin PBXFileReference section */
 		5F1A84252C33D3F200DF17E5 /* NewQueryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQueryViewModel.swift; sourceTree = "<group>"; };
 		5F474AE32C3E6E7C004E32DA /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		5F4881C12C4E43BE00D74126 /* QueryCommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryCommentModel.swift; sourceTree = "<group>"; };
 		5F4A053C2C39EEEE00574153 /* CustomPostRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPostRowView.swift; sourceTree = "<group>"; };
 		5F9F53532C3FF7C500494A44 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		5FACFBAD2C4A9BF7001B94C2 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				5FF2DC282C4CF42A00C7CEE8 /* SingleQueryModel.swift */,
+				5F4881C12C4E43BE00D74126 /* QueryCommentModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				A82DADFE2C18DD7300E18665 /* CustomButton.swift in Sources */,
 				FB5A10332C277FDE00E16828 /* MyAccountView.swift in Sources */,
 				8C22A95E2C1C5AB000B3879B /* RegisterModel.swift in Sources */,
+				5F4881C22C4E43BE00D74126 /* QueryCommentModel.swift in Sources */,
 				5FE7E1162C37A98F007879E3 /* MyQueryView.swift in Sources */,
 				5F9F53542C3FF7C500494A44 /* RootView.swift in Sources */,
 				5FDBC72B2C3C69E900DF3F20 /* AdaptasionToKeyboard.swift in Sources */,
