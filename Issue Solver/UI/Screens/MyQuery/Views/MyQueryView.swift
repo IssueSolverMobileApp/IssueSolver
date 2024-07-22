@@ -49,7 +49,7 @@ struct MyQueryView: View {
                     .onTapGesture {
                         router.navigate { QueryDetailView( queryItem: $item) }
                     }
-                    .fullScreenCover(isPresented: $isPresented, content: {
+                    .sheet(isPresented: $isPresented, content: {
                         QueryCommentView()
                     })
                 }

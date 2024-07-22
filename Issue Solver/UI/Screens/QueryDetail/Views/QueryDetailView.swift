@@ -27,7 +27,7 @@ struct QueryDetailView: View {
                     } likeHandler: {_ in 
                         vm.likeToggle()
                     }
-                    .fullScreenCover(isPresented: $isPresented, content: {
+                    .sheet(isPresented: $isPresented, content: {
                         QueryCommentView()
                     })
                 }

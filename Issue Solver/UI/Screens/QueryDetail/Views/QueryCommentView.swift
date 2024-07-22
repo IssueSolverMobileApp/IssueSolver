@@ -13,6 +13,10 @@ struct QueryCommentView: View {
     
     var body: some View {
         VStack {
+            Capsule()
+                .fill(Color.secondary)
+                .frame(width: 30, height: 3)
+                .padding(10)
             HStack {
                 Text("Rəylər")
                     .jakartaFont(.rowTitle)
@@ -28,7 +32,7 @@ struct QueryCommentView: View {
             HStack(spacing: 8) {
                 ZStack {
                     ResizableTF(txt: $txt, height: $height)
-                        .frame(height: self.height < 124 ? self.height : 124)
+                        .frame(height: height < 124 ? height : 124)
                         .padding(.vertical, 5)
                         .padding(.horizontal)
                         .background(.outLineContainerBlue)
