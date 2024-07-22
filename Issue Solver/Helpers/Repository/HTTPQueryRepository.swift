@@ -8,7 +8,6 @@
 import Foundation
 import NetworkingPack
 
-
 final class HTTPQueryRepository {
     
     private var http: HTTPClient = .shared

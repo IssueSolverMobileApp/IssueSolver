@@ -1,17 +1,16 @@
 //
-//  MyRequestView.swift
+//  HomeView.swift
 //  Issue Solver
 //
-//  Created by Valeh Amirov on 05.07.24.
+//  Created by Irada Bakirli on 22.07.24.
 //
 
 import SwiftUI
 
-struct MyQueryView: View {
+struct HomeView: View {
     
     @EnvironmentObject var router: Router
-    
-    @StateObject private var vm = MyQueryViewModel()
+    @StateObject private var vm = HomeViewModel()
     @State private var isLiked: Bool = false
     @State private var isPresented: Bool = false
 
@@ -31,12 +30,14 @@ struct MyQueryView: View {
             vm.getMoreQuery()
         }
     }
-    
+        
     var mainView: some View {
         ScrollView {
             
             LazyVStack {
-                CustomTitleView(title: "Mənim sorğularım")
+                CustomTitleView(title: "• Issue Solver", image1: .filterIcon) {
+                    router.navigate { FilterView() }
+                }
                 
                 ForEach($vm.queryData, id: \.requestID) { $item in
                     CustomPostRowView(queryItem: $item, isDetailView: false) {
@@ -72,7 +73,7 @@ struct MyQueryView: View {
         ScrollView {
             
             VStack {
-                CustomTitleView(title: "Mənim sorğularım")
+                CustomTitleView(title: "• Issue Solver",  image1: .filterIcon)
                 
                 ForEach(1...3, id: \.self) {_ in
                     CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
@@ -90,21 +91,18 @@ struct MyQueryView: View {
     
     var notDataView: some View {
         VStack {
-            
-            CustomTitleView(title: "Mənim sorğularım")
+            CustomTitleView(title: "• Issue Solver")
             Spacer()
-            Text("Sorğunuz hələ ki yoxdur")
+            Text("Sistemdə sorğu mövcud deyil.")
                 .jakartaFont(.heading)
             Spacer()
             EmptyView()
         }
-    
         .padding(.horizontal, 20)
         .padding(.bottom, 16)
-
     }
 }
 
 #Preview {
-    MyQueryView()
+    HomeView()
 }

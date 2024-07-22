@@ -27,8 +27,7 @@ struct TabBarView: View {
     var body: some View {
         TabView(selection: $currentTab) {
             
-            Color.red.ignoresSafeArea()
-          //  HomeView()
+            HomeView()
                 .tag(Tab.homeIcon)
             
             MyQueryView()
@@ -37,8 +36,8 @@ struct TabBarView: View {
            NewQueryView()
                 .tag(Tab.addIcon)
             
-            Color.green.ignoresSafeArea()
-                .tag(Tab.interactionsIcon)
+//            Color.green.ignoresSafeArea()
+//                .tag(Tab.interactionsIcon)
             
             ProfileView()
                 .tag(Tab.profileIcon)
