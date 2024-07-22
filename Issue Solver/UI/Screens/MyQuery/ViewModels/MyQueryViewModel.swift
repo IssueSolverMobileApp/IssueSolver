@@ -78,7 +78,7 @@ class MyQueryViewModel: ObservableObject {
     
     private func addData(queryData: [QueryDataModel]) {
         queryData.forEach { item in
-            if !queryData.contains(item) && item != QueryDataModel() {
+            if !self.queryData.contains(item) && item != QueryDataModel() {
                 self.queryData.append(item)
             }
         }

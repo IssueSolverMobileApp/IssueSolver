@@ -20,8 +20,6 @@ final class QueryDetailViewModel: ObservableObject {
             case .success(let success):
                 DispatchQueue.main.async {
                     self.item = success.data
-                    print(self.item.description ?? "")
-                    print(success.data.description ?? "")
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -66,5 +64,4 @@ final class QueryDetailViewModel: ObservableObject {
             }
         }
     }
-
 }

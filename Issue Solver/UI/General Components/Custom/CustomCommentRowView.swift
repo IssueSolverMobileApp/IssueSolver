@@ -13,12 +13,14 @@ struct CustomCommentRowView: View {
             VStack(alignment:.leading ,spacing: 12) {
                 HStack {
                     Image(.profile)
+                        .resizable()
+                        .frame(width: 32, height: 32)
                     Text("Valeh Amirov")
                         .jakartaFont(.custom(.semiBold, 15))
                         .foregroundStyle(.primaryBlue)
                     Spacer()
                     Text("07.01.2012")
-                        .jakartaFont(.custom(.regular, 14))
+                        .jakartaFont(.custom(.regular, 12))
                         .foregroundStyle(.secondaryGray)
                 }
                 
@@ -27,6 +29,7 @@ struct CustomCommentRowView: View {
                     .lineSpacing(12)
                 
             }
+            .padding(.horizontal, 20)
             customDivider
         }
     }
