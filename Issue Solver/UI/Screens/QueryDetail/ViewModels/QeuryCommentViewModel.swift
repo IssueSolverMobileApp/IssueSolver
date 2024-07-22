@@ -21,7 +21,7 @@ final class QeuryCommentViewModel: ObservableObject {
             switch result {
             case .success(let success):
                 guard let data = success.data  else { return }
-                self.addData(commentData: data)
+                self.isDataEmptyHandler(data: data)
             case .failure(let error):
                 print(error.localizedDescription)
             }
