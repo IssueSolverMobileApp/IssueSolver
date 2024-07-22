@@ -27,7 +27,7 @@ struct NotificationView: View {
                 contentView(image: .successIcon, text: success.message ?? "", color: .green)
             case .error(let error):
                 if let error {
-                    contentView(image: .arrowDownIcon, text: error.localizedDescription, color: .red)
+                    contentView(image: .x, text: error.localizedDescription, color: .red)
                 }
             }
         }
