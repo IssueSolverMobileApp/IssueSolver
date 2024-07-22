@@ -31,6 +31,8 @@
 		6F7535452C19956E003D12AC /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7535442C19956E003D12AC /* RegisterView.swift */; };
 		6F75354B2C1998D5003D12AC /* CustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75354A2C1998D5003D12AC /* CustomTitleView.swift */; };
 		6F75354D2C199C3B003D12AC /* CustomCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */; };
+		6FBB595F2C4E6B7E0099E178 /* HTTPNewQueryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBB595E2C4E6B7E0099E178 /* HTTPNewQueryRepository.swift */; };
+		6FC8EBB12C4E4128002EC08F /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC8EBB02C4E4128002EC08F /* CategoryModel.swift */; };
 		8C22A95E2C1C5AB000B3879B /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A95D2C1C5AB000B3879B /* RegisterModel.swift */; };
 		8C22A9602C1C5AD800B3879B /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A95F2C1C5AD800B3879B /* LoginModel.swift */; };
 		8C22A9622C1C5AE800B3879B /* ResetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C22A9612C1C5AE800B3879B /* ResetPasswordModel.swift */; };
@@ -125,6 +127,8 @@
 		6F7535442C19956E003D12AC /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterView.swift; path = ../../RegisterView/RegisterView.swift; sourceTree = "<group>"; };
 		6F75354A2C1998D5003D12AC /* CustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleView.swift; sourceTree = "<group>"; };
 		6F75354C2C199C3B003D12AC /* CustomCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCheckBox.swift; sourceTree = "<group>"; };
+		6FBB595E2C4E6B7E0099E178 /* HTTPNewQueryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPNewQueryRepository.swift; sourceTree = "<group>"; };
+		6FC8EBB02C4E4128002EC08F /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		8C22A95B2C1C54AC00B3879B /* NetworkingPack */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkingPack; sourceTree = SOURCE_ROOT; };
 		8C22A95D2C1C5AB000B3879B /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		8C22A95F2C1C5AD800B3879B /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
@@ -342,6 +346,14 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		6FC8EBAF2C4E4119002EC08F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6FC8EBB02C4E4128002EC08F /* CategoryModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		8C22A95C2C1C5A9B00B3879B /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +381,7 @@
 				FBAE3D712C37E47C00C12CA2 /* HTTPProfileRepository.swift */,
 				5FDBC7302C3D0FB500DF3F20 /* HTTPQueryRepository.swift */,
 				FB4CEBE42C41453E007E1419 /* HTTPHomeRepository.swift */,
+				6FBB595E2C4E6B7E0099E178 /* HTTPNewQueryRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -417,6 +430,7 @@
 		8CE6452E2C32A163004A956E /* NewQuery */ = {
 			isa = PBXGroup;
 			children = (
+				6FC8EBAF2C4E4119002EC08F /* Models */,
 				8CE645322C32A21A004A956E /* Views */,
 				5F1A84242C33D3DD00DF17E5 /* ViewModels */,
 			);
@@ -780,6 +794,7 @@
 				6F75354D2C199C3B003D12AC /* CustomCheckBox.swift in Sources */,
 				5FDBC7332C3D149C00DF3F20 /* QueryModel.swift in Sources */,
 				6F6B8CB12C29EA9700BB52FE /* ContentView.swift in Sources */,
+				6FBB595F2C4E6B7E0099E178 /* HTTPNewQueryRepository.swift in Sources */,
 				8C264F482C2446ED00FDAAE3 /* RegisterViewModel.swift in Sources */,
 				8C22A9692C1C5E5400B3879B /* JSONConverter.swift in Sources */,
 				8C5B58DD2C3530FB00DC3AF5 /* CustomTextEditor.swift in Sources */,
@@ -808,6 +823,7 @@
 				FBA207142C3D54D500F15F1B /* FullNameModel.swift in Sources */,
 				5F1A84262C33D3F200DF17E5 /* NewQueryViewModel.swift in Sources */,
 				FB967D212C2581A2002BA572 /* ProfileView.swift in Sources */,
+				6FC8EBB12C4E4128002EC08F /* CategoryModel.swift in Sources */,
 				8C22A9742C1C5F1800B3879B /* HTTPAuthRepository.swift in Sources */,
 				5FB56F132C3A87E500671B86 /* QueryDetailView.swift in Sources */,
 			);
