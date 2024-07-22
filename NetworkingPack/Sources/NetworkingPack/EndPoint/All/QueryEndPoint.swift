@@ -12,6 +12,7 @@ public enum QueryEndPoint: EndPointProtocol {
     case myQueries(String)
     case singleQuery(String)
     case getQueryComments(String, String)
+    case postComment(String)
     case likePost(String)
     case likeDelete(String)
     
@@ -23,6 +24,8 @@ public enum QueryEndPoint: EndPointProtocol {
             return "\(baseURL)request/by-id/\(requestID)"
         case .getQueryComments(let requestID, let pageNumber):
             return "\(baseURL)api/v1/comments/request/\(requestID)?page=\(pageNumber)&size=10"
+        case .postComment(let requestID):
+        return "\(baseURL)api/v1/comments/post?requestId=\(requestID)"
         case .likePost(let requestID):
             return "\(baseURL)api/v1/likes/post?requestId=\(requestID)"
         case .likeDelete(let requestID):

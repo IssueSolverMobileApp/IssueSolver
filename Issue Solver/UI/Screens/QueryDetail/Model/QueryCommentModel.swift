@@ -33,3 +33,27 @@ struct QueryCommentDataModel: Codable, Hashable {
         case fullName, authority, commentText, createDate
     }
 }
+
+// MARK: - PostCommentModel
+struct PostCommentModel: Codable {
+    let commentText: String?
+}
+
+
+// MARK: - CommentSuccessModel
+struct CommentSuccessModel: Codable {
+    let data: CommentSuccessDataModel?
+    let message: String?
+    let success: Bool?
+}
+
+// MARK: - DataClass
+struct CommentSuccessDataModel: Codable {
+    let commentID: Int?
+    let fullName, authority, commentText, createDate: String?
+
+    enum CodingKeys: String, CodingKey {
+        case commentID = "commentId"
+        case fullName, authority, commentText, createDate
+    }
+}
