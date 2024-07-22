@@ -35,6 +35,6 @@ protocol EndPointProtocol {
 extension EndPointProtocol {
     
     var baseURL: String {
-        return "https://issue-solver-421da800ab88.herokuapp.com/"
+        return "https://gatewayy-f20db7ab0323.herokuapp.com/"
     }
 }

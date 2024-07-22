@@ -24,6 +24,7 @@ class MyQueryViewModel: ObservableObject {
     
     func getMoreQuery() {
         if !isLoading {
+            self.isLoading = true
             getMyQuery()
         }
     }
@@ -38,19 +39,13 @@ class MyQueryViewModel: ObservableObject {
     }
     
     private func getMyQuery() {
-        self.isLoading = true
         queryRepository.getMyQueries(pageCount: "\(pageCount)") { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
                     guard let data = success.data else { return }
-                    if data.isEmpty && self.pageCount == 0 {
-                        self.isDataEmptyButSuccess = true
-                    } else {
-                        self.addData(queryData: data)
-                        self.isDataEmptyButSuccess = false
-                    }
+                    self.isDataEmptyHandler(data: data)
                 case .failure(let error):
                     print(error.localizedDescription)
                     self.isLoading = false
@@ -89,6 +84,15 @@ class MyQueryViewModel: ObservableObject {
         }
         pageCount = pageCount + 1
         isLoading = false
+    }
+    
+    private func isDataEmptyHandler(data: [QueryDataModel]) {
+        if data.isEmpty && pageCount == 0 {
+            isDataEmptyButSuccess = true
+        } else {
+            addData(queryData: data)
+            isDataEmptyButSuccess = false
+        }
     }
 }
         
