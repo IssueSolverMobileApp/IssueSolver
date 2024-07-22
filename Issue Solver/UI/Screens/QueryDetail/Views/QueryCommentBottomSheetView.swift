@@ -61,9 +61,8 @@ struct QueryCommentBottomSheetView: View {
             .frame(maxHeight: 150)
 
         }
-
         .frame(maxHeight: 124)
-        .frame(minHeight: 74)
+        .frame(minHeight: 48)
     }
         
     
