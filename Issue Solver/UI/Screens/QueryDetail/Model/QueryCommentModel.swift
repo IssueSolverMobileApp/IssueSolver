@@ -46,6 +46,7 @@ struct CommentSuccessModel: Codable {
     let data: QueryCommentDataModel?
     let message: String?
     let success: Bool?
+    let fullName: String?
 }
 
 // MARK: - CommentSuccessDataModel

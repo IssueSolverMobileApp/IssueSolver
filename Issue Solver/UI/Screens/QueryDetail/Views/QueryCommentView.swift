@@ -13,7 +13,7 @@ struct QueryCommentView: View {
     @State var txt: String = ""
     @State var height: CGFloat = 20
     
-    var id: Int?
+    @Binding var id: Int?
     
     var body: some View {
         VStack {
@@ -24,6 +24,7 @@ struct QueryCommentView: View {
         .background(ignoresSafeAreaEdges: .bottom)
         .onAppear {
             vm.getQueryComments(requestID: "\(id ?? Int())")
+            print(id ?? "bosdur --------------")
         }
     }
     //    titleVeiw
@@ -42,9 +43,16 @@ struct QueryCommentView: View {
     //    cardView
     var cardView: some View {
         ScrollView {
-            VStack(spacing: 12) {
+            LazyVStack(spacing: 12) {
                 ForEach(vm.commentData, id: \.commentID) { item in
                     CustomCommentRowView(item: item)
+                }
+                
+                HStack {
+                    ProgressView()
+                }
+                .onAppear {
+                    vm.getMoreQuery(requestID: "\(id ?? Int())")
                 }
             }
         }
@@ -77,5 +85,5 @@ struct QueryCommentView: View {
 }
   
 #Preview {
-    QueryCommentView()
+    QueryCommentView(id: .constant(0))
 }

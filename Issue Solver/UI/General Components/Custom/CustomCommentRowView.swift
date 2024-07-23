@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomCommentRowView: View {
     
-    var item: QueryCommentDataModel?
+    @State var item: QueryCommentDataModel?
     
     var body: some View {
         VStack {

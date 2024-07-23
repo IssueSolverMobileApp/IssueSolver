@@ -42,15 +42,20 @@ struct MyQueryView: View {
                     CustomPostRowView(queryItem: $item, isDetailView: false) {
                         // MARK: Comment handler
                         isPresented.toggle()
+                        print("--------------\(item.requestID ?? 9999)-----------Debug-----------")
                     } likeHandler: { like in
                         // MARK: Like handler
                         vm.likeToggle(like: like, queryID: item.requestID)
+                    } deleteQuery: {
+                        print("--------------------------")
                     }
                     .onTapGesture {
+                        print("--------------------------")
+
                         router.navigate { QueryDetailView( queryItem: $item) }
                     }
                     .sheet(isPresented: $isPresented, content: {
-                        QueryCommentView()
+                        QueryCommentView(id: $item.requestID)
                     })
                 }
                     
@@ -78,6 +83,8 @@ struct MyQueryView: View {
                     CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
                         
                     } likeHandler: { _ in
+                        
+                    } deleteQuery: {
                         
                     }
                     .redacted(reason: .placeholder)
