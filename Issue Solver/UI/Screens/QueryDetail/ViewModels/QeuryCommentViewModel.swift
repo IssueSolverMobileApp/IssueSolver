@@ -28,6 +28,19 @@ final class QeuryCommentViewModel: ObservableObject {
         }
     }
     
+    //    func addComment(reguestID: String?, text: String?) {
+    //        guard let text, let reguestID else { return }
+    //        let item = PostCommentModel(commentText: text)
+    //        repository.postComment(requestID: reguestID, body: item) { result in
+    //            switch result {
+    //            case .success(let success):
+    //                <#code#>
+    //            case .failure(let failure):
+    //                <#code#>
+    //            }
+    //        }
+    //    }
+    
     private func addData(commentData: [QueryCommentDataModel]) {
         commentData.forEach { item in
             if !self.commentData.contains(item) && item != QueryCommentDataModel() {
