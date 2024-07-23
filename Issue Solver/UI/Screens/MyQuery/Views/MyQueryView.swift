@@ -13,7 +13,6 @@ struct MyQueryView: View {
     
     @StateObject private var vm = MyQueryViewModel()
     @State private var isLiked: Bool = false
-    @State private var isPresented: Bool = false
 
     var body: some View {
         ZStack {
@@ -41,21 +40,18 @@ struct MyQueryView: View {
                 ForEach($vm.queryData, id: \.requestID) { $item in
                     CustomPostRowView(queryItem: $item, isDetailView: false) {
                         // MARK: Comment handler
-                        isPresented.toggle()
-                        print("--------------\(item.requestID ?? 9999)-----------Debug-----------")
+                        vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
                     } likeHandler: { like in
                         // MARK: Like handler
                         vm.likeToggle(like: like, queryID: item.requestID)
                     } deleteQuery: {
-                        print("--------------------------")
+                        
                     }
                     .onTapGesture {
-                        print("--------------------------")
-
                         router.navigate { QueryDetailView( queryItem: $item) }
                     }
-                    .sheet(isPresented: $isPresented, content: {
-                        QueryCommentView(id: $item.requestID)
+                    .sheet(isPresented: $vm.isPresented, content: {
+                        QueryCommentView(id: vm.queryID)
                     })
                 }
                     

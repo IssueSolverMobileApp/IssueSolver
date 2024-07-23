@@ -30,7 +30,7 @@ struct QueryDetailView: View {
                         
                     }
                     .sheet(isPresented: $isPresented, content: {
-                        QueryCommentView(id: $vm.item.requestID)
+                        QueryCommentView(id: "\(vm.item.requestID ?? Int())")
                     })
                 }
                 .padding(.horizontal, 20)

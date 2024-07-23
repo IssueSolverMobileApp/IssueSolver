@@ -13,7 +13,7 @@ struct QueryCommentView: View {
     @State var txt: String = ""
     @State var height: CGFloat = 20
     
-    @Binding var id: Int?
+    var id: String
     
     var body: some View {
         VStack {
@@ -23,8 +23,7 @@ struct QueryCommentView: View {
         }
         .background(ignoresSafeAreaEdges: .bottom)
         .onAppear {
-            vm.getQueryComments(requestID: "\(id ?? Int())")
-            print(id ?? "bosdur --------------")
+            vm.getQueryComments(requestID: id)
         }
     }
     //    titleVeiw
@@ -52,7 +51,7 @@ struct QueryCommentView: View {
                     ProgressView()
                 }
                 .onAppear {
-                    vm.getMoreQuery(requestID: "\(id ?? Int())")
+                    vm.getMoreQuery(requestID: id)
                 }
             }
         }
@@ -85,5 +84,5 @@ struct QueryCommentView: View {
 }
   
 #Preview {
-    QueryCommentView(id: .constant(0))
+    QueryCommentView(id: "")
 }

@@ -12,6 +12,8 @@ class HomeViewModel: ObservableObject {
     @Published var queryData: [QueryDataModel] = []
     @Published var placeholderData = QueryDataModel()
     @Published var isDataEmptyButSuccess: Bool = false
+    @Published var isPresented: Bool = false
+    @Published var queryID: String = ""
     
     private var homeRepository = HTTPHomeRepository()
     private var queryRepository = HTTPQueryRepository()
@@ -37,6 +39,11 @@ class HomeViewModel: ObservableObject {
         } else {
             deleteLike(queryID: "\(queryID)")
         }
+    }
+    
+    func isPresentedToggle(queryID: String) {
+        self.queryID = queryID
+        isPresented.toggle()
     }
     
     private func getHomeQueries() {
