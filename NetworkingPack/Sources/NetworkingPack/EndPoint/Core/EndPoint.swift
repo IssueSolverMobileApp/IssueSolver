@@ -12,6 +12,7 @@ public enum EndPoint: EndPointProtocol {
     case auth(AuthEndPoint)
     case profile(ProfileEndPoint)
     case query(QueryEndPoint)
+    case newQuery(NewQueryEndPoint)
     case home(HomeEndpoint)
     
     var url: String {
@@ -22,6 +23,8 @@ public enum EndPoint: EndPointProtocol {
             return profileEndPoint.url
         case .query(let myQueryEndPoint):
             return myQueryEndPoint.url
+        case .newQuery(let newQueryEndPoint):
+            return newQueryEndPoint.url
         case .home(let homeEndPoint):
             return homeEndPoint.url
         }
@@ -33,7 +36,6 @@ protocol EndPointProtocol {
 }
 
 extension EndPointProtocol {
-    
     var baseURL: String {
         return "https://gatewayy-f20db7ab0323.herokuapp.com/"
     }

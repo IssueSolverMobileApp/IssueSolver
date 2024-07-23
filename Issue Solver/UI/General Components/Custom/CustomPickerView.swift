@@ -7,47 +7,43 @@
 
 import SwiftUI
 
-struct personModel: Identifiable, Hashable {
-    let id = UUID()
-    let name: String
+struct CustomPickerView<V, C>: View where V : SelectionProtocol, C : View {
     
-}
-struct CustomPickerView: View {
-    
-    @Binding var selectedGov: personModel
-    var items: [personModel]?
+    @Binding var selection: V
     var title: String?
-    var placeholder: String
     var textColor: Color?
     @Binding var isRightTextEditor: Bool
-
+    
+    @ViewBuilder var view: () -> C
+    
+    init(selection: Binding<V>, title: String? = nil, textColor: Color? = nil, isRightTextEditor: Binding<Bool>, @ViewBuilder view: @escaping () -> C) {
+        self._selection = selection
+        self.title = title
+        self.textColor = textColor
+        self._isRightTextEditor = isRightTextEditor
+        self.view = view
+    }
     
     var body: some View {
 
         VStack(alignment: .leading) {
-            
-            HStack {
-                if let title {
-                    Text(title)
-                        .jakartaFont(.heading)
-                        .foregroundStyle(isRightTextEditor ? (textColor ?? .black) :  .red)
-                    Spacer()
-                }
+            if let title {
+                Text(title)
+                    .jakartaFont(.heading)
+                    .foregroundStyle(isRightTextEditor ? (textColor ?? .black) :  .red)
+                
             }
+            
             HStack {
                 Spacer()
                 
                 Menu {
-                    Picker("reminderFrequency", selection: $selectedGov) {
-                        ForEach(items ?? []) { item in
-                            Text(item.name)
-                                .tag(item)
-                        }
+                    Picker("reminderFrequency", selection: $selection) {
+                        view()
                     }
-                    
                 } label: {
                     HStack {
-                        Text(selectedGov.name)
+                        Text(selection.name ?? "")
                             .jakartaFont(.custom(.light, 14))
                             .foregroundStyle(.gray)
                         

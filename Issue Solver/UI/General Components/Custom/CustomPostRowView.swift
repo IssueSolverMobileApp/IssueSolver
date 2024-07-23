@@ -82,7 +82,7 @@ struct CustomPostRowView: View {
         VStack(alignment: .leading,spacing: 16) {
             
             ZStack {
-                Text(queryItem.category?.categoryName ?? "")
+                Text(queryItem.category?.name ?? "")
                     .jakartaFont(.subtitle2)
                     .foregroundStyle(.disabledGray)
             }
