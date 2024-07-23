@@ -11,6 +11,7 @@ struct FilterView: View {
     
     @EnvironmentObject var router: Router
     @StateObject var vm = FilterViewModel()
+    @StateObject var hvm = HomeViewModel()
     
     var body: some View {
         ZStack {
@@ -96,6 +97,7 @@ struct FilterView: View {
             CustomButton(style: .rounded, title: "Tətbiq et", color: .primaryBlue) {
                 vm.applyFilter()
                 router.dismissView()
+                hvm.isFilterApplied = true
             }
         }
     }
