@@ -22,4 +22,16 @@ class HTTPHomeRepository {
             }
         }
     }
+    
+    func applyFilter(status:String,category: String, organization: String,days: String,  completion: @escaping (Result<QueryModel, Error>) -> Void) {
+        http.GET(endPoint: EndPoint.filter(.filter(status, category, organization, days))) { (data: QueryModel?,error: Error?) in
+            if let error {
+                completion(.failure(error))
+            }
+            if let data {
+                completion(.success(data))
+            }
+        }
+    }
+
 }

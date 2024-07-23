@@ -14,6 +14,7 @@ public enum EndPoint: EndPointProtocol {
     case query(QueryEndPoint)
     case newQuery(NewQueryEndPoint)
     case home(HomeEndpoint)
+    case filter(FilterEndPoint)
     
     var url: String {
         switch self {
@@ -27,6 +28,8 @@ public enum EndPoint: EndPointProtocol {
             return newQueryEndPoint.url
         case .home(let homeEndPoint):
             return homeEndPoint.url
+        case .filter(let filterEndPoint):
+            return filterEndPoint.url
         }
     }
 }

@@ -10,22 +10,28 @@ import SwiftUI
 struct FilterView: View {
     
     @EnvironmentObject var router: Router
-    @StateObject var vm = HomeViewModel()
+    @StateObject var vm = FilterViewModel()
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
-            
-            VStack(spacing: 20) {
-                ScrollView {
+                
+                VStack(spacing: 16) {
                     titleView
-                    bottomSheetView
-                }
+                
+                    ScrollView {
+                      pickerView
+                    }
                     buttonView
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
         }
+        
+        .onTapGesture {
+            hideKeyboard()
+        }
+        
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -47,24 +53,49 @@ struct FilterView: View {
         }
     }
     
-    var bottomSheetView: some View {
+    var pickerView: some View {
         
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
+            CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum", isRightTextEditor: $vm.isRightTextEditor, onPickerTapped: {
+                vm.getOrganizations()
+             })
+               {
+                ForEach(vm.organizations, id: \.self) { organization in
+                    Text(organization.name ?? "")
+                        .tag(organization.id)
+                }
+            }
             
-            CustomFilterRowView(title: "Problemin yönləndiriləcəyi qurum", subtitle: "Qurum", rightImage: "arrowDownIcon" )
+            CustomPickerView(selection: $vm.selectedCategory, title: "Problemin kateqoeriyası", isRightTextEditor: $vm.isRightTextEditor, onPickerTapped: {
+                vm.getCategories()
+            }) {
+                ForEach(vm.categories, id: \.self) { category in
+                    Text(category.name ?? "")
+                        .tag(category.categoryID)
+                }
+            }
             
-            CustomFilterRowView(title: "Problemin Kateqoriyası", subtitle: "Kateqoriya", rightImage: "arrowDownIcon" )
+            CustomPickerView(selection: $vm.selectedStatus, title: "Problemin statusu", isRightTextEditor: $vm.isRightTextEditor) {
+                ForEach(vm.statuses, id: \.self) { status in
+                    Text(status.name ?? "")
+                        .tag(status)
+                }
+            }
             
-            CustomFilterRowView(title: "Problemin statusu", subtitle: "Status", rightImage: "arrowDownIcon" )
-              
+            CustomPickerView(selection: $vm.selectedDate, title: "Problemin baş verdiyi tarix", isRightTextEditor: $vm.isRightTextEditor) {
+                ForEach(vm.date, id: \.self) { date in
+                    Text(date.name ?? "")
+                        .tag(date)
+                }
+            }
             
-            CustomFilterRowView(title: "Problemin paylaşılma tarixi", subtitle: "Tarix", rightImage: "arrowDownIcon" )
         }
     }
     
     var buttonView: some View {
             CustomButton(style: .rounded, title: "Tətbiq et", color: .primaryBlue) {
-                //  MARK: Paylaş button action must be here
+                vm.applyFilter()
+                router.dismissView()
             }
         }
     }

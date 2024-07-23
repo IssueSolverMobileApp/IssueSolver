@@ -13,14 +13,16 @@ struct CustomPickerView<V, C>: View where V : SelectionProtocol, C : View {
     var title: String?
     var textColor: Color?
     @Binding var isRightTextEditor: Bool
+    var onPickerTapped: (() -> Void)?
     
     @ViewBuilder var view: () -> C
     
-    init(selection: Binding<V>, title: String? = nil, textColor: Color? = nil, isRightTextEditor: Binding<Bool>, @ViewBuilder view: @escaping () -> C) {
+    init(selection: Binding<V>, title: String? = nil, textColor: Color? = nil, isRightTextEditor: Binding<Bool>,onPickerTapped: (() -> Void)? = nil, @ViewBuilder view: @escaping () -> C) {
         self._selection = selection
         self.title = title
         self.textColor = textColor
         self._isRightTextEditor = isRightTextEditor
+        self.onPickerTapped = onPickerTapped
         self.view = view
     }
     
@@ -52,6 +54,9 @@ struct CustomPickerView<V, C>: View where V : SelectionProtocol, C : View {
                     }
                 }
                 .padding([.bottom, .top])
+                .onTapGesture {
+                    onPickerTapped?() 
+                }
                 Spacer()
             }
             .background(Color.white)
