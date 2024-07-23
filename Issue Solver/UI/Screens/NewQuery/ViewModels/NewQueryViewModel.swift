@@ -21,10 +21,13 @@ class NewQueryViewModel: ObservableObject {
     @Published var isRightTextEditor: Bool = true
     @Published var explanationEditorText: String = ""
     @Published var notificationType: NotificationType?
+    @Published var isLoading: Bool = false
+    @Published var isResetPressed: Bool = false
     
     private let queryRepository: HTTPNewQueryRepository = HTTPNewQueryRepository()
     
     init() {
+        isLoading = true
         getCategories()
         getOrganizations()
     }
@@ -45,6 +48,7 @@ class NewQueryViewModel: ObservableObject {
     
     func getCategories() {
         queryRepository.getCategories { [ weak self ] result in
+            self?.isLoading = false
             switch result {
             case .success(let success):
                 self?.categories = success
@@ -57,6 +61,7 @@ class NewQueryViewModel: ObservableObject {
     
     func getOrganizations() {
         queryRepository.getOrganizations { [ weak self ] result in
+            self?.isLoading = false
             switch result {
             case .success(let success):
                 self?.organizations = success

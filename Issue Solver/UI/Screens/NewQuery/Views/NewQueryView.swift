@@ -36,6 +36,19 @@ struct NewQueryView: View {
                 }
             }
         }
+        .alert(
+            isPresented: $vm.isResetPressed,
+            content: {
+                Alert(
+                    title: Text("Sorğunuzu ləğv etməyə əminsiniz?"),
+                    primaryButton: .default(Text("Bəli"), action: { vm.cleanFields() }),
+                    secondaryButton: .cancel({
+                        vm.isResetPressed = false
+                    })
+                )
+            }
+        )
+
     }
     
     
@@ -57,9 +70,14 @@ struct NewQueryView: View {
         
         VStack(spacing: 16) {
             CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum", isRightTextEditor: $vm.isRightTextEditor) {
-                ForEach(vm.organizations, id: \.self) { organization in
-                    Text(organization.name ?? "")
-                        .tag(organization.id)
+                if vm.isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else {
+                    ForEach(vm.organizations, id: \.self) { organization in
+                        Text(organization.name ?? "")
+                            .tag(organization.id)
+                    }
                 }
             }
             
@@ -81,7 +99,7 @@ struct NewQueryView: View {
             }
             
             CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
-                vm.cleanFields()
+                vm.isResetPressed = true
             }
             .disabled((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty) ? false : true)
             .opacity((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty) ? 1 : 0.5)
