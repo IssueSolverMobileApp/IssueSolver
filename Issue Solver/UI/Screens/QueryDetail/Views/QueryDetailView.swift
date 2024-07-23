@@ -26,9 +26,11 @@ struct QueryDetailView: View {
                         isPresented.toggle()
                     } likeHandler: {_ in 
                         vm.likeToggle()
+                    } deleteQuery: {
+                        
                     }
                     .sheet(isPresented: $isPresented, content: {
-                        QueryCommentView()
+                        QueryCommentView(id: $vm.item.requestID)
                     })
                 }
                 .padding(.horizontal, 20)

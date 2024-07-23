@@ -14,32 +14,46 @@ final class QeuryCommentViewModel: ObservableObject {
     
     private var repository = HTTPQueryRepository()
     private var pageCount: Int = 0
+    private var isLoading: Bool = false
 
-    func getQueryComments(requestID: String, pageCount: String) {
-        repository.getComments(requestID: requestID, pageCount: pageCount) { [weak self] result in
+    func getMoreQuery(requestID: String) {
+        if !isLoading {
+            self.isLoading = true
+            getQueryComments(requestID: requestID )
+        }
+    }
+
+    func getQueryComments(requestID: String) {
+        repository.getComments(requestID: requestID, pageCount: "\(pageCount)") { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let success):
+                DispatchQueue.main.async {
                 guard let data = success.data  else { return }
-                self.isDataEmptyHandler(data: data)
+                    self.isDataEmptyHandler(data: data)
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
     
-    //    func addComment(reguestID: String?, text: String?) {
-    //        guard let text, let reguestID else { return }
-    //        let item = PostCommentModel(commentText: text)
-    //        repository.postComment(requestID: reguestID, body: item) { result in
-    //            switch result {
-    //            case .success(let success):
-    //                <#code#>
-    //            case .failure(let failure):
-    //                <#code#>
-    //            }
-    //        }
-    //    }
+//        func addComment(reguestID: String?, text: String?) {
+//            guard let text, let reguestID else { return }
+//            let item = PostCommentModel(commentText: text)
+//            repository.postComment(requestID: reguestID, body: item) { result in
+//                switch result {
+//                case .success(let success):
+//                    
+//                case .failure(let failure):
+//                    <#code#>
+//                }
+//            }
+//        }
+    
+//    func addLocalComment(requestID: String?, text: String?) {
+//        let item = QueryCommentDataModel(commentID: Int(), commentIsSuccess: false, fullName: <#T##String?#>, authority: "USER", commentText: <#T##String?#>, createDate: <#T##String?#>)
+//    }
     
     private func addData(commentData: [QueryCommentDataModel]) {
         commentData.forEach { item in
@@ -48,8 +62,9 @@ final class QeuryCommentViewModel: ObservableObject {
             }
         }
         pageCount = pageCount + 1
+        isLoading = false
     }
-
+    
     private func isDataEmptyHandler(data: [QueryCommentDataModel]) {
         if data.isEmpty && pageCount == 0 {
             isDataEmptyButSuccess = true

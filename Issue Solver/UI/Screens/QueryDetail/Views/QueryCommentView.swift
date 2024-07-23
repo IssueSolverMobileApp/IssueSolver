@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct QueryCommentView: View {
+    @StateObject private var vm = QeuryCommentViewModel()
+    
     @State var txt: String = ""
     @State var height: CGFloat = 20
+    
+    @Binding var id: Int?
     
     var body: some View {
         VStack {
@@ -18,6 +22,10 @@ struct QueryCommentView: View {
             resizableTextVeiw
         }
         .background(ignoresSafeAreaEdges: .bottom)
+        .onAppear {
+            vm.getQueryComments(requestID: "\(id ?? Int())")
+            print(id ?? "bosdur --------------")
+        }
     }
     //    titleVeiw
     var titleView: some View {
@@ -35,10 +43,17 @@ struct QueryCommentView: View {
     //    cardView
     var cardView: some View {
         ScrollView {
-            VStack(spacing: 12) {
-                CustomCommentRowView()
-                CustomCommentRowView()
-                CustomCommentRowView()
+            LazyVStack(spacing: 12) {
+                ForEach(vm.commentData, id: \.commentID) { item in
+                    CustomCommentRowView(item: item)
+                }
+                
+                HStack {
+                    ProgressView()
+                }
+                .onAppear {
+                    vm.getMoreQuery(requestID: "\(id ?? Int())")
+                }
             }
         }
     }
@@ -70,5 +85,5 @@ struct QueryCommentView: View {
 }
   
 #Preview {
-    QueryCommentView()
+    QueryCommentView(id: .constant(0))
 }

@@ -19,13 +19,15 @@ struct CustomPostRowView: View {
     
     let commentHandler: () -> Void
     let likeHandler: (Bool) -> Void
+    let deleteQuery: () -> Void
 
-    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool, commentHandler: @escaping () -> Void, likeHandler: @escaping(Bool) -> Void
+    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool, commentHandler: @escaping () -> Void, likeHandler: @escaping(Bool) -> Void, deleteQuery: @escaping() -> Void
 ) {
         self._queryItem = queryItem
         self.isDetailView = isDetailView
         self.commentHandler = commentHandler
         self.likeHandler = likeHandler
+        self.deleteQuery = deleteQuery
     }
     
     var body: some View {
@@ -163,8 +165,33 @@ struct CustomPostRowView: View {
                 }
             }
             Spacer()
-            Image(.optionDotsIcon)
-                .padding(.trailing)
+            
+//            Button(action: {
+//                print("salam")
+//            }, label: {
+//                
+//                Image(.optionDotsIcon)
+//                    .padding()
+//                    .background(.red)
+//            })
+//            Menu {
+//                Button {
+//                    deleteQuery()
+//                } label: {
+//                    HStack {
+//                        Image(.trashIcon)
+//                        Text("Sil")
+//                    }
+//                }
+//            } label: {
+//                Button(action: {
+//                    print("-----------------------------------")
+//                }, label: {
+//                    Image(.optionDotsIcon)
+//                        .padding()
+//                        .background(Circle())
+//                })
+//            }
         }
     }
     

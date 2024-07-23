@@ -21,11 +21,12 @@ struct QueryCommentModel: Codable, Hashable {
 // MARK: - QueryCommentDataModel
 struct QueryCommentDataModel: Codable, Hashable {
     var commentID: Int?
+    var commentIsSuccess: Bool? = true
     var fullName, authority, commentText, createDate: String?
 
     
     static func ==(lhs: QueryCommentDataModel, rhs: QueryCommentDataModel) -> Bool {
-        return lhs.commentID == rhs.commentID && lhs.fullName == rhs.fullName && lhs.authority == rhs.authority && lhs.commentText == rhs.commentText && lhs.createDate == rhs.createDate
+        return lhs.commentID == rhs.commentID && lhs.commentIsSuccess == rhs.commentIsSuccess && lhs.fullName == rhs.fullName && lhs.authority == rhs.authority && lhs.commentText == rhs.commentText && lhs.createDate == rhs.createDate
     }
     
     enum CodingKeys: String, CodingKey {
@@ -45,6 +46,7 @@ struct CommentSuccessModel: Codable {
     let data: QueryCommentDataModel?
     let message: String?
     let success: Bool?
+    let fullName: String?
 }
 
 // MARK: - CommentSuccessDataModel

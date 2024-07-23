@@ -18,7 +18,7 @@ extension Date {
     func dateFormatter(_ text: String? ,_ format: DateFormType) -> String {
         guard let text else { return String() }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.YYYY, HH:mm"
+        dateFormatter.dateFormat = format.rawValue
         let date = dateFormatter.date(from: text) ?? Date()
         let resultFormat = dateFormatter.string(from: date)
         return resultFormat

@@ -46,12 +46,14 @@ struct HomeView: View {
                     } likeHandler: { like in
                         // MARK: Like handler
                         vm.likeToggle(like: like, queryID: item.requestID)
+                    } deleteQuery: {
+                        
                     }
                     .onTapGesture {
                         router.navigate { QueryDetailView( queryItem: $item) }
                     }
-                    .fullScreenCover(isPresented: $isPresented, content: {
-                        QueryCommentView()
+                    .sheet(isPresented: $isPresented, content: {
+                        QueryCommentView(id: $item.requestID)
                     })
                 }
                     
@@ -61,7 +63,6 @@ struct HomeView: View {
                 .onAppear {
                     vm.getMoreQuery()
                 }
-                
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
@@ -79,6 +80,8 @@ struct HomeView: View {
                     CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
                         
                     } likeHandler: { _ in
+                        
+                    } deleteQuery: {
                         
                     }
                     .redacted(reason: .placeholder)
