@@ -18,7 +18,7 @@ struct QueryCommentModel: Codable, Hashable {
     }
 }
 
-// MARK: - Datum
+// MARK: - QueryCommentDataModel
 struct QueryCommentDataModel: Codable, Hashable {
     var commentID: Int?
     var fullName, authority, commentText, createDate: String?
@@ -42,18 +42,18 @@ struct PostCommentModel: Codable {
 
 // MARK: - CommentSuccessModel
 struct CommentSuccessModel: Codable {
-    let data: CommentSuccessDataModel?
+    let data: QueryCommentDataModel?
     let message: String?
     let success: Bool?
 }
 
-// MARK: - DataClass
-struct CommentSuccessDataModel: Codable {
-    let commentID: Int?
-    let fullName, authority, commentText, createDate: String?
-
-    enum CodingKeys: String, CodingKey {
-        case commentID = "commentId"
-        case fullName, authority, commentText, createDate
-    }
-}
+// MARK: - CommentSuccessDataModel
+//struct CommentSuccessDataModel: Codable {
+//    let commentID: Int?
+//    let fullName, authority, commentText, createDate: String?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case commentID = "commentId"
+//        case fullName, authority, commentText, createDate
+//    }
+//}
