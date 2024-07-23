@@ -12,6 +12,8 @@ struct QueryCommentModel: Codable, Hashable {
     let data: [QueryCommentDataModel]?
     let message: String?
     let success: Bool?
+    let fullName: String?
+
     
     static func ==(lhs: QueryCommentModel, rhs: QueryCommentModel) -> Bool {
         return lhs.success == rhs.success && lhs.message == rhs.message && lhs.data == rhs.data
@@ -46,7 +48,6 @@ struct CommentSuccessModel: Codable {
     let data: QueryCommentDataModel?
     let message: String?
     let success: Bool?
-    let fullName: String?
 }
 
 // MARK: - CommentSuccessDataModel

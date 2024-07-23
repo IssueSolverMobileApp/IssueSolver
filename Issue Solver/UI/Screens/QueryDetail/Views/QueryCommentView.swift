@@ -10,7 +10,7 @@ import SwiftUI
 struct QueryCommentView: View {
     @StateObject private var vm = QeuryCommentViewModel()
     
-    @State var txt: String = ""
+    @State var text: String = ""
     @State var height: CGFloat = 20
     
     var id: String
@@ -60,7 +60,7 @@ struct QueryCommentView: View {
     var resizableTextVeiw: some View {
         HStack(spacing: 8) {
             ZStack {
-                ResizableTextView(txt: $txt, height: $height)
+                ResizableTextView(txt: $text, height: $height)
                     .frame(height: abs(height < 124 ? height : 124))
                     .padding(.vertical, 5)
                     .padding(.horizontal)
@@ -70,7 +70,7 @@ struct QueryCommentView: View {
             }
             .padding(.leading)
             Button {
-                
+                vm.addLocalComment(requestID: self.id, text: self.text)
             } label: {
                 Image(.sendCommentIcon)
                     .frame(width: 40, height: 40)

@@ -61,7 +61,6 @@ struct MyQueryView: View {
                 .onAppear {
                     vm.getMoreQuery()
                 }
-                
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
