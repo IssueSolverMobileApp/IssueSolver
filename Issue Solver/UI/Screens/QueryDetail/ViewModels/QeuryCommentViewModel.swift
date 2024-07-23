@@ -14,14 +14,16 @@ final class QeuryCommentViewModel: ObservableObject {
     
     private var repository = HTTPQueryRepository()
     private var pageCount: Int = 0
-
-    func getQueryComments(requestID: String, pageCount: String) {
-        repository.getComments(requestID: requestID, pageCount: pageCount) { [weak self] result in
+    
+    func getQueryComments(requestID: String) {
+        repository.getComments(requestID: requestID, pageCount: "\(pageCount)") { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let success):
+                DispatchQueue.main.async {
                 guard let data = success.data  else { return }
-                self.isDataEmptyHandler(data: data)
+                    self.isDataEmptyHandler(data: data)
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -49,7 +51,7 @@ final class QeuryCommentViewModel: ObservableObject {
         }
         pageCount = pageCount + 1
     }
-
+    
     private func isDataEmptyHandler(data: [QueryCommentDataModel]) {
         if data.isEmpty && pageCount == 0 {
             isDataEmptyButSuccess = true
