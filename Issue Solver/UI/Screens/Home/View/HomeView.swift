@@ -75,7 +75,7 @@ struct HomeView: View {
         ScrollView {
             
             VStack {
-                CustomTitleView(title: "• Issue Solver",  image1: .filterIcon)
+                CustomTitleView(title: "• Issue Solver")
                 
                 ForEach(1...3, id: \.self) {_ in
                     CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
@@ -95,9 +95,13 @@ struct HomeView: View {
     
     var notDataView: some View {
         VStack {
-            CustomTitleView(title: "• Issue Solver", image1: .filterIcon)
+            CustomTitleView(title: "• Issue Solver", image1: .filterIcon) {
+                router.navigate {
+                    FilterView(homeViewModel: vm, selectedFilters: $vm.selectedFilters)
+                }
+            }
             Spacer()
-            Text("Heç bir sorğu tapılmadı.")
+            Text("Heç bir sorğu tapılmadı")
                 .jakartaFont(.heading)
             Spacer()
             EmptyView()
