@@ -10,15 +10,19 @@ import Foundation
 struct StatusModel: SelectionProtocol {
     var name: String?
     
-    init(name: String) {
-        self.name = name
+    static var none: StatusModel {
+        StatusModel(name: "Heç biri")
+    }
+    
+    var nameWithoutSpaces: String {
+        name?.replacingOccurrences(of: " ", with: "") ?? ""
     }
 }
 
 struct DateModel: SelectionProtocol {
     var name: String?
     
-    init(name: String) {
-        self.name = name
+    static var none: DateModel {
+        DateModel(name: "Heç biri")
     }
 }

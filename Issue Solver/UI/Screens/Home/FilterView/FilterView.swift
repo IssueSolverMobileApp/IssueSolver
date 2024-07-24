@@ -10,20 +10,22 @@ import SwiftUI
 struct FilterView: View {
     
     @EnvironmentObject var router: Router
+    @ObservedObject var homeViewModel: HomeViewModel
     @StateObject var vm = FilterViewModel()
-    @StateObject var hvm = HomeViewModel()
+    @Binding var selectedFilters: [String]
+    
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
+            
+            VStack(spacing: 16) {
+                titleView
                 
-                VStack(spacing: 16) {
-                    titleView
-                
-                    ScrollView {
-                      pickerView
-                    }
-                    buttonView
+                ScrollView {
+                    pickerView
+                }
+                buttonView
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
@@ -96,12 +98,15 @@ struct FilterView: View {
     var buttonView: some View {
             CustomButton(style: .rounded, title: "Tətbiq et", color: .primaryBlue) {
                 vm.applyFilter()
+                selectedFilters = [
+                    vm.selectedOrganization == .none ? "" : vm.selectedOrganization.name ?? "",
+                    vm.selectedCategory == .none ? "" : vm.selectedCategory.name ?? "",
+                    vm.selectedStatus == .none ? "" : vm.selectedStatus.nameWithoutSpaces,
+                    vm.selectedDate == .none ? "" : vm.selectedDate.name ?? ""
+                ]
                 router.dismissView()
-//                hvm.isFilterApplied = true
+
             }
         }
     }
 
-#Preview {
-    FilterView()
-}

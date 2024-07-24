@@ -16,7 +16,7 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             Color.surfaceBackground
-                .ignoresSafeArea()
+                      .ignoresSafeArea()
                 if vm.queryData.isEmpty && !vm.isDataEmptyButSuccess {
                     placeholderView
                 } else if vm.isDataEmptyButSuccess {
@@ -35,7 +35,9 @@ struct HomeView: View {
             
             LazyVStack {
                 CustomTitleView(title: "• Issue Solver", image1: .filterIcon) {
-                    router.navigate { FilterView() }
+                    router.navigate {
+                        FilterView(homeViewModel: vm, selectedFilters: $vm.selectedFilters)
+                    }
                 }
                 
                 ForEach($vm.queryData, id: \.requestID) { $item in
@@ -93,9 +95,9 @@ struct HomeView: View {
     
     var notDataView: some View {
         VStack {
-            CustomTitleView(title: "• Issue Solver")
+            CustomTitleView(title: "• Issue Solver", image1: .filterIcon)
             Spacer()
-            Text("Sistemdə sorğu mövcud deyil.")
+            Text("Heç bir sorğu tapılmadı.")
                 .jakartaFont(.heading)
             Spacer()
             EmptyView()
