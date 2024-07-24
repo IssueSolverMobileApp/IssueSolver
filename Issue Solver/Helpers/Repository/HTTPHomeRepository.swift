@@ -23,8 +23,9 @@ class HTTPHomeRepository {
         }
     }
     
-    func applyFilter(status:String,category: String, organization: String,days: String,  completion: @escaping (Result<QueryModel, Error>) -> Void) {
-        http.GET(endPoint: EndPoint.filter(.filter(status, category, organization, days))) { (data: QueryModel?,error: Error?) in
+    func applyFilter(status: String, category: String, organization: String,days: String, pageCount: String,  completion: @escaping (Result<QueryModel, Error>) -> Void) {
+        
+        http.GET(endPoint: EndPoint.filter(.filter(status, category, organization, days, pageCount))) { (data: QueryModel?,error: Error?) in
             if let error {
                 completion(.failure(error))
             }

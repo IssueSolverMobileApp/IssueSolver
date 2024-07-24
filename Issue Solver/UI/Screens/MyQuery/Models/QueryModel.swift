@@ -44,6 +44,10 @@ struct QueryCategoryModel: SelectionProtocol, Codable {
     var categoryID: Int?
     var name: String?
     
+    static var none: QueryCategoryModel {
+         return QueryCategoryModel(categoryID: 0, name: "Heç biri")
+     }
+    
     static func ==(lhs: QueryCategoryModel, rhs: QueryCategoryModel) -> Bool {
         return lhs.categoryID == rhs.categoryID && lhs.name == rhs.name
     }

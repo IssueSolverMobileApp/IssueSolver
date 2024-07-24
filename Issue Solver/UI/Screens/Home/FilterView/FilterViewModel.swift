@@ -9,24 +9,26 @@ import Foundation
 
 class FilterViewModel: ObservableObject {
     
-    @Published var categories: [QueryCategoryModel] = []
-    @Published var organizations: [OrganizationModel] = []
+    @Published var categories: [QueryCategoryModel] = [QueryCategoryModel.none]
+    @Published var organizations: [OrganizationModel] = [OrganizationModel.none]
     @Published var statuses: [StatusModel] = [
+        .none,
         StatusModel(name: "Gözləmədə"),
         StatusModel(name: "Baxılır"),
         StatusModel(name: "Əsassızdır"),
-        StatusModel(name: "Həllolundu"),
+        StatusModel(name: "Həll edildi"),
         StatusModel(name: "Arxivdədir") ]
     
     @Published var date: [DateModel] = [
-        DateModel(name: "LastDay"),
-        DateModel(name: "LastWeek"),
-        DateModel(name: "LastMonth")]
+        .none,
+        DateModel(name: "Son bir gün"),
+        DateModel(name: "Son bir ay"),
+        DateModel(name: "Son bir həftə")]
     
     @Published var selectedOrganization: OrganizationModel = OrganizationModel()
     @Published var selectedCategory: QueryCategoryModel = QueryCategoryModel()
-    @Published var selectedStatus: StatusModel = StatusModel(name: "Status")
-    @Published var selectedDate: DateModel = DateModel(name: "Tarix")
+    @Published var selectedStatus: StatusModel = StatusModel()
+    @Published var selectedDate: DateModel =  DateModel()
     
     @Published var isRightTextEditor: Bool = true
     @Published var dateText: String = ""
@@ -35,25 +37,13 @@ class FilterViewModel: ObservableObject {
     private let queryRepository: HTTPNewQueryRepository = HTTPNewQueryRepository()
     private let homeRepository: HTTPHomeRepository = HTTPHomeRepository()
     
-    
-    func applyFilter() {
-        let filter = QueryDataModel(status: selectedStatus.name, organizationName: selectedOrganization.name,createDate: selectedDate.name, category: selectedCategory )
-        homeRepository.applyFilter(status: selectedStatus.name ?? "", category: selectedCategory.name ?? "", organization: selectedOrganization.name ?? "", days: selectedDate.name ?? "") { result in
-                switch result {
-                case .success(let success):
-                    print(success)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
-        }
+    var onApplyFilter: ((String, String, String, String) -> Void)?
     
     func getCategories() {
         queryRepository.getCategories { [ weak self ] result in
             switch result {
             case .success(let success):
-                self?.categories = success
-                self?.selectedCategory = success.first!
+                self?.categories = [QueryCategoryModel.none] + success
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -64,11 +54,19 @@ class FilterViewModel: ObservableObject {
         queryRepository.getOrganizations { [ weak self ] result in
             switch result {
             case .success(let success):
-                self?.organizations = success
-                self?.selectedOrganization = success.first!
+                self?.organizations = [OrganizationModel.none] + success
+
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
+    }
+    
+     func applyFilter() {
+         onApplyFilter?(
+            selectedStatus == .none ? "" : selectedStatus.nameWithoutSpaces,
+            (selectedCategory.name == .none ? "" : selectedCategory.name) ?? "",
+            (selectedOrganization.name == .none ? "" : selectedOrganization.name) ?? "",
+            (selectedDate.name == .none ? "" : selectedDate.name) ?? "")
     }
 }
