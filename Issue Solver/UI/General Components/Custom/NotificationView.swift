@@ -24,10 +24,10 @@ struct NotificationView: View {
         HStack {
             switch type {
             case .success(let success):
-                contentView(image: .successIcon, text: success.message ?? "", color: .green)
+                contentView(image: .successIcon, text: success.message ?? "", color: .primaryGreen200, iconColor: .primaryGreen)
             case .error(let error):
                 if let error {
-                    contentView(image: .x, text: error.localizedDescription, color: .red)
+                    contentView(image: .x, text: error.localizedDescription, color: .primaryRed200, iconColor: .primaryRed)
                 }
             }
         }
@@ -46,13 +46,13 @@ struct NotificationView: View {
         }
     }
     
-    func contentView(image: ImageResource, text: String, color: Color) -> some View {
+    func contentView(image: ImageResource, text: String, color: Color, iconColor: Color) -> some View {
         HStack {
             Image(image)
                 .resizable()
                 .frame(width: 30, height: 30)
-                .foregroundStyle(color)
-                .tint(color)
+                .foregroundStyle(iconColor)
+                .tint(iconColor)
             
             Text(text)
                 .foregroundStyle(.white)
