@@ -107,7 +107,6 @@ struct FilterView: View {
                 router.dismissView()
                 
             }
-            
             CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
                 homeViewModel.selectedFilters = ["", "", "", ""]
                 router.dismissView()
