@@ -60,7 +60,7 @@ struct QueryCommentView: View {
     var resizableTextVeiw: some View {
         HStack(spacing: 8) {
             ZStack {
-                ResizableTextView(txt: $text, height: $height)
+                ResizableTextView(text: $text, height: $height, placeholder: "Rəyinizi Yazın")
                     .frame(height: abs(height < 124 ? height : 124))
                     .padding(.vertical, 5)
                     .padding(.horizontal)
@@ -71,6 +71,7 @@ struct QueryCommentView: View {
             .padding(.leading)
             Button {
                 vm.addLocalComment(requestID: self.id, text: self.text)
+                self.text = ""
             } label: {
                 Image(.sendCommentIcon)
                     .frame(width: 40, height: 40)

@@ -19,7 +19,7 @@ struct LoginView: View {
                 ScrollView(showsIndicators: false) {
                     titleView
                     textFieldsView
-                 }
+                }
                 loginButtonView
             }
             .padding(.horizontal, 20)
@@ -28,14 +28,14 @@ struct LoginView: View {
             LoadingView(isLoading: vm.isLoading)
          }
         .onAppear {
-                vm.emailText = ""
-                vm.passwordText = ""
+            vm.emailText = ""
+            vm.passwordText = ""
         }
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()
-     }
-   }
+        }
+    }
     
         // MARK: - TitleView
     var titleView: some View {
@@ -68,14 +68,8 @@ struct LoginView: View {
             CustomButton(title: "Daxil ol", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 Task {
                     await vm.login { success in
-                        
-                        switch success {
-                        case true:
-                            router.navigate {
-                                TabBarView()
-                            }
-                        case false:
-                                let item = EmailModel(email: vm.emailText)
+                        if !success {
+                            let item = EmailModel(email: vm.emailText)
                             router.navigate { OTPView(emailModel: item, isChangePassword: false)
                             }
                         }

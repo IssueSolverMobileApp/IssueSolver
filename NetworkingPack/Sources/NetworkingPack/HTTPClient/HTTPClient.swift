@@ -84,6 +84,7 @@ public final class HTTPClient {
                 handleError(endPoint: endPoint, response: response, data: data, urlRequest: urlRequest, method: method, completion: completion)
                 return
             }
+            deletage?.accessTokenTrigger(isActive: true)
             
             guard let data = data else { return }
             
