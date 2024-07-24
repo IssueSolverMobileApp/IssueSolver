@@ -10,11 +10,23 @@ import SwiftUI
 struct RootView: View {
     
     @EnvironmentObject var auth: AuthManager
+    
     var body: some View {
-        if auth.loggedIn {
-            TabBarView()
-        } else {
-            LoginView()
+        
+        ZStack {
+            Color.surfaceBackground.ignoresSafeArea()
+            
+            if auth.loggedIn {
+                CustomNavigationStack {
+                    TabBarView()
+                }
+                .ignoresSafeArea(edges: .bottom)
+            } else {
+                CustomNavigationStack {
+                    LoginView()
+                }
+                .ignoresSafeArea(edges: .bottom)
+            }
         }
     }
 }

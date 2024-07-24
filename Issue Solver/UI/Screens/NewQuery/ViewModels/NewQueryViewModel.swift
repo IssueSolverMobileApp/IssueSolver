@@ -16,7 +16,36 @@ class NewQueryViewModel: ObservableObject {
     @Published var selectedCategory: QueryCategoryModel = QueryCategoryModel(categoryID: 0, name: "Kateqoriya")
     
     
-    @Published var addressText: String = ""
+    @Published var addressText: String = "" {
+        didSet {
+            if addressText.count < 5 && !addressText .isEmpty {
+                addressTextFieldError = "Adress mətni minimum 5 simvoldan ibarət olamlıdır"
+                isRightAddress = false
+            } else if addressText.count > 51 {
+                addressTextFieldError = "Adress mətni maksimum 50 simvoldan ibarət olmamalıdır"
+                isRightAddress = false
+            } else {
+                addressTextFieldError = nil
+                isRightAddress = true
+            }
+        }
+    }
+    
+    @Published var explanationEditorText: String = "" {
+        didSet {
+            if explanationEditorText.count < 10 && !explanationEditorText.isEmpty {
+                textEditorError = "Müraciət mətni minimum 10 simvoldan ibarət olamlıdır"
+                isRightExplanation = false
+            } else if explanationEditorText.count > 501 {
+                addressTextFieldError = "Müraciət mətni maksimum 500 simvoldan ibarət olmamalıdır"
+                isRightExplanation = false
+            } else {
+                textEditorError = nil
+                isRightExplanation = true
+            }
+        }
+    }
+    
     @Published var categoryPicker: String = ""
     @Published var addressTextFieldError: String?
     @Published var textEditorError: String?
@@ -24,7 +53,7 @@ class NewQueryViewModel: ObservableObject {
     @Published var isRightOrganization: Bool = true
     @Published var isRightCategory: Bool = true
     @Published var isRightExplanation: Bool = true
-    @Published var explanationEditorText: String = ""
+    
     @Published var notificationType: NotificationType?
     @Published var isLoading: Bool = false
     @Published var isResetPressed: Bool = false
@@ -36,19 +65,10 @@ class NewQueryViewModel: ObservableObject {
         getOrganizations()
     }
     
-    func createNewQuery() {
+    func createNewQuery(completion: @escaping (SuccessModel?, Error?) -> Void) {
         cleanErrors()
         let newQuery = QueryDataModel(address: addressText, description: explanationEditorText, organizationName: selectedOrganization.name, category: selectedCategory)
-        if addressText.count < 5 {
-            addressTextFieldError = "Adres mətni minimum 5 simvoldan ibarət olamlıdır"
-            isRightAddress = false
-        }
-        
-        if explanationEditorText.count < 10 {
-            textEditorError = "Müraciət mətni minimum 10 simvoldan ibarət olamlıdır"
-            isRightExplanation = false
-        }
-        
+       
         if selectedOrganization.name == "Qurum" {
             isRightOrganization = false
         }
@@ -57,7 +77,7 @@ class NewQueryViewModel: ObservableObject {
             isRightCategory = false
         }
         
-        if isRightAddress, isRightCategory, isRightExplanation, isRightOrganization {
+        if isRightAddress && isRightCategory && isRightExplanation && isRightOrganization {
             queryRepository.createNewQuery(body: newQuery) { [ weak self ] result in
                 guard let self else { return }
                 
@@ -65,11 +85,11 @@ class NewQueryViewModel: ObservableObject {
                 case .success(let success):
                     print(success)
                     self.cleanFields()
-                    self.notificationType = .success(success)
                     self.addressTextFieldError = nil
                     self.textEditorError = nil
+                    completion(success, nil)
                 case .failure(let error):
-                    self.notificationType = .error(error)
+                    completion(nil, error)
                 }
             }
         }
@@ -82,7 +102,6 @@ class NewQueryViewModel: ObservableObject {
             switch result {
             case .success(let success):
                 self.categories = success
-                
             case .failure(let error):
                 print(error.localizedDescription)
                 

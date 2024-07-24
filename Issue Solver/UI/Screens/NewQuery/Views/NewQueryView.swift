@@ -10,19 +10,20 @@ import SwiftUI
 struct NewQueryView: View {
     @EnvironmentObject var router: Router
     @StateObject var vm = NewQueryViewModel()
+    @Binding var selectedTab: Tab
+    @Binding var notificationType: NotificationType?
+    @FocusState var isInputActive: Bool
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
             ScrollView {
-                VStack {
-                    titleView
-                    textFieldView
-                }
-                .padding()
+                titleView
+                .padding(.horizontal)
                 
                 VStack(spacing: 20) {
+                    textFieldView
                     pickerView
                     textView
                     buttonView
@@ -31,14 +32,10 @@ struct NewQueryView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
             }
-            if let type = vm.notificationType {
-                VStack {
-                    NotificationView(type: type) {
-                        vm.notificationType = nil
-                    }
-                    Spacer()
-                }
+            .onAppear {
+                UIScrollView.appearance().keyboardDismissMode = .interactive
             }
+            
         }
         .alert(
             isPresented: $vm.isResetPressed,
@@ -58,7 +55,7 @@ struct NewQueryView: View {
     
     var titleView: some View {
         HStack {
-            CustomTitleView(title: "Yeni sorğu") {
+            CustomTitleView(title: "Yeni sorğu", subtitle: "Xahiş olunur, sorğu üçün məlumatları daxil edin") {
                 router.navigate { NewQueryInfoView() }
             }
         }
@@ -67,27 +64,28 @@ struct NewQueryView: View {
     var textFieldView: some View {
         VStack(alignment: .leading) {
             CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $vm.addressText, isRightTextField: $vm.isRightAddress, errorMessage: $vm.addressTextFieldError)
+                .focused($isInputActive)
             HStack {
                 TextView(clickableTexts:  [Constants.howToRequestShare], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
                 Spacer()
                 Text("Max: 50 simvol")
                     .font(.jakartaFont(weight: .regular, size: 12))
             }
-            .padding(.trailing)
+            
         }
     }
     
     var pickerView: some View {
         
         VStack(spacing: 16) {
-            CustomPickerView(selection: $vm.selectedCategory, title: "Kategoriya", isRightTextEditor: $vm.isRightCategory) {
+            CustomPickerView(selection: $vm.selectedCategory, title: "Kateqoriya", textColor: vm.selectedCategory.name == "Kateqoriya" ? .gray : .black, isRightTextEditor: $vm.isRightCategory) {
                 ForEach(vm.categories, id: \.self) { category in
                     Text(category.name ?? "")
                         .tag(category.categoryID)
                 }
             }
             
-            CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum", isRightTextEditor: $vm.isRightOrganization) {
+            CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum", textColor: vm.selectedOrganization.name == "Qurum" ? .gray : .black, isRightTextEditor: $vm.isRightOrganization) {
                 if vm.isLoading {
                     ProgressView()
                         .progressViewStyle(.circular)
@@ -106,15 +104,22 @@ struct NewQueryView: View {
     var buttonView: some View {
         VStack(spacing: 16) {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
-                vm.createNewQuery()
+                vm.createNewQuery { success, error  in
+                    if let success {
+                        self.selectedTab = .queryIcon
+                        self.notificationType = .success(success)
+                    } else if let error {
+                        self.notificationType = .error(error)
+                    }
+                }
             }
-            .disabled((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty) ? true : false)
+            .disabled((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty || !vm.isRightAddress || !vm.isRightExplanation) ? true : false)
             .opacity((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty) ? 0.5 : 1)
             
             CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
                 vm.isResetPressed = true
             }
-            .disabled((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty) ? false : true)
+            .disabled((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty || !vm.isRightAddress || !vm.isRightExplanation) ? false : true)
             .opacity((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty) ? 1 : 0.5)
         }
     }
@@ -122,9 +127,5 @@ struct NewQueryView: View {
     var textView: some View {
         CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $vm.explanationEditorText, isRightTextField: $vm.isRightExplanation)
     }
-}
-
-#Preview {
-    NewQueryView()
 }
 

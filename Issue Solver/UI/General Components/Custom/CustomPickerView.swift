@@ -32,7 +32,7 @@ struct CustomPickerView<V, C>: View where V : SelectionProtocol, C : View {
             if let title {
                 Text(title)
                     .jakartaFont(.heading)
-                    .foregroundStyle(isRightTextEditor ? (textColor ?? .black) :  .red)
+                    .foregroundStyle(isRightTextEditor ? .black :  .red)
                 
             }
             
@@ -47,7 +47,7 @@ struct CustomPickerView<V, C>: View where V : SelectionProtocol, C : View {
                     HStack {
                         Text(selection.name ?? "")
                             .jakartaFont(.custom(.light, 14))
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(textColor ?? .black)
                         
                         Spacer()
                         Image(.arrowDownIcon)
