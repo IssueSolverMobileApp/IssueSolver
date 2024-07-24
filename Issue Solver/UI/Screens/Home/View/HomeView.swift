@@ -12,7 +12,6 @@ struct HomeView: View {
     @EnvironmentObject var router: Router
     @StateObject private var vm = HomeViewModel()
     @State private var isLiked: Bool = false
-    @State private var isPresented: Bool = false
 
     var body: some View {
         ZStack {
@@ -42,7 +41,7 @@ struct HomeView: View {
                 ForEach($vm.queryData, id: \.requestID) { $item in
                     CustomPostRowView(queryItem: $item, isDetailView: false) {
                         // MARK: Comment handler
-                        isPresented.toggle()
+                        vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
                     } likeHandler: { like in
                         // MARK: Like handler
                         vm.likeToggle(like: like, queryID: item.requestID)
@@ -52,8 +51,8 @@ struct HomeView: View {
                     .onTapGesture {
                         router.navigate { QueryDetailView( queryItem: $item) }
                     }
-                    .sheet(isPresented: $isPresented, content: {
-                        QueryCommentView(id: $item.requestID)
+                    .sheet(isPresented: $vm.isPresented, content: {
+                        QueryCommentView(id: vm.queryID)
                     })
                 }
                     

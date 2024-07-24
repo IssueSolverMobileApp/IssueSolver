@@ -97,7 +97,7 @@ struct FilterView: View {
             CustomButton(style: .rounded, title: "Tətbiq et", color: .primaryBlue) {
                 vm.applyFilter()
                 router.dismissView()
-                hvm.isFilterApplied = true
+//                hvm.isFilterApplied = true
             }
         }
     }

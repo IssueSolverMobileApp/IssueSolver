@@ -10,10 +10,10 @@ import SwiftUI
 struct QueryCommentView: View {
     @StateObject private var vm = QeuryCommentViewModel()
     
-    @State var txt: String = ""
+    @State var text: String = ""
     @State var height: CGFloat = 20
     
-    @Binding var id: Int?
+    var id: String
     
     var body: some View {
         VStack {
@@ -23,8 +23,7 @@ struct QueryCommentView: View {
         }
         .background(ignoresSafeAreaEdges: .bottom)
         .onAppear {
-            vm.getQueryComments(requestID: "\(id ?? Int())")
-            print(id ?? "bosdur --------------")
+            vm.getQueryComments(requestID: id)
         }
     }
     //    titleVeiw
@@ -52,7 +51,7 @@ struct QueryCommentView: View {
                     ProgressView()
                 }
                 .onAppear {
-                    vm.getMoreQuery(requestID: "\(id ?? Int())")
+                    vm.getMoreQuery(requestID: id)
                 }
             }
         }
@@ -61,7 +60,7 @@ struct QueryCommentView: View {
     var resizableTextVeiw: some View {
         HStack(spacing: 8) {
             ZStack {
-                ResizableTextView(txt: $txt, height: $height)
+                ResizableTextView(txt: $text, height: $height)
                     .frame(height: abs(height < 124 ? height : 124))
                     .padding(.vertical, 5)
                     .padding(.horizontal)
@@ -71,7 +70,7 @@ struct QueryCommentView: View {
             }
             .padding(.leading)
             Button {
-                
+                vm.addLocalComment(requestID: self.id, text: self.text)
             } label: {
                 Image(.sendCommentIcon)
                     .frame(width: 40, height: 40)
@@ -85,5 +84,5 @@ struct QueryCommentView: View {
 }
   
 #Preview {
-    QueryCommentView(id: .constant(0))
+    QueryCommentView(id: "")
 }
