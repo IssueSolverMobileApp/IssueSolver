@@ -25,10 +25,10 @@ class FilterViewModel: ObservableObject {
         DateModel(name: "Son bir ay"),
         DateModel(name: "Son bir həftə")]
     
-    @Published var selectedOrganization: OrganizationModel = OrganizationModel()
-    @Published var selectedCategory: QueryCategoryModel = QueryCategoryModel()
-    @Published var selectedStatus: StatusModel = StatusModel()
-    @Published var selectedDate: DateModel =  DateModel()
+    @Published var selectedOrganization: OrganizationModel = OrganizationModel(id: UUID(),name: "Qurum")
+    @Published var selectedCategory: QueryCategoryModel = QueryCategoryModel(categoryID: 0 ,name: "Kateqoriya")
+    @Published var selectedStatus: StatusModel = StatusModel(name: "Status")
+    @Published var selectedDate: DateModel =  DateModel(name: "Tarix")
     
     @Published var isRightTextEditor: Bool = true
     @Published var dateText: String = ""
@@ -62,11 +62,12 @@ class FilterViewModel: ObservableObject {
         }
     }
     
-     func applyFilter() {
-         onApplyFilter?(
-            selectedStatus == .none ? "" : selectedStatus.nameWithoutSpaces,
-            (selectedCategory.name == .none ? "" : selectedCategory.name) ?? "",
-            (selectedOrganization.name == .none ? "" : selectedOrganization.name) ?? "",
-            (selectedDate.name == .none ? "" : selectedDate.name) ?? "")
+    func applyFilter() {
+        let statusName = (selectedStatus.name == "Status" || selectedStatus == .none) ? "" : selectedStatus.nameWithoutSpaces
+        let categoryName = (selectedCategory.name == "Kateqoriya" || selectedCategory == .none) ? "" : selectedCategory.name
+        let organizationName = (selectedOrganization.name == "Qurum" || selectedOrganization == .none) ? "" : selectedOrganization.name
+        let dateName = (selectedDate.name == "Tarix" || selectedDate == .none) ? "" : selectedDate.name
+        
+        onApplyFilter?(statusName, categoryName ?? "", organizationName ?? "", dateName ?? "")
     }
 }
