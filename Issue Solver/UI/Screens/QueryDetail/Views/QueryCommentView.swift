@@ -18,7 +18,13 @@ struct QueryCommentView: View {
     var body: some View {
         VStack {
             titleView
-            cardView
+            if vm.commentData.isEmpty && !vm.isDataEmptyButSuccess  {
+                placeholderView
+            } else if vm.isDataEmptyButSuccess {
+                notDataView
+            } else {
+                cardView
+            }
             resizableTextVeiw
         }
         .background(ignoresSafeAreaEdges: .bottom)
@@ -26,6 +32,7 @@ struct QueryCommentView: View {
             vm.getQueryComments(requestID: id)
         }
     }
+    
     //    titleVeiw
     var titleView: some View {
         VStack {
@@ -47,11 +54,13 @@ struct QueryCommentView: View {
                     CustomCommentRowView(item: item)
                 }
                 
-                HStack {
-                    ProgressView()
-                }
-                .onAppear {
-                    vm.getMoreQuery(requestID: id)
+                if vm.commentData.count > 10 {
+                    HStack {
+                        ProgressView()
+                    }
+                    .onAppear {
+                        vm.getMoreQuery(requestID: id)
+                    }
                 }
             }
         }
@@ -81,6 +90,24 @@ struct QueryCommentView: View {
         }
         .padding(.trailing,20)
         .padding(.bottom, 5)
+    }
+    
+    var placeholderView: some View {
+        ScrollView {
+            ForEach(1...3, id: \.self) {_ in                CustomCommentRowView(item: vm.placeholderData)
+                    .redacted(reason: .placeholder)
+            }
+        }
+    }
+    
+    var notDataView: some View {
+        VStack {
+            Spacer()
+
+            Text("Rəy yoxdur")
+            Spacer()
+
+        }
     }
 }
   
