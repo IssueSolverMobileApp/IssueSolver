@@ -53,3 +53,10 @@ struct QueryCategoryModel: SelectionProtocol, Codable {
         case name = "categoryName"
     }
 }
+
+// MARK: - CommentDeleteSuccessModel
+struct QueryDeleteSuccessModel: Codable {
+    let data, message: String?
+    let success: Bool?
+    let fullName: String?
+}

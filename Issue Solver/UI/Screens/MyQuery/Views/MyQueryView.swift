@@ -14,6 +14,7 @@ struct MyQueryView: View {
     @StateObject private var vm = MyQueryViewModel()
     @State private var isLiked: Bool = false
 
+    
     var body: some View {
         ZStack {
             Color.surfaceBackground
@@ -25,9 +26,12 @@ struct MyQueryView: View {
                 } else {
                     mainView
                 }
+            
+            LoadingView(isLoading: vm.isViewLoading)
         }
         .onAppear {
-            vm.getMoreQuery()
+            vm.isLoadingFalse()
+            vm.getMyQuery()
         }
     }
     
@@ -45,7 +49,7 @@ struct MyQueryView: View {
                         // MARK: Like handler
                         vm.likeToggle(like: like, queryID: item.requestID)
                     } deleteQuery: {
-                        
+                        vm.isDeletePressed(id: "\(item.requestID ?? Int())", true)
                     }
                     .onTapGesture {
                         router.navigate { QueryDetailView( queryItem: $item) }
@@ -53,6 +57,21 @@ struct MyQueryView: View {
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
                     })
+                    .alert(
+                        isPresented: $vm.isDeletePressed,
+                        content: {
+                            Alert(
+                                title: Text("Sorğunuzu silməyə əminsiniz?"),
+                                primaryButton: .default(Text("Bəli"), action: {
+                                    vm.deleteComment()
+                                    vm.isDeletePressed(id: nil, false)
+                                }),
+                                secondaryButton: .cancel(Text("Ləğv et"),action: {
+                                    vm.isDeletePressed(id: nil, false)
+                                })
+                            )
+                        }
+                    )
                 }
                     
                 HStack {
@@ -64,7 +83,7 @@ struct MyQueryView: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
-        }
+        }.animation(.spring(), value: vm.queryData)
         
     }
     
