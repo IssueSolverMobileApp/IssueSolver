@@ -10,6 +10,7 @@ import SwiftUI
 struct TabBarView: View {
     
     @State var currentTab: Tab = .homeIcon
+    @State var notificationType: NotificationType?
     
     init() {
         UITabBar.appearance().isHidden = true
@@ -25,22 +26,33 @@ struct TabBarView: View {
     }
     
     var body: some View {
-        TabView(selection: $currentTab) {
+        ZStack {
+            TabView(selection: $currentTab) {
+                
+                HomeView()
+                    .tag(Tab.homeIcon)
+                
+                MyQueryView()
+                    .tag(Tab.queryIcon)
+                
+                NewQueryView(selectedTab: $currentTab, notificationType: $notificationType)
+                    .tag(Tab.addIcon)
+                
+                //            Color.green.ignoresSafeArea()
+                //                .tag(Tab.interactionsIcon)
+                
+                ProfileView()
+                    .tag(Tab.profileIcon)
+            }
             
-            HomeView()
-                .tag(Tab.homeIcon)
-            
-            MyQueryView()
-                .tag(Tab.queryIcon)
-            
-           NewQueryView()
-                .tag(Tab.addIcon)
-            
-//            Color.green.ignoresSafeArea()
-//                .tag(Tab.interactionsIcon)
-            
-            ProfileView()
-                .tag(Tab.profileIcon)
+            if let type = notificationType {
+                VStack {
+                    NotificationView(type: type) {
+                        notificationType = nil
+                    }
+                    Spacer()
+                }
+            }
             
         }
         /// - Curved Tab Bar

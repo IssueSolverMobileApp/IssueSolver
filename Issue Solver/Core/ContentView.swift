@@ -11,11 +11,11 @@ struct ContentView: View {
         
     var body: some View {
         ZStack {
-            CustomNavigationStack {
+//            CustomNavigationStack {
               RootView()
                     .environmentObject(AuthManager.shared)
-            }
-            .ignoresSafeArea()
+//            }
+//            .ignoresSafeArea()
         }
     }
 }

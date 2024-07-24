@@ -58,6 +58,7 @@ struct CustomTextEditor: View {
             }
             .background(Color.white)
             .clipShape(.rect(cornerRadius: 12))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke((isRightTextField) ? Color.clear : Color.red, lineWidth: 1))
             
             if let errorText {
                 HStack {
