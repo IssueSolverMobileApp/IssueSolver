@@ -113,13 +113,13 @@ struct NewQueryView: View {
                     }
                 }
             }
-            .disabled((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty) ? true : false)
+            .disabled((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty || !vm.isRightAddress || !vm.isRightExplanation) ? true : false)
             .opacity((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty) ? 0.5 : 1)
             
             CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
                 vm.isResetPressed = true
             }
-            .disabled((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty) ? false : true)
+            .disabled((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty || !vm.isRightAddress || !vm.isRightExplanation) ? false : true)
             .opacity((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty) ? 1 : 0.5)
         }
     }

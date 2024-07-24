@@ -19,7 +19,10 @@ class NewQueryViewModel: ObservableObject {
     @Published var addressText: String = "" {
         didSet {
             if addressText.count < 5 && !addressText .isEmpty {
-                addressTextFieldError = "Adres mətni minimum 5 simvoldan ibarət olamlıdır"
+                addressTextFieldError = "Adress mətni minimum 5 simvoldan ibarət olamlıdır"
+                isRightAddress = false
+            } else if addressText.count > 51 {
+                addressTextFieldError = "Adress mətni maksimum 50 simvoldan ibarət olmamalıdır"
                 isRightAddress = false
             } else {
                 addressTextFieldError = nil
@@ -32,6 +35,9 @@ class NewQueryViewModel: ObservableObject {
         didSet {
             if explanationEditorText.count < 10 && !explanationEditorText.isEmpty {
                 textEditorError = "Müraciət mətni minimum 10 simvoldan ibarət olamlıdır"
+                isRightExplanation = false
+            } else if explanationEditorText.count > 501 {
+                addressTextFieldError = "Müraciət mətni maksimum 500 simvoldan ibarət olmamalıdır"
                 isRightExplanation = false
             } else {
                 textEditorError = nil
@@ -71,7 +77,7 @@ class NewQueryViewModel: ObservableObject {
             isRightCategory = false
         }
         
-        if isRightAddress, isRightCategory, isRightExplanation, isRightOrganization {
+        if isRightAddress && isRightCategory && isRightExplanation && isRightOrganization {
             queryRepository.createNewQuery(body: newQuery) { [ weak self ] result in
                 guard let self else { return }
                 
