@@ -76,9 +76,6 @@ class MyQueryViewModel: ObservableObject {
     private func deleteCommentOnLocal() {
         if let index = queryData.firstIndex(where: {"\($0.requestID ?? Int())" == deleteQueryID}) {
             queryData.remove(at: index)
-//            var dataCount: Int = 0
-//            pageCount = queryID.count / 10
-            print("\(pageCount)--------------")
         }
         isViewLoading = false
         if queryData.isEmpty {

@@ -170,7 +170,7 @@ struct CustomPostRowView: View {
                 deleteQuery()
             }, label: {
                 Image(isDeleteClickable ? .trashIconDisabled : .trashIcon)
-                    .padding()
+                    .padding(.trailing, 6)
             })
             .disabled(isDeleteClickable)
             

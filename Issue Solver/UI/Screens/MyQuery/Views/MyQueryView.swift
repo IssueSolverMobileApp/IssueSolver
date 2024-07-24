@@ -61,12 +61,12 @@ struct MyQueryView: View {
                         isPresented: $vm.isDeletePressed,
                         content: {
                             Alert(
-                                title: Text("Sorğunuzu silməyə əminsiniz?"),
-                                primaryButton: .default(Text("Bəli"), action: {
-                                    vm.deleteComment()
+                                title: Text("Sorğunuzu silmək istədiyinizə əminsiniz?"),
+                                primaryButton: .default(Text("Ləğv et"), action: {
                                     vm.isDeletePressed(id: nil, false)
                                 }),
-                                secondaryButton: .cancel(Text("Ləğv et"),action: {
+                                secondaryButton: .destructive(Text("Bəli"),action: {
+                                    vm.deleteComment()
                                     vm.isDeletePressed(id: nil, false)
                                 })
                             )

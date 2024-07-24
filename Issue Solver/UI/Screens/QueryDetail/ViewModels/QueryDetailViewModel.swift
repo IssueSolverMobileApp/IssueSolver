@@ -12,6 +12,9 @@ final class QueryDetailViewModel: ObservableObject {
     private var repository = HTTPQueryRepository()
     
     @Published var item: QueryDataModel = QueryDataModel()
+    @Published var isDeletePressed: Bool = false
+    @Published var isViewLoading: Bool = false
+
     
     func getSingleQuery(id: String) {
         repository.getSingleQuery(id: id) {[weak self] result in
@@ -27,6 +30,20 @@ final class QueryDetailViewModel: ObservableObject {
         }
     }
     
+    func deleteQuery(id: String, completion: @escaping (Bool) -> Void) {
+        repository.deleteComment(requestID: id) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    completion(true)
+                case .failure(let error):
+                    completion(false)
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+
     func likeToggle() {
         if item.likeSuccess ?? Bool() {
             deleteLike(queryID: "\(item.requestID ?? Int())")
