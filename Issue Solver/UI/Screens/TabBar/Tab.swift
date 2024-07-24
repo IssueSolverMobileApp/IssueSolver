@@ -12,6 +12,6 @@ enum Tab: String, CaseIterable {
     case homeIcon
     case queryIcon
     case addIcon
-    case interactionsIcon
+    //case interactionsIcon
     case profileIcon
 }

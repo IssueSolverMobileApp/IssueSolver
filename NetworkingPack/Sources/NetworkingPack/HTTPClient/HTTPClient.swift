@@ -84,6 +84,7 @@ public final class HTTPClient {
                 handleError(endPoint: endPoint, response: response, data: data, urlRequest: urlRequest, method: method, completion: completion)
                 return
             }
+            deletage?.accessTokenTrigger(isActive: true)
             
             guard let data = data else { return }
             
@@ -146,6 +147,7 @@ public final class HTTPClient {
                 if let error {
                     completion(.failure(NetworkError.unauthorization))
                     self.deletage?.accessTokenTrigger(isActive: false)
+                    UserDefaults.standard.refreshToken = nil
                     print(error.localizedDescription)
                 }
                 
@@ -157,6 +159,7 @@ public final class HTTPClient {
         }
         catch {
             print(error.localizedDescription)
+            
             completion(.failure(NetworkError.unauthorization))
         }
     }
@@ -298,6 +301,7 @@ extension HTTPClient {
                 self.sendNew(urlRequest: urlRequest, endPoint: endPoint, method: method, completion: completion)
             case .failure(let error):
                 if let networkError = error as? NetworkError , case NetworkError.unauthorization = networkError {
+                    UserDefaults.standard.refreshToken = nil
                     completion(nil, NetworkError.refreshTokenTimeIsOver)
                 }
             }

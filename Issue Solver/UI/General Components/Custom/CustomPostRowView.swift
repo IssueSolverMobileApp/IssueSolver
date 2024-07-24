@@ -13,19 +13,22 @@ struct CustomPostRowView: View {
     
     @State private var statusBacgroundColor: Color = .primaryBlue.opacity(0.28)
     @State private var statusForegroundColor: Color = .primaryBluePressed
-
-//    /// if we need to use PostView into some detailView isDetailView variable must be true else false
+    @State private var isDeleteClickable: Bool = true
+    
+    /// if we need to use PostView into some detailView isDetailView variable must be true else false
     var isDetailView: Bool = true
     
     let commentHandler: () -> Void
     let likeHandler: (Bool) -> Void
+    let deleteQuery: () -> Void
 
-    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool, commentHandler: @escaping () -> Void, likeHandler: @escaping(Bool) -> Void
+    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool, commentHandler: @escaping () -> Void, likeHandler: @escaping(Bool) -> Void, deleteQuery: @escaping() -> Void
 ) {
         self._queryItem = queryItem
         self.isDetailView = isDetailView
         self.commentHandler = commentHandler
         self.likeHandler = likeHandler
+        self.deleteQuery = deleteQuery
     }
     
     var body: some View {
@@ -41,8 +44,7 @@ struct CustomPostRowView: View {
         .background(.white)
         .clipShape(.rect(cornerRadius: Constants.cornerRadius))
         .onAppear {
-            setStatusBackgroundColor()
-            setStatusForeGroundColor()
+            setOptionsAccordingToStatus()
         }
     }
     
@@ -82,7 +84,7 @@ struct CustomPostRowView: View {
         VStack(alignment: .leading,spacing: 16) {
             
             ZStack {
-                Text(queryItem.category?.categoryName ?? "")
+                Text(queryItem.category?.name ?? "")
                     .jakartaFont(.subtitle2)
                     .foregroundStyle(.disabledGray)
             }
@@ -114,13 +116,12 @@ struct CustomPostRowView: View {
                             
                             Image(.locationIcon)
                             Text(queryItem.address ?? "")
-                                .jakartaFont(.subtitle2)
                                 .foregroundStyle(.primaryBlue)
                         }
-                        //                    Spacer()
                         HStack {
                             Image(.calendarIcon)
-                            Text(queryItem.createDate ?? "")
+                            /// this method can correct string date for our custom date format
+                            Text(Date().dateFormatter(queryItem.createDate, .all))
                         }
                     }
                     .jakartaFont(.subtitle2)
@@ -138,9 +139,6 @@ struct CustomPostRowView: View {
     var bottomView: some View {
         HStack {
             VStack(spacing: 5) {
-                
-//                Toggle("", isOn: $queryItem.likeSuccess)
-//                    .toggleStyle(CustomToggleLikeStyle())
                 
                 Button(action: {
                     likeHandler(queryItem.likeSuccess ?? false ? false : true)
@@ -167,46 +165,48 @@ struct CustomPostRowView: View {
                 }
             }
             Spacer()
-            Image(.optionDotsIcon)
-                .padding(.trailing)
+            
+            Button(action: {
+                deleteQuery()
+            }, label: {
+                Image(isDeleteClickable ? .trashIconDisabled : .trashIcon)
+                    .padding(.trailing, 6)
+            })
+            .disabled(isDeleteClickable)
+            
         }
     }
     
-    private func setStatusBackgroundColor() {
+    private func setOptionsAccordingToStatus() {
         switch queryItem.status {
         case "Gözləmədə" :
             statusBacgroundColor = .primaryBlue.opacity(0.28)
+            statusForegroundColor = .primaryBluePressed
+            isDeleteClickable = false
         case "Baxılır" :
             statusBacgroundColor = .outLineContainerOrange
+            statusForegroundColor = .primaryOrange
+            isDeleteClickable = true
         case "Əssasızdır" :
             statusBacgroundColor = .outLineContainerRed
+            statusForegroundColor = .primaryRed
+            isDeleteClickable = false
         case "Həll edildi" :
             statusBacgroundColor = .outLineContainerGreen
+            statusForegroundColor = .primaryGreen
+            isDeleteClickable = false
         case "Arxivdədir" :
             statusBacgroundColor = .outLineContainerGray
-        case .none:
-            statusBacgroundColor = .surfaceBackground
-        case .some(_):
-            statusBacgroundColor = .surfaceBackground
-        }
-    }
-    
-    private func setStatusForeGroundColor() {
-        switch queryItem.status {
-        case "Gözləmədə" :
-            statusForegroundColor = .primaryBluePressed
-        case "Baxılır" :
-            statusForegroundColor = .primaryOrange
-        case "Əssasızdır" :
-            statusForegroundColor = .primaryRed
-        case "Həll edildi" :
-            statusForegroundColor = .primaryGreen
-        case "Arxivdədir" :
             statusForegroundColor = .disabledGray
+            isDeleteClickable = false
         case .none:
+            statusBacgroundColor = .surfaceBackground
             statusForegroundColor = .primaryBluePressed
+            isDeleteClickable = false
         case .some(_):
+            statusBacgroundColor = .surfaceBackground
             statusForegroundColor = .primaryBluePressed
+            isDeleteClickable = false
         }
     }
 }

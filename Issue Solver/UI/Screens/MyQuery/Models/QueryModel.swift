@@ -40,16 +40,27 @@ struct QueryDataModel: Codable, Hashable {
 }
     
 // MARK: - QueryCategoryModel
-struct QueryCategoryModel: Codable, Hashable {
+struct QueryCategoryModel: SelectionProtocol, Codable {
     var categoryID: Int?
-    var categoryName: String?
+    var name: String?
+    
+    static var none: QueryCategoryModel {
+         return QueryCategoryModel(categoryID: 0, name: "Heç biri")
+     }
     
     static func ==(lhs: QueryCategoryModel, rhs: QueryCategoryModel) -> Bool {
-        return lhs.categoryID == rhs.categoryID && lhs.categoryName == rhs.categoryName
+        return lhs.categoryID == rhs.categoryID && lhs.name == rhs.name
     }
     
     enum CodingKeys: String, CodingKey {
         case categoryID = "categoryId"
-        case categoryName
+        case name = "categoryName"
     }
+}
+
+// MARK: - CommentDeleteSuccessModel
+struct QueryDeleteSuccessModel: Codable {
+    let data, message: String?
+    let success: Bool?
+    let fullName: String?
 }

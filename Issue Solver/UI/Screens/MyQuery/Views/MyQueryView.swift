@@ -9,8 +9,11 @@ import SwiftUI
 
 struct MyQueryView: View {
     
-    @StateObject var vm = MyQueryViewModel()
-    @State var isLiked: Bool = false
+    @EnvironmentObject var router: Router
+    
+    @StateObject private var vm = MyQueryViewModel()
+    @State private var isLiked: Bool = false
+
     
     var body: some View {
         ZStack {
@@ -23,9 +26,12 @@ struct MyQueryView: View {
                 } else {
                     mainView
                 }
+            
+            LoadingView(isLoading: vm.isViewLoading)
         }
         .onAppear {
-            vm.getMoreQuery()
+            vm.isLoadingFalse()
+            vm.getMyQuery()
         }
     }
     
@@ -37,13 +43,37 @@ struct MyQueryView: View {
                 
                 ForEach($vm.queryData, id: \.requestID) { $item in
                     CustomPostRowView(queryItem: $item, isDetailView: false) {
-//                            MARK: Comment handler
+                        // MARK: Comment handler
+                        vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
                     } likeHandler: { like in
-//                            MARK: Like handler
+                        // MARK: Like handler
                         vm.likeToggle(like: like, queryID: item.requestID)
+                    } deleteQuery: {
+                        vm.isDeletePressed(id: "\(item.requestID ?? Int())", true)
                     }
+                    .onTapGesture {
+                        router.navigate { QueryDetailView( queryItem: $item) }
+                    }
+                    .sheet(isPresented: $vm.isPresented, content: {
+                        QueryCommentView(id: vm.queryID)
+                    })
+                    .alert(
+                        isPresented: $vm.isDeletePressed,
+                        content: {
+                            Alert(
+                                title: Text("Sorğunuzu silmək istədiyinizə əminsiniz?"),
+                                primaryButton: .default(Text("Ləğv et"), action: {
+                                    vm.isDeletePressed(id: nil, false)
+                                }),
+                                secondaryButton: .destructive(Text("Bəli"),action: {
+                                    vm.deleteComment()
+                                    vm.isDeletePressed(id: nil, false)
+                                })
+                            )
+                        }
+                    )
                 }
-                
+                    
                 HStack {
                     ProgressView()
                 }
@@ -53,7 +83,7 @@ struct MyQueryView: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
-        }
+        }.animation(.spring(), value: vm.queryData)
         
     }
     
@@ -67,6 +97,8 @@ struct MyQueryView: View {
                     CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
                         
                     } likeHandler: { _ in
+                        
+                    } deleteQuery: {
                         
                     }
                     .redacted(reason: .placeholder)
@@ -93,7 +125,6 @@ struct MyQueryView: View {
 
     }
 }
-
 
 #Preview {
     MyQueryView()

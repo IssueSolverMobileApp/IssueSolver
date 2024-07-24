@@ -3,69 +3,100 @@
 //  Issue Solver
 //
 //  Created by Valeh Amirov on 01.07.24.
-// 
+//
 
 import SwiftUI
 
 struct NewQueryView: View {
-    
-    @StateObject var vm = NewQueryViewModel()
     @EnvironmentObject var router: Router
-    
-    @State private var addressText: String = ""
-    @State private var categoryPicker: String = ""
-    @State var selectedGov: personModel = personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
-        
-    @State var isRightTextEditor: Bool = true
-    @State var explanationEditorText: String = ""
-
-    private var governments: [personModel] = [
-        personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi"),
-        personModel(name: "Innovasiya ve Reqemsal Inkisaf "),
-        personModel(name: "Innovasiya ve Reqemsal "),
-        personModel(name: "Innovasiya ve Reqemsal Inkisaf Agentliyi")
-    ]
+    @StateObject var vm = NewQueryViewModel()
+    @Binding var selectedTab: Tab
+    @Binding var notificationType: NotificationType?
+    @FocusState var isInputActive: Bool
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             
             ScrollView {
+                titleView
+                .padding(.horizontal)
+                
                 VStack(spacing: 20) {
-                    titleView
                     textFieldView
                     pickerView
                     textView
                     buttonView
+                        .padding(.bottom, 60)
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
             }
+            .onAppear {
+                UIScrollView.appearance().keyboardDismissMode = .interactive
+            }
+            
         }
+        .alert(
+            isPresented: $vm.isResetPressed,
+            content: {
+                Alert(
+                    title: Text("Sorğunuzu ləğv etməyə əminsiniz?"),
+                    primaryButton: .default(Text("Bəli"), action: { vm.cleanFields() }),
+                    secondaryButton: .cancel({
+                        vm.isResetPressed = false
+                    })
+                )
+            }
+        )
+        
     }
     
     
     var titleView: some View {
         HStack {
-            CustomTitleView(title: "Yeni sorğu", image1: .infoIcon) {
-//          MARK: - navigation action must be here
+            CustomTitleView(title: "Yeni sorğu", subtitle: "Xahiş olunur, sorğu üçün məlumatları daxil edin") {
                 router.navigate { NewQueryInfoView() }
             }
         }
     }
     
     var textFieldView: some View {
-        VStack {
-            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $addressText, errorMessage: $vm.errorMessage, clickableText: Constants.howToRequestShare, clickableTextWidth: 116)
+        VStack(alignment: .leading) {
+            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $vm.addressText, isRightTextField: $vm.isRightAddress, errorMessage: $vm.addressTextFieldError)
+                .focused($isInputActive)
+            HStack {
+                TextView(clickableTexts:  [Constants.howToRequestShare], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
+                Spacer()
+                Text("Max: 50 simvol")
+                    .font(.jakartaFont(weight: .regular, size: 12))
+            }
+            
         }
     }
     
     var pickerView: some View {
         
         VStack(spacing: 16) {
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Problemin yönləndiriləcəyi qurum", placeholder: "Qurum", isRightTextEditor: $isRightTextEditor)
+            CustomPickerView(selection: $vm.selectedCategory, title: "Kateqoriya", textColor: vm.selectedCategory.name == "Kateqoriya" ? .gray : .black, isRightTextEditor: $vm.isRightCategory) {
+                ForEach(vm.categories, id: \.self) { category in
+                    Text(category.name ?? "")
+                        .tag(category.categoryID)
+                }
+            }
             
-            CustomPickerView(selectedGov: $selectedGov, items: governments, title: "Kategoriya", placeholder: "Kategoriya", isRightTextEditor: $isRightTextEditor)
+            CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum", textColor: vm.selectedOrganization.name == "Qurum" ? .gray : .black, isRightTextEditor: $vm.isRightOrganization) {
+                if vm.isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else {
+                    ForEach(vm.organizations, id: \.self) { organization in
+                        Text(organization.name ?? "")
+                            .tag(organization.id)
+                    }
+                }
+            }
+            
         }
     }
     
@@ -73,21 +104,28 @@ struct NewQueryView: View {
     var buttonView: some View {
         VStack(spacing: 16) {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
-                //  MARK: Paylaş button action must be here
+                vm.createNewQuery { success, error  in
+                    if let success {
+                        self.selectedTab = .queryIcon
+                        self.notificationType = .success(success)
+                    } else if let error {
+                        self.notificationType = .error(error)
+                    }
+                }
             }
+            .disabled((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty || !vm.isRightAddress || !vm.isRightExplanation) ? true : false)
+            .opacity((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty) ? 0.5 : 1)
             
             CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
-                //  MARK: sıfırla button action must be here
+                vm.isResetPressed = true
             }
+            .disabled((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty || !vm.isRightAddress || !vm.isRightExplanation) ? false : true)
+            .opacity((!vm.addressText.isEmpty || !vm.explanationEditorText.isEmpty) ? 1 : 0.5)
         }
     }
     
     var textView: some View {
-        
-        CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $explanationEditorText, isRightTextField: $isRightTextEditor)
+        CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $vm.explanationEditorText, isRightTextField: $vm.isRightExplanation)
     }
 }
 
-#Preview {
-    NewQueryView()
-}

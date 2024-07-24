@@ -34,6 +34,7 @@ final class AuthManager: ObservableObject {
     func logOut() {
         UserDefaults.standard.accessToken = nil
         UserDefaults.standard.refreshToken = nil
+        loggedIn = false
     }
 }
 

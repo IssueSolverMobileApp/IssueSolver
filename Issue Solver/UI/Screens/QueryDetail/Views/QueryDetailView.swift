@@ -10,36 +10,71 @@ import SwiftUI
 struct QueryDetailView: View {
 
     @EnvironmentObject var router: Router
+    @StateObject private var vm = QueryDetailViewModel()
 
-    @State var queryItem: QueryDataModel = QueryDataModel(likeSuccess: false)
-//    var postText: String = ""
-//    var isDetailView: Bool
-//    var postToGovernmentName: String
-//    var userName: String
-//    var postStatus: String
-    @State var isLike: Bool = false
+    @State private var isLike: Bool = false
     @State private var isPresented: Bool = false
+    
+    @Binding var queryItem: QueryDataModel
+    
+    @Environment(\.dismiss) var dissmiss
     
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
             ScrollView {
                 VStack {
-                    CustomPostRowView(queryItem: $queryItem, isDetailView: true) {
+                    CustomPostRowView(queryItem: $vm.item, isDetailView: true) {
                         isPresented.toggle()
                     } likeHandler: {_ in 
-                        
+                        vm.likeToggle()
+                    } deleteQuery: {
+                        vm.isDeletePressed = true
                     }
-                    .fullScreenCover(isPresented: $isPresented, content: {
-                        QueryCommentBottomSheetView()
+                    .sheet(isPresented: $isPresented, content: {
+                        QueryCommentView(id: "\(vm.item.requestID ?? Int())")
                     })
-                    
+                    .alert(
+                        isPresented: $vm.isDeletePressed,
+                        content: {
+                            Alert(
+                                title: Text("Sorğunuzu silmək istədiyinizə əminsiniz?"),
+                                primaryButton: .default(Text("Ləğv et"), action: {
+                                    vm.isDeletePressed = false
+                            
+                                }),
+                                secondaryButton: .destructive(Text("Bəli"),action: {
+                                    vm.deleteQuery(id: "\(queryItem.requestID ?? Int())", completion: { success in
+                                        if success {
+                                            dissmiss()
+                                        }
+                                        vm.isViewLoading = false
+                                    })
+                                    vm.isDeletePressed = false
+                                    vm.isViewLoading = true
+                                })
+                            )
+                        }
+                    )
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
             }
             .navigationBarBackButtonHidden(true)
+            
+            LoadingView(isLoading: vm.isViewLoading)
         }
+        .onAppear {
+            vm.getSingleQuery(id: "\(queryItem.requestID ?? Int())")
+        }
+        .onChange(of: vm.item, perform: { value in
+            queryItem = value
+        })
+        .onChange(of: isPresented, perform: { value in
+            if !value {
+                vm.getSingleQuery(id: "\(queryItem.requestID ?? Int())")
+            }
+        })
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 backButtonView
@@ -52,10 +87,8 @@ struct QueryDetailView: View {
             router.dismissView()
         }
     }
-
 }
 
-
 #Preview {
-    QueryDetailView()
+    QueryDetailView(queryItem: .constant(QueryDataModel()))
 }

@@ -11,8 +11,10 @@ public enum EndPoint: EndPointProtocol {
     
     case auth(AuthEndPoint)
     case profile(ProfileEndPoint)
-    case myQuery(MyQueryEndPoint)
+    case query(QueryEndPoint)
+    case newQuery(NewQueryEndPoint)
     case home(HomeEndpoint)
+    case filter(FilterEndPoint)
     
     var url: String {
         switch self {
@@ -20,10 +22,14 @@ public enum EndPoint: EndPointProtocol {
             return authEndPoint.url
         case .profile(let profileEndPoint):
             return profileEndPoint.url
-        case .myQuery(let myQueryEndPoint):
+        case .query(let myQueryEndPoint):
             return myQueryEndPoint.url
+        case .newQuery(let newQueryEndPoint):
+            return newQueryEndPoint.url
         case .home(let homeEndPoint):
             return homeEndPoint.url
+        case .filter(let filterEndPoint):
+            return filterEndPoint.url
         }
     }
 }
@@ -33,8 +39,7 @@ protocol EndPointProtocol {
 }
 
 extension EndPointProtocol {
-    
     var baseURL: String {
-        return "https://issue-solver-421da800ab88.herokuapp.com/"
+        return "https://gatewayy-f20db7ab0323.herokuapp.com/"
     }
 }

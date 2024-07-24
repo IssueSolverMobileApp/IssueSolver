@@ -8,27 +8,33 @@
 import SwiftUI
 
 struct CustomCommentRowView: View {
+    
+    @State var item: QueryCommentDataModel?
+    
     var body: some View {
         VStack {
             VStack(alignment:.leading ,spacing: 12) {
                 HStack {
-                    Image(.profile)
-                    Text("Valeh Amirov")
+                    Image(item?.authority == "STAFF" ? .governmentIcon : .profile)
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                    Text(item?.fullName ?? "")
                         .jakartaFont(.custom(.semiBold, 15))
                         .foregroundStyle(.primaryBlue)
                     Spacer()
-                    Text("07.01.2012")
-                        .jakartaFont(.custom(.regular, 14))
+                    Text(Date().dateFormatter(item?.createDate, .day))
+                        .jakartaFont(.custom(.regular, 12))
                         .foregroundStyle(.secondaryGray)
                 }
                 
-                Text("Office ipsum you must be muted. This food playing ping every must. Need wanted best thought ditching leverage circle fruit eod. Activities me seems investigation guys. By sop is closing old pups.")
+                Text(item?.commentText ?? "")
                     .jakartaFont(.heading)
                     .lineSpacing(12)
-                
             }
+            .padding(.horizontal, 20)
             customDivider
         }
+        .opacity((item?.commentIsSuccess ?? true) ? 1 : 0.5)
     }
     
     var customDivider: some View {
