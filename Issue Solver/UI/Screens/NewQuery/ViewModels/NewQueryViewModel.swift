@@ -18,8 +18,12 @@ class NewQueryViewModel: ObservableObject {
     
     @Published var addressText: String = ""
     @Published var categoryPicker: String = ""
-    @Published var addressTextFieldError: (Bool, String)?
-    @Published var textEditorError: (Bool, String)?
+    @Published var addressTextFieldError: String?
+    @Published var textEditorError: String?
+    @Published var isRightAddress: Bool = true
+    @Published var isRightOrganization: Bool = true
+    @Published var isRightCategory: Bool = true
+    @Published var isRightExplanation: Bool = true
     @Published var explanationEditorText: String = ""
     @Published var notificationType: NotificationType?
     @Published var isLoading: Bool = false
@@ -29,27 +33,43 @@ class NewQueryViewModel: ObservableObject {
     
     init() {
         isLoading = true
-        getCategories()
         getOrganizations()
     }
     
     func createNewQuery() {
+        cleanErrors()
         let newQuery = QueryDataModel(address: addressText, description: explanationEditorText, organizationName: selectedOrganization.name, category: selectedCategory)
-        if addressText.count < 4 {
-            addressTextFieldError = (false, "Has error :(")
-        } else if explanationEditorText.isEmpty {
-            textEditorError = (false, "Has text editor error :(")
-        } else {
+        if addressText.count < 5 {
+            addressTextFieldError = "Adres mətni minimum 5 simvoldan ibarət olamlıdır"
+            isRightAddress = false
+        }
+        
+        if explanationEditorText.count < 10 {
+            textEditorError = "Müraciət mətni minimum 10 simvoldan ibarət olamlıdır"
+            isRightExplanation = false
+        }
+        
+        if selectedOrganization.name == "Qurum" {
+            isRightOrganization = false
+        }
+        
+        if selectedCategory.name == "Kateqoriya" {
+            isRightCategory = false
+        }
+        
+        if isRightAddress, isRightCategory, isRightExplanation, isRightOrganization {
             queryRepository.createNewQuery(body: newQuery) { [ weak self ] result in
+                guard let self else { return }
+                
                 switch result {
                 case .success(let success):
                     print(success)
-                    self?.cleanFields()
-                    self?.notificationType = .success(success)
-                    self?.addressTextFieldError = nil
-                    self?.textEditorError = nil
+                    self.cleanFields()
+                    self.notificationType = .success(success)
+                    self.addressTextFieldError = nil
+                    self.textEditorError = nil
                 case .failure(let error):
-                    self?.notificationType = .error(error)
+                    self.notificationType = .error(error)
                 }
             }
         }
@@ -57,10 +77,12 @@ class NewQueryViewModel: ObservableObject {
     
     func getCategories() {
         queryRepository.getCategories { [ weak self ] result in
-            self?.isLoading = false
+            guard let self else { return }
+            self.isLoading = false
             switch result {
             case .success(let success):
-                self?.categories = success
+                self.categories = success
+                
             case .failure(let error):
                 print(error.localizedDescription)
                 
@@ -70,11 +92,14 @@ class NewQueryViewModel: ObservableObject {
     
     func getOrganizations() {
         queryRepository.getOrganizations { [ weak self ] result in
-            self?.isLoading = false
+            guard let self else { return }
+            self.isLoading = false
             switch result {
             case .success(let success):
-                self?.organizations = success
+                self.organizations = success
+                self.getCategories()
             case .failure(let error):
+                self.getCategories()
                 print(error.localizedDescription)
             }
         }
@@ -88,5 +113,14 @@ class NewQueryViewModel: ObservableObject {
             selectedOrganization = OrganizationModel(id: UUID(), name: "Qurum")
             selectedCategory = QueryCategoryModel(categoryID: 0, name: "Kateqoriya")
         }
+    }
+    
+    func cleanErrors() {
+        isRightAddress = true
+        isRightExplanation = true
+        isRightOrganization = true
+        isRightCategory = true
+        addressTextFieldError = nil
+        textEditorError = nil
     }
 }

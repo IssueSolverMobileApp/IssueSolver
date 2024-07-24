@@ -63,7 +63,7 @@ struct CustomTextEditor: View {
                 HStack {
                     Text(errorText)
                         .jakartaFont(.subtitle2)
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(isRightTextField ? .gray : .red)
                     Spacer()
                 }
             }

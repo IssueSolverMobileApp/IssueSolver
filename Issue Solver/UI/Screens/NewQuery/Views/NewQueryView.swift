@@ -66,7 +66,7 @@ struct NewQueryView: View {
     
     var textFieldView: some View {
         VStack(alignment: .leading) {
-            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $vm.addressText, errorMessage: .constant(""))
+            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $vm.addressText, isRightTextField: $vm.isRightAddress, errorMessage: $vm.addressTextFieldError)
             HStack {
                 TextView(clickableTexts:  [Constants.howToRequestShare], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
                 Spacer()
@@ -80,16 +80,14 @@ struct NewQueryView: View {
     var pickerView: some View {
         
         VStack(spacing: 16) {
-            
-            
-            CustomPickerView(selection: $vm.selectedCategory, title: "Kategoriya", isRightTextEditor: .constant(true)) {
+            CustomPickerView(selection: $vm.selectedCategory, title: "Kategoriya", isRightTextEditor: $vm.isRightCategory) {
                 ForEach(vm.categories, id: \.self) { category in
                     Text(category.name ?? "")
                         .tag(category.categoryID)
                 }
             }
             
-            CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum", isRightTextEditor: .constant(true)) {
+            CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum", isRightTextEditor: $vm.isRightOrganization) {
                 if vm.isLoading {
                     ProgressView()
                         .progressViewStyle(.circular)
@@ -110,6 +108,8 @@ struct NewQueryView: View {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
                 vm.createNewQuery()
             }
+            .disabled((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty) ? true : false)
+            .opacity((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty) ? 0.5 : 1)
             
             CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
                 vm.isResetPressed = true
@@ -120,7 +120,7 @@ struct NewQueryView: View {
     }
     
     var textView: some View {
-        CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $vm.explanationEditorText, isRightTextField: .constant(true))
+        CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $vm.explanationEditorText, isRightTextField: $vm.isRightExplanation)
     }
 }
 

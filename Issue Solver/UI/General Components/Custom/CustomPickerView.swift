@@ -61,6 +61,7 @@ struct CustomPickerView<V, C>: View where V : SelectionProtocol, C : View {
             }
             .background(Color.white)
             .clipShape(.rect(cornerRadius: 12))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke((isRightTextEditor) ? Color.clear : Color.red, lineWidth: 1))
         }
     }
 }
