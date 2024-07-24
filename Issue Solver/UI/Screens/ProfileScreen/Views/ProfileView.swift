@@ -14,6 +14,7 @@ struct ProfileView: View {
     @State var showExitAccountAlert = false
     @State var showDeleteAccountAlert = false
     
+    @StateObject private var auth: AuthManager = .shared
     
     var body: some View {
         ZStack {
@@ -129,7 +130,9 @@ struct ProfileView: View {
                 Alert(title: Text(""),
                       message: Text("Hesabdan çıxış etməyə əminsiniz?"),
                       primaryButton: .destructive(Text("Çıxış"), action: {
-                    router.popToRoot()
+//                    router.popToRoot()
+                    auth.logOut()
+
                 }) ,
                       secondaryButton: .default(Text("İmtina")))
             }
