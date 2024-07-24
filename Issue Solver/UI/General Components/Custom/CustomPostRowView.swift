@@ -13,7 +13,8 @@ struct CustomPostRowView: View {
     
     @State private var statusBacgroundColor: Color = .primaryBlue.opacity(0.28)
     @State private var statusForegroundColor: Color = .primaryBluePressed
-
+    @State private var isDeleteClickable: Bool = true
+    
     /// if we need to use PostView into some detailView isDetailView variable must be true else false
     var isDetailView: Bool = true
     
@@ -43,8 +44,7 @@ struct CustomPostRowView: View {
         .background(.white)
         .clipShape(.rect(cornerRadius: Constants.cornerRadius))
         .onAppear {
-            setStatusBackgroundColor()
-            setStatusForeGroundColor()
+            setOptionsAccordingToStatus()
         }
     }
     
@@ -166,70 +166,47 @@ struct CustomPostRowView: View {
             }
             Spacer()
             
-//            Button(action: {
-//                print("salam")
-//            }, label: {
-//                
-//                Image(.optionDotsIcon)
-//                    .padding()
-//                    .background(.red)
-//            })
-//            Menu {
-//                Button {
-//                    deleteQuery()
-//                } label: {
-//                    HStack {
-//                        Image(.trashIcon)
-//                        Text("Sil")
-//                    }
-//                }
-//            } label: {
-//                Button(action: {
-//                    print("-----------------------------------")
-//                }, label: {
-//                    Image(.optionDotsIcon)
-//                        .padding()
-//                        .background(Circle())
-//                })
-//            }
+            Button(action: {
+                deleteQuery()
+            }, label: {
+                Image(isDeleteClickable ? .trashIconDisabled : .trashIcon)
+                    .padding()
+            })
+            .disabled(isDeleteClickable)
+            
         }
     }
     
-    private func setStatusBackgroundColor() {
+    private func setOptionsAccordingToStatus() {
         switch queryItem.status {
         case "Gözləmədə" :
             statusBacgroundColor = .primaryBlue.opacity(0.28)
+            statusForegroundColor = .primaryBluePressed
+            isDeleteClickable = false
         case "Baxılır" :
             statusBacgroundColor = .outLineContainerOrange
+            statusForegroundColor = .primaryOrange
+            isDeleteClickable = true
         case "Əssasızdır" :
             statusBacgroundColor = .outLineContainerRed
+            statusForegroundColor = .primaryRed
+            isDeleteClickable = false
         case "Həll edildi" :
             statusBacgroundColor = .outLineContainerGreen
+            statusForegroundColor = .primaryGreen
+            isDeleteClickable = false
         case "Arxivdədir" :
             statusBacgroundColor = .outLineContainerGray
-        case .none:
-            statusBacgroundColor = .surfaceBackground
-        case .some(_):
-            statusBacgroundColor = .surfaceBackground
-        }
-    }
-    
-    private func setStatusForeGroundColor() {
-        switch queryItem.status {
-        case "Gözləmədə" :
-            statusForegroundColor = .primaryBluePressed
-        case "Baxılır" :
-            statusForegroundColor = .primaryOrange
-        case "Əssasızdır" :
-            statusForegroundColor = .primaryRed
-        case "Həll edildi" :
-            statusForegroundColor = .primaryGreen
-        case "Arxivdədir" :
             statusForegroundColor = .disabledGray
+            isDeleteClickable = false
         case .none:
+            statusBacgroundColor = .surfaceBackground
             statusForegroundColor = .primaryBluePressed
+            isDeleteClickable = false
         case .some(_):
+            statusBacgroundColor = .surfaceBackground
             statusForegroundColor = .primaryBluePressed
+            isDeleteClickable = false
         }
     }
 }

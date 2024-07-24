@@ -11,6 +11,7 @@ public enum QueryEndPoint: EndPointProtocol {
     
     case myQueries(String)
     case singleQuery(String)
+    case deleteQuery(String)
     case getQueryComments(String, String)
     case postComment(String)
     case likePost(String)
@@ -22,6 +23,8 @@ public enum QueryEndPoint: EndPointProtocol {
             return "\(baseURL)request/user-requests?page=\(pageNumber)&size=10&sortBy=createDate"
         case .singleQuery(let requestID):
             return "\(baseURL)request/by-id/\(requestID)"
+        case .deleteQuery(let requestID):
+            return "\(baseURL)request/\(requestID)" 
         case .getQueryComments(let requestID, let pageNumber):
             return "\(baseURL)api/v1/comments/request/\(requestID)?page=\(pageNumber)&size=10"
         case .postComment(let requestID):
