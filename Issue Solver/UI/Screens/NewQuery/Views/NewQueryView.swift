@@ -3,7 +3,7 @@
 //  Issue Solver
 //
 //  Created by Valeh Amirov on 01.07.24.
-// 
+//
 
 import SwiftUI
 
@@ -16,9 +16,13 @@ struct NewQueryView: View {
             Color.surfaceBackground.ignoresSafeArea()
             
             ScrollView {
-                VStack(spacing: 20) {
+                VStack {
                     titleView
                     textFieldView
+                }
+                .padding()
+                
+                VStack(spacing: 20) {
                     pickerView
                     textView
                     buttonView
@@ -48,7 +52,7 @@ struct NewQueryView: View {
                 )
             }
         )
-
+        
     }
     
     
@@ -61,15 +65,31 @@ struct NewQueryView: View {
     }
     
     var textFieldView: some View {
-        VStack {
-            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $vm.addressText, errorMessage: .constant(""), clickableText: Constants.howToRequestShare, clickableTextWidth: 116)
+        VStack(alignment: .leading) {
+            CustomTextField(placeholder: "Ünvanı daxil edin", title: "Problemin baş verdiyi yer", text: $vm.addressText, errorMessage: .constant(""))
+            HStack {
+                TextView(clickableTexts:  [Constants.howToRequestShare], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
+                Spacer()
+                Text("Max: 50 simvol")
+                    .font(.jakartaFont(weight: .regular, size: 12))
+            }
+            .padding(.trailing)
         }
     }
     
     var pickerView: some View {
         
         VStack(spacing: 16) {
-            CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum", isRightTextEditor: $vm.isRightTextEditor) {
+            
+            
+            CustomPickerView(selection: $vm.selectedCategory, title: "Kategoriya", isRightTextEditor: .constant(true)) {
+                ForEach(vm.categories, id: \.self) { category in
+                    Text(category.name ?? "")
+                        .tag(category.categoryID)
+                }
+            }
+            
+            CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum", isRightTextEditor: .constant(true)) {
                 if vm.isLoading {
                     ProgressView()
                         .progressViewStyle(.circular)
@@ -78,13 +98,6 @@ struct NewQueryView: View {
                         Text(organization.name ?? "")
                             .tag(organization.id)
                     }
-                }
-            }
-            
-            CustomPickerView(selection: $vm.selectedCategory, title: "Kategoriya", isRightTextEditor: $vm.isRightTextEditor) {
-                ForEach(vm.categories, id: \.self) { category in
-                    Text(category.name ?? "")
-                        .tag(category.categoryID)
                 }
             }
             
@@ -107,7 +120,7 @@ struct NewQueryView: View {
     }
     
     var textView: some View {
-        CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $vm.explanationEditorText, isRightTextField: $vm.isRightTextEditor)
+        CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $vm.explanationEditorText, isRightTextField: .constant(true))
     }
 }
 
