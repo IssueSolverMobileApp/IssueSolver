@@ -13,6 +13,7 @@ struct MyQueryView: View {
     
     @StateObject private var vm = MyQueryViewModel()
     @State private var isLiked: Bool = false
+    private let ifNeedDeleteButton: Bool = true
 
     
     var body: some View {
@@ -42,7 +43,7 @@ struct MyQueryView: View {
                 CustomTitleView(title: "Mənim sorğularım")
                 
                 ForEach($vm.queryData, id: \.requestID) { $item in
-                    CustomPostRowView(queryItem: $item, isDetailView: false) {
+                    CustomPostRowView(queryItem: $item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         // MARK: Comment handler
                         vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
                     } likeHandler: { like in
@@ -52,7 +53,7 @@ struct MyQueryView: View {
                         vm.isDeletePressed(id: "\(item.requestID ?? Int())", true)
                     }
                     .onTapGesture {
-                        router.navigate { QueryDetailView( queryItem: $item) }
+                        router.navigate { QueryDetailView( ifNeedDeleteButton: ifNeedDeleteButton, queryItem: $item) }
                     }
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
@@ -94,7 +95,7 @@ struct MyQueryView: View {
                 CustomTitleView(title: "Mənim sorğularım")
                 
                 ForEach(1...3, id: \.self) {_ in
-                    CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
+                    CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         
                     } likeHandler: { _ in
                         
