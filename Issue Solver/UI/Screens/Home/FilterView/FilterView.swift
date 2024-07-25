@@ -90,7 +90,6 @@ struct FilterView: View {
                         .tag(date)
                 }
             }
-            
         }
     }
     
@@ -108,6 +107,7 @@ struct FilterView: View {
                 
             }
             CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
+                vm.applyFilter()
                 homeViewModel.selectedFilters = ["", "", "", ""]
                 router.dismissView()
             }
