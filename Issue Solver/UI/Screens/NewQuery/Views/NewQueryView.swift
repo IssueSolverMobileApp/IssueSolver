@@ -27,7 +27,6 @@ struct NewQueryView: View {
                     pickerView
                     textView
                     buttonView
-                        .padding(.bottom, 60)
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
@@ -114,7 +113,7 @@ struct NewQueryView: View {
                 }
             }
             .disabled((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty || !vm.isRightAddress || !vm.isRightExplanation) ? true : false)
-            .opacity((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty) ? 0.5 : 1)
+            .opacity((vm.addressText.isEmpty || vm.explanationEditorText.isEmpty || !vm.isRightAddress || !vm.isRightExplanation) ? 0.5 : 1)
             
             CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
                 vm.isResetPressed = true
@@ -125,7 +124,7 @@ struct NewQueryView: View {
     }
     
     var textView: some View {
-        CustomTextEditor(title: "Ətraflı izah", errorText: "Min:10-Max:500 simvol", explanation: $vm.explanationEditorText, isRightTextField: $vm.isRightExplanation)
+        CustomTextEditor(title: "Ətraflı izah", errorText: vm.textEditorError, explanation: $vm.explanationEditorText, isRightTextField: $vm.isRightExplanation)
     }
 }
 

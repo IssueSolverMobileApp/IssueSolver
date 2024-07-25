@@ -13,7 +13,7 @@ struct TabBarView: View {
     @State var notificationType: NotificationType?
     
     init() {
-        UITabBar.appearance().isHidden = true
+        UITabBar.appearance().alpha = 0
     }
     
     @Namespace var animation
@@ -61,7 +61,7 @@ struct TabBarView: View {
                 
                 ForEach(Tab.allCases, id: \.rawValue) { tab in
                     TabButton(tab: tab)
-
+                    
                 }
             }
                 .padding(.vertical)
@@ -69,7 +69,7 @@ struct TabBarView: View {
                 .background(
                     Color.white
                         .clipShape(BottomCurve(currentXValue: currentXValue))
-
+                    
                 )
             , alignment: .bottom
         )
@@ -105,7 +105,7 @@ struct TabBarView: View {
                                     .matchedGeometryEffect(id: "TAB", in: animation)
                             }
                         }
-                    
+                        
                     )
                     .contentShape(Rectangle())
                     .offset(y: currentTab == tab ? -25 : 0)
@@ -124,7 +124,7 @@ struct TabBarView: View {
 }
 
 extension View {
-   
+    
     func getSafeArea() -> UIEdgeInsets {
         
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
