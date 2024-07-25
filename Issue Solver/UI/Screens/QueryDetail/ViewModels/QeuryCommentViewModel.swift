@@ -12,7 +12,6 @@ final class QeuryCommentViewModel: ObservableObject {
     @Published var commentData: [QueryCommentDataModel] = []
     @Published var placeholderData: QueryCommentDataModel = QueryCommentDataModel(commentID: Int(), commentIsSuccess: true, fullName: "Valeh Amirov", authority: "USER", commentText: "Salam bu bir placeholder textidir. Və PlaceholderView yaratmaqçün istifadə oluna bilər", createDate: "24.07.2024")
     @Published var isDataEmptyButSuccess: Bool = false
-//    @Published var isPlaceholderView: Bool = false
     
     private var userFullName: String = ""
     private var repository = HTTPQueryRepository()
@@ -65,17 +64,21 @@ final class QeuryCommentViewModel: ObservableObject {
     func addLocalComment(requestID: String?, text: String?) {
         guard let newText = text, let requestID else { return }
         let item = QueryCommentDataModel(commentID: Int(), commentIsSuccess: false, fullName: userFullName, authority: "USER", commentText: newText, createDate: "")
-        commentData.insert(item, at: 0)
-        addComment(requestID: requestID, text: newText)
+//        DispatchQueue.main.async {
+            self.commentData.insert(item, at: 0)
+            self.addComment(requestID: requestID, text: newText)
+            self.isDataEmptyButSuccess = false
+//        }
     }
     
     private func handleCommentSuccess(data: QueryCommentDataModel?,success: Bool) {
+        DispatchQueue.main.async {
             if !(self.commentData[0].commentIsSuccess ?? true) {
                 self.commentData.remove(at: 0)
                 guard let data else { return }
                 self.commentData.insert(data, at: 0)
             }
-        
+        }
     }
     
     private func addData(commentData: [QueryCommentDataModel]) {

@@ -14,7 +14,7 @@ final class QueryDetailViewModel: ObservableObject {
     @Published var item: QueryDataModel = QueryDataModel()
     @Published var isDeletePressed: Bool = false
     @Published var isViewLoading: Bool = false
-
+    
     
     func getSingleQuery(id: String) {
         repository.getSingleQuery(id: id) {[weak self] result in
@@ -23,6 +23,7 @@ final class QueryDetailViewModel: ObservableObject {
             case .success(let success):
                 DispatchQueue.main.async {
                     self.item = success.data
+                    //                    print()
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -43,7 +44,7 @@ final class QueryDetailViewModel: ObservableObject {
             }
         }
     }
-
+    
     func likeToggle() {
         if item.likeSuccess ?? Bool() {
             deleteLike(queryID: "\(item.requestID ?? Int())")

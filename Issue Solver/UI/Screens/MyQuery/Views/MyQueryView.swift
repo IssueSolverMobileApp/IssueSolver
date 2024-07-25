@@ -31,7 +31,10 @@ struct MyQueryView: View {
             LoadingView(isLoading: vm.isViewLoading)
         }
         .onAppear {
-            vm.isLoadingFalse()
+//            vm.isLoadingFalse()
+            vm.getMoreQuery()
+        }
+        .refreshable {
             vm.getMyQuery()
         }
     }
@@ -41,7 +44,6 @@ struct MyQueryView: View {
             
             LazyVStack {
                 CustomTitleView(title: "Mənim sorğularım")
-                
                 ForEach($vm.queryData, id: \.requestID) { $item in
                     CustomPostRowView(queryItem: $item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         // MARK: Comment handler
@@ -67,20 +69,22 @@ struct MyQueryView: View {
                                     vm.isDeletePressed(id: nil, false)
                                 }),
                                 secondaryButton: .destructive(Text("Bəli"),action: {
-                                    vm.deleteComment()
+                                    vm.deleteQuery()
                                     vm.isDeletePressed(id: nil, false)
                                 })
                             )
                         }
                     )
                 }
-                    
-                HStack {
-                    ProgressView()
-                }
-                .onAppear {
-                    vm.getMoreQuery()
-                }
+//                                if vm.isProgressViewSeen {
+                                    HStack {
+                                        ProgressView()
+                                            .onAppear {
+                                                vm.getMoreQuery()
+                                            }
+                                    }
+                                    .padding(.bottom, 60)
+//                                }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
@@ -120,7 +124,6 @@ struct MyQueryView: View {
             Spacer()
             EmptyView()
         }
-    
         .padding(.horizontal, 20)
         .padding(.bottom, 16)
 
