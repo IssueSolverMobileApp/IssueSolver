@@ -18,8 +18,15 @@ class MyQueryViewModel: ObservableObject {
     @Published var isDeletePressed: Bool = false
     @Published var isViewLoading: Bool = false
     
+    @Published var isProgressViewSeen: Bool = false
+    
     private var queryRepository = HTTPQueryRepository()
-    private var pageCount: Int = 0
+    private var pageCount: Int = 0 {
+        didSet {
+            print("salam pageCount tetiklendi")
+            print(pageCount)
+        }
+    }
     
     init(queryData: [QueryDataModel] = []) {
         self.queryData = queryData
@@ -33,11 +40,7 @@ class MyQueryViewModel: ObservableObject {
             getMyQueryWithPagination()
         }
     }
-    
-    func isLoadingFalse() {
-        isLoading = false
-    }
-    
+        
     func likeToggle(like: Bool, queryID: Int?) {
         guard let queryID else { return }
         if like {
@@ -56,16 +59,17 @@ class MyQueryViewModel: ObservableObject {
         self.isDeletePressed = isPressed
         guard let id else { return }
         self.deleteQueryID = id
+        
     }
     
-    func deleteComment() {
+    func deleteQuery() {
         isViewLoading = true
         queryRepository.deleteComment(requestID: deleteQueryID) { [weak self ] result in
             guard let self else { return }
             switch result {
             case .success(_):
                 DispatchQueue.main.async {
-                    self.deleteCommentOnLocal()
+                    self.deleteQueryOnLocal()
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -73,11 +77,23 @@ class MyQueryViewModel: ObservableObject {
         }
     }
     
-    private func deleteCommentOnLocal() {
+    private func deleteQueryOnLocal() {
         if let index = queryData.firstIndex(where: {"\($0.requestID ?? Int())" == deleteQueryID}) {
             queryData.remove(at: index)
         }
         isViewLoading = false
+        pageCount = queryData.count / 10
+        if queryData.isEmpty {
+            isDataEmptyButSuccess = true
+        }
+    }
+    
+    private func deleteQueryOnDetailLocal() {
+        if let index = queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
+            queryData.remove(at: index)
+        }
+        isViewLoading = false
+        pageCount = queryData.count / 10
         if queryData.isEmpty {
             isDataEmptyButSuccess = true
         }
@@ -140,13 +156,15 @@ class MyQueryViewModel: ObservableObject {
     }
     
     private func addData(queryData: [QueryDataModel]) {
+        
         queryData.forEach { item in
-            if !self.queryData.contains(item) && item != QueryDataModel() {
+            if !self.queryData.contains(where: { $0.requestID == item.requestID }) {
                 self.queryData.append(item)
             }
         }
-        pageCount = pageCount + 1
+        pageCount = self.queryData.count / 10
         isLoading = false
+//        isDataCoutnLessThanTen()
     }
     
     private func isDataEmptyHandlerRemoveData(data: [QueryDataModel]) {
@@ -166,6 +184,14 @@ class MyQueryViewModel: ObservableObject {
             addData(queryData: data)
             isDataEmptyButSuccess = false
         }
+    }
+    
+    private func isDataCoutnLessThanTen() {
+       if self.queryData.count < 10 {
+            isProgressViewSeen = false
+       } else {
+           isProgressViewSeen = true
+       }
     }
 }
         
