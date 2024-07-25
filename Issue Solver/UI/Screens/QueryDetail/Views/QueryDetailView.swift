@@ -14,7 +14,8 @@ struct QueryDetailView: View {
 
     @State private var isLike: Bool = false
     @State private var isPresented: Bool = false
-    
+    var ifNeedDeleteButton: Bool
+
     @Binding var queryItem: QueryDataModel
     
     @Environment(\.dismiss) var dissmiss
@@ -24,7 +25,7 @@ struct QueryDetailView: View {
             Color.surfaceBackground.ignoresSafeArea()
             ScrollView {
                 VStack {
-                    CustomPostRowView(queryItem: $vm.item, isDetailView: true) {
+                    CustomPostRowView(queryItem: $vm.item, isDetailView: true, ifNeedDeleteButton: ifNeedDeleteButton) {
                         isPresented.toggle()
                     } likeHandler: {_ in 
                         vm.likeToggle()
@@ -41,7 +42,6 @@ struct QueryDetailView: View {
                                 title: Text("Sorğunuzu silmək istədiyinizə əminsiniz?"),
                                 primaryButton: .default(Text("Ləğv et"), action: {
                                     vm.isDeletePressed = false
-                            
                                 }),
                                 secondaryButton: .destructive(Text("Bəli"),action: {
                                     vm.deleteQuery(id: "\(queryItem.requestID ?? Int())", completion: { success in
@@ -90,5 +90,5 @@ struct QueryDetailView: View {
 }
 
 #Preview {
-    QueryDetailView(queryItem: .constant(QueryDataModel()))
+    QueryDetailView(ifNeedDeleteButton: false, queryItem: .constant(QueryDataModel()))
 }

@@ -17,15 +17,17 @@ struct CustomPostRowView: View {
     
     /// if we need to use PostView into some detailView isDetailView variable must be true else false
     var isDetailView: Bool = true
+    var ifNeedDeleteButton: Bool
     
     let commentHandler: () -> Void
     let likeHandler: (Bool) -> Void
     let deleteQuery: () -> Void
 
-    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool, commentHandler: @escaping () -> Void, likeHandler: @escaping(Bool) -> Void, deleteQuery: @escaping() -> Void
+    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool,ifNeedDeleteButton: Bool, commentHandler: @escaping () -> Void, likeHandler: @escaping(Bool) -> Void, deleteQuery: @escaping() -> Void
 ) {
         self._queryItem = queryItem
         self.isDetailView = isDetailView
+        self.ifNeedDeleteButton = ifNeedDeleteButton
         self.commentHandler = commentHandler
         self.likeHandler = likeHandler
         self.deleteQuery = deleteQuery
@@ -165,15 +167,16 @@ struct CustomPostRowView: View {
                 }
             }
             Spacer()
-            
-            Button(action: {
-                deleteQuery()
-            }, label: {
-                Image(isDeleteClickable ? .trashIconDisabled : .trashIcon)
-                    .padding(.trailing, 6)
-            })
-            .disabled(isDeleteClickable)
-            
+            /// Delete button
+            if ifNeedDeleteButton {
+                Button(action: {
+                    deleteQuery()
+                }, label: {
+                    Image(isDeleteClickable ? .trashIconDisabled : .trashIcon)
+                        .padding(.trailing, 6)
+                })
+                .disabled(isDeleteClickable)
+            }
         }
     }
     

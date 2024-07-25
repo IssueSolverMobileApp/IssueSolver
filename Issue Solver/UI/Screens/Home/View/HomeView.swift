@@ -12,6 +12,7 @@ struct HomeView: View {
     @EnvironmentObject var router: Router
     @StateObject private var vm = HomeViewModel()
     @State private var isLiked: Bool = false
+    private let ifNeedDeleteButton: Bool = false
 
     var body: some View {
         ZStack {
@@ -41,7 +42,7 @@ struct HomeView: View {
                 }
                 
                 ForEach($vm.queryData, id: \.requestID) { $item in
-                    CustomPostRowView(queryItem: $item, isDetailView: false) {
+                    CustomPostRowView(queryItem: $item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         // MARK: Comment handler
                         vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
                     } likeHandler: { like in
@@ -51,7 +52,7 @@ struct HomeView: View {
                         
                     }
                     .onTapGesture {
-                        router.navigate { QueryDetailView( queryItem: $item) }
+                        router.navigate { QueryDetailView( ifNeedDeleteButton: ifNeedDeleteButton, queryItem: $item) }
                     }
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
@@ -78,7 +79,7 @@ struct HomeView: View {
                 CustomTitleView(title: "• Issue Solver")
                 
                 ForEach(1...3, id: \.self) {_ in
-                    CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
+                    CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         
                     } likeHandler: { _ in
                         
