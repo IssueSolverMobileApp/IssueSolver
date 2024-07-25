@@ -14,7 +14,6 @@ struct FilterView: View {
     @StateObject var vm = FilterViewModel()
     @Binding var selectedFilters: [String]
     
-    
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
