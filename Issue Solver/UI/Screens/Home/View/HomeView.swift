@@ -18,13 +18,11 @@ struct HomeView: View {
         ZStack {
             Color.surfaceBackground
                       .ignoresSafeArea()
-                if vm.queryData.isEmpty && !vm.isDataEmptyButSuccess {
-                    placeholderView
-                } else if vm.isDataEmptyButSuccess {
-                    notDataView
-                } else {
-                    mainView
-                }
+            if vm.queryData.isEmpty {
+                notDataView
+            } else {
+                mainView
+            }
         }
         .onAppear {
             vm.getMoreQuery()
@@ -57,36 +55,15 @@ struct HomeView: View {
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
                     })
+                    .redacted(reason: vm.isLoading ? .placeholder:[])
                 }
                     
                 HStack {
                     ProgressView()
                 }
                 .onAppear {
-                    vm.getMoreQuery()
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 16)
-        }
-        
-    }
-    
-    var placeholderView: some View {
-        ScrollView {
-            
-            VStack {
-                CustomTitleView(title: "• Issue Solver")
-                
-                ForEach(1...3, id: \.self) {_ in
-                    CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
-                        
-                    } likeHandler: { _ in
-                        
-                    } deleteQuery: {
-                        
-                    }
-                    .redacted(reason: .placeholder)
+                    guard !vm.queryData.isEmpty else {return}
+                      vm.getMoreQuery()
                 }
             }
             .padding(.horizontal, 20)

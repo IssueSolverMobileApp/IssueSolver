@@ -61,7 +61,7 @@ class FilterViewModel: ObservableObject {
             }
         }
     }
-    
+
     func applyFilter() {
         let statusName = (selectedStatus.name == "Status" || selectedStatus == .none) ? "" : selectedStatus.nameWithoutSpaces
         let categoryName = (selectedCategory.name == "Kateqoriya" || selectedCategory == .none) ? "" : selectedCategory.name

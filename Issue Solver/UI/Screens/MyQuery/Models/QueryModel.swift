@@ -38,6 +38,12 @@ struct QueryDataModel: Codable, Hashable {
         case fullName, address, description, status, organizationName, createDate, commentCount, likeCount, likeSuccess, category
     }
 }
+
+extension QueryDataModel {
+    static func mock() -> QueryDataModel {
+        .init(requestID: Int.random(in: 1...100), fullName: "Fexri", address: "Baki", description: "Salam", status: nil, organizationName: "IDDA", createDate: "", commentCount: 0, likeCount: 0, likeSuccess: true, category: nil)
+    }
+}
     
 // MARK: - QueryCategoryModel
 struct QueryCategoryModel: SelectionProtocol, Codable {

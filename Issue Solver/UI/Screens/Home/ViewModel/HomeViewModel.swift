@@ -11,17 +11,14 @@
         
         @Published var queryData: [QueryDataModel] = []
         @Published var selectedFilters: [String] = []
-        @Published var placeholderData = QueryDataModel()
-        @Published var isDataEmptyButSuccess: Bool = false
         @Published var isPresented: Bool = false
         @Published var queryID: String = ""
+        @Published var isLoading: Bool = false
         
         private var homeRepository = HTTPHomeRepository()
         private var queryRepository = HTTPQueryRepository()
-        private var isLoading: Bool = false
-        var pageCount: Int = 0
-        var filterApplied: Bool = false
         var filterViewModel = FilterViewModel()
+        var pageCount: Int = 0
         
         init(queryData: [QueryDataModel] = []) {
             self.queryData = queryData
@@ -30,6 +27,7 @@
         func getMoreQuery() {
             guard !isLoading else { return }
             isLoading = true
+            queryData = [.mock(), .mock(), .mock()]
             if !selectedFilters.isEmpty {
                 applyCurrentFilter()
             } else {
@@ -58,7 +56,9 @@
                     switch result {
                     case .success(let success):
                         guard let data = success.data else { return }
-                        self.isDataEmptyHandler(data: data)
+                        self.queryData = []
+                        self.addData(queryData: data)
+                        self.isLoading = false
                     case .failure(let error):
                         print(error.localizedDescription)
                         self.isLoading = false
@@ -76,8 +76,9 @@
                     switch result {
                     case .success(let success):
                         guard let data = success.data else { return }
-                        self.queryData = data
-                        self.isDataEmptyHandler(data: data)
+                        self.queryData = []
+                        self.addData(queryData: data)
+                        self.isLoading = false
                     case .failure(let error):
                         print("Error applying filter: \(error.localizedDescription)")
                         self.isLoading = false
@@ -85,8 +86,11 @@
                 }
             }
         }
-       
-         private func applyCurrentFilter() {
+        func applyCurrentFilter() {
+            guard selectedFilters.count >= 4 else {
+                print("Selected filters array does not have enough elements")
+                return
+            }
             applyFilter(
                 organization: selectedFilters[0],
                 category: selectedFilters[1],
@@ -125,15 +129,5 @@
             }
             pageCount = pageCount + 1
             isLoading = false
-        }
-        
-        private func isDataEmptyHandler(data: [QueryDataModel]) {
-          
-            if data.isEmpty && pageCount == 0 {
-                isDataEmptyButSuccess = true
-            } else {
-                addData(queryData: data)
-                isDataEmptyButSuccess = false
-            }
         }
     }
