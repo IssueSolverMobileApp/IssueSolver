@@ -27,8 +27,8 @@ class FilterViewModel: ObservableObject {
     
     @Published var selectedOrganization: OrganizationModel = OrganizationModel(id: UUID(),name: "Qurum")
     @Published var selectedCategory: QueryCategoryModel = QueryCategoryModel(categoryID: 0 ,name: "Kateqoriya")
-    @Published var selectedStatus: StatusModel = StatusModel(name: "Status")
-    @Published var selectedDate: DateModel =  DateModel(name: "Tarix")
+    @Published var selectedStatus: StatusModel = StatusModel(id: UUID() ,name: "Status")
+    @Published var selectedDate: DateModel =  DateModel(id: UUID(), name: "Tarix")
     
     @Published var isRightTextEditor: Bool = true
     @Published var dateText: String = ""

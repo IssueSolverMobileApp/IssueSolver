@@ -8,6 +8,7 @@
 import Foundation
 
 struct StatusModel: SelectionProtocol {
+    var id = UUID()
     var name: String?
     
     static var none: StatusModel {
@@ -20,6 +21,7 @@ struct StatusModel: SelectionProtocol {
 }
 
 struct DateModel: SelectionProtocol {
+    var id = UUID()
     var name: String?
     
     static var none: DateModel {
