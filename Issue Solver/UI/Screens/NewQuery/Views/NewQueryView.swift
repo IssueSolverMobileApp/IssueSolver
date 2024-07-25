@@ -54,7 +54,7 @@ struct NewQueryView: View {
     
     var titleView: some View {
         HStack {
-            CustomTitleView(title: "Yeni sorğu", subtitle: "Xahiş olunur, sorğu üçün məlumatları daxil edin") {
+            CustomTitleView(title: "Yeni sorğu", subtitle: "Xahiş olunur, sorğu üçün məlumatları daxil edin", image1: .infoIcon) {
                 router.navigate { NewQueryInfoView() }
             }
         }

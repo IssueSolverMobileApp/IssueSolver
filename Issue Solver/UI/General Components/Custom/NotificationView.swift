@@ -55,7 +55,7 @@ struct NotificationView: View {
                 .tint(iconColor)
             
             Text(text)
-                .foregroundStyle(.white)
+                .foregroundStyle(iconColor)
         }
         .padding(8)
         .background {
