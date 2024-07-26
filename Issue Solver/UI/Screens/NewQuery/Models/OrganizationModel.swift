@@ -17,8 +17,4 @@ struct OrganizationModel: SelectionProtocol, Codable, Identifiable {
     var id: UUID? = UUID()
     var name: String?
     var active: Bool?
-    
-    static var none: OrganizationModel {
-         return OrganizationModel(id: UUID(), name: "Heç biri")
-     }
 }

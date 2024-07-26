@@ -7,12 +7,18 @@
 
 import Foundation
 
+struct SelectedFilters {
+    let organization: OrganizationModel?
+    let category: QueryCategoryModel?
+    let status: StatusModel?
+    let days: DateModel?
+}
+
 class FilterViewModel: ObservableObject {
     
-    @Published var categories: [QueryCategoryModel] = [QueryCategoryModel.none]
-    @Published var organizations: [OrganizationModel] = [OrganizationModel.none]
+    @Published var categories: [QueryCategoryModel] = []
+    @Published var organizations: [OrganizationModel] = []
     @Published var statuses: [StatusModel] = [
-        .none,
         StatusModel(name: "Gözləmədə"),
         StatusModel(name: "Baxılır"),
         StatusModel(name: "Əsassızdır"),
@@ -20,7 +26,6 @@ class FilterViewModel: ObservableObject {
         StatusModel(name: "Arxivdədir") ]
     
     @Published var date: [DateModel] = [
-        .none,
         DateModel(name: "Son bir gün"),
         DateModel(name: "Son bir ay"),
         DateModel(name: "Son bir həftə")]
@@ -37,13 +42,16 @@ class FilterViewModel: ObservableObject {
     private let queryRepository: HTTPNewQueryRepository = HTTPNewQueryRepository()
     private let homeRepository: HTTPHomeRepository = HTTPHomeRepository()
     
-    var onApplyFilter: ((String, String, String, String) -> Void)?
+    init() {
+        getCategories()
+        getOrganizations()
+    }
     
     func getCategories() {
         queryRepository.getCategories { [ weak self ] result in
             switch result {
             case .success(let success):
-                self?.categories = [QueryCategoryModel.none] + success
+                self?.categories = success
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -54,20 +62,11 @@ class FilterViewModel: ObservableObject {
         queryRepository.getOrganizations { [ weak self ] result in
             switch result {
             case .success(let success):
-                self?.organizations = [OrganizationModel.none] + success
+                self?.organizations = success
 
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
-    }
-
-    func applyFilter() {
-        let statusName = (selectedStatus.name == "Status" || selectedStatus == .none) ? "" : selectedStatus.nameWithoutSpaces
-        let categoryName = (selectedCategory.name == "Kateqoriya" || selectedCategory == .none) ? "" : selectedCategory.name
-        let organizationName = (selectedOrganization.name == "Qurum" || selectedOrganization == .none) ? "" : selectedOrganization.name
-        let dateName = (selectedDate.name == "Tarix" || selectedDate == .none) ? "" : selectedDate.name
-        
-        onApplyFilter?(statusName, categoryName ?? "", organizationName ?? "", dateName ?? "")
     }
 }

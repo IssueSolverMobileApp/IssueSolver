@@ -12,6 +12,7 @@ struct DeleteAccountView: View {
     @StateObject var vm = DeleteAccountViewModel()
     @Environment (\.dismiss) private var dismiss
     @EnvironmentObject var router: Router
+    @StateObject private var auth: AuthManager = .shared
     
     var body: some View {
         ZStack {
@@ -61,6 +62,7 @@ struct DeleteAccountView: View {
     var deleteAccountButtonView: some View {
         
         CustomButton(style:.rounded,title: "Hesabı sil", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+            auth.logOut()
                  vm.deleteAccount(with: router)
         }
         .disabled(vm.passwordText.isEmpty)

@@ -64,3 +64,4 @@ class DeleteAccountViewModel: ObservableObject {
             passwordError = error
     }
 }
+
