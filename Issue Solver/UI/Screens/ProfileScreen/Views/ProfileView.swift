@@ -129,14 +129,11 @@ struct ProfileView: View {
             .alert( isPresented: $showExitAccountAlert) {
                 Alert(title: Text(""),
                       message: Text("Hesabdan çıxış etməyə əminsiniz?"),
-                      primaryButton: .destructive(Text("Çıxış"), action: {
-//                    router.popToRoot()
+                      primaryButton: .default(Text("İmtina")),
+                      secondaryButton: .destructive(Text("Çıxış"), action: {
                     auth.logOut()
-
-                }) ,
-                      secondaryButton: .default(Text("İmtina")))
+              }) )
             }
-            
             /// Delete account View
             CustomRowView(title: "Hesabı sil",
                           subtitle: nil,
@@ -150,10 +147,10 @@ struct ProfileView: View {
             .alert( isPresented: $showDeleteAccountAlert) {
                 Alert(title: Text(""),
                       message: Text("Hesabınızı silmək istədiyinizə əminsiniz?"),
-                      primaryButton: .destructive(Text("Bəli"), action: { router.navigate {
-                    DeleteAccountView()
-                } }) ,
-                      secondaryButton: .default(Text("Xeyr")))
+                      primaryButton: .default(Text("Xeyr"))  ,
+                      secondaryButton: .destructive(Text("Bəli"), action: { router.navigate {
+                      DeleteAccountView()
+                } }) )
             }
         }
     }
