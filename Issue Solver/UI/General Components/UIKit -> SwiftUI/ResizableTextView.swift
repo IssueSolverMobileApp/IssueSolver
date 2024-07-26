@@ -63,9 +63,12 @@ struct ResizableTextView: UIViewRepresentable {
             DispatchQueue.main.async {
                 self.parent.height = textView.contentSize.height
                 self.parent.text = textView.text
+                if textView.text.count > 500 {
+                    let result = textView.text.prefix(500)
+                    let string = String(result)
+                    textView.text = string
+                }
             }
         }
-        
     }
-
 }

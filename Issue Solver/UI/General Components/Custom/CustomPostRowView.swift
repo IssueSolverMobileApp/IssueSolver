@@ -9,14 +9,15 @@ import SwiftUI
 
 struct CustomPostRowView: View {
     
-    @Binding var queryItem: QueryDataModel
+    var queryItem: QueryDataModel
 //        didSet {
 //            setOptionsAccordingToStatus()
 //        }
 //    }
     
-    @State private var statusBacgroundColor: Color?
-    @State private var statusForegroundColor: Color?
+    
+    @State private var statusBacgroundColor: Color? = nil
+    @State private var statusForegroundColor: Color? = nil
     @State private var isDeleteClickable: Bool = true
     
     @State private var showingAlert = false
@@ -30,13 +31,11 @@ struct CustomPostRowView: View {
     let likeHandler: (Bool) -> Void
     let deleteQuery: () -> Void
     
-    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool,ifNeedDeleteButton: Bool, commentHandler: @escaping () -> Void, statusBacgroundColor: Color? = nil, statusForegroundColor: Color? = nil, likeHandler: @escaping(Bool) -> Void, deleteQuery: @escaping() -> Void
+    init(queryItem: QueryDataModel, isDetailView: Bool,ifNeedDeleteButton: Bool, commentHandler: @escaping () -> Void,likeHandler: @escaping(Bool) -> Void, deleteQuery: @escaping() -> Void
     ) {
-        self._queryItem = queryItem
+        self.queryItem = queryItem
         self.isDetailView = isDetailView
         self.ifNeedDeleteButton = ifNeedDeleteButton
-        self.statusBacgroundColor = statusBacgroundColor
-        self.statusForegroundColor = statusForegroundColor
         self.commentHandler = commentHandler
         self.likeHandler = likeHandler
         self.deleteQuery = deleteQuery
@@ -71,17 +70,20 @@ struct CustomPostRowView: View {
                     .foregroundStyle(.primaryBlue)
                     .lineLimit(2)
                 Spacer()
-                HStack {
-                    Image(.blueDotIcon)
-                        .foregroundStyle(statusForegroundColor ?? .primaryBluePressed)
-                    Text(queryItem.status ?? "")
-                        .jakartaFont(.subheading)
-                        .foregroundStyle(statusForegroundColor ?? .primaryBluePressed)
-                }
-                .padding(.horizontal)
-                .padding(.vertical, 8)
-                .background(statusBacgroundColor)
-                .clipShape(.rect(cornerRadius: 100))
+//                if let statusBacgroundColor, let statusForegroundColor {
+                    HStack {
+                        Image(.blueDotIcon)
+                            .foregroundStyle(statusForegroundColor ?? .black)
+                        Text(queryItem.status ?? "")
+                            .jakartaFont(.subheading)
+                            .foregroundStyle(statusForegroundColor ?? .black )
+                    }
+                    
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+                    .background(statusBacgroundColor)
+                    .clipShape(.rect(cornerRadius: 100))
+//                }
             }
             
             if isDetailView {
@@ -146,14 +148,13 @@ struct CustomPostRowView: View {
             Color.primaryBluePressed.opacity(0.28)
         }
     }
-    //            Like, comment and option button
+//            Like, comment and option button
     var bottomView: some View {
         HStack {
             VStack(spacing: 5) {
                 
                 Button(action: {
                     likeHandler(queryItem.likeSuccess ?? false ? false : true)
-                    queryItem.likeSuccess?.toggle()
                 }, label: {
                     Image(queryItem.likeSuccess ?? false ? .likeIconFill : .likeIcon )
                 })
@@ -185,11 +186,10 @@ struct CustomPostRowView: View {
                         showingAlert = true
                     }
                 }, label: {
-                    Image(/*isDeleteClickable ? .trashIconDisabled :*/ .trashIcon)
+                    Image(.trashIcon)
                         .padding(.trailing, 6)
                 })
-//                .disabled(isDeleteClickable)
-                .alert("Baxılır statusunda olan sorğunu silmək mümkün deyil", isPresented: $showingAlert) {
+                .alert("Sorğular yalnız \"gözləmədə\" statusunda silinə bilər", isPresented: $showingAlert) {
                     Button("Oldu", role: .cancel) {
                         showingAlert = false
                     }
@@ -198,7 +198,7 @@ struct CustomPostRowView: View {
         }
     }
     
-    private func setOptionsAccordingToStatus() {
+     func setOptionsAccordingToStatus() {
         switch queryItem.status {
         case "Gözləmədə" :
             statusBacgroundColor = .primaryBlue.opacity(0.28)
@@ -211,44 +211,23 @@ struct CustomPostRowView: View {
         case "Əsassızdır" :
             statusBacgroundColor = .outLineContainerRed
             statusForegroundColor = .primaryRed
-            isDeleteClickable = true
+            isDeleteClickable = false
         case "Həll edildi" :
             statusBacgroundColor = .outLineContainerGreen
             statusForegroundColor = .primaryGreen
-            isDeleteClickable = true
+            isDeleteClickable = false
         case "Arxivdədir" :
             statusBacgroundColor = .outLineContainerGray
             statusForegroundColor = .disabledGray
-            isDeleteClickable = true
+            isDeleteClickable = false
         case .none:
             statusBacgroundColor = nil
             statusForegroundColor = nil
-            isDeleteClickable = true
+            isDeleteClickable = false
         case .some(_):
             statusBacgroundColor = nil
             statusForegroundColor = nil
-            isDeleteClickable = true
+            isDeleteClickable = false
         }
     }
 }
-//    func dateFormatter(_ text: String? ,_ format: DateFormType) -> String {
-//        guard let text else { return String() }
-//        print(text)
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = format.rawValue
-//        let date = dateFormatter.date(from: text ?? Date()
-////        let date = dateFormatter.date(from: text) ?? Date()
-//        print(date)
-//
-//        let resultFormat = dateFormatter.string(from: date)
-//        print(resultFormat)
-//
-//        return resultFormat
-//    }
-//}
-
-//enum DateFormType: String {
-//    case hour = "HH:mm"
-//    case day = "dd.MM.YYYY"
-//    case all = "dd.MM.YYYY, HH:mm"
-//}
