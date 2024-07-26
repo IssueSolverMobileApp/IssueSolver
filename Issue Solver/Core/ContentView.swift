@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-        
+    
+    @State var showView: Bool = false
+    
     var body: some View {
         ZStack {
 //            CustomNavigationStack {
-              RootView()
+            if !showView {
+                SplashScreen {
+                    withAnimation(.easeInOut) {
+                        showView = true
+                    }
+                }
+            } else {
+                RootView()
                     .environmentObject(AuthManager.shared)
+            }
 //            }
 //            .ignoresSafeArea()
         }
