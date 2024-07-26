@@ -10,9 +10,9 @@ import SwiftUI
 struct FilterView: View {
     
     @EnvironmentObject var router: Router
-    @ObservedObject var homeViewModel: HomeViewModel
+    @EnvironmentObject var homeViewModel: HomeViewModel
     @StateObject var vm = FilterViewModel()
-    @Binding var selectedFilters: [String]
+    
     
     var body: some View {
         ZStack {
@@ -36,15 +36,29 @@ struct FilterView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                backButtonView
+                navButtonsView
             }
+        }
+        .onAppear {
+            vm.selectedOrganization = homeViewModel.selectedFilters?.organization ?? OrganizationModel(id: UUID(), name: "Qurum")
+            vm.selectedCategory = homeViewModel.selectedFilters?.category ?? QueryCategoryModel(categoryID: 0, name: "Kateqoriya")
+            vm.selectedStatus = homeViewModel.selectedFilters?.status ?? StatusModel(id: UUID(), name: "Status")
+            vm.selectedDate = homeViewModel.selectedFilters?.days ?? DateModel(id: UUID(), name: "Tarix")
         }
     }
     
     ///Back Button View
-    var backButtonView: some View {
-        CustomButton(style: .back, title: "") {
-            router.dismissView()
+    var navButtonsView: some View {
+        HStack {
+            CustomButton(style: .back, title: "") {
+                router.dismissView()
+            }
+            
+            Spacer()
+            
+            CustomButton(style: .rounded, title: "Təmizlə", color: .surfaceBackground, foregroundStyle: .primaryBlue) {
+                resetFilters()
+            }
         }
     }
     
@@ -58,7 +72,6 @@ struct FilterView: View {
         
         VStack(spacing: 16) {
             CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum",textColor: vm.selectedOrganization.name == "Qurum" ? .gray : .black, isRightTextEditor: $vm.isRightTextEditor, onPickerTapped: {
-                vm.getOrganizations()
             })
             {
                 ForEach(vm.organizations, id: \.self) { organization in
@@ -68,7 +81,7 @@ struct FilterView: View {
             }
             
             CustomPickerView(selection: $vm.selectedCategory, title: "Problemin kateqoriyası", textColor: vm.selectedCategory.name == "Kateqoriya" ? .gray : .black, isRightTextEditor: $vm.isRightTextEditor, onPickerTapped: {
-                vm.getCategories()
+
             }) {
                 ForEach(vm.categories, id: \.self) { category in
                     Text(category.name ?? "")
@@ -93,24 +106,32 @@ struct FilterView: View {
     }
     
     var buttonView: some View {
-        VStack(spacing: 16) {
-            CustomButton(style: .rounded, title: "Tətbiq et", color: .primaryBlue) {
-                vm.applyFilter()
-                selectedFilters = [
-                    (vm.selectedOrganization == .none || vm.selectedOrganization.name == "Qurum") ? "" : vm.selectedOrganization.name ?? "",
-                    (vm.selectedCategory == .none || vm.selectedCategory.name == "Kateqoriya") ? "" : vm.selectedCategory.name ?? "",
-                    (vm.selectedStatus == .none || vm.selectedStatus.name == "Status") ? "" : vm.selectedStatus.nameWithoutSpaces,
-                    (vm.selectedDate == .none || vm.selectedDate.name == "Tarix") ? "" : vm.selectedDate.name ?? ""
-                ]
-                router.dismissView()
+            CustomButton(style: .rounded, title: "Tətbiq et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
+                let selectedFilter = SelectedFilters(
+                    organization: vm.selectedOrganization,
+                    category: vm.selectedCategory,
+                    status: vm.selectedStatus,
+                    days: vm.selectedDate)
                 
-            }
-            CustomButton(style: .rounded, title: "Sıfırla", color: .white, foregroundStyle: .primaryBlue) {
-                vm.applyFilter()
-                homeViewModel.selectedFilters = ["", "", "", ""]
+                homeViewModel.selectedFilters = selectedFilter
+                homeViewModel.getMoreQuery()
                 router.dismissView()
             }
-        }
+            .disabled(vm.selectedStatus.name == "Status" && vm.selectedDate.name == "Tarix" &&  vm.selectedCategory.name == "Kateqoriya" &&  vm.selectedOrganization.name == "Qurum")
+    }
+    
+    func resetFilters() {
+        vm.selectedOrganization = OrganizationModel(id: UUID(), name: "Qurum")
+        vm.selectedCategory = QueryCategoryModel(categoryID: 0, name: "Kateqoriya")
+        vm.selectedStatus = StatusModel(id: UUID(), name: "Status")
+        vm.selectedDate = DateModel(id: UUID(), name: "Tarix")
+        
+        homeViewModel.selectedFilters = nil
+        homeViewModel.getMoreQuery()
+    }
+    
+    var canContinue: Bool {
+        return !(vm.selectedStatus.name == "Status" && vm.selectedDate.name == "Tarix" && vm.selectedCategory.name == "Kateqoriya" && vm.selectedOrganization.name == "Qurum")
     }
 }
 

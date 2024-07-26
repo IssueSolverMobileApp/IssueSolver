@@ -199,7 +199,8 @@ struct CustomPostRowView: View {
     }
     
     private func setOptionsAccordingToStatus() {
-        switch queryItem.status {
+        guard let status = queryItem.status else { return }
+        switch status {
         case "Gözləmədə" :
             statusBacgroundColor = .primaryBlue.opacity(0.28)
             statusForegroundColor = .primaryBluePressed
@@ -220,14 +221,8 @@ struct CustomPostRowView: View {
             statusBacgroundColor = .outLineContainerGray
             statusForegroundColor = .disabledGray
             isDeleteClickable = true
-        case .none:
-            statusBacgroundColor = nil
-            statusForegroundColor = nil
-            isDeleteClickable = true
-        case .some(_):
-            statusBacgroundColor = nil
-            statusForegroundColor = nil
-            isDeleteClickable = true
+        default:
+            break
         }
     }
 }

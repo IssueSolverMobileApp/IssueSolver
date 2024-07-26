@@ -25,7 +25,8 @@ struct HomeView: View {
             }
         }
         .onAppear {
-            vm.getMoreQuery()
+         //   guard !vm.queryData.isEmpty  else { return }
+                vm.getMoreQuery()
         }
     }
         
@@ -35,11 +36,11 @@ struct HomeView: View {
             LazyVStack {
                 CustomTitleView(title: "• Issue Solver", image1: .filterIcon) {
                     router.navigate {
-                        FilterView(homeViewModel: vm, selectedFilters: $vm.selectedFilters)
+                        FilterView().environmentObject(vm)
                     }
                 }
                 
-                ForEach($vm.queryData, id: \.requestID) { $item in
+                ForEach($vm.queryData) { $item in
                     CustomPostRowView(queryItem: $item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         // MARK: Comment handler
                         vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
@@ -75,7 +76,7 @@ struct HomeView: View {
         VStack {
             CustomTitleView(title: "• Issue Solver", image1: .filterIcon) {
                 router.navigate {
-                    FilterView(homeViewModel: vm, selectedFilters: $vm.selectedFilters)
+                    FilterView().environmentObject(vm)
                 }
             }
             Spacer()
