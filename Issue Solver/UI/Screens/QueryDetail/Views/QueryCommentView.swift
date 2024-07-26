@@ -103,7 +103,6 @@ struct QueryCommentView: View {
     var notDataView: some View {
         VStack {
             Spacer()
-
             Text("Rəy yoxdur")
             Spacer()
 

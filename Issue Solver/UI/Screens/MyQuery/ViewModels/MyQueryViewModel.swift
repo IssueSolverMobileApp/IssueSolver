@@ -64,7 +64,7 @@ class MyQueryViewModel: ObservableObject {
     
     func deleteQuery() {
         isViewLoading = true
-        queryRepository.deleteComment(requestID: deleteQueryID) { [weak self ] result in
+        queryRepository.deleteSingleQuery(requestID: deleteQueryID) { [weak self ] result in
             guard let self else { return }
             switch result {
             case .success(_):
@@ -88,16 +88,15 @@ class MyQueryViewModel: ObservableObject {
         }
     }
     
-    private func deleteQueryOnDetailLocal() {
-        if let index = queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
-            queryData.remove(at: index)
-        }
-        isViewLoading = false
-        pageCount = queryData.count / 10
-        if queryData.isEmpty {
-            isDataEmptyButSuccess = true
-        }
-    }
+//    func deleteQueryOnDetailLocal(id: String) {
+//        if let index = queryData.firstIndex(where: {"\($0.requestID ?? Int())" == id}) {
+//            queryData.remove(at: index)
+//        }
+//        pageCount = queryData.count / 10
+//        if queryData.isEmpty {
+//            isDataEmptyButSuccess = true
+//        }
+//    }
     
     func getMyQuery() {
         pageCount = 0
@@ -131,13 +130,18 @@ class MyQueryViewModel: ObservableObject {
             }
         }
     }
+    
 
     
     private func addLike(queryID: String) {
         queryRepository.postLike(queryID: queryID) { result in
             switch result {
             case .success(let success):
-                print(success.message ?? "")
+                DispatchQueue.main.async {
+                    if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
+                        self.queryData[index].likeSuccess = true
+                    }
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -145,10 +149,15 @@ class MyQueryViewModel: ObservableObject {
     }
     
     private func deleteLike(queryID: String) {
-        queryRepository.deleteLike(queryID: queryID) { result in
+        queryRepository.deleteLike(queryID: queryID) { [ weak self ] result in
+            guard let self else { return }
             switch result {
             case .success(let success):
-                print(success.message ?? "")
+                DispatchQueue.main.async {
+                    if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
+                        self.queryData[index].likeSuccess = false
+                    }
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -164,7 +173,6 @@ class MyQueryViewModel: ObservableObject {
         }
         pageCount = self.queryData.count / 10
         isLoading = false
-//        isDataCoutnLessThanTen()
     }
     
     private func isDataEmptyHandlerRemoveData(data: [QueryDataModel]) {
@@ -186,6 +194,8 @@ class MyQueryViewModel: ObservableObject {
         }
     }
     
+    
+//    isledilmir
     private func isDataCoutnLessThanTen() {
        if self.queryData.count < 10 {
             isProgressViewSeen = false

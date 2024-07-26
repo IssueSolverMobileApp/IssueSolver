@@ -84,14 +84,15 @@ public final class HTTPClient {
                 handleError(endPoint: endPoint, response: response, data: data, urlRequest: urlRequest, method: method, completion: completion)
                 return
             }
-            deletage?.accessTokenTrigger(isActive: true)
-            
             guard let data = data else { return }
             
             do {
                 let decode = try JSONDecoder().decode(T.self, from: data)
                 getQueryItem(endPoint: endPoint, decodable: decode)
                 getAccessToken(decodable: decode)
+                if UserDefaults.standard.accessToken != nil {
+                    deletage?.accessTokenTrigger(isActive: true)
+                }
                 completion(decode, nil)
                 return
             }

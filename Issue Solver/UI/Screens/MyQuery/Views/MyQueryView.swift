@@ -31,7 +31,6 @@ struct MyQueryView: View {
             LoadingView(isLoading: vm.isViewLoading)
         }
         .onAppear {
-//            vm.isLoadingFalse()
             vm.getMoreQuery()
         }
         .refreshable {
@@ -45,7 +44,7 @@ struct MyQueryView: View {
             LazyVStack {
                 CustomTitleView(title: "Mənim sorğularım")
                 ForEach($vm.queryData, id: \.requestID) { $item in
-                    CustomPostRowView(queryItem: $item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
+                    CustomPostRowView(queryItem: item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         // MARK: Comment handler
                         vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
                     } likeHandler: { like in
@@ -54,9 +53,14 @@ struct MyQueryView: View {
                     } deleteQuery: {
                         vm.isDeletePressed(id: "\(item.requestID ?? Int())", true)
                     }
-                    .onTapGesture {
-                        router.navigate { QueryDetailView( ifNeedDeleteButton: ifNeedDeleteButton, queryItem: $item) }
+                    .onTapGesture {      
+                        router.navigate {
+                            QueryDetailView(ifNeedDeleteButton: ifNeedDeleteButton, queryItem: $item, isDeleteDetailView: {
+                                vm.getMyQuery()
+                            })
+                        }
                     }
+
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
                     })
@@ -99,7 +103,7 @@ struct MyQueryView: View {
                 CustomTitleView(title: "Mənim sorğularım")
                 
                 ForEach(1...3, id: \.self) {_ in
-                    CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
+                    CustomPostRowView(queryItem: vm.placeholderData, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         
                     } likeHandler: { _ in
                         
