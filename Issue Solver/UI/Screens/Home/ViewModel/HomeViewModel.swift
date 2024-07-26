@@ -125,7 +125,7 @@
                     self.queryData.append(item)
                 }
             }
-            pageCount = pageCount + 1
+            pageCount = self.queryData.count / 10
             isLoading = false
         }
     }

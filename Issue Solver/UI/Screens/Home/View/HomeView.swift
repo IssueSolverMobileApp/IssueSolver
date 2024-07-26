@@ -25,7 +25,7 @@ struct HomeView: View {
             }
         }
         .onAppear {
-         //   guard !vm.queryData.isEmpty  else { return }
+           // guard !vm.queryData.isEmpty  else { return }
                 vm.getMoreQuery()
         }
     }
@@ -63,7 +63,6 @@ struct HomeView: View {
                     ProgressView()
                 }
                 .onAppear {
-                    guard !vm.queryData.isEmpty else {return}
                       vm.getMoreQuery()
                 }
             }
