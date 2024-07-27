@@ -39,7 +39,6 @@ struct HomeView: View {
                         FilterView().environmentObject(vm)
                     }
                 }
-                
                 ForEach($vm.queryData) { $item in
                     CustomPostRowView(queryItem: item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         // MARK: Comment handler

@@ -18,33 +18,27 @@
         
         private var homeRepository = HTTPHomeRepository()
         private var queryRepository = HTTPQueryRepository()
-        var pageCount: Int = 0
-        var pageCountisChange: Bool = false
         private var isInitialDataLoaded: Bool = false
+        var pageCountisChange: Bool = false
+        var pageCount: Int = 0
         
         init(queryData: [QueryDataModel] = []) {
             self.queryData = queryData
         }
-        
         
         func getMoreQuery() {
             guard !isLoading && hasMoreData else { return }
             isLoading = true
             
             if !isInitialDataLoaded {
-                // Initialize with mock data for the first load
                 queryData = QueryDataModel.mockArray()
-               // isInitialDataLoaded = true // Assuming you need to mark data as initially loaded
             }
-            
             if let selectedFilters = selectedFilters {
                 applyCurrentFilter(selectedFilters)
             } else {
                 getHomeQueries()
             }
         }
-    
-
         
         func isPresentedToggle(queryID: String) {
             self.queryID = queryID
@@ -87,10 +81,7 @@
              isLoading = true
              isInitialDataLoaded = false
              pageCount = 0
-             
-            print("Applying filter: \(status), \(category), \(organization), \(days)")
-             
-            homeRepository.applyFilter(status: status, category: category, organization: organization, days: days, pageCount: "\(pageCount)") { [weak self] result in
+             homeRepository.applyFilter(status: status, category: category, organization: organization, days: days, pageCount: "\(pageCount)") { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     switch result {
@@ -116,8 +107,7 @@
                 category: (filters.category?.name == "Kateqoriya") ? "" : filters.category?.name ?? "",
                 status: (  filters.status?.name == "Status") ? "" : filters.status?.name ?? "",
                 days: ( filters.days?.name == "Tarix") ? "" : filters.days?.name ?? ""
-            )
-        }
+        )}
         
         private func addLike(queryID: String) {
             queryRepository.postLike(queryID: queryID) { result in

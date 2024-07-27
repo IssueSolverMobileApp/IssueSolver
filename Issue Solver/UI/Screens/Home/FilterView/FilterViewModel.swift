@@ -12,7 +12,7 @@ struct SelectedFilters {
     let category: QueryCategoryModel?
     let status: StatusModel?
     let days: DateModel?
-}
+  }
 
 class FilterViewModel: ObservableObject {
     

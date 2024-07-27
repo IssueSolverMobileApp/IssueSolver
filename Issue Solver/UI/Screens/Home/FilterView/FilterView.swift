@@ -13,11 +13,9 @@ struct FilterView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     @StateObject var vm = FilterViewModel()
     
-    
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
-            
             VStack(spacing: 16) {
                 ScrollView {
                     titleView
@@ -32,7 +30,6 @@ struct FilterView: View {
         .onTapGesture {
             hideKeyboard()
         }
-        
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -74,11 +71,9 @@ struct FilterView: View {
     }
     
     var pickerView: some View {
-        
         VStack(spacing: 16) {
             CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum",textColor: vm.selectedOrganization.name == "Qurum" ? .gray : .black, isRightTextEditor: $vm.isRightTextEditor, onPickerTapped: {
-            })
-            {
+            }) {
                 ForEach(vm.organizations, id: \.self) { organization in
                     Text(organization.name ?? "")
                         .tag(organization.id)
@@ -100,7 +95,6 @@ struct FilterView: View {
                         .tag(status)
                 }
             }
-            
             CustomPickerView(selection: $vm.selectedDate, title: "Problemin baş verdiyi tarix",textColor: vm.selectedDate.name == "Tarix" ? .gray : .black,  isRightTextEditor: $vm.isRightTextEditor) {
                 ForEach(vm.date, id: \.self) { date in
                     Text(date.name ?? "")
@@ -109,7 +103,6 @@ struct FilterView: View {
             }
         }
     }
-    
     var buttonView: some View {
             CustomButton(style: .rounded, title: "Tətbiq et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 let selectedFilter = SelectedFilters(
