@@ -61,9 +61,10 @@ struct FilterView: View {
     
     /// - Clear Filter Button View
     var rightButtonView: some View {
-            CustomButton(style: .rounded, title: "Təmizlə", color: .clear, foregroundStyle: .primaryBlue) {
+            CustomButton(style: .rounded, title: "Təmizlə", color: .clear, foregroundStyle: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 resetFilters()
             }
+            .disabled(vm.selectedStatus.name == "Status" && vm.selectedDate.name == "Tarix" &&  vm.selectedCategory.name == "Kateqoriya" &&  vm.selectedOrganization.name == "Qurum")
         }
     
     var titleView: some View {
@@ -130,6 +131,7 @@ struct FilterView: View {
         vm.selectedStatus = StatusModel(id: UUID(), name: "Status")
         vm.selectedDate = DateModel(id: UUID(), name: "Tarix")
         
+        homeViewModel.queryData = []
         homeViewModel.selectedFilters = nil
         homeViewModel.getMoreQuery()
     }
