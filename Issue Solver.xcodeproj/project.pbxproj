@@ -495,7 +495,6 @@
 				FB1EDCA32C4E40F400B7EB7D /* Model */,
 				FB1EDCA12C4E40E800B7EB7D /* View */,
 				FB1EDCA22C4E40EE00B7EB7D /* ViewModel */,
-				FB1EDCA42C4E40FA00B7EB7D /* FilterView */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -504,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				FB1EDCA72C4E413F00B7EB7D /* HomeView.swift */,
+				FB1EDCAB2C4E41D000B7EB7D /* FilterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -512,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				FB1EDCA92C4E417F00B7EB7D /* HomeViewModel.swift */,
+				FB1EDCAD2C4E6DB300B7EB7D /* FilterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -519,18 +520,9 @@
 		FB1EDCA32C4E40F400B7EB7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		FB1EDCA42C4E40FA00B7EB7D /* FilterView */ = {
-			isa = PBXGroup;
-			children = (
-				FB1EDCAB2C4E41D000B7EB7D /* FilterView.swift */,
-				FB1EDCAD2C4E6DB300B7EB7D /* FilterViewModel.swift */,
 				FB5D8F842C4FDC3D00FB8C3B /* FilterModel.swift */,
 			);
-			path = FilterView;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		FB55BD462C1B0B6600F81FDB /* Fonts */ = {
