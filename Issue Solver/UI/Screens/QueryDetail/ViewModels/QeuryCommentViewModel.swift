@@ -13,6 +13,7 @@ final class QeuryCommentViewModel: ObservableObject {
     @Published var placeholderData: QueryCommentDataModel = QueryCommentDataModel(commentID: Int(), commentIsSuccess: true, fullName: "Valeh Amirov", authority: "USER", commentText: "Salam bu bir placeholder textidir. Və PlaceholderView yaratmaqçün istifadə oluna bilər", createDate: "24.07.2024")
     @Published var isDataEmptyButSuccess: Bool = false
     
+    @Published var isProgressViewSeen: Bool = false
     @Published var text: String = ""
     
     
@@ -22,10 +23,11 @@ final class QeuryCommentViewModel: ObservableObject {
     private var isLoading: Bool = false
     
     
+    
     func getMoreQuery(requestID: String) {
-        isLoading = true
         if !isLoading {
             self.isLoading = true
+            
             getQueryComments(requestID: requestID )
         }
     }
@@ -88,6 +90,7 @@ final class QeuryCommentViewModel: ObservableObject {
         }
         pageCount = self.commentData.count / 10
         isLoading = false
+        isProgressViewSeenHandler(data: commentData)
     }
     
     private func isDataEmptyHandler(data: [QueryCommentDataModel]) {
@@ -96,6 +99,18 @@ final class QeuryCommentViewModel: ObservableObject {
         } else {
             addData(commentData: data)
             isDataEmptyButSuccess = false
+        }
+    }
+    
+    private func isProgressViewSeenHandler(data: [QueryCommentDataModel]) {
+        let dataCount = self.commentData.count % 10
+        
+        if dataCount == 0 && !self.commentData.isEmpty && data.isEmpty {
+            isProgressViewSeen = false
+        } else if dataCount == 0 && !self.commentData.isEmpty {
+            isProgressViewSeen = true
+        } else if dataCount > 0 && !self.commentData.isEmpty {
+            isProgressViewSeen = false
         }
     }
 }
