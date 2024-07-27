@@ -12,36 +12,35 @@ struct HomeView: View {
     @EnvironmentObject var router: Router
     @StateObject private var vm = HomeViewModel()
     @State private var isLiked: Bool = false
+    private let ifNeedDeleteButton: Bool = false
 
     var body: some View {
         ZStack {
             Color.surfaceBackground
                       .ignoresSafeArea()
-                if vm.queryData.isEmpty && !vm.isDataEmptyButSuccess {
-                    placeholderView
-                } else if vm.isDataEmptyButSuccess {
-                    notDataView
-                } else {
-                    mainView
-                }
+            if vm.queryData.isEmpty {
+                notDataView
+            } else {
+                mainView
+            }
         }
         .onAppear {
-            vm.getMoreQuery()
+            if vm.queryData.isEmpty {
+                vm.getMoreQuery()
+            }
         }
     }
         
     var mainView: some View {
         ScrollView {
-            
             LazyVStack {
                 CustomTitleView(title: "• Issue Solver", image1: .filterIcon) {
                     router.navigate {
-                        FilterView(homeViewModel: vm, selectedFilters: $vm.selectedFilters)
+                        FilterView().environmentObject(vm)
                     }
                 }
-                
-                ForEach($vm.queryData, id: \.requestID) { $item in
-                    CustomPostRowView(queryItem: $item, isDetailView: false) {
+                ForEach($vm.queryData) { $item in
+                    CustomPostRowView(queryItem: item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         // MARK: Comment handler
                         vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
                     } likeHandler: { like in
@@ -51,41 +50,19 @@ struct HomeView: View {
                         
                     }
                     .onTapGesture {
-                        router.navigate { QueryDetailView( queryItem: $item) }
+                        router.navigate { QueryDetailView( ifNeedDeleteButton: ifNeedDeleteButton, queryItem: $item) }
                     }
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
                     })
+                    .redacted(reason: vm.isLoading ? .placeholder:[])
                 }
                     
                 HStack {
                     ProgressView()
                 }
                 .onAppear {
-                    vm.getMoreQuery()
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 16)
-        }
-        
-    }
-    
-    var placeholderView: some View {
-        ScrollView {
-            
-            VStack {
-                CustomTitleView(title: "• Issue Solver")
-                
-                ForEach(1...3, id: \.self) {_ in
-                    CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
-                        
-                    } likeHandler: { _ in
-                        
-                    } deleteQuery: {
-                        
-                    }
-                    .redacted(reason: .placeholder)
+                      vm.getMoreQuery()
                 }
             }
             .padding(.horizontal, 20)
@@ -97,7 +74,7 @@ struct HomeView: View {
         VStack {
             CustomTitleView(title: "• Issue Solver", image1: .filterIcon) {
                 router.navigate {
-                    FilterView(homeViewModel: vm, selectedFilters: $vm.selectedFilters)
+                    FilterView().environmentObject(vm)
                 }
             }
             Spacer()

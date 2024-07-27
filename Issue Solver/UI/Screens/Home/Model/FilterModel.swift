@@ -8,11 +8,8 @@
 import Foundation
 
 struct StatusModel: SelectionProtocol {
+    var id = UUID()
     var name: String?
-    
-    static var none: StatusModel {
-        StatusModel(name: "Heç biri")
-    }
     
     var nameWithoutSpaces: String {
         name?.replacingOccurrences(of: " ", with: "") ?? ""
@@ -20,9 +17,7 @@ struct StatusModel: SelectionProtocol {
 }
 
 struct DateModel: SelectionProtocol {
+    var id = UUID()
     var name: String?
-    
-    static var none: DateModel {
-        DateModel(name: "Heç biri")
-    }
+
 }

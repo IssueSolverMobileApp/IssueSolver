@@ -96,7 +96,6 @@ class RegisterViewModel: ObservableObject {
         if !emailText.isEmpty {
             hasTouchedEmail = true
         }
-        
         if hasTouchedEmail {
             if emailText.isEmpty {
                 emailError = "E-poçt boş ola bilməz"

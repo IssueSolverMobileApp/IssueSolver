@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct TabBarView: View {
-    
     @State var currentTab: Tab = .homeIcon
     @State var notificationType: NotificationType?
     
     init() {
-        UITabBar.appearance().isHidden = true
+        UITabBar.appearance().alpha = 0
     }
     
     @Namespace var animation
-    
     @State var currentXValue: CGFloat = 0
     
     var animatableData: CGFloat {
@@ -38,9 +36,6 @@ struct TabBarView: View {
                 NewQueryView(selectedTab: $currentTab, notificationType: $notificationType)
                     .tag(Tab.addIcon)
                 
-                //            Color.green.ignoresSafeArea()
-                //                .tag(Tab.interactionsIcon)
-                
                 ProfileView()
                     .tag(Tab.profileIcon)
             }
@@ -53,7 +48,6 @@ struct TabBarView: View {
                     Spacer()
                 }
             }
-            
         }
         /// - Curved Tab Bar
         .overlay(
@@ -61,7 +55,7 @@ struct TabBarView: View {
                 
                 ForEach(Tab.allCases, id: \.rawValue) { tab in
                     TabButton(tab: tab)
-
+                    
                 }
             }
                 .padding(.vertical)
@@ -69,7 +63,6 @@ struct TabBarView: View {
                 .background(
                     Color.white
                         .clipShape(BottomCurve(currentXValue: currentXValue))
-
                 )
             , alignment: .bottom
         )
@@ -105,7 +98,6 @@ struct TabBarView: View {
                                     .matchedGeometryEffect(id: "TAB", in: animation)
                             }
                         }
-                    
                     )
                     .contentShape(Rectangle())
                     .offset(y: currentTab == tab ? -25 : 0)
@@ -116,7 +108,6 @@ struct TabBarView: View {
                     
                     currentXValue = proxy.frame(in: .global).midX
                 }
-                
             }
         }
         .frame(height: 20)
@@ -124,7 +115,6 @@ struct TabBarView: View {
 }
 
 extension View {
-   
     func getSafeArea() -> UIEdgeInsets {
         
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else {

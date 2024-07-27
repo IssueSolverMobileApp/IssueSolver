@@ -20,7 +20,10 @@ struct QueryModel: Codable, Hashable {
 }
 
 // MARK: - QueryDataModel
-struct QueryDataModel: Codable, Hashable {
+struct QueryDataModel: Codable, Hashable, Identifiable {
+    var id: Int {
+        return requestID ?? 0
+    }
     var requestID: Int?
     var fullName, address, description, status: String?
     var organizationName, createDate: String?
@@ -38,15 +41,21 @@ struct QueryDataModel: Codable, Hashable {
         case fullName, address, description, status, organizationName, createDate, commentCount, likeCount, likeSuccess, category
     }
 }
+
+extension QueryDataModel {
+    static func mock(with id: Int) -> QueryDataModel {
+        .init(requestID: id, fullName: "Fexri", address: "Baki", description: "Salam", status: "Gözləmədə", organizationName: "IDDA", createDate: "", commentCount: 0, likeCount: 0, likeSuccess: true, category: nil)
+    }
+    
+    static func mockArray() -> [QueryDataModel] {
+        return [QueryDataModel.mock(with: 1), QueryDataModel.mock(with: 2), QueryDataModel.mock(with: 3), QueryDataModel.mock(with: 3)]
+    }
+}
     
 // MARK: - QueryCategoryModel
 struct QueryCategoryModel: SelectionProtocol, Codable {
     var categoryID: Int?
     var name: String?
-    
-    static var none: QueryCategoryModel {
-         return QueryCategoryModel(categoryID: 0, name: "Heç biri")
-     }
     
     static func ==(lhs: QueryCategoryModel, rhs: QueryCategoryModel) -> Bool {
         return lhs.categoryID == rhs.categoryID && lhs.name == rhs.name

@@ -13,6 +13,7 @@ struct MyQueryView: View {
     
     @StateObject private var vm = MyQueryViewModel()
     @State private var isLiked: Bool = false
+    private let ifNeedDeleteButton: Bool = true
 
     
     var body: some View {
@@ -30,7 +31,9 @@ struct MyQueryView: View {
             LoadingView(isLoading: vm.isViewLoading)
         }
         .onAppear {
-            vm.isLoadingFalse()
+            vm.getMoreQuery()
+        }
+        .refreshable {
             vm.getMyQuery()
         }
     }
@@ -40,9 +43,8 @@ struct MyQueryView: View {
             
             LazyVStack {
                 CustomTitleView(title: "Mənim sorğularım")
-                
                 ForEach($vm.queryData, id: \.requestID) { $item in
-                    CustomPostRowView(queryItem: $item, isDetailView: false) {
+                    CustomPostRowView(queryItem: item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         // MARK: Comment handler
                         vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
                     } likeHandler: { like in
@@ -51,9 +53,14 @@ struct MyQueryView: View {
                     } deleteQuery: {
                         vm.isDeletePressed(id: "\(item.requestID ?? Int())", true)
                     }
-                    .onTapGesture {
-                        router.navigate { QueryDetailView( queryItem: $item) }
+                    .onTapGesture {      
+                        router.navigate {
+                            QueryDetailView(ifNeedDeleteButton: ifNeedDeleteButton, queryItem: $item, isDeleteDetailView: {
+                                vm.getMyQuery()
+                            })
+                        }
                     }
+                    
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
                     })
@@ -66,19 +73,21 @@ struct MyQueryView: View {
                                     vm.isDeletePressed(id: nil, false)
                                 }),
                                 secondaryButton: .destructive(Text("Bəli"),action: {
-                                    vm.deleteComment()
+                                    vm.deleteQuery()
                                     vm.isDeletePressed(id: nil, false)
                                 })
                             )
                         }
                     )
                 }
-                    
-                HStack {
-                    ProgressView()
-                }
-                .onAppear {
-                    vm.getMoreQuery()
+                if vm.isProgressViewSeen {
+                    HStack {
+                        ProgressView()
+                            .onAppear {
+                                vm.getMoreQuery()
+                            }
+                    }
+//                    .padding(.bottom, 30)
                 }
             }
             .padding(.horizontal, 20)
@@ -94,7 +103,7 @@ struct MyQueryView: View {
                 CustomTitleView(title: "Mənim sorğularım")
                 
                 ForEach(1...3, id: \.self) {_ in
-                    CustomPostRowView(queryItem: $vm.placeholderData, isDetailView: false) {
+                    CustomPostRowView(queryItem: vm.placeholderData, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         
                     } likeHandler: { _ in
                         
@@ -119,7 +128,6 @@ struct MyQueryView: View {
             Spacer()
             EmptyView()
         }
-    
         .padding(.horizontal, 20)
         .padding(.bottom, 16)
 

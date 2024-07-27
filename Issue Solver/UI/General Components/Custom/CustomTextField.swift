@@ -62,19 +62,15 @@ struct CustomTextField: View {
             Group {
                 if !isSecure {
                     TextField(placeholder ?? "", text: $text)
-                    
+
                 } else {
                     HStack {
                         if isShowPassword {
                             TextField(placeholder ?? "", text: $text)
-                                .onChange(of: text) { _ in
-                                    isRightTextField = true
-                                }
+
                         } else {
                             SecureField(placeholder ?? "", text: $text)
-                                .onChange(of: text) { _ in
-                                    isRightTextField = true
-                                }
+
                         }
                         HStack {
                             showPasswordButtonView
@@ -94,12 +90,12 @@ struct CustomTextField: View {
                 if let errorMessage {
                     Text(errorMessage)
                         .jakartaFont(.subtitle2)
-                        .foregroundStyle(isRightTextField ? .gray : .red)
+                        .foregroundStyle(.red)
                     Spacer()
                 }
                 if let clickableText {
                     ZStack {
-                        TextView(clickableTexts:  [clickableText], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
+                        TextView(clickableTexts: [clickableText], uiFont: UIFont.jakartaFont(weight: .regular, size: 12)!, isScrollEnabled: false)
                     }
                     .frame(width: clickableTextWidth,height: clickableTextHeight)
                 }

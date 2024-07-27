@@ -48,7 +48,7 @@ final class HTTPQueryRepository {
         }
     }
     
-    func deleteComment(requestID: String,  completion: @escaping( Result<QueryDeleteSuccessModel, Error>) -> Void) {
+    func deleteSingleQuery(requestID: String,  completion: @escaping( Result<QueryDeleteSuccessModel, Error>) -> Void) {
         http.DELETE(endPoint: EndPoint.query(.deleteQuery(requestID)), body: nil) { (data: QueryDeleteSuccessModel?, error: Error?) in
             if let error {
                 completion(.failure(error))

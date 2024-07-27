@@ -10,6 +10,7 @@ import NetworkingPack
 
 class DeleteAccountViewModel: ObservableObject {
     
+    private var auth: AuthManager = .shared
     private var profileRepository = HTTPProfileRepository()
     
     @Published var passwordText = "" {
@@ -22,7 +23,7 @@ class DeleteAccountViewModel: ObservableObject {
     @Published var passwordError: String? = nil
     @Published var isLoading: Bool = false
     
-    func deleteAccount(with router: Router) {
+    func deleteAccount() {
         isLoading = true
         
         let item = PasswordModel(password: passwordText)
@@ -33,7 +34,7 @@ class DeleteAccountViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
-                    router.popToRoot()
+                    self.auth.logOut()
                     print(result.message ?? "")
                 case .failure(let error):
                     self.handleAPIEmailError(error.localizedDescription)
@@ -64,3 +65,4 @@ class DeleteAccountViewModel: ObservableObject {
             passwordError = error
     }
 }
+

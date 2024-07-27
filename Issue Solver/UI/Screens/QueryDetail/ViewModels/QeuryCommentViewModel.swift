@@ -12,23 +12,27 @@ final class QeuryCommentViewModel: ObservableObject {
     @Published var commentData: [QueryCommentDataModel] = []
     @Published var placeholderData: QueryCommentDataModel = QueryCommentDataModel(commentID: Int(), commentIsSuccess: true, fullName: "Valeh Amirov", authority: "USER", commentText: "Salam bu bir placeholder textidir. Və PlaceholderView yaratmaqçün istifadə oluna bilər", createDate: "24.07.2024")
     @Published var isDataEmptyButSuccess: Bool = false
-//    @Published var isPlaceholderView: Bool = false
+    
+    @Published var isProgressViewSeen: Bool = false
+    @Published var text: String = ""
+    
     
     private var userFullName: String = ""
     private var repository = HTTPQueryRepository()
     private var pageCount: Int = 0
     private var isLoading: Bool = false
-
+    
+    
+    
     func getMoreQuery(requestID: String) {
-        isLoading = true
         if !isLoading {
             self.isLoading = true
+            
             getQueryComments(requestID: requestID )
         }
     }
-
+    
     func getQueryComments(requestID: String) {
-//        isPlaceholderView = true
         repository.getComments(requestID: requestID, pageCount: "\(pageCount)") { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
@@ -38,10 +42,8 @@ final class QeuryCommentViewModel: ObservableObject {
                     guard let fullName = success.fullName else { return }
                     self.isDataEmptyHandler(data: data)
                     self.userFullName = fullName
-//                    self.isPlaceholderView = false
                 case .failure(let error):
                     print(error.localizedDescription)
-//                    self.isPlaceholderView = false
                 }
             }
         }
@@ -65,17 +67,19 @@ final class QeuryCommentViewModel: ObservableObject {
     func addLocalComment(requestID: String?, text: String?) {
         guard let newText = text, let requestID else { return }
         let item = QueryCommentDataModel(commentID: Int(), commentIsSuccess: false, fullName: userFullName, authority: "USER", commentText: newText, createDate: "")
-        commentData.insert(item, at: 0)
-        addComment(requestID: requestID, text: newText)
+            self.commentData.insert(item, at: 0)
+            self.addComment(requestID: requestID, text: newText)
+            self.isDataEmptyButSuccess = false
     }
     
     private func handleCommentSuccess(data: QueryCommentDataModel?,success: Bool) {
+        DispatchQueue.main.async {
             if !(self.commentData[0].commentIsSuccess ?? true) {
                 self.commentData.remove(at: 0)
                 guard let data else { return }
                 self.commentData.insert(data, at: 0)
             }
-        
+        }
     }
     
     private func addData(commentData: [QueryCommentDataModel]) {
@@ -84,8 +88,9 @@ final class QeuryCommentViewModel: ObservableObject {
                 self.commentData.append(item)
             }
         }
-        pageCount = pageCount + 1
+        pageCount = self.commentData.count / 10
         isLoading = false
+        isProgressViewSeenHandler(data: commentData)
     }
     
     private func isDataEmptyHandler(data: [QueryCommentDataModel]) {
@@ -94,6 +99,18 @@ final class QeuryCommentViewModel: ObservableObject {
         } else {
             addData(commentData: data)
             isDataEmptyButSuccess = false
+        }
+    }
+    
+    private func isProgressViewSeenHandler(data: [QueryCommentDataModel]) {
+        let dataCount = self.commentData.count % 10
+        
+        if dataCount == 0 && !self.commentData.isEmpty && data.isEmpty {
+            isProgressViewSeen = false
+        } else if dataCount == 0 && !self.commentData.isEmpty {
+            isProgressViewSeen = true
+        } else if dataCount > 0 && !self.commentData.isEmpty {
+            isProgressViewSeen = false
         }
     }
 }

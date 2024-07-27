@@ -10,7 +10,6 @@ import SwiftUI
 struct BottomCurve: Shape {
     
     var currentXValue: CGFloat
-    
     var animatableData: CGFloat {
         get { currentXValue }
         set { currentXValue = newValue }

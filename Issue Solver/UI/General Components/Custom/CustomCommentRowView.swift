@@ -22,7 +22,7 @@ struct CustomCommentRowView: View {
                         .jakartaFont(.custom(.semiBold, 15))
                         .foregroundStyle(.primaryBlue)
                     Spacer()
-                    Text(Date().dateFormatter(item?.createDate, .day))
+                    Text(item?.createDate ?? "")
                         .jakartaFont(.custom(.regular, 12))
                         .foregroundStyle(.secondaryGray)
                 }

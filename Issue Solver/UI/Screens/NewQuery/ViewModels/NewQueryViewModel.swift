@@ -37,7 +37,7 @@ class NewQueryViewModel: ObservableObject {
                 textEditorError = "Müraciət mətni minimum 10 simvoldan ibarət olamlıdır"
                 isRightExplanation = false
             } else if explanationEditorText.count > 501 {
-                addressTextFieldError = "Müraciət mətni maksimum 500 simvoldan ibarət olmamalıdır"
+                textEditorError = "Müraciət mətni maksimum 500 simvoldan ibarət olmamalıdır"
                 isRightExplanation = false
             } else {
                 textEditorError = nil

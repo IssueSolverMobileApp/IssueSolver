@@ -9,23 +9,33 @@ import SwiftUI
 
 struct CustomPostRowView: View {
     
-    @Binding var queryItem: QueryDataModel
+    var queryItem: QueryDataModel
+//        didSet {
+//            setOptionsAccordingToStatus()
+//        }
+//    }
     
-    @State private var statusBacgroundColor: Color = .primaryBlue.opacity(0.28)
-    @State private var statusForegroundColor: Color = .primaryBluePressed
+    
+    @State private var statusBacgroundColor: Color? = nil
+    @State private var statusForegroundColor: Color? = nil
     @State private var isDeleteClickable: Bool = true
+    
+    @State private var showingAlert = false
+    
     
     /// if we need to use PostView into some detailView isDetailView variable must be true else false
     var isDetailView: Bool = true
+    var ifNeedDeleteButton: Bool
     
     let commentHandler: () -> Void
     let likeHandler: (Bool) -> Void
     let deleteQuery: () -> Void
-
-    init(queryItem: Binding<QueryDataModel>, isDetailView: Bool, commentHandler: @escaping () -> Void, likeHandler: @escaping(Bool) -> Void, deleteQuery: @escaping() -> Void
-) {
-        self._queryItem = queryItem
+    
+    init(queryItem: QueryDataModel, isDetailView: Bool,ifNeedDeleteButton: Bool, commentHandler: @escaping () -> Void,likeHandler: @escaping(Bool) -> Void, deleteQuery: @escaping() -> Void
+    ) {
+        self.queryItem = queryItem
         self.isDetailView = isDetailView
+        self.ifNeedDeleteButton = ifNeedDeleteButton
         self.commentHandler = commentHandler
         self.likeHandler = likeHandler
         self.deleteQuery = deleteQuery
@@ -40,12 +50,12 @@ struct CustomPostRowView: View {
             customDivider
             bottomView
         }
-        .padding(16)
-        .background(.white)
-        .clipShape(.rect(cornerRadius: Constants.cornerRadius))
         .onAppear {
             setOptionsAccordingToStatus()
         }
+        .padding(16)
+        .background(.white)
+        .clipShape(.rect(cornerRadius: Constants.cornerRadius))
     }
     
     var topView: some View {
@@ -60,22 +70,25 @@ struct CustomPostRowView: View {
                     .foregroundStyle(.primaryBlue)
                     .lineLimit(2)
                 Spacer()
-                HStack {
-                    Image(.blueDotIcon)
-                        .foregroundStyle(statusForegroundColor)
-                    Text(queryItem.status ?? "")
-                        .jakartaFont(.subheading)
-                        .foregroundStyle(statusForegroundColor)
-                }
-                .padding(.horizontal)
-                .padding(.vertical, 8)
-                .background(statusBacgroundColor)
-                .clipShape(.rect(cornerRadius: 100))
+//                if let statusBacgroundColor, let statusForegroundColor {
+                    HStack {
+                        Image(.blueDotIcon)
+                            .foregroundStyle(statusForegroundColor ?? .black)
+                        Text(queryItem.status ?? "")
+                            .jakartaFont(.subheading)
+                            .foregroundStyle(statusForegroundColor ?? .black )
+                    }
+                    
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+                    .background(statusBacgroundColor)
+                    .clipShape(.rect(cornerRadius: 100))
+//                }
             }
             
             if isDetailView {
                 Text(queryItem.organizationName ?? "")
-                .jakartaFont(.subheading)
+                    .jakartaFont(.subheading)
             }
         }
     }
@@ -111,7 +124,7 @@ struct CustomPostRowView: View {
                 
                 //                Location and Date
                 if isDetailView {
-                VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 16) {
                         HStack {
                             
                             Image(.locationIcon)
@@ -121,7 +134,7 @@ struct CustomPostRowView: View {
                         HStack {
                             Image(.calendarIcon)
                             /// this method can correct string date for our custom date format
-                            Text(Date().dateFormatter(queryItem.createDate, .all))
+                            Text(queryItem.createDate ?? "")
                         }
                     }
                     .jakartaFont(.subtitle2)
@@ -135,14 +148,13 @@ struct CustomPostRowView: View {
             Color.primaryBluePressed.opacity(0.28)
         }
     }
-    //            Like, comment and option button
+//            Like, comment and option button
     var bottomView: some View {
         HStack {
             VStack(spacing: 5) {
                 
                 Button(action: {
                     likeHandler(queryItem.likeSuccess ?? false ? false : true)
-                    queryItem.likeSuccess?.toggle()
                 }, label: {
                     Image(queryItem.likeSuccess ?? false ? .likeIconFill : .likeIcon )
                 })
@@ -165,29 +177,38 @@ struct CustomPostRowView: View {
                 }
             }
             Spacer()
-            
-            Button(action: {
-                deleteQuery()
-            }, label: {
-                Image(isDeleteClickable ? .trashIconDisabled : .trashIcon)
-                    .padding(.trailing, 6)
-            })
-            .disabled(isDeleteClickable)
-            
+            /// Delete button
+            if ifNeedDeleteButton {
+                Button(action: {
+                    if isDeleteClickable {
+                        deleteQuery()
+                    } else {
+                        showingAlert = true
+                    }
+                }, label: {
+                    Image(.trashIcon)
+                        .padding(.trailing, 6)
+                })
+                .alert("Sorğular yalnız \"gözləmədə\" statusunda silinə bilər", isPresented: $showingAlert) {
+                    Button("Oldu", role: .cancel) {
+                        showingAlert = false
+                    }
+                }
+            }
         }
     }
     
-    private func setOptionsAccordingToStatus() {
+     func setOptionsAccordingToStatus() {
         switch queryItem.status {
         case "Gözləmədə" :
             statusBacgroundColor = .primaryBlue.opacity(0.28)
             statusForegroundColor = .primaryBluePressed
-            isDeleteClickable = false
+            isDeleteClickable = true
         case "Baxılır" :
             statusBacgroundColor = .outLineContainerOrange
             statusForegroundColor = .primaryOrange
-            isDeleteClickable = true
-        case "Əssasızdır" :
+            isDeleteClickable = false
+        case "Əsassızdır" :
             statusBacgroundColor = .outLineContainerRed
             statusForegroundColor = .primaryRed
             isDeleteClickable = false
@@ -200,12 +221,12 @@ struct CustomPostRowView: View {
             statusForegroundColor = .disabledGray
             isDeleteClickable = false
         case .none:
-            statusBacgroundColor = .surfaceBackground
-            statusForegroundColor = .primaryBluePressed
+            statusBacgroundColor = nil
+            statusForegroundColor = nil
             isDeleteClickable = false
         case .some(_):
-            statusBacgroundColor = .surfaceBackground
-            statusForegroundColor = .primaryBluePressed
+            statusBacgroundColor = nil
+            statusForegroundColor = nil
             isDeleteClickable = false
         }
     }

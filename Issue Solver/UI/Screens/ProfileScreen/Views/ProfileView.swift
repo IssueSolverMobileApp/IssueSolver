@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SafariServices
 
 struct ProfileView: View {
     
@@ -13,6 +14,8 @@ struct ProfileView: View {
     @StateObject var vm = ProfileViewModel()
     @State var showExitAccountAlert = false
     @State var showDeleteAccountAlert = false
+    @State private var showSafari = false
+    @State private var safariURL: URL?
     
     @StateObject private var auth: AuthManager = .shared
     
@@ -34,6 +37,12 @@ struct ProfileView: View {
         .navigationBarBackButtonHidden(true)
         .onAppear {
                 vm.getFullName()
+        }
+        .fullScreenCover(isPresented: $showSafari) {
+            if let url = safariURL {
+                SafariView(url: url)
+                    .edgesIgnoringSafeArea(.all)
+            }
         }
     }
     
@@ -84,7 +93,9 @@ struct ProfileView: View {
             .frame(height: 76)
             
             .onTapGesture {
-                    UIApplication.shared.open(URL(string: "https://issue-solver.vercel.app/")!)
+                safariURL = URL(string: "https://issue-solver.vercel.app/dashboard/privacy")
+                showSafari = true
+                  
             }
             
             ///FAQ View
@@ -96,8 +107,10 @@ struct ProfileView: View {
             .frame(height: 76)
             
             .onTapGesture {
-                    UIApplication.shared.open(URL(string: "https://issue-solver.vercel.app/")!)
+                safariURL = URL(string: "https://issue-solver.vercel.app/dashboard/faq")
+                showSafari = true
             }
+            
             ///About App View
             CustomRowView(title: "Tətbiq haqqında",
                           subtitle: nil,
@@ -107,7 +120,8 @@ struct ProfileView: View {
             .frame(height: 76)
             
             .onTapGesture {
-                    UIApplication.shared.open(URL(string: "https://issue-solver.vercel.app/")!)
+                safariURL = URL(string: "https://issue-solver.vercel.app/dashboard/about")
+                showSafari = true
             }
         }
     }
@@ -129,14 +143,11 @@ struct ProfileView: View {
             .alert( isPresented: $showExitAccountAlert) {
                 Alert(title: Text(""),
                       message: Text("Hesabdan çıxış etməyə əminsiniz?"),
-                      primaryButton: .destructive(Text("Çıxış"), action: {
-//                    router.popToRoot()
+                      primaryButton: .default(Text("İmtina")),
+                      secondaryButton: .destructive(Text("Çıxış"), action: {
                     auth.logOut()
-
-                }) ,
-                      secondaryButton: .default(Text("İmtina")))
+              }) )
             }
-            
             /// Delete account View
             CustomRowView(title: "Hesabı sil",
                           subtitle: nil,
@@ -150,10 +161,10 @@ struct ProfileView: View {
             .alert( isPresented: $showDeleteAccountAlert) {
                 Alert(title: Text(""),
                       message: Text("Hesabınızı silmək istədiyinizə əminsiniz?"),
-                      primaryButton: .destructive(Text("Bəli"), action: { router.navigate {
-                    DeleteAccountView()
-                } }) ,
-                      secondaryButton: .default(Text("Xeyr")))
+                      primaryButton: .default(Text("Xeyr"))  ,
+                      secondaryButton: .destructive(Text("Bəli"), action: { router.navigate {
+                      DeleteAccountView()
+                } }) )
             }
         }
     }
