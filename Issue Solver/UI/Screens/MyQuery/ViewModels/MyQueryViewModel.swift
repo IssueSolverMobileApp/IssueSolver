@@ -40,7 +40,7 @@ class MyQueryViewModel: ObservableObject {
             getMyQueryWithPagination()
         }
     }
-        
+    
     func likeToggle(like: Bool, queryID: Int?) {
         guard let queryID else { return }
         if like {
@@ -88,15 +88,15 @@ class MyQueryViewModel: ObservableObject {
         }
     }
     
-//    func deleteQueryOnDetailLocal(id: String) {
-//        if let index = queryData.firstIndex(where: {"\($0.requestID ?? Int())" == id}) {
-//            queryData.remove(at: index)
-//        }
-//        pageCount = queryData.count / 10
-//        if queryData.isEmpty {
-//            isDataEmptyButSuccess = true
-//        }
-//    }
+    //    func deleteQueryOnDetailLocal(id: String) {
+    //        if let index = queryData.firstIndex(where: {"\($0.requestID ?? Int())" == id}) {
+    //            queryData.remove(at: index)
+    //        }
+    //        pageCount = queryData.count / 10
+    //        if queryData.isEmpty {
+    //            isDataEmptyButSuccess = true
+    //        }
+    //    }
     
     func getMyQuery() {
         pageCount = 0
@@ -131,12 +131,12 @@ class MyQueryViewModel: ObservableObject {
         }
     }
     
-
+    
     
     private func addLike(queryID: String) {
         queryRepository.postLike(queryID: queryID) { result in
             switch result {
-            case .success(let success):
+            case .success(_):
                 DispatchQueue.main.async {
                     if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
                         self.queryData[index].likeSuccess = true
@@ -152,7 +152,7 @@ class MyQueryViewModel: ObservableObject {
         queryRepository.deleteLike(queryID: queryID) { [ weak self ] result in
             guard let self else { return }
             switch result {
-            case .success(let success):
+            case .success(_):
                 DispatchQueue.main.async {
                     if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
                         self.queryData[index].likeSuccess = false
@@ -173,6 +173,7 @@ class MyQueryViewModel: ObservableObject {
         }
         pageCount = self.queryData.count / 10
         isLoading = false
+        isProgressViewSeenHandler(data: queryData)
     }
     
     private func isDataEmptyHandlerRemoveData(data: [QueryDataModel]) {
@@ -194,14 +195,16 @@ class MyQueryViewModel: ObservableObject {
         }
     }
     
-    
-//    isledilmir
-    private func isDataCoutnLessThanTen() {
-       if self.queryData.count < 10 {
+    private func isProgressViewSeenHandler(data: [QueryDataModel]) {
+        let dataCount = self.queryData.count % 10
+        
+        if dataCount == 0 && !self.queryData.isEmpty && data.isEmpty {
             isProgressViewSeen = false
-       } else {
-           isProgressViewSeen = true
-       }
+        } else if dataCount == 0 && !self.queryData.isEmpty {
+            isProgressViewSeen = true
+        } else if dataCount > 0 && !self.queryData.isEmpty {
+            isProgressViewSeen = false
+        }
     }
 }
         

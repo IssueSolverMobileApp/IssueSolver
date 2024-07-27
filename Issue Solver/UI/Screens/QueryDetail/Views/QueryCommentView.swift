@@ -54,7 +54,7 @@ struct QueryCommentView: View {
                     CustomCommentRowView(item: item)
                 }
                 
-                if vm.commentData.count > 10 {
+                if vm.isProgressViewSeen {
                     HStack {
                         ProgressView()
                     }
@@ -73,7 +73,7 @@ struct QueryCommentView: View {
                     .frame(height: abs(height < 124 ? height : 124))
                     .padding(.vertical, 5)
                     .padding(.horizontal)
-                    .background(.outLineContainerBlue)
+                    .background(.outLineContainerBlue.opacity(0.5))
                     .clipShape(.rect(cornerRadius: 24))
                     .overlay(RoundedRectangle(cornerRadius: 24).stroke(Color.primaryBlue.opacity(0.29)))
             }

@@ -60,7 +60,7 @@ struct MyQueryView: View {
                             })
                         }
                     }
-
+                    
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
                     })
@@ -80,15 +80,15 @@ struct MyQueryView: View {
                         }
                     )
                 }
-//                                if vm.isProgressViewSeen {
-                                    HStack {
-                                        ProgressView()
-                                            .onAppear {
-                                                vm.getMoreQuery()
-                                            }
-                                    }
-                                    .padding(.bottom, 60)
-//                                }
+                if vm.isProgressViewSeen {
+                    HStack {
+                        ProgressView()
+                            .onAppear {
+                                vm.getMoreQuery()
+                            }
+                    }
+//                    .padding(.bottom, 30)
+                }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
