@@ -112,7 +112,7 @@
         private func addLike(queryID: String) {
             queryRepository.postLike(queryID: queryID) { result in
                 switch result {
-                case .success(let success):
+                case .success(_):
                     DispatchQueue.main.async {
                         if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
                             self.queryData[index].likeSuccess = true
@@ -128,7 +128,7 @@
             queryRepository.deleteLike(queryID: queryID) { [ weak self ] result in
                 guard let self else { return }
                 switch result {
-                case .success(let success):
+                case .success(_):
                     DispatchQueue.main.async {
                         if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
                             self.queryData[index].likeSuccess = false
