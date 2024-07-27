@@ -60,12 +60,11 @@
                          }
                          if data.isEmpty {
                              self.hasMoreData = false
-                             
+                                                                                 
                          } else {
                              if !self.isInitialDataLoaded {
                               self.queryData = []
-                                }
-                             
+                            }
                              self.addData(queryData: data)
                          }
                          self.isInitialDataLoaded = true
@@ -105,8 +104,8 @@
             applyFilter(
                 organization: (filters.organization?.name == "Qurum") ? "" : filters.organization?.name ?? "",
                 category: (filters.category?.name == "Kateqoriya") ? "" : filters.category?.name ?? "",
-                status: (  filters.status?.name == "Status") ? "" : filters.status?.name ?? "",
-                days: ( filters.days?.name == "Tarix") ? "" : filters.days?.name ?? ""
+                status: (filters.status?.name == "Status") ? "" : filters.status?.name ?? "",
+                days: (filters.days?.name == "Tarix") ? "" : filters.days?.name ?? ""
         )}
         
         private func addLike(queryID: String) {

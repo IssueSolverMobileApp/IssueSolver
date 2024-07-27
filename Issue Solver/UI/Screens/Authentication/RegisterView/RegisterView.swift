@@ -47,7 +47,7 @@ struct RegisterView: View {
         VStack(alignment: .leading, spacing: 20) {
             
             /// - Name Surname Text Field View
-            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText,isRightTextField: $vm.isRightFullName, errorMessage: $vm.fullNameError)
+            CustomTextField(placeholder: "Ad, Soyad", title: "Ad, Soyad", text: $vm.fullNameText, isRightTextField: $vm.isRightFullName, errorMessage: $vm.fullNameError)
             
             /// - Email Text Field View
             CustomTextField(placeholder: "E-poçtunuzu daxil edin", title: "E-poçt", text: $vm.emailText, isRightTextField: $vm.isRightEmail, errorMessage: $vm.emailError)
