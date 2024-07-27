@@ -36,7 +36,12 @@ struct FilterView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                navButtonsView
+                backButtonView
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                rightButtonView
             }
         }
         .onAppear {
@@ -47,20 +52,19 @@ struct FilterView: View {
         }
     }
     
-    ///Back Button View
-    var navButtonsView: some View {
-        HStack {
+    /// - Back Button View
+    var backButtonView: some View {
             CustomButton(style: .back, title: "") {
                 router.dismissView()
             }
-            
-            Spacer()
-            
-            CustomButton(style: .rounded, title: "Təmizlə", color: .surfaceBackground, foregroundStyle: .primaryBlue) {
+        }
+    
+    /// - Clear Filter Button View
+    var rightButtonView: some View {
+            CustomButton(style: .rounded, title: "Təmizlə", color: .clear, foregroundStyle: .primaryBlue) {
                 resetFilters()
             }
         }
-    }
     
     var titleView: some View {
         HStack {
