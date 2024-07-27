@@ -13,11 +13,9 @@ struct FilterView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     @StateObject var vm = FilterViewModel()
     
-    
     var body: some View {
         ZStack {
             Color.surfaceBackground.ignoresSafeArea()
-            
             VStack(spacing: 16) {
                 ScrollView {
                     titleView
@@ -32,11 +30,15 @@ struct FilterView: View {
         .onTapGesture {
             hideKeyboard()
         }
-        
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                navButtonsView
+                backButtonView
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                rightButtonView
             }
         }
         .onAppear {
@@ -47,20 +49,20 @@ struct FilterView: View {
         }
     }
     
-    ///Back Button View
-    var navButtonsView: some View {
-        HStack {
+    /// - Back Button View
+    var backButtonView: some View {
             CustomButton(style: .back, title: "") {
                 router.dismissView()
             }
-            
-            Spacer()
-            
-            CustomButton(style: .rounded, title: "Təmizlə", color: .surfaceBackground, foregroundStyle: .primaryBlue) {
+        }
+    
+    /// - Clear Filter Button View
+    var rightButtonView: some View {
+            CustomButton(style: .rounded, title: "Təmizlə", color: .clear, foregroundStyle: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 resetFilters()
             }
+            .disabled(vm.selectedStatus.name == "Status" && vm.selectedDate.name == "Tarix" &&  vm.selectedCategory.name == "Kateqoriya" &&  vm.selectedOrganization.name == "Qurum")
         }
-    }
     
     var titleView: some View {
         HStack {
@@ -69,11 +71,9 @@ struct FilterView: View {
     }
     
     var pickerView: some View {
-        
         VStack(spacing: 16) {
             CustomPickerView(selection: $vm.selectedOrganization, title: "Problemin yönləndiriləcəyi qurum",textColor: vm.selectedOrganization.name == "Qurum" ? .gray : .black, isRightTextEditor: $vm.isRightTextEditor, onPickerTapped: {
-            })
-            {
+            }) {
                 ForEach(vm.organizations, id: \.self) { organization in
                     Text(organization.name ?? "")
                         .tag(organization.id)
@@ -95,7 +95,6 @@ struct FilterView: View {
                         .tag(status)
                 }
             }
-            
             CustomPickerView(selection: $vm.selectedDate, title: "Problemin baş verdiyi tarix",textColor: vm.selectedDate.name == "Tarix" ? .gray : .black,  isRightTextEditor: $vm.isRightTextEditor) {
                 ForEach(vm.date, id: \.self) { date in
                     Text(date.name ?? "")
@@ -104,7 +103,6 @@ struct FilterView: View {
             }
         }
     }
-    
     var buttonView: some View {
             CustomButton(style: .rounded, title: "Tətbiq et", color: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 let selectedFilter = SelectedFilters(
@@ -126,6 +124,7 @@ struct FilterView: View {
         vm.selectedStatus = StatusModel(id: UUID(), name: "Status")
         vm.selectedDate = DateModel(id: UUID(), name: "Tarix")
         
+        homeViewModel.queryData = []
         homeViewModel.selectedFilters = nil
         homeViewModel.getMoreQuery()
     }

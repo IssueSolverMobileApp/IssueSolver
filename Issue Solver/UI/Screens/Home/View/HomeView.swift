@@ -25,21 +25,20 @@ struct HomeView: View {
             }
         }
         .onAppear {
-           // guard !vm.queryData.isEmpty  else { return }
+            if vm.queryData.isEmpty {
                 vm.getMoreQuery()
+            }
         }
     }
         
     var mainView: some View {
         ScrollView {
-            
             LazyVStack {
                 CustomTitleView(title: "• Issue Solver", image1: .filterIcon) {
                     router.navigate {
                         FilterView().environmentObject(vm)
                     }
                 }
-                
                 ForEach($vm.queryData) { $item in
                     CustomPostRowView(queryItem: item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         // MARK: Comment handler

@@ -43,6 +43,7 @@ class NewPasswordViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     
+    @MainActor
     func updateUserPassword(with router: Router) {
         isLoading = true
         let item = UpdatePasswordModel(currentPassword: currentPasswordText, password: newPasswordText, confirmPassword: confirmPasswordText)

@@ -91,6 +91,7 @@
 		FB5A10372C2787E500E16828 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A10362C2787E500E16828 /* DeleteAccountView.swift */; };
 		FB5A10392C2787FD00E16828 /* DeleteAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A10382C2787FD00E16828 /* DeleteAccountViewModel.swift */; };
 		FB5D8F852C4FDC3D00FB8C3B /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5D8F842C4FDC3D00FB8C3B /* FilterModel.swift */; };
+		FB963F522C551F9C00AC8683 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB963F512C551F9C00AC8683 /* SafariView.swift */; };
 		FB967D182C257678002BA572 /* OTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D172C257678002BA572 /* OTPViewModel.swift */; };
 		FB967D1F2C25818B002BA572 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D1E2C25818B002BA572 /* ProfileModel.swift */; };
 		FB967D212C2581A2002BA572 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB967D202C2581A2002BA572 /* ProfileView.swift */; };
@@ -201,6 +202,7 @@
 		FB5A10362C2787E500E16828 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		FB5A10382C2787FD00E16828 /* DeleteAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewModel.swift; sourceTree = "<group>"; };
 		FB5D8F842C4FDC3D00FB8C3B /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
+		FB963F512C551F9C00AC8683 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		FB967D172C257678002BA572 /* OTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewModel.swift; sourceTree = "<group>"; };
 		FB967D1E2C25818B002BA572 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		FB967D202C2581A2002BA572 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -493,7 +495,6 @@
 				FB1EDCA32C4E40F400B7EB7D /* Model */,
 				FB1EDCA12C4E40E800B7EB7D /* View */,
 				FB1EDCA22C4E40EE00B7EB7D /* ViewModel */,
-				FB1EDCA42C4E40FA00B7EB7D /* FilterView */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -502,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				FB1EDCA72C4E413F00B7EB7D /* HomeView.swift */,
+				FB1EDCAB2C4E41D000B7EB7D /* FilterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -510,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				FB1EDCA92C4E417F00B7EB7D /* HomeViewModel.swift */,
+				FB1EDCAD2C4E6DB300B7EB7D /* FilterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -517,18 +520,9 @@
 		FB1EDCA32C4E40F400B7EB7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		FB1EDCA42C4E40FA00B7EB7D /* FilterView */ = {
-			isa = PBXGroup;
-			children = (
-				FB1EDCAB2C4E41D000B7EB7D /* FilterView.swift */,
-				FB1EDCAD2C4E6DB300B7EB7D /* FilterViewModel.swift */,
 				FB5D8F842C4FDC3D00FB8C3B /* FilterModel.swift */,
 			);
-			path = FilterView;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		FB55BD462C1B0B6600F81FDB /* Fonts */ = {
@@ -590,6 +584,7 @@
 				FB5A102E2C2771B400E16828 /* NewPasswordView.swift */,
 				FB5A10322C277FDE00E16828 /* MyAccountView.swift */,
 				FB5A10362C2787E500E16828 /* DeleteAccountView.swift */,
+				FB963F512C551F9C00AC8683 /* SafariView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -881,6 +876,7 @@
 				8C22A9622C1C5AE800B3879B /* ResetPasswordModel.swift in Sources */,
 				A82DAE032C18E34B00E18665 /* Constants.swift in Sources */,
 				5FB56F152C3A901600671B86 /* QueryCommentView.swift in Sources */,
+				FB963F522C551F9C00AC8683 /* SafariView.swift in Sources */,
 				A84803B42C4E9E5B004B4E1F /* OrganizationModel.swift in Sources */,
 				FBAD42AF2C40060F00623B28 /* Tab.swift in Sources */,
 				FBB108E52C3FE2D900C78326 /* BottomCurve.swift in Sources */,

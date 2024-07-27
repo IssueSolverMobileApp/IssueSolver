@@ -14,35 +14,29 @@
         @Published var isPresented: Bool = false
         @Published var queryID: String = ""
         @Published var isLoading: Bool = false
+        @Published var hasMoreData: Bool = true
         
         private var homeRepository = HTTPHomeRepository()
         private var queryRepository = HTTPQueryRepository()
-        var pageCount: Int = 0
+        private var isInitialDataLoaded: Bool = false
         var pageCountisChange: Bool = false
+        var pageCount: Int = 0
         
         init(queryData: [QueryDataModel] = []) {
             self.queryData = queryData
         }
         
         func getMoreQuery() {
-            guard !isLoading else { return }
+            guard !isLoading && hasMoreData else { return }
             isLoading = true
-            queryData = QueryDataModel.mockArray()
-            if let selectedFilters {
+            
+            if !isInitialDataLoaded {
+                queryData = QueryDataModel.mockArray()
+            }
+            if let selectedFilters = selectedFilters {
                 applyCurrentFilter(selectedFilters)
             } else {
-//                queryData = []
-//                pageCount = 0
                 getHomeQueries()
-            }
-        }
-        
-        func likeToggle(like: Bool, queryID: Int?) {
-            guard let queryID else { return }
-            if like {
-                addLike(queryID: "\(queryID)")
-            } else {
-                deleteLike(queryID: "\(queryID)")
             }
         }
         
@@ -54,33 +48,52 @@
         private func getHomeQueries() {
             isLoading = true
             homeRepository.getAllQueries(pageCount: "\(pageCount)") { [weak self] result in
-                guard let self else { return }
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let success):
-                        guard let data = success.data else { return }
-                        self.queryData = []
-                        self.addData(queryData: data)
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        self.isLoading = false
-                    }
-                }
-            }
-        }
+                guard let self = self else { return }
+                 DispatchQueue.main.async {
+                     self.isLoading = false
+                     
+                     switch result {
+                     case .success(let success):
+                         guard let data = success.data else {
+                             self.hasMoreData = false
+                             return
+                         }
+                         if data.isEmpty {
+                             self.hasMoreData = false
+                             
+                         } else {
+                             if !self.isInitialDataLoaded {
+                              self.queryData = []
+                                }
+                             
+                             self.addData(queryData: data)
+                         }
+                         self.isInitialDataLoaded = true
+
+                     case .failure(let error):
+                         print(error.localizedDescription)
+                     }
+                 }
+             }
+         }
         
          func applyFilter(organization: String, category: String, status: String, days: String) {
              isLoading = true
-            print("Applying filter: \(status), \(category), \(organization), \(days)")
+             isInitialDataLoaded = false
              pageCount = 0
-            homeRepository.applyFilter(status: status, category: category, organization: organization, days: days, pageCount: "\(pageCount)") { [weak self] result in
+             homeRepository.applyFilter(status: status, category: category, organization: organization, days: days, pageCount: "\(pageCount)") { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     switch result {
-                    case .success(let success):
-                        guard let data = success.data else { return }
-                        self.queryData = []
-                        self.addData(queryData: data)
+                       case .success(let success):
+                           guard let data = success.data else {
+                               self.queryData = []
+                               self.hasMoreData = false
+                               return
+                           }
+                           self.queryData = []
+                           self.addData(queryData: data)
+                        
                     case .failure(let error):
                         print("Error applying filter: \(error.localizedDescription)")
                         self.isLoading = false
@@ -94,14 +107,17 @@
                 category: (filters.category?.name == "Kateqoriya") ? "" : filters.category?.name ?? "",
                 status: (  filters.status?.name == "Status") ? "" : filters.status?.name ?? "",
                 days: ( filters.days?.name == "Tarix") ? "" : filters.days?.name ?? ""
-            )
-        }
+        )}
         
         private func addLike(queryID: String) {
             queryRepository.postLike(queryID: queryID) { result in
                 switch result {
                 case .success(let success):
-                    print(success.message ?? "")
+                    DispatchQueue.main.async {
+                        if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
+                            self.queryData[index].likeSuccess = true
+                        }
+                    }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
@@ -109,13 +125,27 @@
         }
         
         private func deleteLike(queryID: String) {
-            queryRepository.deleteLike(queryID: queryID) { result in
+            queryRepository.deleteLike(queryID: queryID) { [ weak self ] result in
+                guard let self else { return }
                 switch result {
                 case .success(let success):
-                    print(success.message ?? "")
+                    DispatchQueue.main.async {
+                        if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
+                            self.queryData[index].likeSuccess = false
+                        }
+                    }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
+            }
+        }
+        
+        func likeToggle(like: Bool, queryID: Int?) {
+            guard let queryID else { return }
+            if like {
+                addLike(queryID: "\(queryID)")
+            } else {
+                deleteLike(queryID: "\(queryID)")
             }
         }
         
@@ -125,7 +155,8 @@
                     self.queryData.append(item)
                 }
             }
-            pageCount = self.queryData.count / 10
+            self.pageCount += 1
+            self.isInitialDataLoaded = true
             isLoading = false
         }
     }
