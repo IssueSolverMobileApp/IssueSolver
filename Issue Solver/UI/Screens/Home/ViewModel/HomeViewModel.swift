@@ -18,7 +18,7 @@
         
         private var homeRepository = HTTPHomeRepository()
         private var queryRepository = HTTPQueryRepository()
-        private var isInitialDataLoaded: Bool = false
+        var isInitialDataLoaded: Bool = false
         var pageCountisChange: Bool = false
         var pageCount: Int = 0
         

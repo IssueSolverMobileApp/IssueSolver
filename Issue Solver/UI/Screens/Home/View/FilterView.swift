@@ -124,8 +124,11 @@ struct FilterView: View {
         vm.selectedStatus = StatusModel(id: UUID(), name: "Status")
         vm.selectedDate = DateModel(id: UUID(), name: "Tarix")
         
-        homeViewModel.queryData = []
         homeViewModel.selectedFilters = nil
+        homeViewModel.pageCount = 0
+        homeViewModel.isInitialDataLoaded = false
+        homeViewModel.hasMoreData = true
+        homeViewModel.queryData = []
         homeViewModel.getMoreQuery()
     }
     
