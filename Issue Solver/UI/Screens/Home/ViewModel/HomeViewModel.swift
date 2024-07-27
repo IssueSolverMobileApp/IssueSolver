@@ -20,7 +20,7 @@
         private var queryRepository = HTTPQueryRepository()
         var pageCount: Int = 0
         var pageCountisChange: Bool = false
-        private var hasLoadedData: Bool = false
+        private var isInitialDataLoaded: Bool = false
         
         init(queryData: [QueryDataModel] = []) {
             self.queryData = queryData
@@ -31,18 +31,19 @@
             guard !isLoading && hasMoreData else { return }
             isLoading = true
             
-            if !hasLoadedData {
+            if !isInitialDataLoaded {
+                // Initialize with mock data for the first load
                 queryData = QueryDataModel.mockArray()
-                
-                if let selectedFilters {
-                    applyCurrentFilter(selectedFilters)
-                } else {
-                    getHomeQueries()
-                }
+               // isInitialDataLoaded = true // Assuming you need to mark data as initially loaded
+            }
+            
+            if let selectedFilters = selectedFilters {
+                applyCurrentFilter(selectedFilters)
             } else {
                 getHomeQueries()
             }
         }
+    
 
         
         func isPresentedToggle(queryID: String) {
@@ -67,13 +68,13 @@
                              self.hasMoreData = false
                              
                          } else {
-                             if !self.hasLoadedData {
+                             if !self.isInitialDataLoaded {
                               self.queryData = []
                                 }
                              
                              self.addData(queryData: data)
                          }
-                         self.hasLoadedData = true
+                         self.isInitialDataLoaded = true
 
                      case .failure(let error):
                          print(error.localizedDescription)
@@ -84,16 +85,24 @@
         
          func applyFilter(organization: String, category: String, status: String, days: String) {
              isLoading = true
-            print("Applying filter: \(status), \(category), \(organization), \(days)")
+             isInitialDataLoaded = false
              pageCount = 0
+             
+            print("Applying filter: \(status), \(category), \(organization), \(days)")
+             
             homeRepository.applyFilter(status: status, category: category, organization: organization, days: days, pageCount: "\(pageCount)") { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     switch result {
-                    case .success(let success):
-                        guard let data = success.data else { return }
-                        self.queryData = []
-                        self.addData(queryData: data)
+                       case .success(let success):
+                           guard let data = success.data else {
+                               self.queryData = []
+                               self.hasMoreData = false
+                               return
+                           }
+                           self.queryData = []
+                           self.addData(queryData: data)
+                        
                     case .failure(let error):
                         print("Error applying filter: \(error.localizedDescription)")
                         self.isLoading = false
@@ -114,7 +123,11 @@
             queryRepository.postLike(queryID: queryID) { result in
                 switch result {
                 case .success(let success):
-                    print(success.message ?? "")
+                    DispatchQueue.main.async {
+                        if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
+                            self.queryData[index].likeSuccess = true
+                        }
+                    }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
@@ -122,10 +135,15 @@
         }
         
         private func deleteLike(queryID: String) {
-            queryRepository.deleteLike(queryID: queryID) { result in
+            queryRepository.deleteLike(queryID: queryID) { [ weak self ] result in
+                guard let self else { return }
                 switch result {
                 case .success(let success):
-                    print(success.message ?? "")
+                    DispatchQueue.main.async {
+                        if let index = self.queryData.firstIndex(where: {"\($0.requestID ?? Int())" == queryID}) {
+                            self.queryData[index].likeSuccess = false
+                        }
+                    }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
@@ -148,7 +166,7 @@
                 }
             }
             self.pageCount += 1
-            self.hasLoadedData = true
+            self.isInitialDataLoaded = true
             isLoading = false
         }
     }
