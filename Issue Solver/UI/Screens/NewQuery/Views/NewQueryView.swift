@@ -10,7 +10,6 @@ import SwiftUI
 struct NewQueryView: View {
     @EnvironmentObject var router: Router
     @StateObject var vm = NewQueryViewModel()
-    @Binding var selectedTab: Tab
     @Binding var notificationType: NotificationType?
     @FocusState var isInputActive: Bool
     
@@ -105,7 +104,6 @@ struct NewQueryView: View {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
                 vm.createNewQuery { success, error  in
                     if let success {
-                        self.selectedTab = .queryIcon
                         self.notificationType = .success(success)
                     } else if let error {
                         self.notificationType = .error(error)

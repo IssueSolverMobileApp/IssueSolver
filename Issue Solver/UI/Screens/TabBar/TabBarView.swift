@@ -33,7 +33,7 @@ struct TabBarView: View {
                 MyQueryView()
                     .tag(Tab.queryIcon)
                 
-                NewQueryView(selectedTab: $currentTab, notificationType: $notificationType)
+                NewQueryView(notificationType: $notificationType)
                     .tag(Tab.addIcon)
                 
                 ProfileView()
