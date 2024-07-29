@@ -29,11 +29,13 @@ final class HTTPProfileRepository {
     /// Get Username
     func getMe(completion: @escaping (Result<ProfileSuccessModel, Error>) -> Void) {
         http.GET(endPoint: EndPoint.auth(.getMe)) { (data: ProfileSuccessModel?, error: Error?) in
-            if let error {
-                completion(.failure(error))
-            }
-            if let data {
-                completion(.success(data))
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.failure(error))
+                }
+                if let data {
+                    completion(.success(data))
+                }
             }
         }
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class MyAccountViewModel: ObservableObject {
     
     private var profileRepository = HTTPProfileRepository()
@@ -30,17 +31,12 @@ class MyAccountViewModel: ObservableObject {
              guard let self else { return }
              isLoading = false
              
-             DispatchQueue.main.async {
                  switch result {
                  case .success(let result):
-                     DispatchQueue.main.async {
                          self.fullNameText = result.data?.fullName ?? ""
                          self.emailText = result.data?.email ?? ""
-                     }
-                     print(result.data?.fullName ?? "")
                  case .failure(let error):
                      print(error.localizedDescription)
-                 }
              }
          }
      }
