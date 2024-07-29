@@ -12,6 +12,11 @@ class ProfileViewModel: ObservableObject {
     private var profileRepository = HTTPProfileRepository()
     @Published var emailText: String = ""
     @Published var fullNameText: String = ""
+    
+    let aboutApp = URL(string: "https://issue-solver.vercel.app/dashboard/about") 
+    let questions = URL(string: "https://issue-solver.vercel.app/dashboard/faq")
+    let terms = URL(string: "https://issue-solver.vercel.app/dashboard/privacy")
+
 
     func getFullName() {
         profileRepository.getMe { [weak self] result in

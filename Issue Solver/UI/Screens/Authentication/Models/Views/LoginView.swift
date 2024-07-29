@@ -39,7 +39,7 @@ struct LoginView: View {
     
         // MARK: - TitleView
     var titleView: some View {
-        CustomTitleView(title: "Daxil olun", subtitle: "Zəhmət olmasa, giriş üçün məlumatlarınızı daxil edin.")
+        CustomTitleView(title: "Daxil olun", subtitle: "Zəhmət olmasa, giriş üçün məlumatlarınızı daxil edin")
             .padding(.bottom, 8)
     }
     

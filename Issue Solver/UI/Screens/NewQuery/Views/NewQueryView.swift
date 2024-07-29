@@ -76,7 +76,7 @@ struct NewQueryView: View {
     var pickerView: some View {
         
         VStack(spacing: 16) {
-            CustomPickerView(selection: $vm.selectedCategory, title: "Kateqoriya", textColor: vm.selectedCategory.name == "Kateqoriya" ? .gray : .black, isRightTextEditor: $vm.isRightCategory) {
+            CustomPickerView(selection: $vm.selectedCategory, title: "Problemin kateqoriya", textColor: vm.selectedCategory.name == "Kateqoriya" ? .gray : .black, isRightTextEditor: $vm.isRightCategory) {
                 ForEach(vm.categories, id: \.self) { category in
                     Text(category.name ?? "")
                         .tag(category.categoryID)

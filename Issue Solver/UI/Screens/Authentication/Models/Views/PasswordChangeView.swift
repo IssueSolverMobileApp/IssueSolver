@@ -36,7 +36,7 @@ struct PasswordChangeView: View {
     
     // TitleView
     var titleView: some View {
-        CustomTitleView(title: "Yeni şifrə", subtitle: "Daxil olmaq üçün yeni şifrə təyin edin.")
+        CustomTitleView(title: "Yeni şifrə", subtitle: "Daxil olmaq üçün yeni şifrə təyin edin")
     }
     
     // TextFieldViews

@@ -21,10 +21,6 @@ struct OTPView: View {
             contentView
             LoadingView(isLoading: vm.isLoading)
         }
-        .onAppear {
-            vm.emailModel = emailModel
-            vm.isChangePassword = isChangePassword
-        }
     }
     
     // MARK: - Views
@@ -52,7 +48,7 @@ struct OTPView: View {
     // Title View
     var titleView: some View {
         ZStack(alignment: .topTrailing) {
-            CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin.")
+            CustomTitleView(title: "Təsdiq Kodu", subtitle: "E-poçtunuza gələn təsdiq kodunu daxil edin")
             timerView
         }
     }
@@ -90,10 +86,10 @@ struct OTPView: View {
     var confirmButtonView: some View {
         VStack(spacing: 16) {
             CustomButton(title: "Təsdiqlə", color: .primaryBlue) {
-                vm.checkOTPCode { success in
+                vm.checkOTPCode(isChangePassword: isChangePassword) { success in
                     if success {
                         DispatchQueue.main.async {
-                            if vm.isChangePassword {
+                            if isChangePassword {
                                 router.navigate { PasswordChangeView() }
                             } else {
                                 router.popToRoot()
@@ -104,7 +100,7 @@ struct OTPView: View {
             }
             
             CustomButton(style: .text, title: "Kodu yenidən göndər") {
-                vm.resendOTP()
+                vm.resendOTP(emailModel: emailModel)
             }
             .disabled(!vm.isTimerFinished)
             .opacity(vm.isTimerFinished ? 1 : 0.5)

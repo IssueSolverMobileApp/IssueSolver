@@ -31,6 +31,9 @@ struct QueryCommentView: View {
         .onAppear {
             vm.getQueryComments(requestID: id)
         }
+        .refreshable {
+            vm.getQueryComments(requestID: id)
+        }
     }
     
     //    titleVeiw
@@ -69,7 +72,7 @@ struct QueryCommentView: View {
     var resizableTextVeiw: some View {
         HStack(spacing: 8) {
             ZStack {
-                ResizableTextView(text: $text, height: $height, placeholder: "Rəyinizi Yazın")
+                ResizableTextView(text: $text, height: $height, placeholder: "Rəyinizi yazın")
                     .frame(height: abs(height < 124 ? height : 124))
                     .padding(.vertical, 5)
                     .padding(.horizontal)
