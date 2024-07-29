@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct NewQueryInfoView: View {
-    
+    @EnvironmentObject var router: Router
     @StateObject var vm = NewQueryInfoViewModel()
     
     var body: some View {
+        ZStack {
+            
+            Color.surfaceBackground.ignoresSafeArea()
+            
             VStack {
                 titleView
                 VStack(spacing: 48) {
@@ -23,11 +27,24 @@ struct NewQueryInfoView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
         }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                backButtonView
+            }
+        }
+    }
     
+    ///Back Button View
+    var backButtonView: some View {
+        CustomButton(style: .back, title: "") {
+            router.dismissView()
+        }
+    }
     
     var titleView: some View {
-            CustomTitleView(title: "Qaydalar")
-            
+        CustomTitleView(title: "Qaydalar")
+        
     }
     
     var infoView: some View {
@@ -45,11 +62,11 @@ struct NewQueryInfoView: View {
                 }
                 HStack(alignment: .top) {
                     Text(vm.infoIconText)
-                    .jakartaFont(.custom(.regular, 16))
+                        .jakartaFont(.custom(.regular, 16))
                     Text(vm.infoText)
                         .jakartaFont(.custom(.regular, 17))
                     Spacer()
-
+                    
                 }
                 
             }
@@ -72,13 +89,13 @@ struct NewQueryInfoView: View {
                 }
                 HStack(alignment: .top) {
                     Text(vm.warningIconText)
-                    .jakartaFont(.custom(.regular, 17))
+                        .jakartaFont(.custom(.regular, 17))
                     
                     
                     Text(vm.warningText)
                         .jakartaFont(.custom(.regular, 17))
                     Spacer()
-
+                    
                 }
                 
             }
