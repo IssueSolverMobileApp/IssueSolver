@@ -48,7 +48,7 @@ extension QueryDataModel {
     }
     
     static func mockArray() -> [QueryDataModel] {
-        return [QueryDataModel.mock(with: 1), QueryDataModel.mock(with: 2), QueryDataModel.mock(with: 3), QueryDataModel.mock(with: 3)]
+        return [QueryDataModel.mock(with: 1), QueryDataModel.mock(with: 2), QueryDataModel.mock(with: 3), QueryDataModel.mock(with: 4)]
     }
 }
     

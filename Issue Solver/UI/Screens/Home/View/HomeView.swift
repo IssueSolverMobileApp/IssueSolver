@@ -18,6 +18,7 @@ struct HomeView: View {
         ZStack {
             Color.surfaceBackground
                       .ignoresSafeArea()
+            
             if vm.queryData.isEmpty {
                 notDataView
             } else {
@@ -29,7 +30,6 @@ struct HomeView: View {
                 vm.getMoreQuery()
             }
         }
-        
         .refreshable {
             vm.refreshQueries()
         }
@@ -59,7 +59,7 @@ struct HomeView: View {
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
                     })
-                    .redacted(reason: vm.isLoading ? .placeholder:[])
+                    .redacted(reason: vm.isLoading || !vm.isInitialDataLoaded ? .placeholder:[])
                 }
                     
                 if vm.isProgressViewSeen {
