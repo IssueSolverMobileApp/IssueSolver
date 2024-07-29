@@ -41,7 +41,7 @@ struct NewQueryView: View {
                 Alert(
                     title: Text("Sorğunuzu ləğv etməyə əminsiniz?"),
                     primaryButton: .default(Text("Bəli"), action: { vm.cleanFields() }),
-                    secondaryButton: .cancel({
+                    secondaryButton: .cancel(Text("Xeyr"), action: {
                         vm.isResetPressed = false
                     })
                 )
