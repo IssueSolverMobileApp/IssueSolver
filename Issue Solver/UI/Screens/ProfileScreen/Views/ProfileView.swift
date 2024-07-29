@@ -14,8 +14,6 @@ struct ProfileView: View {
     @StateObject var vm = ProfileViewModel()
     @State var showExitAccountAlert = false
     @State var showDeleteAccountAlert = false
-    @State private var showSafari = false
-    @State private var safariURL: URL?
     
     @StateObject private var auth: AuthManager = .shared
     
@@ -37,12 +35,6 @@ struct ProfileView: View {
         .navigationBarBackButtonHidden(true)
         .onAppear {
                 vm.getFullName()
-        }
-        .fullScreenCover(isPresented: $showSafari) {
-            if let url = safariURL {
-                SafariView(url: url)
-                    .edgesIgnoringSafeArea(.all)
-            }
         }
     }
     
@@ -85,43 +77,34 @@ struct ProfileView: View {
         VStack(alignment: .leading, spacing: 12) {
             
             ///Privacy Policy View
-            CustomRowView(title: "Məxfilik siyasəti",
-                          subtitle: nil,
-                          leftImage: nil,
-                          rightImage: "chevron",
-                          handler: {})
-            .frame(height: 76)
             
-            .onTapGesture {
-                safariURL = URL(string: "https://issue-solver.vercel.app/dashboard/privacy")
-                showSafari = true
-                  
+            Link(destination: vm.terms!) {
+                CustomRowView(title: "Məxfilik siyasəti",
+                              subtitle: nil,
+                              leftImage: nil,
+                              rightImage: "chevron",
+                              handler: {})
+                .frame(height: 76)
             }
             
             ///FAQ View
-            CustomRowView(title: "Tez-tez verilən suallar",
-                          subtitle: nil,
-                          leftImage: nil,
-                          rightImage: "chevron",
-                          handler: {})
-            .frame(height: 76)
-            
-            .onTapGesture {
-                safariURL = URL(string: "https://issue-solver.vercel.app/dashboard/faq")
-                showSafari = true
+            Link(destination: vm.questions!) {
+                CustomRowView(title: "Tez-tez verilən suallar",
+                              subtitle: nil,
+                              leftImage: nil,
+                              rightImage: "chevron",
+                              handler: {})
+                .frame(height: 76)
             }
             
             ///About App View
-            CustomRowView(title: "Tətbiq haqqında",
-                          subtitle: nil,
-                          leftImage: nil,
-                          rightImage: "chevron",
-                          handler: {})
-            .frame(height: 76)
-            
-            .onTapGesture {
-                safariURL = URL(string: "https://issue-solver.vercel.app/dashboard/about")
-                showSafari = true
+            Link(destination: vm.aboutApp!) {
+                CustomRowView(title: "Tətbiq haqqında",
+                              subtitle: nil,
+                              leftImage: nil,
+                              rightImage: "chevron",
+                              handler: {})
+                .frame(height: 76)
             }
         }
     }

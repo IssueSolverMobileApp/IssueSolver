@@ -10,18 +10,11 @@ import SwiftUI
 struct CustomPostRowView: View {
     
     var queryItem: QueryDataModel
-//        didSet {
-//            setOptionsAccordingToStatus()
-//        }
-//    }
-    
-    
+
     @State private var statusBacgroundColor: Color? = nil
     @State private var statusForegroundColor: Color? = nil
     @State private var isDeleteClickable: Bool = true
-    
     @State private var showingAlert = false
-    
     
     /// if we need to use PostView into some detailView isDetailView variable must be true else false
     var isDetailView: Bool = true
@@ -66,7 +59,7 @@ struct CustomPostRowView: View {
                     .frame(width: 32, height: 32)
                     .scaledToFit()
                 Text(queryItem.fullName ?? "")
-                    .jakartaFont(.subtitle)
+                    .jakartaFont(.rowTitle)
                     .foregroundStyle(.primaryBlue)
                     .lineLimit(2)
                 Spacer()
@@ -78,7 +71,6 @@ struct CustomPostRowView: View {
                             .jakartaFont(.subheading)
                             .foregroundStyle(statusForegroundColor ?? .black )
                     }
-                    
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                     .background(statusBacgroundColor)
@@ -98,8 +90,8 @@ struct CustomPostRowView: View {
             
             ZStack {
                 Text(queryItem.category?.name ?? "")
-                    .jakartaFont(.subtitle2)
-                    .foregroundStyle(.disabledGray)
+                    .jakartaFont(.subheading)
+                    .foregroundStyle(.black)
             }
             .padding(.horizontal,10)
             .padding(.vertical, 8)
@@ -129,7 +121,7 @@ struct CustomPostRowView: View {
                             
                             Image(.locationIcon)
                             Text(queryItem.address ?? "")
-                                .foregroundStyle(.primaryBlue)
+                               
                         }
                         HStack {
                             Image(.calendarIcon)

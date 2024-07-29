@@ -39,7 +39,7 @@ struct RegisterView: View {
     
     // MARK: - TitleView
     var titleView: some View {
-        CustomTitleView(title: "Qeydiyyat", subtitle: "Zəhmət olmasa, şəxsi məlumatlarınızı daxil edin.")
+        CustomTitleView(title: "Qeydiyyat", subtitle: "Zəhmət olmasa, şəxsi məlumatlarınızı daxil edin")
     }
     
     // MARK: - TextFieldViews
@@ -86,7 +86,8 @@ struct RegisterView: View {
                         vm.showCheckboxError = false
                         await vm.register { success in
                             if success {
-                                router.navigate { OTPView(isChangePassword: false) }
+                                let item =  EmailModel(email: vm.emailText)
+                                router.navigate { OTPView(emailModel: item, isChangePassword: false) }
                             }
                         }
                     }

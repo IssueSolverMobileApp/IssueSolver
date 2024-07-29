@@ -49,7 +49,7 @@ struct NewPasswordView: View {
     
     /// Title View
     var titleView: some View {
-        CustomTitleView(title: "Yeni şifrə",subtitle: "Daxil olmaq üçün yeni şifrə təyin edin.", color: .primaryBlue)
+        CustomTitleView(title: "Yeni şifrə",subtitle: "Daxil olmaq üçün yeni şifrə təyin edin", color: .primaryBlue)
     }
     
     /// Textfield View

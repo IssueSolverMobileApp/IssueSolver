@@ -48,7 +48,7 @@ struct DeleteAccountView: View {
     
     /// Title View
     var titleView: some View {
-        CustomTitleView(title: "Şifrənizi daxil edin", subtitle: "Zəhmət olmasa, hesabı silmək üçün məlumatlarınızı daxil edin.", color: .primaryBlue)
+        CustomTitleView(title: "Şifrənizi daxil edin", subtitle: "Zəhmət olmasa, hesabı silmək üçün məlumatlarınızı daxil edin", color: .primaryBlue)
     }
     
     ///  Password Textfield View

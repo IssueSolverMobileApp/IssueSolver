@@ -19,10 +19,10 @@ class NewQueryViewModel: ObservableObject {
     @Published var addressText: String = "" {
         didSet {
             if addressText.count < 5 && !addressText .isEmpty {
-                addressTextFieldError = "Adress mətni minimum 5 simvoldan ibarət olamlıdır"
+                addressTextFieldError = "Ünvan mətni minimum 5 simvoldan ibarət olamlıdır"
                 isRightAddress = false
             } else if addressText.count > 51 {
-                addressTextFieldError = "Adress mətni maksimum 50 simvoldan ibarət olmamalıdır"
+                addressTextFieldError = "Ünvan mətni maksimum 50 simvoldan ibarət olmamalıdır"
                 isRightAddress = false
             } else {
                 addressTextFieldError = nil

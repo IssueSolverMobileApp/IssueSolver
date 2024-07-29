@@ -15,11 +15,11 @@
         @Published var queryID: String = ""
         @Published var isLoading: Bool = false
         @Published var hasMoreData: Bool = true
+        @Published var isProgressViewSeen: Bool = false
         
         private var homeRepository = HTTPHomeRepository()
         private var queryRepository = HTTPQueryRepository()
         var isInitialDataLoaded: Bool = false
-        var pageCountisChange: Bool = false
         var pageCount: Int = 0
         
         init(queryData: [QueryDataModel] = []) {
@@ -104,7 +104,7 @@
             applyFilter(
                 organization: (filters.organization?.name == "Qurum") ? "" : filters.organization?.name ?? "",
                 category: (filters.category?.name == "Kateqoriya") ? "" : filters.category?.name ?? "",
-                status: (filters.status?.name == "Status") ? "" : filters.status?.name ?? "",
+                status: (filters.status?.nameWithoutSpaces == "Status") ? "" : filters.status?.nameWithoutSpaces ?? "",
                 days: (filters.days?.name == "Tarix") ? "" : filters.days?.name ?? ""
         )}
         
@@ -157,5 +157,51 @@
             self.pageCount += 1
             self.isInitialDataLoaded = true
             isLoading = false
+            isProgressViewSeenHandler(data: queryData)
         }
+        
+        private func isProgressViewSeenHandler(data: [QueryDataModel]) {
+            let dataCount = self.queryData.count % 10
+            
+            if dataCount == 0 && !self.queryData.isEmpty && data.isEmpty {
+                isProgressViewSeen = false
+            } else if dataCount == 0 && !self.queryData.isEmpty {
+                isProgressViewSeen = true
+            } else if dataCount > 0 && !self.queryData.isEmpty {
+                isProgressViewSeen = false
+            }
+        }
+        
+         func refreshQueries()  {
+            isLoading = true
+            pageCount = 0
+            homeRepository.getAllQueries(pageCount: "\(pageCount)") { [weak self] result in
+                guard let self = self else { return }
+                 DispatchQueue.main.async {
+                     self.isLoading = false
+                     
+                     switch result {
+                     case .success(let success):
+                         guard let data = success.data else {
+                             self.hasMoreData = false
+                             return
+                         }
+                         if data.isEmpty {
+                             self.hasMoreData = false
+                                                                                 
+                         } else {
+                             if !self.isInitialDataLoaded {
+                              self.queryData = []
+                            }
+                             self.queryData = []
+                             self.addData(queryData: data)
+                         }
+                         self.isInitialDataLoaded = true
+
+                     case .failure(let error):
+                         print(error.localizedDescription)
+                     }
+                 }
+             }
+         }
     }

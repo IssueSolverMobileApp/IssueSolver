@@ -33,7 +33,6 @@ struct CustomPickerView<V, C>: View where V : SelectionProtocol, C : View {
                 Text(title)
                     .jakartaFont(.heading)
                     .foregroundStyle(isRightTextEditor ? .black :  .red)
-                
             }
             
             HStack {
@@ -46,7 +45,7 @@ struct CustomPickerView<V, C>: View where V : SelectionProtocol, C : View {
                 } label: {
                     HStack {
                         Text(selection.name ?? "")
-                            .jakartaFont(.custom(.light, 14))
+                            .jakartaFont(.custom(.medium, 14))
                             .foregroundStyle(textColor ?? .black)
                         
                         Spacer()

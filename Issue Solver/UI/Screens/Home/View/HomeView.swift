@@ -18,6 +18,7 @@ struct HomeView: View {
         ZStack {
             Color.surfaceBackground
                       .ignoresSafeArea()
+            
             if vm.queryData.isEmpty {
                 notDataView
             } else {
@@ -28,6 +29,9 @@ struct HomeView: View {
             if vm.queryData.isEmpty {
                 vm.getMoreQuery()
             }
+        }
+        .refreshable {
+            vm.refreshQueries()
         }
     }
         
@@ -55,18 +59,20 @@ struct HomeView: View {
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
                     })
-                    .redacted(reason: vm.isLoading ? .placeholder:[])
+                    .redacted(reason: vm.isLoading || !vm.isInitialDataLoaded ? .placeholder:[])
                 }
                     
-                HStack {
-                    ProgressView()
-                }
-                .onAppear {
-                      vm.getMoreQuery()
+                if vm.isProgressViewSeen {
+                    HStack {
+                        ProgressView()
+                    }
+                    .onAppear {
+                        vm.getMoreQuery()
+                    }
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 16)
+            .padding(.bottom, 40)
         }
     }
     

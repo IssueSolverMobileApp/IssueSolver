@@ -10,7 +10,6 @@ import SwiftUI
 struct NewQueryView: View {
     @EnvironmentObject var router: Router
     @StateObject var vm = NewQueryViewModel()
-    @Binding var selectedTab: Tab
     @Binding var notificationType: NotificationType?
     @FocusState var isInputActive: Bool
     
@@ -42,7 +41,7 @@ struct NewQueryView: View {
                 Alert(
                     title: Text("Sorğunuzu ləğv etməyə əminsiniz?"),
                     primaryButton: .default(Text("Bəli"), action: { vm.cleanFields() }),
-                    secondaryButton: .cancel({
+                    secondaryButton: .cancel(Text("Xeyr"), action: {
                         vm.isResetPressed = false
                     })
                 )
@@ -77,7 +76,7 @@ struct NewQueryView: View {
     var pickerView: some View {
         
         VStack(spacing: 16) {
-            CustomPickerView(selection: $vm.selectedCategory, title: "Kateqoriya", textColor: vm.selectedCategory.name == "Kateqoriya" ? .gray : .black, isRightTextEditor: $vm.isRightCategory) {
+            CustomPickerView(selection: $vm.selectedCategory, title: "Problemin kateqoriya", textColor: vm.selectedCategory.name == "Kateqoriya" ? .gray : .black, isRightTextEditor: $vm.isRightCategory) {
                 ForEach(vm.categories, id: \.self) { category in
                     Text(category.name ?? "")
                         .tag(category.categoryID)
@@ -105,7 +104,6 @@ struct NewQueryView: View {
             CustomButton(style: .rounded, title: "Paylaş", color: .primaryBlue) {
                 vm.createNewQuery { success, error  in
                     if let success {
-                        self.selectedTab = .queryIcon
                         self.notificationType = .success(success)
                     } else if let error {
                         self.notificationType = .error(error)

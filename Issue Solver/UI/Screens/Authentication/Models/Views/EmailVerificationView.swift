@@ -47,7 +47,7 @@ struct EmailVerificationView: View {
     
     // MARK: - TitleView
     var titleView: some View {
-        CustomTitleView(title: "E-poçtunuzu daxil edin", subtitle: "E-poçt hesabınıza təsdiq kodu göndəriləcək.")
+        CustomTitleView(title: "E-poçtunuzu daxil edin", subtitle: "E-poçt hesabınıza təsdiq kodu göndəriləcək")
     }
     
     // MARK: - EmailTextField

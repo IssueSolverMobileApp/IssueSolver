@@ -28,7 +28,7 @@ extension View {
             return self.font(.jakartaFont(weight: .medium, size: 15))
         // Subheading
         case .subheading:
-            return self.font(.jakartaFont(weight: .regular, size: 13))
+            return self.font(.jakartaFont(weight: .medium, size: 13))
         // Rounded Button
         case .roundedButton:
             return self.font(.jakartaFont(weight: .medium, size: 18))
