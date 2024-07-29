@@ -33,8 +33,10 @@ class MyAccountViewModel: ObservableObject {
              DispatchQueue.main.async {
                  switch result {
                  case .success(let result):
-                     self.fullNameText = result.data?.fullName ?? ""
-                     self.emailText = result.data?.email ?? ""
+                     DispatchQueue.main.async {
+                         self.fullNameText = result.data?.fullName ?? ""
+                         self.emailText = result.data?.email ?? ""
+                     }
                      print(result.data?.fullName ?? "")
                  case .failure(let error):
                      print(error.localizedDescription)

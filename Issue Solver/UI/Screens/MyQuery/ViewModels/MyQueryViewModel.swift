@@ -88,16 +88,6 @@ class MyQueryViewModel: ObservableObject {
         }
     }
     
-    //    func deleteQueryOnDetailLocal(id: String) {
-    //        if let index = queryData.firstIndex(where: {"\($0.requestID ?? Int())" == id}) {
-    //            queryData.remove(at: index)
-    //        }
-    //        pageCount = queryData.count / 10
-    //        if queryData.isEmpty {
-    //            isDataEmptyButSuccess = true
-    //        }
-    //    }
-    
     func getMyQuery() {
         pageCount = 0
         queryRepository.getMyQueries(pageCount: "\(pageCount)") { [weak self] result in

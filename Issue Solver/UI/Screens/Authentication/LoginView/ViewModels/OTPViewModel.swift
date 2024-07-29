@@ -22,8 +22,8 @@ final class OTPViewModel: ObservableObject {
     @Published var errorText: String = ""
     @Published var isError: Bool = false
     
-    @Published var emailModel: EmailModel?
-    @Published var isChangePassword: Bool = false
+//    @Published var emailModel: EmailModel?
+//    @Published var isChangePassword: Bool = false
     
     @Published var isOTPHasError: Bool = false
     @Published var navigateLoginView: Bool = false
@@ -66,7 +66,7 @@ final class OTPViewModel: ObservableObject {
         }
     }
     
-    func resendOTP(with email: EmailModel) {
+    private func resendOTP(with email: EmailModel) {
         authRepository.resendOTP(body: email) { result in
             switch result {
             case .success(let success):
@@ -78,7 +78,7 @@ final class OTPViewModel: ObservableObject {
         }
     }
     
-    func checkOTPCode(completion: @escaping (Bool) -> Void) {
+    func checkOTPCode(isChangePassword: Bool,completion: @escaping (Bool) -> Void) {
         isLoading = true
         if isChangePassword  {
             Task {
@@ -105,9 +105,10 @@ final class OTPViewModel: ObservableObject {
         }
     }
     
-    func resendOTP() {
+    func resendOTP(emailModel: EmailModel?) {
+        guard let item = emailModel else { return }
         setTimer()
-        resendOTP(with: emailModel ?? EmailModel(email: nil))
+        resendOTP(with: item)
         errorText = ""
         isTimerFinished = false
         otpCode = Array(repeating: "", count: Constants.numberOfOTPFields)

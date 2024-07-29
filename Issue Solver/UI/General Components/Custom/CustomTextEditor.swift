@@ -36,7 +36,7 @@ struct CustomTextEditor: View {
                     TextEditor(text: $explanation)
                         .jakartaFont(.subtitle2)
                         .focused($isTextEditorFocused)
-                        .frame(minHeight: 140)
+                        .frame(height: 140)
                         .padding(.leading, -3)
                     
                     VStack {

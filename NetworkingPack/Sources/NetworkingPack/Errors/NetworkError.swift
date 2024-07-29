@@ -33,7 +33,7 @@ public enum NetworkError: Error, LocalizedError {
         case .timeOut:
             return " Your request Time out in limit"
         case .noInternetConnection:
-            return "No internetConnection"
+            return "İnternet şəbəkəsi yoxdur"
         case .unauthorization:
             return "Not your authorization"
         case .notFound(let result):

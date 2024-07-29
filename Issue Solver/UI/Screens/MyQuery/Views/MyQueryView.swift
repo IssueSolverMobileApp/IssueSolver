@@ -128,6 +128,9 @@ struct MyQueryView: View {
             Spacer()
             EmptyView()
         }
+        .onAppear {
+            vm.getMyQuery()
+        }
         .padding(.horizontal, 20)
         .padding(.bottom, 16)
 
