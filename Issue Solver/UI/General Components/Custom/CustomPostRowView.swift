@@ -14,9 +14,7 @@ struct CustomPostRowView: View {
     @State private var statusBacgroundColor: Color? = nil
     @State private var statusForegroundColor: Color? = nil
     @State private var isDeleteClickable: Bool = true
-    
     @State private var showingAlert = false
-    
     
     /// if we need to use PostView into some detailView isDetailView variable must be true else false
     var isDetailView: Bool = true
@@ -73,7 +71,6 @@ struct CustomPostRowView: View {
                             .jakartaFont(.subheading)
                             .foregroundStyle(statusForegroundColor ?? .black )
                     }
-                    
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                     .background(statusBacgroundColor)
