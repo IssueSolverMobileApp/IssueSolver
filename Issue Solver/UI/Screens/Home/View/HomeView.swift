@@ -29,6 +29,10 @@ struct HomeView: View {
                 vm.getMoreQuery()
             }
         }
+        
+        .refreshable {
+            vm.refreshQueries()
+        }
     }
         
     var mainView: some View {
@@ -58,11 +62,13 @@ struct HomeView: View {
                     .redacted(reason: vm.isLoading ? .placeholder:[])
                 }
                     
-                HStack {
-                    ProgressView()
-                }
-                .onAppear {
-                      vm.getMoreQuery()
+                if vm.isProgressViewSeen {
+                    HStack {
+                        ProgressView()
+                    }
+                    .onAppear {
+                        vm.getMoreQuery()
+                    }
                 }
             }
             .padding(.horizontal, 20)
