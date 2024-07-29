@@ -22,9 +22,6 @@ final class OTPViewModel: ObservableObject {
     @Published var errorText: String = ""
     @Published var isError: Bool = false
     
-//    @Published var emailModel: EmailModel?
-//    @Published var isChangePassword: Bool = false
-    
     @Published var isOTPHasError: Bool = false
     @Published var navigateLoginView: Bool = false
     @Published var navigatePasswordChangeView: Bool = false
