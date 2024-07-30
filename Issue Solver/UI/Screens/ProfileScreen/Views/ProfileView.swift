@@ -48,9 +48,10 @@ struct ProfileView: View {
                           width: 48, height: 48,
                           color: .primaryBlue ,
                           font: .custom(.bold, 20),
-                          handler: { router.navigate {
-                MyAccountView()
-            } })
+                          handler: { 
+                vm.fullNameText = ""
+
+                router.navigate { MyAccountView() } })
             .frame(height: 100)
             .redacted(reason: vm.isLoading ? .placeholder:[])
             

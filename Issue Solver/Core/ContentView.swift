@@ -13,7 +13,6 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-//            CustomNavigationStack {
             if !showView {
                 SplashScreen {
                     withAnimation(.easeInOut) {
@@ -24,8 +23,6 @@ struct ContentView: View {
                 RootView()
                     .environmentObject(AuthManager.shared)
             }
-//            }
-//            .ignoresSafeArea()
         }
     }
 }
