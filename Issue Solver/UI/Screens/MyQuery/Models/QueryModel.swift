@@ -5,7 +5,6 @@
 //  Created by Valeh Amirov on 09.07.24.
 //
 
-
 import Foundation
 
 // MARK: - QueryModel
@@ -33,8 +32,7 @@ struct QueryDataModel: Codable, Hashable, Identifiable {
     
     static func ==(lhs: QueryDataModel, rhs: QueryDataModel) -> Bool {
         return lhs.requestID == rhs.requestID && lhs.fullName == rhs.address && lhs.description == rhs.description && lhs.status == rhs.status && lhs.organizationName == rhs.organizationName && lhs.createDate == rhs.createDate && lhs.commentCount == rhs.commentCount && lhs.likeCount == rhs.likeCount && lhs.likeSuccess == rhs.likeSuccess && lhs.category == rhs.category
-        
-    }    
+    }
     
     enum CodingKeys: String, CodingKey {
         case requestID = "requestId"

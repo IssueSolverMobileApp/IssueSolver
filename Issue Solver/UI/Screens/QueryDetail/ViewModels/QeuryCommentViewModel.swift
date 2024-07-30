@@ -12,10 +12,9 @@ final class QeuryCommentViewModel: ObservableObject {
     @Published var commentData: [QueryCommentDataModel] = []
     @Published var placeholderData: QueryCommentDataModel = QueryCommentDataModel(commentID: Int(), commentIsSuccess: true, fullName: "Valeh Amirov", authority: "USER", commentText: "Salam bu bir placeholder textidir. Və PlaceholderView yaratmaqçün istifadə oluna bilər", createDate: "24.07.2024")
     @Published var isDataEmptyButSuccess: Bool = false
-    
     @Published var isProgressViewSeen: Bool = false
     @Published var text: String = ""
-    
+    @Published var height: CGFloat = 20
     
     private var userFullName: String = ""
     private var repository = HTTPQueryRepository()

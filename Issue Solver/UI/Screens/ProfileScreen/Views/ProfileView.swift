@@ -9,12 +9,8 @@ import SwiftUI
 import SafariServices
 
 struct ProfileView: View {
-    
     @EnvironmentObject var router: Router
     @StateObject var vm = ProfileViewModel()
-    @State var showExitAccountAlert = false
-    @State var showDeleteAccountAlert = false
-    
     @StateObject private var auth: AuthManager = .shared
     
     var body: some View {
@@ -34,7 +30,9 @@ struct ProfileView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
+            if vm.fullNameText.isEmpty {
                 vm.getFullName()
+            }
         }
     }
     
@@ -54,6 +52,7 @@ struct ProfileView: View {
                 MyAccountView()
             } })
             .frame(height: 100)
+            .redacted(reason: vm.isLoading ? .placeholder:[])
             
             ///Change Password View
             CustomRowView(title: "Şifrəni dəyiş",
@@ -77,7 +76,6 @@ struct ProfileView: View {
         VStack(alignment: .leading, spacing: 12) {
             
             ///Privacy Policy View
-            
             Link(destination: vm.terms!) {
                 CustomRowView(title: "Məxfilik siyasəti",
                               subtitle: nil,
@@ -121,9 +119,9 @@ struct ProfileView: View {
                           width: 38, height: 38 , handler: {})
             .frame(height: 86)
             .onTapGesture {
-                showExitAccountAlert = true
+                vm.showExitAccountAlert = true
             }
-            .alert( isPresented: $showExitAccountAlert) {
+            .alert( isPresented: $vm.showExitAccountAlert) {
                 Alert(title: Text(""),
                       message: Text("Hesabdan çıxış etməyə əminsiniz?"),
                       primaryButton: .default(Text("İmtina")),
@@ -138,10 +136,11 @@ struct ProfileView: View {
                           rightImage: "chevron",
                           color: .red ,handler: {})
             .frame(height: 76)
+            .redacted(reason: vm.isLoading ? .placeholder:[])
             .onTapGesture {
-                showDeleteAccountAlert = true
+                vm.showDeleteAccountAlert = true
             }
-            .alert( isPresented: $showDeleteAccountAlert) {
+            .alert( isPresented: $vm.showDeleteAccountAlert) {
                 Alert(title: Text(""),
                       message: Text("Hesabınızı silmək istədiyinizə əminsiniz?"),
                       primaryButton: .default(Text("Xeyr"))  ,

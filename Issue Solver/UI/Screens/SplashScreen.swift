@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct SplashScreen: View {
-    
     @State var timer: Timer?
     @State var currentX: CGFloat = -UIScreen.main.bounds.width
-    
     let completion: () -> Void
     
     var body: some View {

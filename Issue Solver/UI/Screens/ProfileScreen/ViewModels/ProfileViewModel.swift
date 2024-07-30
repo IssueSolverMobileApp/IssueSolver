@@ -8,10 +8,12 @@
 import Foundation
 
 class ProfileViewModel: ObservableObject {
-    
     private var profileRepository = HTTPProfileRepository()
     @Published var emailText: String = ""
     @Published var fullNameText: String = ""
+    @Published var showExitAccountAlert = false
+    @Published var showDeleteAccountAlert = false
+    @Published var isLoading = false
     
     let aboutApp = URL(string: "https://issue-solver.vercel.app/dashboard/about") 
     let questions = URL(string: "https://issue-solver.vercel.app/dashboard/faq")
@@ -19,6 +21,7 @@ class ProfileViewModel: ObservableObject {
 
 
     func getFullName() {
+        isLoading = true
         profileRepository.getMe { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -26,6 +29,7 @@ class ProfileViewModel: ObservableObject {
                 case .success(let result):
                     self.fullNameText = result.data?.fullName ?? ""
                     self.emailText = result.data?.email ?? ""
+                    self.isLoading = false
                 case .failure(let error):
                     print(error.localizedDescription)
                 }

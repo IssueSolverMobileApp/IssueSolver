@@ -8,14 +8,9 @@
 import SwiftUI
 
 struct MyQueryView: View {
-    
     @EnvironmentObject var router: Router
-    
     @StateObject private var vm = MyQueryViewModel()
-    @State private var isLiked: Bool = false
-    private let ifNeedDeleteButton: Bool = true
-
-    
+   
     var body: some View {
         ZStack {
             Color.surfaceBackground
@@ -27,11 +22,12 @@ struct MyQueryView: View {
                 } else {
                     mainView
                 }
-            
             LoadingView(isLoading: vm.isViewLoading)
         }
         .onAppear {
-            vm.getMoreQuery()
+           if vm.queryData.isEmpty {
+                vm.getMoreQuery()
+            }
         }
         .refreshable {
             vm.getMyQuery()
@@ -40,11 +36,10 @@ struct MyQueryView: View {
     
     var mainView: some View {
         ScrollView {
-            
             LazyVStack {
                 CustomTitleView(title: "Mənim sorğularım")
                 ForEach($vm.queryData, id: \.requestID) { $item in
-                    CustomPostRowView(queryItem: item, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
+                    CustomPostRowView(queryItem: item, isDetailView: false, ifNeedDeleteButton: vm.ifNeedDeleteButton) {
                         // MARK: Comment handler
                         vm.isPresentedToggle(queryID: "\(item.requestID ?? Int())")
                     } likeHandler: { like in
@@ -55,12 +50,11 @@ struct MyQueryView: View {
                     }
                     .onTapGesture {      
                         router.navigate {
-                            QueryDetailView(ifNeedDeleteButton: ifNeedDeleteButton, queryItem: $item, isDeleteDetailView: {
+                            QueryDetailView(ifNeedDeleteButton: vm.ifNeedDeleteButton, queryItem: $item, isDeleteDetailView: {
                                 vm.getMyQuery()
                             })
                         }
                     }
-                    
                     .sheet(isPresented: $vm.isPresented, content: {
                         QueryCommentView(id: vm.queryID)
                     })
@@ -85,25 +79,21 @@ struct MyQueryView: View {
                         ProgressView()
                             .onAppear {
                                 vm.getMoreQuery()
-                            }
+                         }
                     }
-//                    .padding(.bottom, 30)
                 }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
         }.animation(.spring(), value: vm.queryData)
-        
     }
     
     var placeholderView: some View {
         ScrollView {
-            
             VStack {
                 CustomTitleView(title: "Mənim sorğularım")
-                
                 ForEach(1...3, id: \.self) {_ in
-                    CustomPostRowView(queryItem: vm.placeholderData, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
+                    CustomPostRowView(queryItem: vm.placeholderData, isDetailView: false, ifNeedDeleteButton: vm.ifNeedDeleteButton) {
                         
                     } likeHandler: { _ in
                         
@@ -133,7 +123,6 @@ struct MyQueryView: View {
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 16)
-
     }
 }
 
