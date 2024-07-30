@@ -9,10 +9,6 @@ import SwiftUI
 
 struct QueryCommentView: View {
     @StateObject private var vm = QeuryCommentViewModel()
-    
-    @State var text: String = ""
-    @State var height: CGFloat = 20
-    
     var id: String
     
     var body: some View {
@@ -34,9 +30,11 @@ struct QueryCommentView: View {
         .refreshable {
             vm.getQueryComments(requestID: id)
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
     
-    //    titleVeiw
     var titleView: some View {
         VStack {
             Capsule()
@@ -49,7 +47,7 @@ struct QueryCommentView: View {
             }
         }
     }
-    //    cardView
+    
     var cardView: some View {
         ScrollView {
             LazyVStack(spacing: 12) {
@@ -68,12 +66,12 @@ struct QueryCommentView: View {
             }
         }
     }
-    //    resizableTextView
+
     var resizableTextVeiw: some View {
         HStack(spacing: 8) {
             ZStack {
-                ResizableTextView(text: $text, height: $height, placeholder: "Rəyinizi yazın")
-                    .frame(height: abs(height < 124 ? height : 124))
+                ResizableTextView(text: $vm.text, height: $vm.height, placeholder: "Rəyinizi yazın")
+                    .frame(height: abs(vm.height < 124 ? vm.height : 124))
                     .padding(.vertical, 5)
                     .padding(.horizontal)
                     .background(.outLineContainerBlue.opacity(0.5))
@@ -82,8 +80,8 @@ struct QueryCommentView: View {
             }
             .padding(.leading)
             Button {
-                vm.addLocalComment(requestID: self.id, text: self.text)
-                self.text = ""
+                vm.addLocalComment(requestID: self.id, text: self.vm.text)
+                self.vm.text = ""
             } label: {
                 Image(.sendCommentIcon)
                     .frame(width: 40, height: 40)
@@ -97,21 +95,20 @@ struct QueryCommentView: View {
     
     var placeholderView: some View {
         ScrollView {
-            ForEach(1...3, id: \.self) {_ in                CustomCommentRowView(item: vm.placeholderData)
+            ForEach(1...3, id: \.self) { _ in
+                CustomCommentRowView(item: vm.placeholderData)
                     .redacted(reason: .placeholder)
             }
         }
     }
-    
     var notDataView: some View {
         VStack {
             Spacer()
             Text("Rəy yoxdur")
             Spacer()
-
         }
-    }
-}
+     }
+ }
   
 #Preview {
     QueryCommentView(id: "")

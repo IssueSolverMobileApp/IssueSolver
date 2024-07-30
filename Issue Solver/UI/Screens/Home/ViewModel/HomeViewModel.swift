@@ -16,6 +16,7 @@
         @Published var isLoading: Bool = false
         @Published var hasMoreData: Bool = true
         @Published var isProgressViewSeen: Bool = false
+        @Published var ifNeedDeleteButton: Bool = false
         
         private var homeRepository = HTTPHomeRepository()
         private var queryRepository = HTTPQueryRepository()

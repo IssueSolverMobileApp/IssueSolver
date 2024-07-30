@@ -91,7 +91,7 @@ struct CustomPostRowView: View {
             ZStack {
                 Text(queryItem.category?.name ?? "")
                     .jakartaFont(.subheading)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.disabledGray)
             }
             .padding(.horizontal,10)
             .padding(.vertical, 8)
@@ -105,16 +105,16 @@ struct CustomPostRowView: View {
                     + Text("...daha çox göstər").foregroundColor(.blue)
                 }
                 .lineSpacing(9)
-                .foregroundStyle(.primaryGray)
-                .jakartaFont(.subheading)
+                .foregroundStyle(.black)
+                .jakartaFont(.subtitle2)
                 
             } else {
                 Text(queryItem.description ?? "")
                     .lineSpacing(9)
-                    .foregroundStyle(.primaryGray)
-                    .jakartaFont(.subheading)
+                    .foregroundStyle(.black)
+                    .jakartaFont(.subtitle2)
                 
-                //                Location and Date
+                // Location and Date
                 if isDetailView {
                     VStack(alignment: .leading, spacing: 16) {
                         HStack {

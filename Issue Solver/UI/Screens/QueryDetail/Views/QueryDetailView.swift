@@ -8,18 +8,11 @@
 import SwiftUI
 
 struct QueryDetailView: View {
-
     @EnvironmentObject var router: Router
-    @StateObject private var vm = QueryDetailViewModel()
-
-    @State private var isLike: Bool = false
-    @State private var isPresented: Bool = false
-    var ifNeedDeleteButton: Bool
-
-    @Binding var queryItem: QueryDataModel
-    
     @Environment(\.dismiss) var dissmiss
-    
+    @StateObject private var vm = QueryDetailViewModel()
+    @Binding var queryItem: QueryDataModel
+    var ifNeedDeleteButton: Bool
     let isDeleteDetailView: (() -> Void)?
     
     init(ifNeedDeleteButton: Bool, queryItem: Binding<QueryDataModel>, isDeleteDetailView: (() -> Void)? = nil ) {
@@ -37,18 +30,16 @@ struct QueryDetailView: View {
                         mainView
                     }
             LoadingView(isLoading: vm.isViewLoadingForDelete)
-
         }
         .navigationBarBackButtonHidden(true)
         
-    
     .onAppear {
         vm.getSingleQuery(id: "\(queryItem.requestID ?? Int())")
     }
     .onChange(of: vm.item ?? QueryDataModel(), perform: { value in
         queryItem = value
     })
-    .onChange(of: isPresented, perform: { value in
+    .onChange(of: vm.isPresented, perform: { value in
         if !value {
             vm.getSingleQuery(id: "\(queryItem.requestID ?? Int())")
         }
@@ -57,23 +48,21 @@ struct QueryDetailView: View {
         ToolbarItem(placement: .topBarLeading) {
             backButtonView
         }
-    }
-
+      }
     }
     
     var mainView: some View {
-
             ScrollView {
                 VStack {
                     if let item = vm.item {
                         CustomPostRowView(queryItem: item, isDetailView: true, ifNeedDeleteButton: ifNeedDeleteButton) {
-                            isPresented.toggle()
+                            vm.isPresented.toggle()
                         } likeHandler: {_ in
                             vm.likeToggle()
                         } deleteQuery: {
                             vm.isDeletePressed = true
                         }
-                        .sheet(isPresented: $isPresented, content: {
+                        .sheet(isPresented: $vm.isPresented, content: {
                             QueryCommentView(id: "\(item.requestID ?? Int())")
                         })
                         .alert(
@@ -102,14 +91,11 @@ struct QueryDetailView: View {
                     }
                 }
             }
-    }
+        }
     
     var placeholderView: some View {
         ScrollView {
-            
             VStack {
-//                CustomTitleView(title: "Mənim sorğularım")
-                
                     CustomPostRowView(queryItem: vm.placeholderItem, isDetailView: false, ifNeedDeleteButton: ifNeedDeleteButton) {
                         
                     } likeHandler: { _ in
@@ -118,7 +104,6 @@ struct QueryDetailView: View {
                         
                     }
                     .redacted(reason: .placeholder)
-                
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
@@ -131,7 +116,6 @@ struct QueryDetailView: View {
             router.dismissView()
         }
     }
-    
     func dissMiss() {
         (self.isDeleteDetailView!)()
         dissmiss()
