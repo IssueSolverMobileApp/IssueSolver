@@ -20,12 +20,7 @@ class MyQueryViewModel: ObservableObject {
     @Published var isProgressViewSeen: Bool = false
     
     private var queryRepository = HTTPQueryRepository()
-    private var pageCount: Int = 0 {
-        didSet {
-            print("salam pageCount tetiklendi")
-            print(pageCount)
-        }
-    }
+    private var pageCount: Int = 0
     
     init(queryData: [QueryDataModel] = []) {
         self.queryData = queryData

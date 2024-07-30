@@ -24,8 +24,8 @@ struct EmailVerificationView: View {
             .padding(.bottom, 16)
 
             LoadingView(isLoading: vm.isLoading)
-            
         }
+        .disabled(vm.isLoading)
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()

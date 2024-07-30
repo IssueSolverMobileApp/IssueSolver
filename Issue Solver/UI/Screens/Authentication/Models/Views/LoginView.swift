@@ -27,6 +27,7 @@ struct LoginView: View {
             
             LoadingView(isLoading: vm.isLoading)
          }
+        .disabled(vm.isLoading)
         .onAppear {
             vm.emailText = ""
             vm.passwordText = ""

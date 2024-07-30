@@ -30,6 +30,7 @@ struct RegisterView: View {
 
             LoadingView(isLoading: vm.isLoading)
         }
+        .disabled(vm.isLoading)
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()

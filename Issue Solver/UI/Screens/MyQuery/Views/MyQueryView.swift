@@ -25,7 +25,9 @@ struct MyQueryView: View {
             LoadingView(isLoading: vm.isViewLoading)
         }
         .onAppear {
-            vm.getMoreQuery()
+           if vm.queryData.isEmpty {
+                vm.getMoreQuery()
+            }
         }
         .refreshable {
             vm.getMyQuery()
