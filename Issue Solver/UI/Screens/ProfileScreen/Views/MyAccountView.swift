@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct MyAccountView: View {
-    
     @StateObject var vm = MyAccountViewModel()
     @Environment (\.dismiss) private var dismiss
     @EnvironmentObject var router: Router
-    
     
     var body: some View {
         ZStack {

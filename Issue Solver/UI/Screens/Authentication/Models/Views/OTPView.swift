@@ -21,6 +21,7 @@ struct OTPView: View {
             contentView
             LoadingView(isLoading: vm.isLoading)
         }
+        .disabled(vm.isLoading)
     }
     
     // MARK: - Views

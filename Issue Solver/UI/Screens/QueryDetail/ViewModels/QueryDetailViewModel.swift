@@ -10,13 +10,13 @@ import Foundation
 final class QueryDetailViewModel: ObservableObject {
     
     private var repository = HTTPQueryRepository()
-    
     @Published var item: QueryDataModel?
     @Published var placeholderItem: QueryDataModel = QueryDataModel(requestID: Int(), fullName: "Valeh Amirov", address: "Baku", description: "Bu Card placeholder ucun nezerde tutulub", status: "Baxılır", organizationName: "IDDA", createDate: "26.07.2024", commentCount: Int(), likeCount: 0, likeSuccess: false, category: QueryCategoryModel(categoryID: Int(), name: "Rəqəmsal İnkişaf"))
     
     @Published var isDeletePressed: Bool = false
     @Published var isViewLoadingForDelete: Bool = false
     @Published var isLoading: Bool = false
+    @Published var isPresented: Bool = false
 
     
     func getSingleQuery(id: String) {

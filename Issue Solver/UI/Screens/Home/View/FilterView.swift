@@ -26,7 +26,6 @@ struct FilterView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
         }
-        
         .onTapGesture {
             hideKeyboard()
         }
@@ -48,15 +47,13 @@ struct FilterView: View {
             vm.selectedDate = homeViewModel.selectedFilters?.days ?? DateModel(id: UUID(), name: "Tarix")
         }
     }
-    
-    /// - Back Button View
+     /// - Back Button View
     var backButtonView: some View {
             CustomButton(style: .back, title: "") {
                 router.dismissView()
             }
         }
-    
-    /// - Clear Filter Button View
+      /// - Clear Filter Button View
     var rightButtonView: some View {
             CustomButton(style: .rounded, title: "Təmizlə", color: .clear, foregroundStyle: canContinue ? .primaryBlue : .primaryBlue.opacity(0.5)) {
                 resetFilters()

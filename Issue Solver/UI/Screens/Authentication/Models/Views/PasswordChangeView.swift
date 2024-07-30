@@ -23,8 +23,8 @@ struct PasswordChangeView: View {
             }
             .padding(.horizontal,20)
             .padding(.bottom, 16)
-
         }
+        .disabled(vm.isLoading)
         .navigationBarBackButtonHidden(true)
         .onTapGesture {
             hideKeyboard()

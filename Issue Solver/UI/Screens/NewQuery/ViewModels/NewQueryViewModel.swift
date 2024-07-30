@@ -9,12 +9,10 @@ import Foundation
 
 @MainActor
 class NewQueryViewModel: ObservableObject {
-    
     @Published var categories: [QueryCategoryModel] = []
     @Published var organizations: [OrganizationModel] = []
     @Published var selectedOrganization: OrganizationModel = OrganizationModel(id: UUID(), name: "Qurum")
     @Published var selectedCategory: QueryCategoryModel = QueryCategoryModel(categoryID: 0, name: "Kateqoriya")
-    
     
     @Published var addressText: String = "" {
         didSet {
@@ -123,7 +121,6 @@ class NewQueryViewModel: ObservableObject {
             }
         }
     }
-    
     
     func cleanFields() {
         addressText = ""

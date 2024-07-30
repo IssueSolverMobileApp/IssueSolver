@@ -33,7 +33,9 @@ struct NewQueryView: View {
             .onAppear {
                 UIScrollView.appearance().keyboardDismissMode = .interactive
             }
-            
+            .onTapGesture {
+                hideKeyboard()
+            }
         }
         .alert(
             isPresented: $vm.isResetPressed,
@@ -47,9 +49,7 @@ struct NewQueryView: View {
                 )
             }
         )
-        
     }
-    
     
     var titleView: some View {
         HStack {
@@ -69,7 +69,6 @@ struct NewQueryView: View {
                 Text("Max: 50 simvol")
                     .font(.jakartaFont(weight: .regular, size: 12))
             }
-            
         }
     }
     
@@ -94,10 +93,8 @@ struct NewQueryView: View {
                     }
                 }
             }
-            
         }
     }
-    
     
     var buttonView: some View {
         VStack(spacing: 16) {

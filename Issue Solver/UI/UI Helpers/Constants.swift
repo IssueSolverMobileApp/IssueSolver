@@ -13,7 +13,7 @@ class Constants {
     
     /// - Clickable texts and their URL strings
     static let termsOfUse: [String: String] = ["Şərtlər və qaydaları": "https://my.gov.az"]
-    static let howToRequestShare: [String: String] = ["Sorğu necə paylaşılır?": "https://my.gov.az"]
+    static let howToRequestShare: [String: String] = ["Sorğu necə paylaşılır?": "https://youtu.be/aCYCtvndvNU?si=bTpUzJ9c6rhKJ6Ft"]
     
     // MARK: - Numbers
     

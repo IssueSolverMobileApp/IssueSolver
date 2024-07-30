@@ -8,7 +8,6 @@
 import Foundation
 
 class MyQueryViewModel: ObservableObject {
-    
     @Published var queryData: [QueryDataModel] = []
     @Published var placeholderData = QueryDataModel()
     @Published var isDataEmptyButSuccess: Bool = false
@@ -17,16 +16,11 @@ class MyQueryViewModel: ObservableObject {
     @Published var deleteQueryID: String = ""
     @Published var isDeletePressed: Bool = false
     @Published var isViewLoading: Bool = false
-    
+    @Published var ifNeedDeleteButton: Bool = true
     @Published var isProgressViewSeen: Bool = false
     
     private var queryRepository = HTTPQueryRepository()
-    private var pageCount: Int = 0 {
-        didSet {
-            print("salam pageCount tetiklendi")
-            print(pageCount)
-        }
-    }
+    private var pageCount: Int = 0
     
     init(queryData: [QueryDataModel] = []) {
         self.queryData = queryData
@@ -59,7 +53,6 @@ class MyQueryViewModel: ObservableObject {
         self.isDeletePressed = isPressed
         guard let id else { return }
         self.deleteQueryID = id
-        
     }
     
     func deleteQuery() {
@@ -155,7 +148,6 @@ class MyQueryViewModel: ObservableObject {
     }
     
     private func addData(queryData: [QueryDataModel]) {
-        
         queryData.forEach { item in
             if !self.queryData.contains(where: { $0.requestID == item.requestID }) {
                 self.queryData.append(item)
@@ -187,7 +179,6 @@ class MyQueryViewModel: ObservableObject {
     
     private func isProgressViewSeenHandler(data: [QueryDataModel]) {
         let dataCount = self.queryData.count % 10
-        
         if dataCount == 0 && !self.queryData.isEmpty && data.isEmpty {
             isProgressViewSeen = false
         } else if dataCount == 0 && !self.queryData.isEmpty {

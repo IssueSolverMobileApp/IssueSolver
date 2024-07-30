@@ -59,11 +59,10 @@ struct CustomPostRowView: View {
                     .frame(width: 32, height: 32)
                     .scaledToFit()
                 Text(queryItem.fullName ?? "")
-                    .jakartaFont(.rowTitle)
+                    .jakartaFont(.textButton)
                     .foregroundStyle(.primaryBlue)
                     .lineLimit(2)
                 Spacer()
-//                if let statusBacgroundColor, let statusForegroundColor {
                     HStack {
                         Image(.blueDotIcon)
                             .foregroundStyle(statusForegroundColor ?? .black)
@@ -75,7 +74,6 @@ struct CustomPostRowView: View {
                     .padding(.vertical, 8)
                     .background(statusBacgroundColor)
                     .clipShape(.rect(cornerRadius: 100))
-//                }
             }
             
             if isDetailView {
@@ -91,42 +89,44 @@ struct CustomPostRowView: View {
             ZStack {
                 Text(queryItem.category?.name ?? "")
                     .jakartaFont(.subheading)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.disabledGray)
             }
             .padding(.horizontal,10)
             .padding(.vertical, 8)
             .background(Color.surfaceBackground)
             .clipShape(.rect(cornerRadius: 100))
             
-            //            text of Post
+            //  text of Post
             if queryItem.description?.count ?? 0  >= 120 && !isDetailView {
                 ZStack {
                     Text(queryItem.description?.prefix(120) ?? "")
                     + Text("...daha çox göstər").foregroundColor(.blue)
                 }
                 .lineSpacing(9)
-                .foregroundStyle(.primaryGray)
-                .jakartaFont(.subheading)
+                .foregroundStyle(.black)
+                .jakartaFont(.subtitle2)
                 
             } else {
                 Text(queryItem.description ?? "")
                     .lineSpacing(9)
-                    .foregroundStyle(.primaryGray)
-                    .jakartaFont(.subheading)
+                    .foregroundStyle(.black)
+                    .jakartaFont(.subtitle2)
                 
-                //                Location and Date
+                // Location and Date
                 if isDetailView {
                     VStack(alignment: .leading, spacing: 16) {
                         HStack {
                             
                             Image(.locationIcon)
                             Text(queryItem.address ?? "")
+                                .foregroundStyle(.primaryBlue)
                                
                         }
                         HStack {
                             Image(.calendarIcon)
                             /// this method can correct string date for our custom date format
                             Text(queryItem.createDate ?? "")
+                                
                         }
                     }
                     .jakartaFont(.subtitle2)
