@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CustomRowView: View {
-    
     let title: String
     let subtitle: String?
     let leftImage: String?

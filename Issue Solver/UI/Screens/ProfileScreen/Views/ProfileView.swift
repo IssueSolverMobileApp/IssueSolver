@@ -9,12 +9,8 @@ import SwiftUI
 import SafariServices
 
 struct ProfileView: View {
-    
     @EnvironmentObject var router: Router
     @StateObject var vm = ProfileViewModel()
-    @State var showExitAccountAlert = false
-    @State var showDeleteAccountAlert = false
-    
     @StateObject private var auth: AuthManager = .shared
     
     var body: some View {
@@ -121,9 +117,9 @@ struct ProfileView: View {
                           width: 38, height: 38 , handler: {})
             .frame(height: 86)
             .onTapGesture {
-                showExitAccountAlert = true
+                vm.showExitAccountAlert = true
             }
-            .alert( isPresented: $showExitAccountAlert) {
+            .alert( isPresented: $vm.showExitAccountAlert) {
                 Alert(title: Text(""),
                       message: Text("Hesabdan çıxış etməyə əminsiniz?"),
                       primaryButton: .default(Text("İmtina")),
@@ -139,9 +135,9 @@ struct ProfileView: View {
                           color: .red ,handler: {})
             .frame(height: 76)
             .onTapGesture {
-                showDeleteAccountAlert = true
+                vm.showDeleteAccountAlert = true
             }
-            .alert( isPresented: $showDeleteAccountAlert) {
+            .alert( isPresented: $vm.showDeleteAccountAlert) {
                 Alert(title: Text(""),
                       message: Text("Hesabınızı silmək istədiyinizə əminsiniz?"),
                       primaryButton: .default(Text("Xeyr"))  ,

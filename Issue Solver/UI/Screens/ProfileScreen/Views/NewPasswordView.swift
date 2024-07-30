@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NewPasswordView: View {
-    
     @StateObject var vm = NewPasswordViewModel()
     @Environment (\.dismiss) private var dismiss
     @EnvironmentObject var router: Router
@@ -53,7 +52,6 @@ struct NewPasswordView: View {
     }
     
     /// Textfield View
-    
     var textFieldView: some View {
         ScrollView {
             

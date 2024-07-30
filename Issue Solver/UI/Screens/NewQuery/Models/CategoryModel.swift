@@ -10,6 +10,5 @@ import Foundation
 struct CategoryData: Codable {
     var data: [QueryCategoryModel]?
     var message: String?
-    var success: Bool?
-    
+    var success: Bool?    
 }

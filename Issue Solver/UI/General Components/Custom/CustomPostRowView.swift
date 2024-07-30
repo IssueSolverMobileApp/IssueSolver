@@ -59,7 +59,7 @@ struct CustomPostRowView: View {
                     .frame(width: 32, height: 32)
                     .scaledToFit()
                 Text(queryItem.fullName ?? "")
-                    .jakartaFont(.rowTitle)
+                    .jakartaFont(.textButton)
                     .foregroundStyle(.primaryBlue)
                     .lineLimit(2)
                 Spacer()

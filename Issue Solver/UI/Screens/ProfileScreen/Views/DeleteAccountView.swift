@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DeleteAccountView: View {
-    
     @StateObject var vm = DeleteAccountViewModel()
     @Environment (\.dismiss) private var dismiss
     @EnvironmentObject var router: Router

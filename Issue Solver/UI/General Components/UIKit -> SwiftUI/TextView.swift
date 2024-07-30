@@ -14,7 +14,6 @@ struct TextView: UIViewRepresentable {
     var uiFont: UIFont
     var isScrollEnabled: Bool = true
     
-    
     func makeUIView(context: Context) -> some UIView {
         let textView = UITextView()
         textView.text = text
@@ -25,7 +24,7 @@ struct TextView: UIViewRepresentable {
         textView.isEditable = false
         
         
-        // Link Attributes
+        /// -  Link Attributes
         textView.attributedText = setAttributesToText()
         textView.linkTextAttributes = [
             .foregroundColor: UIColor.primaryBlue,
@@ -59,7 +58,6 @@ struct TextView: UIViewRepresentable {
                 attributedString.setAttributes([.link: clikableText.values.first ?? ""], range: linkRange)
             }
         }
-        
         return attributedString
     }
 }

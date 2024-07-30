@@ -8,10 +8,11 @@
 import Foundation
 
 class ProfileViewModel: ObservableObject {
-    
     private var profileRepository = HTTPProfileRepository()
     @Published var emailText: String = ""
     @Published var fullNameText: String = ""
+    @Published var showExitAccountAlert = false
+    @Published var showDeleteAccountAlert = false
     
     let aboutApp = URL(string: "https://issue-solver.vercel.app/dashboard/about") 
     let questions = URL(string: "https://issue-solver.vercel.app/dashboard/faq")
