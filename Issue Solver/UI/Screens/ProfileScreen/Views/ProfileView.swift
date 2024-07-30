@@ -62,7 +62,6 @@ struct ProfileView: View {
                           width: 38, height: 38,
                           handler: {})
             .frame(height: 86)
-            .redacted(reason: vm.isLoading ? .placeholder:[])
             .onTapGesture {
                 router.navigate {
                     NewPasswordView()
@@ -77,7 +76,6 @@ struct ProfileView: View {
         VStack(alignment: .leading, spacing: 12) {
             
             ///Privacy Policy View
-            
             Link(destination: vm.terms!) {
                 CustomRowView(title: "Məxfilik siyasəti",
                               subtitle: nil,
@@ -85,7 +83,6 @@ struct ProfileView: View {
                               rightImage: "chevron",
                               handler: {})
                 .frame(height: 76)
-                .redacted(reason: vm.isLoading ? .placeholder:[])
             }
             
             ///FAQ View
@@ -96,7 +93,6 @@ struct ProfileView: View {
                               rightImage: "chevron",
                               handler: {})
                 .frame(height: 76)
-                .redacted(reason: vm.isLoading ? .placeholder:[])
             }
             
             ///About App View
@@ -107,7 +103,6 @@ struct ProfileView: View {
                               rightImage: "chevron",
                               handler: {})
                 .frame(height: 76)
-                .redacted(reason: vm.isLoading ? .placeholder:[])
             }
         }
     }
@@ -123,7 +118,6 @@ struct ProfileView: View {
                           rightImage: "chevron",
                           width: 38, height: 38 , handler: {})
             .frame(height: 86)
-            .redacted(reason: vm.isLoading ? .placeholder:[])
             .onTapGesture {
                 vm.showExitAccountAlert = true
             }
