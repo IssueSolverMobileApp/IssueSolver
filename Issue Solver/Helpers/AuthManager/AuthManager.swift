@@ -38,6 +38,7 @@ final class AuthManager: ObservableObject {
     }
 }
 
+
 extension AuthManager: AuthTriggerProtocol {
     func accessTokenTrigger(isActive: Bool) {
         DispatchQueue.main.async {
